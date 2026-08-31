@@ -10,32 +10,26 @@
         Width="420"
         MinHeight="450"
         MinWidth="360"
+        ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
         Background="#10141C">
     <Grid Margin="32">
-        <StackPanel HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-            <TextBlock Text="LoL Matchup"
-                       Foreground="#F3F4F6"
-                       FontSize="36"
-                       FontWeight="Bold"
-                       TextAlignment="Center" />
+        <TextBlock Text="LoL Matchup"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Foreground="#F3F4F6"
+                   FontSize="30"
+                   FontWeight="Bold" />
 
-            <TextBlock Text="정글 라인 상성 분석 도구"
-                       Margin="0,14,0,0"
-                       Foreground="#AAB2C0"
-                       FontSize="16"
+        <Border HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Padding="20,12"
+                Background="#1B2230"
+                CornerRadius="8">
+            <TextBlock Text="게임을 기다리는 중..."
+                       Foreground="#D6B66B"
+                       FontSize="14"
                        TextAlignment="Center" />
-
-            <Border Margin="0,48,0,0"
-                    Padding="20,12"
-                    Background="#1B2230"
-                    CornerRadius="8">
-                <TextBlock Text="게임을 기다리는 중..."
-                           Foreground="#D6B66B"
-                           FontSize="14"
-                           TextAlignment="Center" />
-            </Border>
-        </StackPanel>
+        </Border>
     </Grid>
 </Window>
