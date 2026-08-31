@@ -1,0 +1,14 @@
+bin/
+obj/
+
+.vs/
+.vscode/
+
+*.user
+*.suo
+
+.env
+*.log
+
+publish/
+*_wpftmp.csproj
