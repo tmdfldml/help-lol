@@ -29,6 +29,15 @@ The application will analyze lane matchups when a game starts.
 
 ## Current Stage
 
-Stage 0: Development environment setup.
+Stage 2: Live Client Data API integration test.
 
-Do not implement League of Legends integration yet.
+- League of Legends Live Client Data API connection testing is allowed.
+- Local API connection tests based on
+  `https://127.0.0.1:2999/liveclientdata/` are allowed.
+- Use the built-in .NET `HttpClient` and `System.Text.Json` APIs.
+- Do not add Riot Web API integration or a Riot API key yet.
+- Do not add a server or database.
+- Do not implement matchup analysis, automatic game detection,
+  repeated polling, or jungle intervention recommendations yet.
+- Do not add external NuGet packages unless explicitly required.
+- Keep the existing C#, .NET 10, WPF, Windows-only technology stack.
