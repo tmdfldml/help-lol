@@ -12,6 +12,9 @@ public sealed class LiveClientService
     private static readonly Uri PlayerListEndpoint =
         new(BaseAddress, "playerlist");
 
+    private static readonly Uri ActivePlayerNameEndpoint =
+        new(BaseAddress, "activeplayername");
+
     public async Task<int?> GetPlayerCountAsync()
     {
         var players = await GetPlayersAsync();
@@ -30,7 +33,9 @@ public sealed class LiveClientService
 
         try
         {
-            return JsonSerializer.Deserialize<List<LiveClientPlayer>>(playerListJson);
+            var players = JsonSerializer.Deserialize<List<LiveClientPlayer?>>(playerListJson);
+
+            return players?.OfType<LiveClientPlayer>().ToList();
         }
         catch (JsonException)
         {
@@ -38,20 +43,58 @@ public sealed class LiveClientService
         }
     }
 
-    public async Task<string?> GetPlayerListAsync()
+    public async Task<LiveClientPlayer?> GetActivePlayerAsync(
+        IReadOnlyList<LiveClientPlayer> players)
+    {
+        var riotId = await GetActivePlayerRiotIdAsync();
+
+        if (string.IsNullOrWhiteSpace(riotId))
+        {
+            return null;
+        }
+
+        return players.FirstOrDefault(player =>
+            string.Equals(player.RiotId, riotId, StringComparison.OrdinalIgnoreCase));
+    }
+
+    public async Task<string?> GetActivePlayerRiotIdAsync()
+    {
+        var responseBody = await GetResponseBodyAsync(ActivePlayerNameEndpoint);
+
+        if (responseBody is null)
+        {
+            return null;
+        }
+
+        try
+        {
+            return JsonSerializer.Deserialize<string>(responseBody);
+        }
+        catch (JsonException)
+        {
+            return null;
+        }
+    }
+
+    public Task<string?> GetPlayerListAsync()
+    {
+        return GetResponseBodyAsync(PlayerListEndpoint);
+    }
+
+    private static async Task<string?> GetResponseBodyAsync(Uri endpoint)
     {
         using var handler = new HttpClientHandler
         {
             ServerCertificateCustomValidationCallback =
                 (request, _, _, _) =>
-                    request.RequestUri?.Host == PlayerListEndpoint.Host
-                    && request.RequestUri.Port == PlayerListEndpoint.Port
+                    request.RequestUri?.Host == BaseAddress.Host
+                    && request.RequestUri.Port == BaseAddress.Port
         };
         using var httpClient = new HttpClient(handler);
 
         try
         {
-            using var response = await httpClient.GetAsync(PlayerListEndpoint);
+            using var response = await httpClient.GetAsync(endpoint);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -73,11 +116,16 @@ public sealed class LiveClientService
 
 public sealed class LiveClientPlayer
 {
+    [JsonPropertyName("riotId")]
+    public string RiotId { get; init; } = string.Empty;
+
     [JsonPropertyName("championName")]
     public string ChampionName { get; init; } = string.Empty;
 
     [JsonPropertyName("position")]
     public string Position { get; init; } = string.Empty;
+
+    public string NormalizedPosition => PositionNormalizer.Normalize(Position);
 
     [JsonPropertyName("team")]
     public string Team { get; init; } = string.Empty;
