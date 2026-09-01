@@ -29,15 +29,29 @@ The application will analyze lane matchups when a game starts.
 
 ## Current Stage
 
-Stage 2: Live Client Data API integration test.
+Stage 3: Team and Lane Matchup Parsing.
 
-- League of Legends Live Client Data API connection testing is allowed.
-- Local API connection tests based on
-  `https://127.0.0.1:2999/liveclientdata/` are allowed.
+### Allowed
+
+- Identify the current player's Riot ID through the Live Client Data API.
+- Determine the current player's team.
+- Separate allied and opposing players.
+- Normalize player positions.
+- Create a TOP, JUNGLE, MID, ADC, SUPPORT lane structure.
+- Match allied and opposing champions in the same lane.
+- Output team and lane matchup parsing results to the debug console.
+- Continue using the local Live Client Data API based on
+  `https://127.0.0.1:2999/liveclientdata/`.
 - Use the built-in .NET `HttpClient` and `System.Text.Json` APIs.
-- Do not add Riot Web API integration or a Riot API key yet.
+
+### Not Allowed Yet
+
+- Do not calculate champion matchup scores.
+- Do not add win-rate data or matchup JSON data.
+- Do not display actual matchup data in the UI.
+- Do not implement automatic game detection or repeated polling.
+- Do not implement jungle intervention recommendations.
+- Do not add Riot Web API integration or a Riot API key.
 - Do not add a server or database.
-- Do not implement matchup analysis, automatic game detection,
-  repeated polling, or jungle intervention recommendations yet.
 - Do not add external NuGet packages unless explicitly required.
 - Keep the existing C#, .NET 10, WPF, Windows-only technology stack.
