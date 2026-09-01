@@ -29,29 +29,35 @@ The application will analyze lane matchups when a game starts.
 
 ## Current Stage
 
-Stage 3: Team and Lane Matchup Parsing.
+Stage 4: Champion Matchup Data.
 
 ### Allowed
 
-- Identify the current player's Riot ID through the Live Client Data API.
-- Determine the current player's team.
-- Separate allied and opposing players.
-- Normalize player positions.
-- Create a TOP, JUNGLE, MID, ADC, SUPPORT lane structure.
-- Match allied and opposing champions in the same lane.
-- Output team and lane matchup parsing results to the debug console.
-- Continue using the local Live Client Data API based on
-  `https://127.0.0.1:2999/liveclientdata/`.
-- Use the built-in .NET `HttpClient` and `System.Text.Json` APIs.
+- Add local JSON-based champion matchup test data.
+- Support TOP, JUNGLE, MID, ADC, and SUPPORT through the same structure.
+- Look up champion A versus champion B matchups by position.
+- Use a simple matchup score system.
+- Classify matchups with results such as favorable, even, or unfavorable.
+- Handle missing matchup data safely.
+- Continue using the existing Live Client Data API, current-player,
+  team-separation, position-normalization, and role-matchup structures.
+- Design the local data format so it can later be extended with `patch`,
+  `tier`, `sampleSize`, `wins`, `losses`, and `winRate` fields.
+- Use only test data and simple scores during Stage 4; do not implement
+  real statistical processing yet.
+- Keep internal matchup structures independent of a single position even
+  while jungle-user functionality remains the current development priority.
+- Use built-in .NET functionality, including `System.Text.Json`.
 
 ### Not Allowed Yet
 
-- Do not calculate champion matchup scores.
-- Do not add win-rate data or matchup JSON data.
-- Do not display actual matchup data in the UI.
-- Do not implement automatic game detection or repeated polling.
-- Do not implement jungle intervention recommendations.
 - Do not add Riot Web API integration or a Riot API key.
+- Do not implement a StatsCollector or collect real match data.
+- Do not crawl OP.GG or any other website.
 - Do not add a server or database.
-- Do not add external NuGet packages unless explicitly required.
+- Do not implement automatic statistics updates.
+- Do not display matchup results in the UI.
+- Do not implement automatic game detection or repeated polling.
+- Do not add detailed position-specific tips.
+- Do not add external NuGet packages.
 - Keep the existing C#, .NET 10, WPF, Windows-only technology stack.

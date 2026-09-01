@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "dataType": "TEST_ONLY",
+  "description": "Feature-test scores only; not derived from real match statistics.",
+  "matchups": [
+    {
+      "role": "TOP",
+      "championA": "Aatrox",
+      "championB": "Garen",
+      "scoreForA": 1
+    },
+    {
+      "role": "TOP",
+      "championA": "Camille",
+      "championB": "Darius",
+      "scoreForA": -1
+    },
+    {
+      "role": "JUNGLE",
+      "championA": "Khazix",
+      "championB": "Rengar",
+      "scoreForA": 0
+    },
+    {
+      "role": "JUNGLE",
+      "championA": "LeeSin",
+      "championB": "Viego",
+      "scoreForA": 1
+    },
+    {
+      "role": "MID",
+      "championA": "Ahri",
+      "championB": "Syndra",
+      "scoreForA": -1
+    },
+    {
+      "role": "MID",
+      "championA": "Orianna",
+      "championB": "Zed",
+      "scoreForA": 2
+    },
+    {
+      "role": "ADC",
+      "championA": "Caitlyn",
+      "championB": "Jinx",
+      "scoreForA": 1
+    },
+    {
+      "role": "ADC",
+      "championA": "Ezreal",
+      "championB": "Kaisa",
+      "scoreForA": -1
+    },
+    {
+      "role": "SUPPORT",
+      "championA": "Leona",
+      "championB": "Lulu",
+      "scoreForA": -2
+    },
+    {
+      "role": "SUPPORT",
+      "championA": "Nautilus",
+      "championB": "Thresh",
+      "scoreForA": 0
+    }
+  ]
+}

@@ -120,7 +120,13 @@ public sealed class LiveClientPlayer
     public string RiotId { get; init; } = string.Empty;
 
     [JsonPropertyName("championName")]
-    public string ChampionName { get; init; } = string.Empty;
+    public string DisplayName { get; init; } = string.Empty;
+
+    [JsonPropertyName("rawChampionName")]
+    public string RawChampionName { get; init; } = string.Empty;
+
+    [JsonIgnore]
+    public string? ChampionId => ChampionIdParser.Parse(RawChampionName);
 
     [JsonPropertyName("position")]
     public string Position { get; init; } = string.Empty;

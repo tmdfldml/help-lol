@@ -26,6 +26,13 @@ public partial class MainWindow : Window
 
         _hasTestedLiveClientConnection = true;
 
+        var matchupDataService = new MatchupDataService();
+        var matchupData = await matchupDataService.LoadAsync();
+
+        Debug.WriteLine(matchupData is not null
+            ? $"상성 데이터 로드 성공: {matchupData.Matchups.Count}개"
+            : "상성 데이터 로드 실패");
+
         var service = new LiveClientService();
         var players = await service.GetPlayersAsync();
 
@@ -46,7 +53,7 @@ public partial class MainWindow : Window
         }
 
         Debug.WriteLine($"현재 플레이어: {activePlayer.RiotId}");
-        Debug.WriteLine($"챔피언: {activePlayer.ChampionName}");
+        Debug.WriteLine($"챔피언: {FormatChampion(activePlayer)}");
         var activePosition = activePlayer.NormalizedPosition;
         Debug.WriteLine($"포지션: {activePosition}");
         Debug.WriteLine($"팀: {activePlayer.Team}");
@@ -92,11 +99,23 @@ public partial class MainWindow : Window
 
         foreach (var matchup in RoleMatchup.CreateAll(alliedTeam, opposingTeam))
         {
-            var alliedChampion = matchup.AlliedPlayer?.ChampionName ?? "<없음>";
-            var opposingChampion = matchup.OpposingPlayer?.ChampionName ?? "<없음>";
+            var alliedChampion = FormatChampion(matchup.AlliedPlayer);
+            var opposingChampion = FormatChampion(matchup.OpposingPlayer);
+            int? score = null;
+
+            if (!string.IsNullOrWhiteSpace(matchup.AlliedPlayer?.ChampionId)
+                && !string.IsNullOrWhiteSpace(matchup.OpposingPlayer?.ChampionId))
+            {
+                score = await matchupDataService.GetMatchupScoreAsync(
+                    matchup.Role,
+                    matchup.AlliedPlayer.ChampionId,
+                    matchup.OpposingPlayer.ChampionId);
+            }
+
+            var result = MatchupScoreFormatter.ToDebugText(score);
 
             Debug.WriteLine(
-                $"{matchup.Role,-8} {alliedChampion} vs {opposingChampion}");
+                $"{matchup.Role,-8} {alliedChampion} vs {opposingChampion} -> {result}");
         }
     }
 
@@ -118,8 +137,20 @@ public partial class MainWindow : Window
 
             foreach (var player in players)
             {
-                Debug.WriteLine($"{position,-8} {player.ChampionName}");
+                Debug.WriteLine($"{position,-8} {player.DisplayName}");
             }
         }
+    }
+
+    private static string FormatChampion(LiveClientPlayer? player)
+    {
+        if (player is null)
+        {
+            return "<없음>";
+        }
+
+        return player.ChampionId is not null
+            ? $"{player.DisplayName}({player.ChampionId})"
+            : $"{player.DisplayName}(ID 없음)";
     }
 }
