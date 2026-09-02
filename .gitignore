@@ -10,5 +10,8 @@ obj/
 .env
 *.log
 
+Tools/StatsCollector/Data/State/
+Tools/StatsCollector/Data/Samples/
+
 publish/
 *_wpftmp.csproj
