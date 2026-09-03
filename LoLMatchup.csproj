@@ -9,8 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="Data\matchups.json"
-          CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Data\Statistics\master_plus.json"
+          CopyToOutputDirectory="PreserveNewest"
+          CopyToPublishDirectory="PreserveNewest" />
+    <None Update="Data\Statistics\master_plus_legacy_backup.json"
+          CopyToOutputDirectory="Never"
+          CopyToPublishDirectory="Never" />
   </ItemGroup>
 
   <ItemGroup>

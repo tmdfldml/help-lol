@@ -65,6 +65,12 @@ public sealed class MatchProcessor
                 MatchValidationOutcome.PatchMismatch);
         }
 
+        if (match.Info.GameDuration < _options.MinimumGameDurationSeconds)
+        {
+            return MatchProcessingResult.Rejected(
+                MatchValidationOutcome.InsufficientGameDuration);
+        }
+
         if (match.Info.Participants.Count != 10)
         {
             return MatchProcessingResult.Rejected(
@@ -205,6 +211,7 @@ public enum MatchValidationOutcome
     Accepted,
     WrongQueue,
     PatchMismatch,
+    InsufficientGameDuration,
     InvalidGameVersion,
     InvalidParticipantCount,
     InvalidRoleLayout,

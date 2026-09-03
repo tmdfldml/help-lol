@@ -22,8 +22,8 @@ public sealed class MatchIdProvider
                 "MatchIdsPageSize must be between 1 and 100.");
         }
 
-        if (options.MatchIdSeedLimit < 1
-            || options.MaxMatchPagesPerSeed < 1)
+        if (options.DiscoverySeedBatchSize < 1
+            || options.MatchIdPagesPerSeed < 1)
         {
             throw new ArgumentOutOfRangeException(
                 nameof(options),
@@ -44,12 +44,14 @@ public sealed class MatchIdProvider
         var invalidCount = 0;
         var pagesRequested = 0;
         var stopCollection = false;
+        var successfullyScannedSeeds = 0;
 
-        foreach (var puuid in seedPuuids.Take(_options.MatchIdSeedLimit))
+        foreach (var puuid in seedPuuids.Take(_options.DiscoverySeedBatchSize))
         {
             seedsUsed++;
+            var seedScanSucceeded = true;
 
-            for (var page = 0; page < _options.MaxMatchPagesPerSeed; page++)
+            for (var page = 0; page < _options.MatchIdPagesPerSeed; page++)
             {
                 pagesRequested++;
                 var response = await _riotApiClient.GetMatchIdsAsync(
@@ -67,14 +69,8 @@ public sealed class MatchIdProvider
                         page + 1,
                         response.Status,
                         response.RetryAfter));
-
-                    if (response.Status is RiotApiRequestStatus.AuthenticationFailed
-                        or RiotApiRequestStatus.RateLimited
-                        or RiotApiRequestStatus.Cancelled)
-                    {
-                        stopCollection = true;
-                    }
-
+                    seedScanSucceeded = false;
+                    stopCollection = true;
                     break;
                 }
 
@@ -103,6 +99,11 @@ public sealed class MatchIdProvider
                 }
             }
 
+            if (seedScanSucceeded)
+            {
+                successfullyScannedSeeds++;
+            }
+
             if (stopCollection)
             {
                 break;
@@ -116,7 +117,8 @@ public sealed class MatchIdProvider
             returnedCount,
             duplicateCount,
             invalidCount,
-            pagesRequested);
+            pagesRequested,
+            successfullyScannedSeeds);
     }
 }
 
@@ -127,7 +129,8 @@ public sealed record MatchIdCollectionResult(
     int ReturnedCount,
     int DuplicateCount,
     int InvalidCount,
-    int PagesRequested);
+    int PagesRequested,
+    int SuccessfullyScannedSeeds);
 
 public sealed record MatchIdRequestFailure(
     int SeedNumber,

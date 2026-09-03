@@ -11,7 +11,7 @@
 
 - Stage 1~4: WPF 기본 UI, Live Client Data API, Role matchup 생성, `TEST_ONLY` matchup 데이터 구현
 - Stage 5: Riot 공식 API 기반 `StatsCollector` 엔진 구현 완료
-- Stage 6: 시작 전
+- Stage 6: production statistics 표시 파이프라인 구현 완료
 
 ## Stage 5 StatsCollector
 
@@ -172,7 +172,7 @@ Tools/StatsCollector/Data/Output/
 
 출력은 stable ordering을 사용하며 `matchups.json.tmp`에 완전히 기록한 뒤 교체한다. aggregate 불변식이나 `Observations == AcceptedMatches × 5`가 깨지면 정상 dataset으로 출력하지 않는다.
 
-WPF 프로젝트의 `Data/matchups.json`은 Stage 4의 `TEST_ONLY` 샘플이다. StatsCollector의 실제 aggregate dataset과 혼동하거나 자동으로 덮어쓰면 안 된다.
+WPF runtime은 `Data/Statistics/master_plus.json`의 packaged production aggregate만 사용한다. Stage 4 `TEST_ONLY` score 파일과 loader는 Stage 6-5에서 제거했다.
 
 ## 개발 검증 Snapshot
 
@@ -216,18 +216,27 @@ ProcessingMatchLimit   = 한 번의 실행에서 시도할 최대 Match 수
 
 Stage 5의 StatsCollector 엔진 구현은 완료된 것으로 본다.
 
-## 다음 Stage
+## Stage 5-19 discovery 확장
 
-다음 작업은 Stage 6이다. StatsCollector를 더 확장하기보다 WPF 앱이 실제 aggregate `matchups.json`을 읽을 수 있도록 연결한다.
+- Match ID discovery는 seed당 깊은 pagination보다 더 많은 MASTER+ seed를 순환하는 breadth-first 방식을 사용한다.
+- 기본 discovery window는 정렬된 seed pool에서 최대 125명을 선택하고, seed당 20개 Match ID를 한 page만 조회한다.
+- `discovery-state.json`에는 dataset identity별 다음 seed cursor만 저장하며 PUUID나 플레이어 식별자는 기록하지 않는다.
+- 기존 pending Match를 먼저 처리하고 pending이 없을 때만 다음 discovery window를 실행한다.
+- 한 window에서 새 Match가 0개여도 종료하지 않으며, 전체 seed pool을 새 발견 없이 한 바퀴 성공적으로 확인했을 때만 `NoNewMatches`로 판단한다.
+- session validation 비율은 이번 실행의 terminal 결과만 분모로 사용하고, 누적 persistent validation 통계와 별도로 출력한다.
+- `match-results.jsonl`과 기존 aggregate replay 구조는 변경하지 않으며 discovery cursor는 운영 상태일 뿐 통계 source of truth가 아니다.
 
-첫 작업은 다음과 같다.
+## Stage 5-20 duration quality gate
 
-```text
-Stage 6-1
-WPF StatisticsDataService 및 Dataset DTO
-```
+- production 통계는 기본적으로 `gameDuration >= 900`인 경기만 Accepted 처리한다.
+- 최소 길이는 `MIN_GAME_DURATION_SECONDS`로 설정할 수 있고 기본 policy identity는 `MIN900S`다.
+- 새 state/output은 `{patch}/MIN900S/`처럼 policy별 경로에 저장한다.
+- 최소 길이 정책 이전의 legacy `{patch}/` state와 output은 수정하거나 migration하지 않고 개발 검증 snapshot으로 보존한다.
+- `InsufficientGameDuration`은 deterministic terminal reject이며 Timeline 요청 전에 판정한다.
 
-WPF runtime은 `Tools/StatsCollector` 경로에 의존하면 안 된다. 목표 구조는 다음과 같다.
+## Stage 6 production pipeline
+
+WPF runtime은 `Tools/StatsCollector` 경로에 의존하지 않는다. 현재 구조는 다음과 같다.
 
 ```text
 StatsCollector
@@ -237,4 +246,33 @@ StatsCollector
   → UI
 ```
 
-Stage 6에서는 StatsCollector output을 WPF 배포 구조로 전달하는 명확한 방법을 먼저 정하고, 기존 Stage 4 `TEST_ONLY` 데이터와 실제 통계를 구분해야 한다.
+현재 production dataset 기준은 `MASTER_PLUS_SEEDED`와 `MIN900S`다. 3,500 accepted matches는 현재 배포 파일의 검증 snapshot일 뿐 코드나 정책에 고정된 값이 아니다.
+
+## Stage 6-1~6-2
+
+- `StatisticsDataService`가 WPF 배포 데이터의 schema, metadata, aggregate 불변식을 검증하고 정규화된 matchup index를 제공한다.
+- `MatchupStatisticsService`와 `MatchupStatisticsCalculator`는 파일 I/O와 분리되어 raw aggregate를 query champion 관점으로 변환한다.
+- 승률 및 선 2·3·6레벨 비율의 분모는 `SampleSize`이며 presentation rounding은 하지 않는다.
+- 15분 이전 맞상대 솔로킬은 확률이 아니라 경기당 평균 event 수로 제공한다.
+- dataset unavailable/invalid, matchup not found, invalid query 및 0 이하 sample을 명시적인 실패 상태로 처리한다.
+
+## Stage 6-3 presentation
+
+- `MatchupStatisticsPresenter`가 계산 결과를 percentage 1자리와 경기당 event 2자리의 표시 문자열로 변환한다.
+- WPF 통계 패널은 Role, champion pair, 표본, dataset metadata와 5개 지표를 query/opponent 비교 형태로 표시한다.
+- first-level Unknown은 숨기지 않으며 솔로킬은 확률이 아닌 경기당 평균과 총 event 수로 표시한다.
+- DEBUG에서만 실제 dataset의 첫 유효 matchup을 화면에 연결하고 Release 기본 화면은 기존 Waiting 상태를 유지한다.
+
+## Stage 6-4 live integration
+
+- `LiveStatisticsCoordinator`가 기존 active-player, team 분리 및 Role matchup 결과를 현재 플레이어 관점의 statistics query로 연결한다.
+- `LiveStatisticsPollingService`는 약 2초 간격으로 순차 polling하며 동일한 Role/champion signature의 lookup과 UI 갱신을 반복하지 않는다.
+- 게임 시작 시 실제 matchup 통계로 전환하고 Live Client가 종료되면 Waiting 상태로 복귀한다.
+- Window 종료 시 cancellation으로 polling을 끝내며 DEBUG sample은 검증만 수행하고 화면에는 표시하지 않는다.
+
+## Stage 6-5 production cleanup
+
+- Stage 4의 `Data/matchups.json`, `MatchupDataService`, `MatchupScoreFormatter`와 TEST_ONLY score runtime 경로를 제거했다.
+- production dataset만 build/publish output에 포함하며 legacy backup은 runtime 복사에서 제외한다.
+- 연속된 동일 Waiting reason은 한 번만 기록하고 matchup detection 및 statistics status는 signature 변경 시에만 기록한다.
+- Stage 6-1 Dataset Loader, 6-2 query-oriented calculation, 6-3 presentation, 6-4 automatic Live Client integration, 6-5 production cleanup을 완료했다.

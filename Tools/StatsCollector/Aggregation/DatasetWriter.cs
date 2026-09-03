@@ -65,6 +65,9 @@ public sealed class DatasetWriter
             _options.Region.Trim().ToUpperInvariant(),
             _options.QueueId,
             _options.TargetPatch,
+            _options.MinimumGameDurationSeconds,
+            "GAME_DURATION_AT_LEAST_THRESHOLD_SECONDS",
+            _options.DurationPolicyKey,
             DateTimeOffset.UtcNow,
             acceptedMatches,
             observationCount,
@@ -75,7 +78,8 @@ public sealed class DatasetWriter
             _options.Region.Trim().ToUpperInvariant(),
             _options.QueueId.ToString(
                 System.Globalization.CultureInfo.InvariantCulture),
-            _options.TargetPatch);
+            _options.TargetPatch,
+            _options.DurationPolicyKey);
         Directory.CreateDirectory(outputDirectory);
         var outputPath = Path.Combine(outputDirectory, "matchups.json");
         var temporaryPath = outputPath + ".tmp";
@@ -145,6 +149,9 @@ internal sealed record MatchupDataset(
     string Region,
     int QueueId,
     string Patch,
+    int MinimumGameDurationSeconds,
+    string DurationFilterPolicy,
+    string PolicyKey,
     DateTimeOffset GeneratedAtUtc,
     int AcceptedMatches,
     int Observations,

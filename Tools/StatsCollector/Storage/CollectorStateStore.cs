@@ -27,6 +27,13 @@ public sealed class CollectorStateStore
 
     public CollectorStateStore(CollectorOptions options)
     {
+        if (options.MinimumGameDurationSeconds <= 0)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(options),
+                "MinimumGameDurationSeconds must be positive.");
+        }
+
         var scopeDirectory = options.TierScope.ToDirectoryName();
         var regionDirectory = options.Region.Trim().ToUpperInvariant();
         var queueDirectory = options.QueueId.ToString(
@@ -46,7 +53,8 @@ public sealed class CollectorStateStore
             scopeDirectory,
             regionDirectory,
             queueDirectory,
-            patch.ToString());
+            patch.ToString(),
+            options.DurationPolicyKey);
         Directory.CreateDirectory(StateDirectory);
         _discoveredPath = Path.Combine(StateDirectory, "discovered-matches.jsonl");
         _resultsPath = Path.Combine(StateDirectory, "match-results.jsonl");
@@ -174,6 +182,8 @@ public sealed class CollectorStateStore
             options.Region.ToUpperInvariant(),
             options.QueueId,
             options.TargetPatch,
+            options.MinimumGameDurationSeconds,
+            options.DurationPolicyKey,
             _discoveredMatchIds.Count,
             _terminalMatchIds.Count,
             AcceptedMatchCount,
@@ -426,6 +436,8 @@ internal sealed record CollectorCheckpoint(
     string Region,
     int QueueId,
     string TargetPatch,
+    int MinimumGameDurationSeconds,
+    string DurationPolicyKey,
     int DiscoveredMatchCount,
     int TerminalMatchCount,
     int AcceptedMatchCount,

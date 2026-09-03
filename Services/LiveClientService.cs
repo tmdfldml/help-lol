@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace LoLMatchup.Services;
 
-public sealed class LiveClientService
+public sealed class LiveClientService : IDisposable
 {
     private static readonly Uri BaseAddress =
         new("https://127.0.0.1:2999/liveclientdata/");
@@ -15,6 +15,22 @@ public sealed class LiveClientService
     private static readonly Uri ActivePlayerNameEndpoint =
         new(BaseAddress, "activeplayername");
 
+    private readonly HttpClientHandler _handler;
+    private readonly HttpClient _httpClient;
+
+    public LiveClientService()
+    {
+        _handler = new HttpClientHandler
+        {
+            ServerCertificateCustomValidationCallback =
+                (request, _, _, _) =>
+                    request.RequestUri?.Scheme == Uri.UriSchemeHttps
+                    && request.RequestUri.Host == BaseAddress.Host
+                    && request.RequestUri.Port == BaseAddress.Port
+        };
+        _httpClient = new HttpClient(_handler);
+    }
+
     public async Task<int?> GetPlayerCountAsync()
     {
         var players = await GetPlayersAsync();
@@ -22,9 +38,10 @@ public sealed class LiveClientService
         return players?.Count;
     }
 
-    public async Task<IReadOnlyList<LiveClientPlayer>?> GetPlayersAsync()
+    public async Task<IReadOnlyList<LiveClientPlayer>?> GetPlayersAsync(
+        CancellationToken cancellationToken = default)
     {
-        var playerListJson = await GetPlayerListAsync();
+        var playerListJson = await GetPlayerListAsync(cancellationToken);
 
         if (playerListJson is null)
         {
@@ -44,9 +61,10 @@ public sealed class LiveClientService
     }
 
     public async Task<LiveClientPlayer?> GetActivePlayerAsync(
-        IReadOnlyList<LiveClientPlayer> players)
+        IReadOnlyList<LiveClientPlayer> players,
+        CancellationToken cancellationToken = default)
     {
-        var riotId = await GetActivePlayerRiotIdAsync();
+        var riotId = await GetActivePlayerRiotIdAsync(cancellationToken);
 
         if (string.IsNullOrWhiteSpace(riotId))
         {
@@ -57,9 +75,12 @@ public sealed class LiveClientService
             string.Equals(player.RiotId, riotId, StringComparison.OrdinalIgnoreCase));
     }
 
-    public async Task<string?> GetActivePlayerRiotIdAsync()
+    public async Task<string?> GetActivePlayerRiotIdAsync(
+        CancellationToken cancellationToken = default)
     {
-        var responseBody = await GetResponseBodyAsync(ActivePlayerNameEndpoint);
+        var responseBody = await GetResponseBodyAsync(
+            ActivePlayerNameEndpoint,
+            cancellationToken);
 
         if (responseBody is null)
         {
@@ -76,38 +97,40 @@ public sealed class LiveClientService
         }
     }
 
-    public Task<string?> GetPlayerListAsync()
+    public Task<string?> GetPlayerListAsync(
+        CancellationToken cancellationToken = default)
     {
-        return GetResponseBodyAsync(PlayerListEndpoint);
+        return GetResponseBodyAsync(PlayerListEndpoint, cancellationToken);
     }
 
-    private static async Task<string?> GetResponseBodyAsync(Uri endpoint)
+    public void Dispose()
     {
-        using var handler = new HttpClientHandler
-        {
-            ServerCertificateCustomValidationCallback =
-                (request, _, _, _) =>
-                    request.RequestUri?.Host == BaseAddress.Host
-                    && request.RequestUri.Port == BaseAddress.Port
-        };
-        using var httpClient = new HttpClient(handler);
+        _httpClient.Dispose();
+        _handler.Dispose();
+    }
 
+    private async Task<string?> GetResponseBodyAsync(
+        Uri endpoint,
+        CancellationToken cancellationToken)
+    {
         try
         {
-            using var response = await httpClient.GetAsync(endpoint);
+            using var response = await _httpClient.GetAsync(
+                endpoint,
+                cancellationToken);
 
             if (!response.IsSuccessStatusCode)
             {
                 return null;
             }
 
-            return await response.Content.ReadAsStringAsync();
+            return await response.Content.ReadAsStringAsync(cancellationToken);
         }
         catch (HttpRequestException)
         {
             return null;
         }
-        catch (TaskCanceledException)
+        catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         {
             return null;
         }

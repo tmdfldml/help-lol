@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
 using System.Windows;
+using LoLMatchup.Models.Presentation;
 using LoLMatchup.Services;
 
 namespace LoLMatchup;
@@ -9,148 +9,69 @@ namespace LoLMatchup;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private bool _hasTestedLiveClientConnection;
+    private readonly CancellationTokenSource _pollingCancellation = new();
+    private readonly LiveClientService _liveClientService = new();
+    private bool _hasStartedPolling;
 
     public MainWindow()
     {
         InitializeComponent();
         Loaded += MainWindow_Loaded;
+        Closed += MainWindow_Closed;
     }
 
     private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
-        if (_hasTestedLiveClientConnection)
+        if (_hasStartedPolling)
         {
             return;
         }
 
-        _hasTestedLiveClientConnection = true;
+        _hasStartedPolling = true;
 
-        var matchupDataService = new MatchupDataService();
-        var matchupData = await matchupDataService.LoadAsync();
+#if DEBUG
+        await MatchupStatisticsDebugValidator.ValidateAsync();
+#endif
 
-        Debug.WriteLine(matchupData is not null
-            ? $"상성 데이터 로드 성공: {matchupData.Matchups.Count}개"
-            : "상성 데이터 로드 실패");
+        var coordinator = new LiveStatisticsCoordinator(_liveClientService);
+        var pollingService = new LiveStatisticsPollingService(coordinator);
 
-        var service = new LiveClientService();
-        var players = await service.GetPlayersAsync();
-
-        if (players is null)
+        try
         {
-            Debug.WriteLine("게임 없음 또는 Live Client API 연결 실패");
-            return;
+            await pollingService.RunAsync(
+                presentation => Dispatcher.InvokeAsync(
+                    () => ApplyStatisticsPresentation(presentation)).Task,
+                _pollingCancellation.Token);
         }
-
-        Debug.WriteLine($"플레이어 수: {players.Count}");
-
-        var activePlayer = await service.GetActivePlayerAsync(players);
-
-        if (activePlayer is null)
+        catch (OperationCanceledException) when (_pollingCancellation.IsCancellationRequested)
         {
-            Debug.WriteLine("현재 플레이어를 찾을 수 없습니다.");
-            return;
+            // Normal window shutdown.
         }
-
-        Debug.WriteLine($"현재 플레이어: {activePlayer.RiotId}");
-        Debug.WriteLine($"챔피언: {FormatChampion(activePlayer)}");
-        var activePosition = activePlayer.NormalizedPosition;
-        Debug.WriteLine($"포지션: {activePosition}");
-        Debug.WriteLine($"팀: {activePlayer.Team}");
-
-        if (activePosition == PositionNormalizer.Unknown)
+        finally
         {
-            Debug.WriteLine("현재 플레이어의 포지션을 확인할 수 없습니다.");
-        }
-
-        if (string.IsNullOrWhiteSpace(activePlayer.Team)
-            || players.Any(player => string.IsNullOrWhiteSpace(player.Team)))
-        {
-            Debug.WriteLine("팀 정보를 확인할 수 없습니다.");
-            return;
-        }
-
-        bool IsAlliedPlayer(LiveClientPlayer player) =>
-            string.Equals(
-                player.Team,
-                activePlayer.Team,
-                StringComparison.OrdinalIgnoreCase);
-
-        var alliedPlayers = players
-            .Where(IsAlliedPlayer)
-            .ToList();
-
-        var opposingPlayers = players
-            .Where(player => !IsAlliedPlayer(player))
-            .ToList();
-
-        Debug.WriteLine($"내 팀: {activePlayer.Team}");
-        Debug.WriteLine(string.Empty);
-        var alliedTeam = new TeamComposition(alliedPlayers);
-        var opposingTeam = new TeamComposition(opposingPlayers);
-
-        WriteTeamComposition("[우리 팀]", alliedTeam);
-        Debug.WriteLine(string.Empty);
-        WriteTeamComposition("[상대 팀]", opposingTeam);
-
-        Debug.WriteLine(string.Empty);
-        Debug.WriteLine("=== ROLE MATCHUPS ===");
-        Debug.WriteLine(string.Empty);
-
-        foreach (var matchup in RoleMatchup.CreateAll(alliedTeam, opposingTeam))
-        {
-            var alliedChampion = FormatChampion(matchup.AlliedPlayer);
-            var opposingChampion = FormatChampion(matchup.OpposingPlayer);
-            int? score = null;
-
-            if (!string.IsNullOrWhiteSpace(matchup.AlliedPlayer?.ChampionId)
-                && !string.IsNullOrWhiteSpace(matchup.OpposingPlayer?.ChampionId))
-            {
-                score = await matchupDataService.GetMatchupScoreAsync(
-                    matchup.Role,
-                    matchup.AlliedPlayer.ChampionId,
-                    matchup.OpposingPlayer.ChampionId);
-            }
-
-            var result = MatchupScoreFormatter.ToDebugText(score);
-
-            Debug.WriteLine(
-                $"{matchup.Role,-8} {alliedChampion} vs {opposingChampion} -> {result}");
+            _liveClientService.Dispose();
+            _pollingCancellation.Dispose();
         }
     }
 
-    private static void WriteTeamComposition(
-        string heading,
-        TeamComposition composition)
+    private void MainWindow_Closed(object? sender, EventArgs e)
     {
-        Debug.WriteLine(heading);
-
-        foreach (var position in PositionNormalizer.StandardPositions)
-        {
-            var players = composition.GetPlayers(position);
-
-            if (players.Count == 0)
-            {
-                Debug.WriteLine($"{position,-8} <없음>");
-                continue;
-            }
-
-            foreach (var player in players)
-            {
-                Debug.WriteLine($"{position,-8} {player.DisplayName}");
-            }
-        }
+        _pollingCancellation.Cancel();
     }
 
-    private static string FormatChampion(LiveClientPlayer? player)
+    private void ApplyStatisticsPresentation(
+        MatchupStatisticsPresentation presentation)
     {
-        if (player is null)
+        if (presentation.State == MatchupPresentationState.LoadedStatistics)
         {
-            return "<없음>";
+            StatisticsPanel.DataContext = presentation;
+            StatisticsPanel.Visibility = Visibility.Visible;
+            StatusPanel.Visibility = Visibility.Collapsed;
+            return;
         }
 
-        return player.ChampionId is not null
-            ? $"{player.DisplayName}({player.ChampionId})"
-            : $"{player.DisplayName}(ID 없음)";
+        StatisticsPanel.Visibility = Visibility.Collapsed;
+        StatusText.Text = presentation.StatusText;
+        StatusPanel.Visibility = Visibility.Visible;
     }
 }

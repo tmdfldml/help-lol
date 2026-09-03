@@ -6,50 +6,65 @@ using StatsCollector.Configuration;
 using StatsCollector.Storage;
 
 Console.WriteLine("LoL Matchup StatsCollector");
-Console.WriteLine("Stage 5 collector scaffold ready.");
+Console.WriteLine("Stage 5 collector ready.");
 
-var targetPatch = Environment.GetEnvironmentVariable(
+var targetPatchText = Environment.GetEnvironmentVariable(
     CollectorOptions.TargetPatchEnvironmentVariableName);
-var targetAcceptedMatchesText = Environment.GetEnvironmentVariable(
+var targetAcceptedText = Environment.GetEnvironmentVariable(
     CollectorOptions.TargetAcceptedMatchesEnvironmentVariableName);
+var autoContinueText = Environment.GetEnvironmentVariable(
+    CollectorOptions.AutoContinueCollectionEnvironmentVariableName);
+var minimumGameDurationText = Environment.GetEnvironmentVariable(
+    CollectorOptions.MinimumGameDurationSecondsEnvironmentVariableName);
 
-if (!PatchVersionParser.TryParseTargetPatch(targetPatch, out var parsedTargetPatch))
+if (!PatchVersionParser.TryParseTargetPatch(targetPatchText, out var targetPatch))
 {
-    Console.WriteLine(
-        $"{CollectorOptions.TargetPatchEnvironmentVariableName} is not configured "
-        + "or does not use the major.minor format.");
-    Console.WriteLine("Set the target patch before using the collector.");
+    Console.WriteLine("TARGET_PATCH must use the major.minor format.");
     return;
 }
 
-if (!int.TryParse(targetAcceptedMatchesText, out var targetAcceptedMatches)
+if (!int.TryParse(targetAcceptedText, out var targetAcceptedMatches)
     || targetAcceptedMatches <= 0)
 {
-    Console.WriteLine(
-        $"{CollectorOptions.TargetAcceptedMatchesEnvironmentVariableName} "
-        + "is not configured or is not a positive integer.");
-    Console.WriteLine("Set the persistent accepted Match target before collecting.");
+    Console.WriteLine("TARGET_ACCEPTED_MATCHES must be a positive integer.");
     return;
 }
 
+if (!string.IsNullOrWhiteSpace(autoContinueText)
+    && !bool.TryParse(autoContinueText, out _))
+{
+    Console.WriteLine("AUTO_CONTINUE_COLLECTION must be true or false.");
+    return;
+}
+
+var minimumGameDurationSeconds =
+    CollectorOptions.DefaultMinimumGameDurationSeconds;
+
+if (!string.IsNullOrWhiteSpace(minimumGameDurationText)
+    && (!int.TryParse(minimumGameDurationText, out minimumGameDurationSeconds)
+        || minimumGameDurationSeconds <= 0))
+{
+    Console.WriteLine("MIN_GAME_DURATION_SECONDS must be a positive integer.");
+    return;
+}
+
+var autoContinue = bool.TryParse(autoContinueText, out var parsedAutoContinue)
+    && parsedAutoContinue;
 var options = new CollectorOptions
 {
-    TargetPatch = parsedTargetPatch.ToString(),
-    TargetAcceptedMatchCount = targetAcceptedMatches
+    TargetPatch = targetPatch.ToString(),
+    TargetAcceptedMatchCount = targetAcceptedMatches,
+    AutoContinueCollection = autoContinue,
+    MinimumGameDurationSeconds = minimumGameDurationSeconds
 };
-
-Console.WriteLine($"Target patch: {options.TargetPatch}");
-Console.WriteLine(
-    $"Target accepted matches: {options.TargetAcceptedMatchCount}");
-
 var accumulator = new MatchupAccumulator();
 var stateStore = new CollectorStateStore(options);
 var datasetWriter = new DatasetWriter(options);
-CollectorStateRestoreSummary restoreSummary;
+CollectorStateRestoreSummary restore;
 
 try
 {
-    restoreSummary = stateStore.Restore(accumulator.AddRange);
+    restore = stateStore.Restore(accumulator.AddRange);
 }
 catch (CollectorStateCorruptionException exception)
 {
@@ -57,50 +72,57 @@ catch (CollectorStateCorruptionException exception)
     return;
 }
 
+Console.WriteLine($"Target patch: {options.TargetPatch}");
+Console.WriteLine(
+    $"Minimum game duration: {options.MinimumGameDurationSeconds} seconds "
+    + $"({options.DurationPolicyKey})");
 Console.WriteLine();
 Console.WriteLine("State restore");
-Console.WriteLine(
-    $"Discovered match IDs loaded: {restoreSummary.DiscoveredMatchCount}");
-Console.WriteLine(
-    $"Terminal results loaded: {restoreSummary.TerminalResultCount}");
-Console.WriteLine(
-    $"Accepted matches replayed: {restoreSummary.AcceptedMatchCount}");
-Console.WriteLine($"Observations replayed: {restoreSummary.ObservationCount}");
-Console.WriteLine(
-    $"Duplicate terminal records: {restoreSummary.DuplicateTerminalRecordCount}");
+Console.WriteLine($"Discovered match IDs loaded: {restore.DiscoveredMatchCount}");
+Console.WriteLine($"Terminal results loaded: {restore.TerminalResultCount}");
+Console.WriteLine($"Accepted matches replayed: {restore.AcceptedMatchCount}");
+Console.WriteLine($"Observations replayed: {restore.ObservationCount}");
+Console.WriteLine($"Duplicate terminal records: {restore.DuplicateTerminalRecordCount}");
 
-if (restoreSummary.IgnoredIncompleteLastLineCount > 0)
+if (restore.IgnoredIncompleteLastLineCount > 0)
 {
     Console.WriteLine(
         "Incomplete final JSONL lines recovered: "
-        + restoreSummary.IgnoredIncompleteLastLineCount);
+        + restore.IgnoredIncompleteLastLineCount);
 }
 
-var targetReached = stateStore.AcceptedMatchCount
-    >= options.TargetAcceptedMatchCount;
-Console.WriteLine($"Current accepted matches: {stateStore.AcceptedMatchCount}");
-Console.WriteLine($"Target reached: {targetReached}");
+Console.WriteLine();
+Console.WriteLine("Auto collection");
+Console.WriteLine($"Enabled: {options.AutoContinueCollection}");
+Console.WriteLine($"Target accepted matches: {options.TargetAcceptedMatchCount}");
+Console.WriteLine($"Starting accepted matches: {stateStore.AcceptedMatchCount}");
+Console.WriteLine($"Batch processing limit: {options.ProcessingMatchLimit}");
 
-if (targetReached)
+if (stateStore.AcceptedMatchCount >= options.TargetAcceptedMatchCount)
 {
+    PrintAutoCollectionSummary(
+        CollectionStopReason.TargetReached,
+        0,
+        stateStore.AcceptedMatchCount,
+        stateStore);
+    PrintPersistentQuality(accumulator, stateStore);
     await WriteDatasetAndPrintAsync(datasetWriter, accumulator, stateStore);
     return;
 }
 
-var apiKeyProvider = new RiotApiKeyProvider();
-var apiKey = apiKeyProvider.GetApiKey();
+var apiKey = new RiotApiKeyProvider().GetApiKey();
 
 if (apiKey is null)
 {
     Console.WriteLine("Riot API Key is not configured.");
     Console.WriteLine(
         "Set the RIOT_API_KEY environment variable before using the collector.");
+    PrintPersistentQuality(accumulator, stateStore);
     await WriteDatasetAndPrintAsync(datasetWriter, accumulator, stateStore);
     return;
 }
 
 Console.WriteLine("Riot API Key: configured");
-
 using var riotApiClient = new RiotApiClient(options, apiKey);
 using var shutdown = new CancellationTokenSource();
 Console.CancelKeyPress += (_, eventArgs) =>
@@ -109,428 +131,235 @@ Console.CancelKeyPress += (_, eventArgs) =>
     shutdown.Cancel();
 };
 
-var seedProvider = new SeedProvider(riotApiClient);
-var seedResult = await seedProvider.CollectMasterPlusAsync(shutdown.Token);
+var runner = new CollectionRunner(riotApiClient, options, stateStore, accumulator);
+CollectionRunResult run;
 
-Console.WriteLine("MASTER_PLUS seed collection");
-
-foreach (var tierResult in seedResult.TierResults)
+try
 {
-    if (tierResult.Status == RiotApiRequestStatus.Success)
-    {
-        Console.WriteLine(
-            $"{tierResult.Tier} entries: {tierResult.EntryCount}");
-        continue;
-    }
-
-    Console.WriteLine(
-        $"{tierResult.Tier} collection failed: {GetStatusMessage(tierResult.Status)}");
-
-    if (tierResult.Status == RiotApiRequestStatus.RateLimited
-        && tierResult.RetryAfter is { } retryAfter)
-    {
-        Console.WriteLine(
-            $"Retry-After: {Math.Ceiling(retryAfter.TotalSeconds)} seconds");
-    }
+    run = await runner.RunAsync(shutdown.Token);
 }
-
-Console.WriteLine($"Unique seed PUUIDs: {seedResult.Puuids.Count}");
-Console.WriteLine($"PUUID conversions: {seedResult.ConversionCount}");
-
-if (seedResult.ConversionFailureCount > 0)
+catch (Exception exception) when (exception is IOException
+    or UnauthorizedAccessException
+    or CollectorStateCorruptionException)
 {
-    Console.WriteLine(
-        $"PUUID conversion failures: {seedResult.ConversionFailureCount}");
-}
-
-if (seedResult.TierResults.Any(result =>
-        result.Status is RiotApiRequestStatus.AuthenticationFailed
-            or RiotApiRequestStatus.RateLimited
-            or RiotApiRequestStatus.Cancelled))
-{
-    Console.WriteLine("Seed collection stopped before further API requests.");
-    PrintRetrySummary(riotApiClient.RetryDiagnostics);
+    Console.WriteLine($"Collection stopped by a fatal state error: {exception.Message}");
+    PrintAutoCollectionSummary(
+        CollectionStopReason.FatalError,
+        0,
+        restore.AcceptedMatchCount,
+        stateStore);
+    PrintPersistentQuality(accumulator, stateStore);
+    PrintRetrySummary(riotApiClient.RetryDiagnostics, 0);
+    await WriteDatasetAndPrintAsync(datasetWriter, accumulator, stateStore);
     return;
 }
 
-var matchIdProvider = new MatchIdProvider(riotApiClient, options);
-var matchIdResult = await matchIdProvider.CollectMatchIdsAsync(
-    seedResult.Puuids,
-    shutdown.Token);
-
-Console.WriteLine("Match-V5 test collection");
-Console.WriteLine($"Seeds used: {matchIdResult.SeedsUsed}");
-Console.WriteLine($"Pages requested: {matchIdResult.PagesRequested}");
-Console.WriteLine($"Match IDs returned: {matchIdResult.ReturnedCount}");
-Console.WriteLine($"Duplicate Match IDs: {matchIdResult.DuplicateCount}");
-Console.WriteLine($"Unique Match IDs: {matchIdResult.MatchIds.Count}");
-
-if (matchIdResult.InvalidCount > 0)
-{
-    Console.WriteLine($"Invalid Match IDs: {matchIdResult.InvalidCount}");
-}
-
-foreach (var failure in matchIdResult.Failures)
-{
-    Console.WriteLine(
-        $"Seed request {failure.SeedNumber}, page {failure.PageNumber} failed: "
-        + GetStatusMessage(failure.Status));
-
-    if (failure.Status == RiotApiRequestStatus.RateLimited
-        && failure.RetryAfter is { } retryAfter)
-    {
-        Console.WriteLine(
-            $"Retry-After: {Math.Ceiling(retryAfter.TotalSeconds)} seconds");
-    }
-}
-
-if (matchIdResult.Failures.Any(failure =>
-        failure.Status is RiotApiRequestStatus.AuthenticationFailed
-            or RiotApiRequestStatus.RateLimited
-            or RiotApiRequestStatus.Cancelled))
-{
-    Console.WriteLine("Match ID collection stopped before further API requests.");
-    PrintRetrySummary(riotApiClient.RetryDiagnostics);
-    return;
-}
-
-var newlyDiscoveredCount = stateStore.AppendDiscovered(matchIdResult.MatchIds);
-var pendingMatchIds = stateStore.DiscoveredMatchIds
-    .Where(matchId => !stateStore.TerminalMatchIds.Contains(matchId))
-    .ToList();
-
-Console.WriteLine($"Newly discovered match IDs: {newlyDiscoveredCount}");
-Console.WriteLine(
-    $"Total discovered match IDs: {stateStore.DiscoveredMatchIds.Count}");
-Console.WriteLine($"Pending match IDs: {pendingMatchIds.Count}");
-
-var matchProcessor = new MatchProcessor(riotApiClient, options);
-var matchIdsToProcess = pendingMatchIds
-    .Take(options.ProcessingMatchLimit)
-    .ToList();
-var matchesAttempted = 0;
-var matchesAccepted = 0;
-var matchesRejected = 0;
-var apiFailures = 0;
-var observationsAdded = 0;
-var assistFreeCandidateCount = 0;
-var assistedCandidateCount = 0;
-var killEventsWithAssists = 0;
-var killEventsWithNullAssistList = 0;
-var killEventsWithEmptyAssistList = 0;
-var acceptedGameDurations = new List<long>();
-var level2UnknownReasons = new MilestoneUnknownReasonCounts();
-var level3UnknownReasons = new MilestoneUnknownReasonCounts();
-var level6UnknownReasons = new MilestoneUnknownReasonCounts();
-var timelineRequestsAvoidedByValidation = 0;
-
-Console.WriteLine();
-Console.WriteLine("Multi-match processing test");
-
-foreach (var matchId in matchIdsToProcess)
-{
-    if (stateStore.AcceptedMatchCount >= options.TargetAcceptedMatchCount)
-    {
-        Console.WriteLine("Persistent accepted Match target reached.");
-        break;
-    }
-
-    matchesAttempted++;
-    var result = await matchProcessor.ProcessAsync(matchId, shutdown.Token);
-
-    if (result.Status is MatchProcessingStatus.AuthenticationFailed
-        or MatchProcessingStatus.RateLimitExhausted
-        or MatchProcessingStatus.Cancelled)
-    {
-        apiFailures++;
-        Console.WriteLine(
-            $"Match {matchesAttempted}/{matchIdsToProcess.Count}: "
-            + $"stopped - {result.Message}");
-        break;
-    }
-
-    if (result.Status == MatchProcessingStatus.ApiFailure)
-    {
-        apiFailures++;
-
-        Console.WriteLine(
-            $"Match {matchesAttempted}/{matchIdsToProcess.Count}: "
-            + $"skipped - {result.Message}");
-
-        if (result.ApiStatus == RiotApiRequestStatus.RateLimited
-            && result.RetryAfter is { } retryAfter)
-        {
-            Console.WriteLine(
-                $"Retry-After: {Math.Ceiling(retryAfter.TotalSeconds)} seconds");
-        }
-
-        continue;
-    }
-
-    if (result.Status == MatchProcessingStatus.Rejected
-        && result.ValidationOutcome is { } validationOutcome)
-    {
-        stateStore.AppendRejected(matchId, validationOutcome);
-        matchesRejected++;
-
-        if (validationOutcome != MatchValidationOutcome.ObservationFailure)
-        {
-            timelineRequestsAvoidedByValidation++;
-        }
-        Console.WriteLine(
-            $"Match {matchesAttempted}/{matchIdsToProcess.Count}: "
-            + $"skipped - {validationOutcome}");
-        continue;
-    }
-
-    // Persist the complete terminal record before changing in-memory totals.
-    stateStore.AppendAccepted(matchId, options.TargetPatch, result.Observations);
-    accumulator.AddRange(result.Observations);
-    matchesAccepted++;
-    observationsAdded += result.Observations.Count;
-    assistFreeCandidateCount += result.AssistFreeCandidateCount;
-    assistedCandidateCount += result.AssistedCandidateCount;
-    killEventsWithAssists += result.KillEventsWithAssists;
-    killEventsWithNullAssistList += result.KillEventsWithNullAssistList;
-    killEventsWithEmptyAssistList += result.KillEventsWithEmptyAssistList;
-    acceptedGameDurations.Add(result.GameDurationSeconds);
-    level2UnknownReasons += result.Level2UnknownReasons ?? new();
-    level3UnknownReasons += result.Level3UnknownReasons ?? new();
-    level6UnknownReasons += result.Level6UnknownReasons ?? new();
-    Console.WriteLine(
-        $"Match {matchesAttempted}/{matchIdsToProcess.Count}: accepted");
-}
-
-await stateStore.WriteCheckpointAsync(options, accumulator);
+PrintAutoCollectionSummary(
+    run.StopReason,
+    run.BatchesCompleted,
+    run.AcceptedAtStart,
+    stateStore);
 
 Console.WriteLine();
 Console.WriteLine("Session summary");
-Console.WriteLine($"Matches attempted this run: {matchesAttempted}");
-Console.WriteLine($"Matches accepted this run: {matchesAccepted}");
-Console.WriteLine($"Matches rejected this run: {matchesRejected}");
-Console.WriteLine($"API failures this run: {apiFailures}");
-Console.WriteLine($"Observations added this run: {observationsAdded}");
-Console.WriteLine(
-    $"Observations count valid: {observationsAdded == matchesAccepted * 5}");
-
-var persistentPendingCount = stateStore.DiscoveredMatchIds.Count
-    - stateStore.TerminalMatchIds.Count;
-var storageSizeMegabytes = stateStore.GetStorageSizeBytes()
-    / (1024d * 1024d);
-
-Console.WriteLine();
-Console.WriteLine("Persistent totals");
-Console.WriteLine($"Discovered matches: {stateStore.DiscoveredMatchIds.Count}");
-Console.WriteLine($"Terminal matches: {stateStore.TerminalMatchIds.Count}");
-Console.WriteLine($"Accepted matches: {stateStore.AcceptedMatchCount}");
-Console.WriteLine($"Rejected matches: {stateStore.RejectedMatchCount}");
-Console.WriteLine($"Observations: {stateStore.ObservationCount}");
-Console.WriteLine($"Aggregated matchup keys: {accumulator.Aggregates.Count}");
-Console.WriteLine($"Pending matches: {persistentPendingCount}");
+Console.WriteLine($"Matches attempted this run: {run.MatchesAttempted}");
+Console.WriteLine($"Matches accepted this run: {run.MatchesAccepted}");
+Console.WriteLine($"Matches rejected this run: {run.MatchesRejected}");
+Console.WriteLine($"API failures this run: {run.ApiFailures}");
+Console.WriteLine($"Observations added this run: {run.ObservationsAdded}");
 Console.WriteLine(
     "Observations count valid: "
-    + (stateStore.ObservationCount == stateStore.AcceptedMatchCount * 5));
-Console.WriteLine($"Invariants valid: {accumulator.InvariantsValid}");
-Console.WriteLine($"State storage size: {storageSizeMegabytes:F2} MB");
-
-var aggregates = accumulator.Aggregates.Values.ToList();
-var observationCount = stateStore.ObservationCount;
-var level2Unknown = aggregates.Sum(value => value.FirstLevel2Unknown);
-var level3Unknown = aggregates.Sum(value => value.FirstLevel3Unknown);
-var level6Unknown = aggregates.Sum(value => value.FirstLevel6Unknown);
+    + (run.ObservationsAdded == run.MatchesAccepted * 5));
 
 Console.WriteLine();
-Console.WriteLine("Metric quality");
-PrintMetricQuality("First level 2 unknown", level2Unknown, observationCount);
-PrintMetricQuality("First level 3 unknown", level3Unknown, observationCount);
-PrintMetricQuality("First level 6 unknown", level6Unknown, observationCount);
-
-Console.WriteLine();
-Console.WriteLine("Level metric diagnostics (this run)");
-PrintUnknownReasons("Level 2 unknown", level2UnknownReasons);
-PrintUnknownReasons("Level 3 unknown", level3UnknownReasons);
-PrintUnknownReasons("Level 6 unknown", level6UnknownReasons);
-
-Console.WriteLine();
-Console.WriteLine("Role unknown counts (level 2 / 3 / 6)");
-
-foreach (var role in RoleNormalizer.StandardRoles)
-{
-    var roleAggregates = aggregates.Where(value => value.Key.Role == role).ToList();
-    Console.WriteLine(
-        $"{RoleNormalizer.ToDisplayName(role)}: "
-        + $"{roleAggregates.Sum(value => value.FirstLevel2Unknown)} / "
-        + $"{roleAggregates.Sum(value => value.FirstLevel3Unknown)} / "
-        + roleAggregates.Sum(value => value.FirstLevel6Unknown));
-}
-
-Console.WriteLine();
-Console.WriteLine("Persistent validation quality");
+Console.WriteLine("Session validation quality");
+var sessionTerminalCount = run.MatchesAccepted + run.MatchesRejected;
 
 foreach (var outcome in Enum.GetValues<MatchValidationOutcome>())
 {
-    var count = stateStore.OutcomeCounts[outcome];
+    var count = run.SessionValidationCounts[outcome];
     Console.WriteLine(
-        $"{outcome}: {count} ({GetPercentage(count, stateStore.TerminalMatchIds.Count):F2}%)");
+        $"{outcome}: {count} "
+        + $"({GetPercentage(count, sessionTerminalCount):F2}%)");
 }
+
+PrintPersistentQuality(accumulator, stateStore);
 
 Console.WriteLine();
-Console.WriteLine("Role observation counts");
-var roleObservationCounts = RoleNormalizer.StandardRoles.ToDictionary(
-    role => role,
-    role => aggregates
-        .Where(value => value.Key.Role == role)
-        .Sum(value => value.SampleSize));
-
-foreach (var role in RoleNormalizer.StandardRoles)
-{
-    Console.WriteLine(
-        $"{RoleNormalizer.ToDisplayName(role)}: {roleObservationCounts[role]}");
-}
-
-Console.WriteLine(
-    "Role observation counts valid: "
-    + roleObservationCounts.Values.All(count =>
-        count == stateStore.AcceptedMatchCount));
-
-Console.WriteLine();
-Console.WriteLine("Matchup sample distribution");
-Console.WriteLine($"Total keys: {aggregates.Count}");
-Console.WriteLine(
-    $"Sample >= 2: {aggregates.Count(value => value.SampleSize >= 2)}");
-Console.WriteLine(
-    $"Sample >= 3: {aggregates.Count(value => value.SampleSize >= 3)}");
-Console.WriteLine(
-    $"Sample >= 5: {aggregates.Count(value => value.SampleSize >= 5)}");
-Console.WriteLine(
-    $"Sample >= 10: {aggregates.Count(value => value.SampleSize >= 10)}");
-Console.WriteLine(
-    $"Sample >= 20: {aggregates.Count(value => value.SampleSize >= 20)}");
-Console.WriteLine(
-    $"Maximum sample size: {aggregates.Select(value => value.SampleSize).DefaultIfEmpty().Max()}");
-
-var championRoleAppearances = new Dictionary<(StandardRole Role, string Champion), int>();
-
-foreach (var aggregate in aggregates)
-{
-    AddChampionRoleAppearance(
-        championRoleAppearances,
-        aggregate.Key.Role,
-        aggregate.Key.ChampionA,
-        aggregate.SampleSize);
-    AddChampionRoleAppearance(
-        championRoleAppearances,
-        aggregate.Key.Role,
-        aggregate.Key.ChampionB,
-        aggregate.SampleSize);
-}
-
-Console.WriteLine();
-Console.WriteLine("Champion-role appearances");
-Console.WriteLine($"Distinct champion-role keys: {championRoleAppearances.Count}");
-Console.WriteLine("Most frequent (diagnostic only):");
-
-foreach (var appearance in championRoleAppearances
-             .OrderByDescending(item => item.Value)
-             .ThenBy(item => item.Key.Role)
-             .ThenBy(item => item.Key.Champion, StringComparer.OrdinalIgnoreCase)
-             .ThenBy(item => item.Key.Champion, StringComparer.Ordinal)
-             .Take(10))
-{
-    Console.WriteLine(
-        $"{RoleNormalizer.ToDisplayName(appearance.Key.Role)} "
-        + $"{appearance.Key.Champion}: {appearance.Value}");
-}
+Console.WriteLine("Level metric diagnostics (this run)");
+PrintUnknownReasons("Level 2 unknown", run.Level2UnknownReasons);
+PrintUnknownReasons("Level 3 unknown", run.Level3UnknownReasons);
+PrintUnknownReasons("Level 6 unknown", run.Level6UnknownReasons);
 
 Console.WriteLine();
 Console.WriteLine("Assist semantics diagnostic (this run)");
 Console.WriteLine(
     "Solo-kill candidate events with null/empty assists: "
-    + assistFreeCandidateCount);
+    + run.AssistFreeCandidateCount);
 Console.WriteLine(
     "Solo-kill candidate events rejected because assists exist: "
-    + assistedCandidateCount);
+    + run.AssistedCandidateCount);
+Console.WriteLine($"Kill events with 1+ assists: {run.KillEventsWithAssists}");
 Console.WriteLine(
-    $"Kill events with 1+ assists: {killEventsWithAssists}");
+    $"Kill events with null/missing assist list: {run.KillEventsWithNullAssistList}");
 Console.WriteLine(
-    $"Kill events with null/missing assist list: {killEventsWithNullAssistList}");
-Console.WriteLine(
-    $"Kill events with empty assist list: {killEventsWithEmptyAssistList}");
+    $"Kill events with empty assist list: {run.KillEventsWithEmptyAssistList}");
 
 Console.WriteLine();
 Console.WriteLine("Session game duration");
 
-if (acceptedGameDurations.Count == 0)
+if (run.AcceptedGameDurations.Count == 0)
 {
     Console.WriteLine("No accepted matches this run.");
 }
 else
 {
-    Console.WriteLine($"Min: {FormatDuration(acceptedGameDurations.Min())}");
+    Console.WriteLine($"Min: {FormatDuration(run.AcceptedGameDurations.Min())}");
     Console.WriteLine(
-        $"Average: {FormatDuration((long)acceptedGameDurations.Average())}");
-    Console.WriteLine($"Max: {FormatDuration(acceptedGameDurations.Max())}");
+        $"Average: {FormatDuration((long)run.AcceptedGameDurations.Average())}");
+    Console.WriteLine($"Max: {FormatDuration(run.AcceptedGameDurations.Max())}");
 }
 
-PrintRetrySummary(riotApiClient.RetryDiagnostics);
-Console.WriteLine(
-    $"Timeline requests avoided by validation: {timelineRequestsAvoidedByValidation}");
-
+PrintRetrySummary(
+    riotApiClient.RetryDiagnostics,
+    run.TimelineRequestsAvoidedByValidation);
 await WriteDatasetAndPrintAsync(datasetWriter, accumulator, stateStore);
 
-Console.WriteLine();
-Console.WriteLine("Top aggregated samples");
-
-foreach (var aggregate in accumulator.Aggregates.Values
-             .OrderByDescending(aggregate => aggregate.SampleSize)
-             .ThenBy(aggregate => aggregate.Key.Role)
-             .ThenBy(aggregate => aggregate.Key.ChampionA, StringComparer.Ordinal)
-             .ThenBy(aggregate => aggregate.Key.ChampionB, StringComparer.Ordinal)
-             .Take(5))
+static void PrintAutoCollectionSummary(
+    CollectionStopReason stopReason,
+    int batchesCompleted,
+    int acceptedAtStart,
+    CollectorStateStore stateStore)
 {
+    var pending = stateStore.DiscoveredMatchIds.Count
+        - stateStore.TerminalMatchIds.Count;
+
     Console.WriteLine();
+    Console.WriteLine("Auto collection summary");
+    Console.WriteLine($"Stop reason: {stopReason}");
+    Console.WriteLine($"Batches completed: {batchesCompleted}");
+    Console.WriteLine($"Accepted at start: {acceptedAtStart}");
+    Console.WriteLine($"Accepted at end: {stateStore.AcceptedMatchCount}");
+    Console.WriteLine($"Accepted added: {stateStore.AcceptedMatchCount - acceptedAtStart}");
+    Console.WriteLine($"Terminal matches: {stateStore.TerminalMatchIds.Count}");
+    Console.WriteLine($"Pending matches: {pending}");
     Console.WriteLine(
-        $"{RoleNormalizer.ToDisplayName(aggregate.Key.Role)} "
-        + $"{aggregate.Key.ChampionA} vs {aggregate.Key.ChampionB}");
-    Console.WriteLine($"Sample size: {aggregate.SampleSize}");
-    Console.WriteLine($"Wins for A: {aggregate.WinsForA}");
-    Console.WriteLine(
-        "First level 2: "
-        + $"A={aggregate.FirstLevel2ForA}, "
-        + $"B={aggregate.FirstLevel2ForB}, "
-        + $"Unknown={aggregate.FirstLevel2Unknown}");
-    Console.WriteLine(
-        "First level 3: "
-        + $"A={aggregate.FirstLevel3ForA}, "
-        + $"B={aggregate.FirstLevel3ForB}, "
-        + $"Unknown={aggregate.FirstLevel3Unknown}");
-    Console.WriteLine(
-        "First level 6: "
-        + $"A={aggregate.FirstLevel6ForA}, "
-        + $"B={aggregate.FirstLevel6ForB}, "
-        + $"Unknown={aggregate.FirstLevel6Unknown}");
-    Console.WriteLine(
-        "Solo kills before 15: "
-        + $"A={aggregate.SoloKillsBefore15ForA}, "
-        + $"B={aggregate.SoloKillsBefore15ForB}");
+        $"State storage size: {stateStore.GetStorageSizeBytes() / (1024d * 1024d):F2} MB");
 }
 
-static string GetStatusMessage(RiotApiRequestStatus status)
+static void PrintPersistentQuality(
+    MatchupAccumulator accumulator,
+    CollectorStateStore stateStore)
 {
-    return status switch
+    var aggregates = accumulator.Aggregates.Values.ToList();
+    var observationCount = stateStore.ObservationCount;
+    var pending = stateStore.DiscoveredMatchIds.Count
+        - stateStore.TerminalMatchIds.Count;
+
+    Console.WriteLine();
+    Console.WriteLine("Persistent totals");
+    Console.WriteLine($"Discovered matches: {stateStore.DiscoveredMatchIds.Count}");
+    Console.WriteLine($"Terminal matches: {stateStore.TerminalMatchIds.Count}");
+    Console.WriteLine($"Accepted matches: {stateStore.AcceptedMatchCount}");
+    Console.WriteLine($"Rejected matches: {stateStore.RejectedMatchCount}");
+    Console.WriteLine($"Observations: {observationCount}");
+    Console.WriteLine($"Aggregated matchup keys: {aggregates.Count}");
+    Console.WriteLine($"Pending matches: {pending}");
+    Console.WriteLine(
+        "Observations count valid: "
+        + (observationCount == stateStore.AcceptedMatchCount * 5));
+    Console.WriteLine($"Invariants valid: {accumulator.InvariantsValid}");
+
+    Console.WriteLine();
+    Console.WriteLine("Metric quality");
+    PrintMetricQuality(
+        "First level 2 unknown",
+        aggregates.Sum(value => value.FirstLevel2Unknown),
+        observationCount);
+    PrintMetricQuality(
+        "First level 3 unknown",
+        aggregates.Sum(value => value.FirstLevel3Unknown),
+        observationCount);
+    PrintMetricQuality(
+        "First level 6 unknown",
+        aggregates.Sum(value => value.FirstLevel6Unknown),
+        observationCount);
+
+    Console.WriteLine();
+    Console.WriteLine("Persistent validation quality");
+
+    foreach (var outcome in Enum.GetValues<MatchValidationOutcome>())
     {
-        RiotApiRequestStatus.AuthenticationFailed =>
-            "API Key is invalid, expired, or unauthorized.",
-        RiotApiRequestStatus.RateLimited => "Riot API rate limit exceeded.",
-        RiotApiRequestStatus.ServerError => "Riot API server error.",
-        RiotApiRequestStatus.NetworkError => "Network connection failed.",
-        RiotApiRequestStatus.InvalidResponse => "Invalid Riot API response.",
-        RiotApiRequestStatus.Cancelled => "Request cancelled.",
-        _ => "Unexpected Riot API response."
-    };
+        var count = stateStore.OutcomeCounts[outcome];
+        Console.WriteLine(
+            $"{outcome}: {count} "
+            + $"({GetPercentage(count, stateStore.TerminalMatchIds.Count):F2}%)");
+    }
+
+    var roleCounts = RoleNormalizer.StandardRoles.ToDictionary(
+        role => role,
+        role => aggregates
+            .Where(value => value.Key.Role == role)
+            .Sum(value => value.SampleSize));
+    Console.WriteLine();
+    Console.WriteLine("Role observation counts");
+
+    foreach (var role in RoleNormalizer.StandardRoles)
+    {
+        Console.WriteLine($"{RoleNormalizer.ToDisplayName(role)}: {roleCounts[role]}");
+    }
+
+    Console.WriteLine(
+        "Role observation counts valid: "
+        + roleCounts.Values.All(count => count == stateStore.AcceptedMatchCount));
+
+    Console.WriteLine();
+    Console.WriteLine("Matchup sample distribution");
+    Console.WriteLine($"Total keys: {aggregates.Count}");
+
+    foreach (var threshold in new[] { 2, 3, 5, 10, 20 })
+    {
+        Console.WriteLine(
+            $"Sample >= {threshold}: "
+            + aggregates.Count(value => value.SampleSize >= threshold));
+    }
+
+    Console.WriteLine(
+        "Maximum sample size: "
+        + aggregates.Select(value => value.SampleSize).DefaultIfEmpty().Max());
+    PrintChampionRoleAppearances(aggregates);
 }
 
-static void PrintRetrySummary(RiotApiRetryDiagnostics diagnostics)
+static void PrintChampionRoleAppearances(IReadOnlyList<MatchupAggregate> aggregates)
+{
+    var appearances = new Dictionary<(StandardRole Role, string Champion), int>();
+
+    foreach (var aggregate in aggregates)
+    {
+        AddAppearance(appearances, aggregate.Key.Role, aggregate.Key.ChampionA, aggregate.SampleSize);
+        AddAppearance(appearances, aggregate.Key.Role, aggregate.Key.ChampionB, aggregate.SampleSize);
+    }
+
+    Console.WriteLine();
+    Console.WriteLine("Champion-role appearances");
+    Console.WriteLine($"Distinct champion-role keys: {appearances.Count}");
+
+    foreach (var appearance in appearances
+                 .OrderByDescending(item => item.Value)
+                 .ThenBy(item => item.Key.Role)
+                 .ThenBy(item => item.Key.Champion, StringComparer.OrdinalIgnoreCase)
+                 .ThenBy(item => item.Key.Champion, StringComparer.Ordinal)
+                 .Take(10))
+    {
+        Console.WriteLine(
+            $"{RoleNormalizer.ToDisplayName(appearance.Key.Role)} "
+            + $"{appearance.Key.Champion}: {appearance.Value}");
+    }
+}
+
+static void PrintRetrySummary(
+    RiotApiRetryDiagnostics diagnostics,
+    int timelineRequestsAvoided)
 {
     Console.WriteLine();
     Console.WriteLine("API retry summary");
@@ -538,37 +367,37 @@ static void PrintRetrySummary(RiotApiRetryDiagnostics diagnostics)
     Console.WriteLine($"HTTP attempts: {diagnostics.HttpAttempts}");
     Console.WriteLine($"429 retries: {diagnostics.RetriesDueToRateLimit}");
     Console.WriteLine($"5xx retries: {diagnostics.RetriesDueToServerError}");
-    Console.WriteLine(
-        "Network/timeout retries: "
-        + diagnostics.RetriesDueToNetworkOrTimeout);
-    Console.WriteLine(
-        $"Retry wait: {diagnostics.TotalRetryWait.TotalSeconds:F1} seconds");
-    Console.WriteLine(
-        $"League requests: {diagnostics.GetCategoryRequestCount(RiotApiRequestCategory.League)}");
-    Console.WriteLine(
-        $"Summoner requests: {diagnostics.GetCategoryRequestCount(RiotApiRequestCategory.Summoner)}");
-    Console.WriteLine(
-        $"Match ID requests: {diagnostics.GetCategoryRequestCount(RiotApiRequestCategory.MatchIds)}");
-    Console.WriteLine(
-        $"Match Detail requests: {diagnostics.GetCategoryRequestCount(RiotApiRequestCategory.MatchDetail)}");
-    Console.WriteLine(
-        $"Timeline requests: {diagnostics.GetCategoryRequestCount(RiotApiRequestCategory.Timeline)}");
+    Console.WriteLine($"Network/timeout retries: {diagnostics.RetriesDueToNetworkOrTimeout}");
+    Console.WriteLine($"Retry wait: {diagnostics.TotalRetryWait.TotalSeconds:F1} seconds");
+    Console.WriteLine($"League requests: {diagnostics.GetCategoryRequestCount(RiotApiRequestCategory.League)}");
+    Console.WriteLine($"Summoner requests: {diagnostics.GetCategoryRequestCount(RiotApiRequestCategory.Summoner)}");
+    Console.WriteLine($"Match ID requests: {diagnostics.GetCategoryRequestCount(RiotApiRequestCategory.MatchIds)}");
+    Console.WriteLine($"Match Detail requests: {diagnostics.GetCategoryRequestCount(RiotApiRequestCategory.MatchDetail)}");
+    Console.WriteLine($"Timeline requests: {diagnostics.GetCategoryRequestCount(RiotApiRequestCategory.Timeline)}");
+    Console.WriteLine($"Timeline requests avoided by validation: {timelineRequestsAvoided}");
 
     if (diagnostics.ApplicationRateLimit is not null)
     {
-        Console.WriteLine(
-            $"Observed app rate limit: {diagnostics.ApplicationRateLimit}");
+        Console.WriteLine($"Observed app rate limit: {diagnostics.ApplicationRateLimit}");
         Console.WriteLine(
             $"Observed app rate count: {diagnostics.ApplicationRateLimitCount ?? "not provided"}");
     }
 
     if (diagnostics.MethodRateLimit is not null)
     {
-        Console.WriteLine(
-            $"Observed method rate limit: {diagnostics.MethodRateLimit}");
+        Console.WriteLine($"Observed method rate limit: {diagnostics.MethodRateLimit}");
         Console.WriteLine(
             $"Observed method rate count: {diagnostics.MethodRateLimitCount ?? "not provided"}");
     }
+}
+
+static void PrintUnknownReasons(string label, MilestoneUnknownReasonCounts counts)
+{
+    Console.WriteLine(label + ":");
+    Console.WriteLine($"  Tie: {counts.Tie}");
+    Console.WriteLine($"  Missing A: {counts.MissingA}");
+    Console.WriteLine($"  Missing B: {counts.MissingB}");
+    Console.WriteLine($"  Missing both: {counts.MissingBoth}");
 }
 
 static void PrintMetricQuality(string label, int unknownCount, int totalCount)
@@ -587,18 +416,7 @@ static string FormatDuration(long totalSeconds)
     return $"{(int)duration.TotalMinutes}m {duration.Seconds:D2}s";
 }
 
-static void PrintUnknownReasons(
-    string label,
-    MilestoneUnknownReasonCounts counts)
-{
-    Console.WriteLine(label + ":");
-    Console.WriteLine($"  Tie: {counts.Tie}");
-    Console.WriteLine($"  Missing A: {counts.MissingA}");
-    Console.WriteLine($"  Missing B: {counts.MissingB}");
-    Console.WriteLine($"  Missing both: {counts.MissingBoth}");
-}
-
-static void AddChampionRoleAppearance(
+static void AddAppearance(
     Dictionary<(StandardRole Role, string Champion), int> appearances,
     StandardRole role,
     string champion,
@@ -626,8 +444,7 @@ static async Task WriteDatasetAndPrintAsync(
         Console.WriteLine($"Accepted matches: {result.AcceptedMatches}");
         Console.WriteLine($"Observations: {result.Observations}");
         Console.WriteLine($"Matchup keys: {result.MatchupKeys}");
-        Console.WriteLine(
-            $"File size: {result.FileSizeBytes / (1024d * 1024d):F2} MB");
+        Console.WriteLine($"File size: {result.FileSizeBytes / (1024d * 1024d):F2} MB");
     }
     catch (Exception exception) when (exception is IOException
         or UnauthorizedAccessException
