@@ -9,9 +9,17 @@ namespace LoLMatchup;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private const double LandscapeEnterRatio = 1.15;
+    private const double LandscapeExitRatio = 1.05;
+    private const double PortraitMinWidth = 420;
+    private const double PortraitMinHeight = 760;
+    private const double LandscapeMinWidth = 760;
+    private const double LandscapeMinHeight = 420;
+
     private readonly CancellationTokenSource _pollingCancellation = new();
     private readonly LiveClientService _liveClientService = new();
     private bool _hasStartedPolling;
+    private StatisticsLayoutMode _layoutMode = StatisticsLayoutMode.Portrait;
 
     public MainWindow()
     {
@@ -30,10 +38,16 @@ public partial class MainWindow : Window
         _hasStartedPolling = true;
 
 #if DEBUG
-        await MatchupStatisticsDebugValidator.ValidateAsync();
+        var championMetadataService = new ChampionMetadataService();
+        await MatchupStatisticsDebugValidator.ValidateAsync(championMetadataService);
+#else
+        var championMetadataService = new ChampionMetadataService();
 #endif
 
-        var coordinator = new LiveStatisticsCoordinator(_liveClientService);
+        var presenter = new MatchupStatisticsPresenter(championMetadataService);
+        var coordinator = new LiveStatisticsCoordinator(
+            _liveClientService,
+            presenter: presenter);
         var pollingService = new LiveStatisticsPollingService(coordinator);
 
         try
@@ -59,8 +73,48 @@ public partial class MainWindow : Window
         _pollingCancellation.Cancel();
     }
 
+    private void RootLayout_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        if (e.NewSize.Height <= 0)
+        {
+            return;
+        }
+
+        var ratio = e.NewSize.Width / e.NewSize.Height;
+
+        if (_layoutMode == StatisticsLayoutMode.Portrait
+            && ratio >= LandscapeEnterRatio)
+        {
+            SetLayoutMode(StatisticsLayoutMode.Landscape);
+        }
+        else if (_layoutMode == StatisticsLayoutMode.Landscape
+                 && ratio <= LandscapeExitRatio)
+        {
+            SetLayoutMode(StatisticsLayoutMode.Portrait);
+        }
+    }
+
+    private void SetLayoutMode(StatisticsLayoutMode mode)
+    {
+        if (_layoutMode == mode)
+        {
+            return;
+        }
+
+        _layoutMode = mode;
+        var isLandscape = mode == StatisticsLayoutMode.Landscape;
+        PortraitStatisticsView.Visibility = isLandscape
+            ? Visibility.Collapsed
+            : Visibility.Visible;
+        LandscapeStatisticsView.Visibility = isLandscape
+            ? Visibility.Visible
+            : Visibility.Collapsed;
+        MinWidth = isLandscape ? LandscapeMinWidth : PortraitMinWidth;
+        MinHeight = isLandscape ? LandscapeMinHeight : PortraitMinHeight;
+    }
+
     private void ApplyStatisticsPresentation(
-        MatchupStatisticsPresentation presentation)
+        TeamMatchupStatisticsPresentation presentation)
     {
         if (presentation.State == MatchupPresentationState.LoadedStatistics)
         {
@@ -71,7 +125,13 @@ public partial class MainWindow : Window
         }
 
         StatisticsPanel.Visibility = Visibility.Collapsed;
-        StatusText.Text = presentation.StatusText;
+        StatusPanel.DataContext = presentation;
         StatusPanel.Visibility = Visibility.Visible;
+    }
+
+    private enum StatisticsLayoutMode
+    {
+        Portrait,
+        Landscape
     }
 }

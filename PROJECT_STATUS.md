@@ -12,6 +12,8 @@
 - Stage 1~4: WPF 기본 UI, Live Client Data API, Role matchup 생성, `TEST_ONLY` matchup 데이터 구현
 - Stage 5: Riot 공식 API 기반 `StatsCollector` 엔진 구현 완료
 - Stage 6: production statistics 표시 파이프라인 구현 완료
+- Stage 7-1: local champion display metadata와 한국어 이름/아이콘 표시 구현 완료
+- Stage 7-2: WPF 통계 화면 layout 및 visual polish 완료
 
 ## Stage 5 StatsCollector
 
@@ -276,3 +278,49 @@ StatsCollector
 - production dataset만 build/publish output에 포함하며 legacy backup은 runtime 복사에서 제외한다.
 - 연속된 동일 Waiting reason은 한 번만 기록하고 matchup detection 및 statistics status는 signature 변경 시에만 기록한다.
 - Stage 6-1 Dataset Loader, 6-2 query-oriented calculation, 6-3 presentation, 6-4 automatic Live Client integration, 6-5 production cleanup을 완료했다.
+
+## Stage 7-1 champion display metadata
+
+- 통계 조회와 Live Client signature는 기존 Riot/Data Dragon 호환 영문 `ChampionId`를 계속 사용한다.
+- WPF presentation에서만 packaged `Data/Champions/champions.ko.json`을 조회해 한국어 챔피언 이름과 local icon을 붙인다.
+- 아이콘은 `Data/Champions/Icons/`에서 `AppContext.BaseDirectory` 기준으로 읽으며, `OnLoad` 및 `Freeze` 후 memory cache에서 재사용한다.
+- metadata는 앱 실행 중 한 번 load하여 case-insensitive dictionary로 조회한다.
+- metadata 누락 시 영문 `ChampionId`, icon 누락 시 neutral placeholder로 안전하게 fallback하며 statistics 상태와 구분한다.
+- build와 publish 결과에는 production statistics dataset, champion metadata 및 icon resource가 함께 포함된다.
+
+## Stage 7-2 UI layout 및 visual polish
+
+- 기존 dark theme과 440×700 기본 창 크기를 유지하면서 matchup header, dataset 정보, metric card의 정보 계층과 간격을 정리했다.
+- Role과 60×60 champion icon, 한국어 표시명을 하나의 header card로 구성하고 query/opponent 열은 모든 지표에서 동일한 Grid column을 사용한다.
+- 표본 수와 dataset metadata는 header 하단의 secondary information으로 유지한다.
+- 승률, 선 2·3·6레벨, 15분 이전 솔로킬은 공통 card style과 정렬된 좌우 값으로 표시한다. Unknown과 경기당 솔로킬 의미는 기존 presentation 그대로 보존한다.
+- Waiting, matchup 없음, dataset 없음/오류 상태에 서로 다른 보조 안내를 제공하며 Live Client 및 statistics pipeline은 변경하지 않았다.
+
+### Stage 7-2.1 UI refinement
+
+- 전체 metric이 기본 화면에 들어오도록 기본 창을 440×820, 최소 창을 420×760으로 조정하고 `ScrollViewer`는 작은 화면과 DPI scaling을 위한 안전장치로 유지한다.
+- matchup header의 한국어 챔피언 이름은 metric header와 동일한 query/opponent accent brush를 명시적으로 사용한다.
+- 사용자용 dataset metadata는 내부 tier scope와 policy key를 숨기고, 로드된 dataset의 patch를 이용한 `패치 {version}`만 표시한다.
+
+### Stage 7-2.2 adaptive portrait / landscape UI
+
+- 동일한 `MatchupStatisticsPresentation`을 공유하는 `PortraitStatisticsView`와 `LandscapeStatisticsView`를 분리했다.
+- portrait는 기존 세로형 정보 흐름을 유지하면서 card 간격과 padding을 줄여 기본 440×820에서 scrollbar가 나타나지 않도록 구성했다.
+- landscape는 matchup card와 2-column metric grid를 사용하며 솔로킬 card는 마지막 행 전체 폭을 사용한다.
+- client layout 비율이 1.15 이상이면 landscape로, landscape 상태에서 1.05 이하이면 portrait로 복귀하는 hysteresis를 적용한다.
+- layout 전환은 view visibility만 변경하며 DataContext, polling, statistics lookup을 다시 만들거나 실행하지 않는다.
+
+### Stage 7-2.3 full team matchup dashboard
+
+- active player의 team을 기준으로 왼쪽은 아군, 오른쪽은 적군으로 유지하며 TOP/JUNGLE/MID/ADC/SUPPORT 통계를 동시에 조회한다.
+- 5개 Role을 고정 순서로 포함한 team-wide signature를 사용해 동일 조합의 polling 결과를 재조회하지 않는다.
+- Role별 matchup 없음은 해당 card의 `통계 없음`, 부분 custom이나 준비 중인 Role은 `감지 중...`으로 표시하고 다른 Role 결과는 유지한다.
+- portrait는 5개 compact Role card의 세로 dashboard, landscape는 전체 가로 공간을 사용하는 3-column dashboard로 구성한다.
+- 두 adaptive view는 동일한 `TeamMatchupStatisticsPresentation`을 공유하며 resize는 statistics lookup을 발생시키지 않는다.
+
+### Stage 7-2.4 portrait compact team dashboard
+
+- portrait의 Role별 5개 세로 metric row를 `승률 / L2 / L3 / L6 / 솔킬` 2-row comparison table로 압축했다.
+- 각 compact Role card는 30×30 icon, 한국어 이름, Role, 개별 표본 수와 아군/적군 값을 유지한다.
+- 솔로킬은 `경기당 평균 (총 횟수)`로 표시하고, level Unknown은 0보다 큰 항목만 card 하단에 요약한다.
+- landscape의 상세 dashboard와 공통 metric 표현은 변경하지 않았다.

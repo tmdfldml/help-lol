@@ -1,0 +1,871 @@
+﻿{
+    "schemaVersion":  1,
+    "dataDragonVersion":  "16.17.1",
+    "champions":  [
+                      {
+                          "id":  "Aatrox",
+                          "nameKo":  "아트록스",
+                          "icon":  "Aatrox.png"
+                      },
+                      {
+                          "id":  "Ahri",
+                          "nameKo":  "아리",
+                          "icon":  "Ahri.png"
+                      },
+                      {
+                          "id":  "Akali",
+                          "nameKo":  "아칼리",
+                          "icon":  "Akali.png"
+                      },
+                      {
+                          "id":  "Akshan",
+                          "nameKo":  "아크샨",
+                          "icon":  "Akshan.png"
+                      },
+                      {
+                          "id":  "Alistar",
+                          "nameKo":  "알리스타",
+                          "icon":  "Alistar.png"
+                      },
+                      {
+                          "id":  "Ambessa",
+                          "nameKo":  "암베사",
+                          "icon":  "Ambessa.png"
+                      },
+                      {
+                          "id":  "Amumu",
+                          "nameKo":  "아무무",
+                          "icon":  "Amumu.png"
+                      },
+                      {
+                          "id":  "Anivia",
+                          "nameKo":  "애니비아",
+                          "icon":  "Anivia.png"
+                      },
+                      {
+                          "id":  "Annie",
+                          "nameKo":  "애니",
+                          "icon":  "Annie.png"
+                      },
+                      {
+                          "id":  "Aphelios",
+                          "nameKo":  "아펠리오스",
+                          "icon":  "Aphelios.png"
+                      },
+                      {
+                          "id":  "Ashe",
+                          "nameKo":  "애쉬",
+                          "icon":  "Ashe.png"
+                      },
+                      {
+                          "id":  "AurelionSol",
+                          "nameKo":  "아우렐리온 솔",
+                          "icon":  "AurelionSol.png"
+                      },
+                      {
+                          "id":  "Aurora",
+                          "nameKo":  "오로라",
+                          "icon":  "Aurora.png"
+                      },
+                      {
+                          "id":  "Azir",
+                          "nameKo":  "아지르",
+                          "icon":  "Azir.png"
+                      },
+                      {
+                          "id":  "Bard",
+                          "nameKo":  "바드",
+                          "icon":  "Bard.png"
+                      },
+                      {
+                          "id":  "Belveth",
+                          "nameKo":  "벨베스",
+                          "icon":  "Belveth.png"
+                      },
+                      {
+                          "id":  "Blitzcrank",
+                          "nameKo":  "블리츠크랭크",
+                          "icon":  "Blitzcrank.png"
+                      },
+                      {
+                          "id":  "Brand",
+                          "nameKo":  "브랜드",
+                          "icon":  "Brand.png"
+                      },
+                      {
+                          "id":  "Braum",
+                          "nameKo":  "브라움",
+                          "icon":  "Braum.png"
+                      },
+                      {
+                          "id":  "Briar",
+                          "nameKo":  "브라이어",
+                          "icon":  "Briar.png"
+                      },
+                      {
+                          "id":  "Caitlyn",
+                          "nameKo":  "케이틀린",
+                          "icon":  "Caitlyn.png"
+                      },
+                      {
+                          "id":  "Camille",
+                          "nameKo":  "카밀",
+                          "icon":  "Camille.png"
+                      },
+                      {
+                          "id":  "Cassiopeia",
+                          "nameKo":  "카시오페아",
+                          "icon":  "Cassiopeia.png"
+                      },
+                      {
+                          "id":  "Chogath",
+                          "nameKo":  "초가스",
+                          "icon":  "Chogath.png"
+                      },
+                      {
+                          "id":  "Corki",
+                          "nameKo":  "코르키",
+                          "icon":  "Corki.png"
+                      },
+                      {
+                          "id":  "Darius",
+                          "nameKo":  "다리우스",
+                          "icon":  "Darius.png"
+                      },
+                      {
+                          "id":  "Diana",
+                          "nameKo":  "다이애나",
+                          "icon":  "Diana.png"
+                      },
+                      {
+                          "id":  "Draven",
+                          "nameKo":  "드레이븐",
+                          "icon":  "Draven.png"
+                      },
+                      {
+                          "id":  "DrMundo",
+                          "nameKo":  "문도 박사",
+                          "icon":  "DrMundo.png"
+                      },
+                      {
+                          "id":  "Ekko",
+                          "nameKo":  "에코",
+                          "icon":  "Ekko.png"
+                      },
+                      {
+                          "id":  "Elise",
+                          "nameKo":  "엘리스",
+                          "icon":  "Elise.png"
+                      },
+                      {
+                          "id":  "Evelynn",
+                          "nameKo":  "이블린",
+                          "icon":  "Evelynn.png"
+                      },
+                      {
+                          "id":  "Ezreal",
+                          "nameKo":  "이즈리얼",
+                          "icon":  "Ezreal.png"
+                      },
+                      {
+                          "id":  "Fiddlesticks",
+                          "nameKo":  "피들스틱",
+                          "icon":  "Fiddlesticks.png"
+                      },
+                      {
+                          "id":  "Fiora",
+                          "nameKo":  "피오라",
+                          "icon":  "Fiora.png"
+                      },
+                      {
+                          "id":  "Fizz",
+                          "nameKo":  "피즈",
+                          "icon":  "Fizz.png"
+                      },
+                      {
+                          "id":  "Galio",
+                          "nameKo":  "갈리오",
+                          "icon":  "Galio.png"
+                      },
+                      {
+                          "id":  "Gangplank",
+                          "nameKo":  "갱플랭크",
+                          "icon":  "Gangplank.png"
+                      },
+                      {
+                          "id":  "Garen",
+                          "nameKo":  "가렌",
+                          "icon":  "Garen.png"
+                      },
+                      {
+                          "id":  "Gnar",
+                          "nameKo":  "나르",
+                          "icon":  "Gnar.png"
+                      },
+                      {
+                          "id":  "Gragas",
+                          "nameKo":  "그라가스",
+                          "icon":  "Gragas.png"
+                      },
+                      {
+                          "id":  "Graves",
+                          "nameKo":  "그레이브즈",
+                          "icon":  "Graves.png"
+                      },
+                      {
+                          "id":  "Gwen",
+                          "nameKo":  "그웬",
+                          "icon":  "Gwen.png"
+                      },
+                      {
+                          "id":  "Hecarim",
+                          "nameKo":  "헤카림",
+                          "icon":  "Hecarim.png"
+                      },
+                      {
+                          "id":  "Heimerdinger",
+                          "nameKo":  "하이머딩거",
+                          "icon":  "Heimerdinger.png"
+                      },
+                      {
+                          "id":  "Hwei",
+                          "nameKo":  "흐웨이",
+                          "icon":  "Hwei.png"
+                      },
+                      {
+                          "id":  "Illaoi",
+                          "nameKo":  "일라오이",
+                          "icon":  "Illaoi.png"
+                      },
+                      {
+                          "id":  "Irelia",
+                          "nameKo":  "이렐리아",
+                          "icon":  "Irelia.png"
+                      },
+                      {
+                          "id":  "Ivern",
+                          "nameKo":  "아이번",
+                          "icon":  "Ivern.png"
+                      },
+                      {
+                          "id":  "Janna",
+                          "nameKo":  "잔나",
+                          "icon":  "Janna.png"
+                      },
+                      {
+                          "id":  "JarvanIV",
+                          "nameKo":  "자르반 4세",
+                          "icon":  "JarvanIV.png"
+                      },
+                      {
+                          "id":  "Jax",
+                          "nameKo":  "잭스",
+                          "icon":  "Jax.png"
+                      },
+                      {
+                          "id":  "Jayce",
+                          "nameKo":  "제이스",
+                          "icon":  "Jayce.png"
+                      },
+                      {
+                          "id":  "Jhin",
+                          "nameKo":  "진",
+                          "icon":  "Jhin.png"
+                      },
+                      {
+                          "id":  "Jinx",
+                          "nameKo":  "징크스",
+                          "icon":  "Jinx.png"
+                      },
+                      {
+                          "id":  "Kaisa",
+                          "nameKo":  "카이사",
+                          "icon":  "Kaisa.png"
+                      },
+                      {
+                          "id":  "Kalista",
+                          "nameKo":  "칼리스타",
+                          "icon":  "Kalista.png"
+                      },
+                      {
+                          "id":  "Karma",
+                          "nameKo":  "카르마",
+                          "icon":  "Karma.png"
+                      },
+                      {
+                          "id":  "Karthus",
+                          "nameKo":  "카서스",
+                          "icon":  "Karthus.png"
+                      },
+                      {
+                          "id":  "Kassadin",
+                          "nameKo":  "카사딘",
+                          "icon":  "Kassadin.png"
+                      },
+                      {
+                          "id":  "Katarina",
+                          "nameKo":  "카타리나",
+                          "icon":  "Katarina.png"
+                      },
+                      {
+                          "id":  "Kayle",
+                          "nameKo":  "케일",
+                          "icon":  "Kayle.png"
+                      },
+                      {
+                          "id":  "Kayn",
+                          "nameKo":  "케인",
+                          "icon":  "Kayn.png"
+                      },
+                      {
+                          "id":  "Kennen",
+                          "nameKo":  "케넨",
+                          "icon":  "Kennen.png"
+                      },
+                      {
+                          "id":  "Khazix",
+                          "nameKo":  "카직스",
+                          "icon":  "Khazix.png"
+                      },
+                      {
+                          "id":  "Kindred",
+                          "nameKo":  "킨드레드",
+                          "icon":  "Kindred.png"
+                      },
+                      {
+                          "id":  "Kled",
+                          "nameKo":  "클레드",
+                          "icon":  "Kled.png"
+                      },
+                      {
+                          "id":  "KogMaw",
+                          "nameKo":  "코그모",
+                          "icon":  "KogMaw.png"
+                      },
+                      {
+                          "id":  "KSante",
+                          "nameKo":  "크산테",
+                          "icon":  "KSante.png"
+                      },
+                      {
+                          "id":  "Leblanc",
+                          "nameKo":  "르블랑",
+                          "icon":  "Leblanc.png"
+                      },
+                      {
+                          "id":  "LeeSin",
+                          "nameKo":  "리 신",
+                          "icon":  "LeeSin.png"
+                      },
+                      {
+                          "id":  "Leona",
+                          "nameKo":  "레오나",
+                          "icon":  "Leona.png"
+                      },
+                      {
+                          "id":  "Lillia",
+                          "nameKo":  "릴리아",
+                          "icon":  "Lillia.png"
+                      },
+                      {
+                          "id":  "Lissandra",
+                          "nameKo":  "리산드라",
+                          "icon":  "Lissandra.png"
+                      },
+                      {
+                          "id":  "Locke",
+                          "nameKo":  "로크",
+                          "icon":  "Locke.png"
+                      },
+                      {
+                          "id":  "Lucian",
+                          "nameKo":  "루시안",
+                          "icon":  "Lucian.png"
+                      },
+                      {
+                          "id":  "Lulu",
+                          "nameKo":  "룰루",
+                          "icon":  "Lulu.png"
+                      },
+                      {
+                          "id":  "Lux",
+                          "nameKo":  "럭스",
+                          "icon":  "Lux.png"
+                      },
+                      {
+                          "id":  "Malphite",
+                          "nameKo":  "말파이트",
+                          "icon":  "Malphite.png"
+                      },
+                      {
+                          "id":  "Malzahar",
+                          "nameKo":  "말자하",
+                          "icon":  "Malzahar.png"
+                      },
+                      {
+                          "id":  "Maokai",
+                          "nameKo":  "마오카이",
+                          "icon":  "Maokai.png"
+                      },
+                      {
+                          "id":  "MasterYi",
+                          "nameKo":  "마스터 이",
+                          "icon":  "MasterYi.png"
+                      },
+                      {
+                          "id":  "Mel",
+                          "nameKo":  "멜",
+                          "icon":  "Mel.png"
+                      },
+                      {
+                          "id":  "Milio",
+                          "nameKo":  "밀리오",
+                          "icon":  "Milio.png"
+                      },
+                      {
+                          "id":  "MissFortune",
+                          "nameKo":  "미스 포츈",
+                          "icon":  "MissFortune.png"
+                      },
+                      {
+                          "id":  "MonkeyKing",
+                          "nameKo":  "오공",
+                          "icon":  "MonkeyKing.png"
+                      },
+                      {
+                          "id":  "Mordekaiser",
+                          "nameKo":  "모데카이저",
+                          "icon":  "Mordekaiser.png"
+                      },
+                      {
+                          "id":  "Morgana",
+                          "nameKo":  "모르가나",
+                          "icon":  "Morgana.png"
+                      },
+                      {
+                          "id":  "Naafiri",
+                          "nameKo":  "나피리",
+                          "icon":  "Naafiri.png"
+                      },
+                      {
+                          "id":  "Nami",
+                          "nameKo":  "나미",
+                          "icon":  "Nami.png"
+                      },
+                      {
+                          "id":  "Nasus",
+                          "nameKo":  "나서스",
+                          "icon":  "Nasus.png"
+                      },
+                      {
+                          "id":  "Nautilus",
+                          "nameKo":  "노틸러스",
+                          "icon":  "Nautilus.png"
+                      },
+                      {
+                          "id":  "Neeko",
+                          "nameKo":  "니코",
+                          "icon":  "Neeko.png"
+                      },
+                      {
+                          "id":  "Nidalee",
+                          "nameKo":  "니달리",
+                          "icon":  "Nidalee.png"
+                      },
+                      {
+                          "id":  "Nilah",
+                          "nameKo":  "닐라",
+                          "icon":  "Nilah.png"
+                      },
+                      {
+                          "id":  "Nocturne",
+                          "nameKo":  "녹턴",
+                          "icon":  "Nocturne.png"
+                      },
+                      {
+                          "id":  "Nunu",
+                          "nameKo":  "누누와 윌럼프",
+                          "icon":  "Nunu.png"
+                      },
+                      {
+                          "id":  "Olaf",
+                          "nameKo":  "올라프",
+                          "icon":  "Olaf.png"
+                      },
+                      {
+                          "id":  "Orianna",
+                          "nameKo":  "오리아나",
+                          "icon":  "Orianna.png"
+                      },
+                      {
+                          "id":  "Ornn",
+                          "nameKo":  "오른",
+                          "icon":  "Ornn.png"
+                      },
+                      {
+                          "id":  "Pantheon",
+                          "nameKo":  "판테온",
+                          "icon":  "Pantheon.png"
+                      },
+                      {
+                          "id":  "Poppy",
+                          "nameKo":  "뽀삐",
+                          "icon":  "Poppy.png"
+                      },
+                      {
+                          "id":  "Pyke",
+                          "nameKo":  "파이크",
+                          "icon":  "Pyke.png"
+                      },
+                      {
+                          "id":  "Qiyana",
+                          "nameKo":  "키아나",
+                          "icon":  "Qiyana.png"
+                      },
+                      {
+                          "id":  "Quinn",
+                          "nameKo":  "퀸",
+                          "icon":  "Quinn.png"
+                      },
+                      {
+                          "id":  "Rakan",
+                          "nameKo":  "라칸",
+                          "icon":  "Rakan.png"
+                      },
+                      {
+                          "id":  "Rammus",
+                          "nameKo":  "람머스",
+                          "icon":  "Rammus.png"
+                      },
+                      {
+                          "id":  "RekSai",
+                          "nameKo":  "렉사이",
+                          "icon":  "RekSai.png"
+                      },
+                      {
+                          "id":  "Rell",
+                          "nameKo":  "렐",
+                          "icon":  "Rell.png"
+                      },
+                      {
+                          "id":  "Renata",
+                          "nameKo":  "레나타 글라스크",
+                          "icon":  "Renata.png"
+                      },
+                      {
+                          "id":  "Renekton",
+                          "nameKo":  "레넥톤",
+                          "icon":  "Renekton.png"
+                      },
+                      {
+                          "id":  "Rengar",
+                          "nameKo":  "렝가",
+                          "icon":  "Rengar.png"
+                      },
+                      {
+                          "id":  "Riven",
+                          "nameKo":  "리븐",
+                          "icon":  "Riven.png"
+                      },
+                      {
+                          "id":  "Rumble",
+                          "nameKo":  "럼블",
+                          "icon":  "Rumble.png"
+                      },
+                      {
+                          "id":  "Ryze",
+                          "nameKo":  "라이즈",
+                          "icon":  "Ryze.png"
+                      },
+                      {
+                          "id":  "Samira",
+                          "nameKo":  "사미라",
+                          "icon":  "Samira.png"
+                      },
+                      {
+                          "id":  "Sejuani",
+                          "nameKo":  "세주아니",
+                          "icon":  "Sejuani.png"
+                      },
+                      {
+                          "id":  "Senna",
+                          "nameKo":  "세나",
+                          "icon":  "Senna.png"
+                      },
+                      {
+                          "id":  "Seraphine",
+                          "nameKo":  "세라핀",
+                          "icon":  "Seraphine.png"
+                      },
+                      {
+                          "id":  "Sett",
+                          "nameKo":  "세트",
+                          "icon":  "Sett.png"
+                      },
+                      {
+                          "id":  "Shaco",
+                          "nameKo":  "샤코",
+                          "icon":  "Shaco.png"
+                      },
+                      {
+                          "id":  "Shen",
+                          "nameKo":  "쉔",
+                          "icon":  "Shen.png"
+                      },
+                      {
+                          "id":  "Shyvana",
+                          "nameKo":  "쉬바나",
+                          "icon":  "Shyvana.png"
+                      },
+                      {
+                          "id":  "Singed",
+                          "nameKo":  "신지드",
+                          "icon":  "Singed.png"
+                      },
+                      {
+                          "id":  "Sion",
+                          "nameKo":  "사이온",
+                          "icon":  "Sion.png"
+                      },
+                      {
+                          "id":  "Sivir",
+                          "nameKo":  "시비르",
+                          "icon":  "Sivir.png"
+                      },
+                      {
+                          "id":  "Skarner",
+                          "nameKo":  "스카너",
+                          "icon":  "Skarner.png"
+                      },
+                      {
+                          "id":  "Smolder",
+                          "nameKo":  "스몰더",
+                          "icon":  "Smolder.png"
+                      },
+                      {
+                          "id":  "Sona",
+                          "nameKo":  "소나",
+                          "icon":  "Sona.png"
+                      },
+                      {
+                          "id":  "Soraka",
+                          "nameKo":  "소라카",
+                          "icon":  "Soraka.png"
+                      },
+                      {
+                          "id":  "Swain",
+                          "nameKo":  "스웨인",
+                          "icon":  "Swain.png"
+                      },
+                      {
+                          "id":  "Sylas",
+                          "nameKo":  "사일러스",
+                          "icon":  "Sylas.png"
+                      },
+                      {
+                          "id":  "Syndra",
+                          "nameKo":  "신드라",
+                          "icon":  "Syndra.png"
+                      },
+                      {
+                          "id":  "TahmKench",
+                          "nameKo":  "탐 켄치",
+                          "icon":  "TahmKench.png"
+                      },
+                      {
+                          "id":  "Taliyah",
+                          "nameKo":  "탈리야",
+                          "icon":  "Taliyah.png"
+                      },
+                      {
+                          "id":  "Talon",
+                          "nameKo":  "탈론",
+                          "icon":  "Talon.png"
+                      },
+                      {
+                          "id":  "Taric",
+                          "nameKo":  "타릭",
+                          "icon":  "Taric.png"
+                      },
+                      {
+                          "id":  "Teemo",
+                          "nameKo":  "티모",
+                          "icon":  "Teemo.png"
+                      },
+                      {
+                          "id":  "Thresh",
+                          "nameKo":  "쓰레쉬",
+                          "icon":  "Thresh.png"
+                      },
+                      {
+                          "id":  "Tristana",
+                          "nameKo":  "트리스타나",
+                          "icon":  "Tristana.png"
+                      },
+                      {
+                          "id":  "Trundle",
+                          "nameKo":  "트런들",
+                          "icon":  "Trundle.png"
+                      },
+                      {
+                          "id":  "Tryndamere",
+                          "nameKo":  "트린다미어",
+                          "icon":  "Tryndamere.png"
+                      },
+                      {
+                          "id":  "TwistedFate",
+                          "nameKo":  "트위스티드 페이트",
+                          "icon":  "TwistedFate.png"
+                      },
+                      {
+                          "id":  "Twitch",
+                          "nameKo":  "트위치",
+                          "icon":  "Twitch.png"
+                      },
+                      {
+                          "id":  "Udyr",
+                          "nameKo":  "우디르",
+                          "icon":  "Udyr.png"
+                      },
+                      {
+                          "id":  "Urgot",
+                          "nameKo":  "우르곳",
+                          "icon":  "Urgot.png"
+                      },
+                      {
+                          "id":  "Varus",
+                          "nameKo":  "바루스",
+                          "icon":  "Varus.png"
+                      },
+                      {
+                          "id":  "Vayne",
+                          "nameKo":  "베인",
+                          "icon":  "Vayne.png"
+                      },
+                      {
+                          "id":  "Veigar",
+                          "nameKo":  "베이가",
+                          "icon":  "Veigar.png"
+                      },
+                      {
+                          "id":  "Velkoz",
+                          "nameKo":  "벨코즈",
+                          "icon":  "Velkoz.png"
+                      },
+                      {
+                          "id":  "Vex",
+                          "nameKo":  "벡스",
+                          "icon":  "Vex.png"
+                      },
+                      {
+                          "id":  "Vi",
+                          "nameKo":  "바이",
+                          "icon":  "Vi.png"
+                      },
+                      {
+                          "id":  "Viego",
+                          "nameKo":  "비에고",
+                          "icon":  "Viego.png"
+                      },
+                      {
+                          "id":  "Viktor",
+                          "nameKo":  "빅토르",
+                          "icon":  "Viktor.png"
+                      },
+                      {
+                          "id":  "Vladimir",
+                          "nameKo":  "블라디미르",
+                          "icon":  "Vladimir.png"
+                      },
+                      {
+                          "id":  "Volibear",
+                          "nameKo":  "볼리베어",
+                          "icon":  "Volibear.png"
+                      },
+                      {
+                          "id":  "Warwick",
+                          "nameKo":  "워윅",
+                          "icon":  "Warwick.png"
+                      },
+                      {
+                          "id":  "Xayah",
+                          "nameKo":  "자야",
+                          "icon":  "Xayah.png"
+                      },
+                      {
+                          "id":  "Xerath",
+                          "nameKo":  "제라스",
+                          "icon":  "Xerath.png"
+                      },
+                      {
+                          "id":  "XinZhao",
+                          "nameKo":  "신 짜오",
+                          "icon":  "XinZhao.png"
+                      },
+                      {
+                          "id":  "Yasuo",
+                          "nameKo":  "야스오",
+                          "icon":  "Yasuo.png"
+                      },
+                      {
+                          "id":  "Yone",
+                          "nameKo":  "요네",
+                          "icon":  "Yone.png"
+                      },
+                      {
+                          "id":  "Yorick",
+                          "nameKo":  "요릭",
+                          "icon":  "Yorick.png"
+                      },
+                      {
+                          "id":  "Yunara",
+                          "nameKo":  "유나라",
+                          "icon":  "Yunara.png"
+                      },
+                      {
+                          "id":  "Yuumi",
+                          "nameKo":  "유미",
+                          "icon":  "Yuumi.png"
+                      },
+                      {
+                          "id":  "Zaahen",
+                          "nameKo":  "자헨",
+                          "icon":  "Zaahen.png"
+                      },
+                      {
+                          "id":  "Zac",
+                          "nameKo":  "자크",
+                          "icon":  "Zac.png"
+                      },
+                      {
+                          "id":  "Zed",
+                          "nameKo":  "제드",
+                          "icon":  "Zed.png"
+                      },
+                      {
+                          "id":  "Zeri",
+                          "nameKo":  "제리",
+                          "icon":  "Zeri.png"
+                      },
+                      {
+                          "id":  "Ziggs",
+                          "nameKo":  "직스",
+                          "icon":  "Ziggs.png"
+                      },
+                      {
+                          "id":  "Zilean",
+                          "nameKo":  "질리언",
+                          "icon":  "Zilean.png"
+                      },
+                      {
+                          "id":  "Zoe",
+                          "nameKo":  "조이",
+                          "icon":  "Zoe.png"
+                      },
+                      {
+                          "id":  "Zyra",
+                          "nameKo":  "자이라",
+                          "icon":  "Zyra.png"
+                      }
+                  ]
+}

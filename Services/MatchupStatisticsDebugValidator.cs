@@ -8,8 +8,10 @@ internal static class MatchupStatisticsDebugValidator
 {
     private const double Tolerance = 1e-12;
 
-    public static async Task ValidateAsync()
+    public static async Task ValidateAsync(
+        ChampionMetadataService championMetadataService)
     {
+        await ValidateChampionMetadataAsync(championMetadataService);
         var dataService = new StatisticsDataService();
         var loadResult = await dataService.LoadAsync();
 
@@ -87,6 +89,37 @@ internal static class MatchupStatisticsDebugValidator
             "Statistics validation: "
             + $"directions={directionsValid}, rates={ratesValid}, "
             + $"formatting={formattingValid}");
+    }
+
+    private static async Task ValidateChampionMetadataAsync(
+        ChampionMetadataService metadataService)
+    {
+        var expected = new Dictionary<string, string>
+        {
+            ["Aatrox"] = "아트록스",
+            ["Akali"] = "아칼리",
+            ["LeeSin"] = "리 신",
+            ["Viego"] = "비에고"
+        };
+        var knownValid = true;
+
+        foreach (var pair in expected)
+        {
+            var info = await metadataService.GetDisplayInfoAsync(pair.Key);
+            knownValid &= info.KoreanDisplayName == pair.Value
+                && info.IconSource is not null;
+            Debug.WriteLine(
+                $"Champion metadata: {pair.Key} -> {info.KoreanDisplayName}; "
+                + $"icon={info.IconSource is not null}");
+        }
+
+        const string missingId = "UnknownChampion123";
+        var fallback = await metadataService.GetDisplayInfoAsync(missingId);
+        var fallbackValid = fallback.KoreanDisplayName == missingId
+            && fallback.IconSource is null;
+        Debug.WriteLine(
+            $"Champion metadata validation: known={knownValid}, "
+            + $"fallback={fallbackValid}");
     }
 
     private static bool LevelDirectionsMatch(

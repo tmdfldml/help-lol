@@ -10,7 +10,7 @@ public sealed class LiveStatisticsPollingService
 
     private readonly LiveStatisticsCoordinator _coordinator;
     private readonly TimeSpan _interval;
-    private LiveMatchupSignature? _currentSignature;
+    private string? _currentSignatureKey;
     private MatchupPresentationState? _currentState;
 
     public LiveStatisticsPollingService(
@@ -22,7 +22,7 @@ public sealed class LiveStatisticsPollingService
     }
 
     public async Task RunAsync(
-        Func<MatchupStatisticsPresentation, Task> updatePresentationAsync,
+        Func<TeamMatchupStatisticsPresentation, Task> updatePresentationAsync,
         CancellationToken cancellationToken)
     {
         using var timer = new PeriodicTimer(_interval);
@@ -36,12 +36,16 @@ public sealed class LiveStatisticsPollingService
 
                 if (signature is null)
                 {
-                    _currentSignature = null;
+                    _currentSignatureKey = null;
 
                     if (_currentState != MatchupPresentationState.Waiting)
                     {
-                        var waiting = new MatchupStatisticsPresenter().PresentStatus(
+                        var waitingStatus = new MatchupStatisticsPresenter().PresentStatus(
                             MatchupStatisticsQueryStatus.InvalidQuery);
+                        var waiting = new TeamMatchupStatisticsPresentation(
+                            waitingStatus.State,
+                            waitingStatus.StatusText,
+                            StatusDetailText: waitingStatus.StatusDetailText);
                         _currentState = waiting.State;
                         await updatePresentationAsync(waiting);
                     }
@@ -49,22 +53,19 @@ public sealed class LiveStatisticsPollingService
                     continue;
                 }
 
-                if (signature == _currentSignature)
+                if (signature.CacheKey == _currentSignatureKey)
                 {
                     continue;
                 }
 
-                if (_currentSignature is not null)
+                if (_currentSignatureKey is not null)
                 {
-                    Debug.WriteLine(
-                        $"Matchup changed: {signature.Value.Role} "
-                        + $"{signature.Value.QueryChampion} vs "
-                        + signature.Value.OpponentChampion);
+                    Debug.WriteLine("Team matchup changed.");
                 }
 
                 var presentation = await _coordinator.GetPresentationAsync(
-                    signature.Value);
-                _currentSignature = signature;
+                    signature);
+                _currentSignatureKey = signature.CacheKey;
                 _currentState = presentation.State;
                 await updatePresentationAsync(presentation);
             }

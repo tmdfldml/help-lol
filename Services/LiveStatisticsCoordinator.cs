@@ -19,42 +19,28 @@ public sealed class LiveStatisticsCoordinator
         _liveClientService = liveClientService;
         _statisticsDataService = statisticsDataService ?? new StatisticsDataService();
         _statisticsService = new MatchupStatisticsService(_statisticsDataService);
-        _presenter = presenter ?? new MatchupStatisticsPresenter();
+        _presenter = presenter
+            ?? new MatchupStatisticsPresenter(new ChampionMetadataService());
     }
 
-    public async Task<LiveMatchupSignature?> GetCurrentMatchupAsync(
+    public async Task<LiveTeamMatchupSignature?> GetCurrentMatchupAsync(
         CancellationToken cancellationToken = default)
     {
         var players = await _liveClientService.GetPlayersAsync(cancellationToken);
-
         if (players is null)
         {
             return Wait("playerlist fetch failed");
         }
 
-        var activePlayer = await _liveClientService.GetActivePlayerAsync(
-            players,
-            cancellationToken);
-
+        var activePlayer = await _liveClientService.GetActivePlayerAsync(players, cancellationToken);
         if (activePlayer is null)
         {
             return Wait("active player lookup failed");
         }
 
-        if (activePlayer.NormalizedPosition == PositionNormalizer.Unknown)
-        {
-            return Wait("active player role invalid");
-        }
-
-        if (string.IsNullOrWhiteSpace(activePlayer.Team)
-            || players.Any(player => string.IsNullOrWhiteSpace(player.Team)))
+        if (string.IsNullOrWhiteSpace(activePlayer.Team))
         {
             return Wait("opponent team lookup failed");
-        }
-
-        if (string.IsNullOrWhiteSpace(activePlayer.ChampionId))
-        {
-            return Wait("query champion id parse failed");
         }
 
         bool IsAlly(LiveClientPlayer player) => string.Equals(
@@ -62,32 +48,88 @@ public sealed class LiveStatisticsCoordinator
             activePlayer.Team,
             StringComparison.OrdinalIgnoreCase);
         var alliedTeam = new TeamComposition(players.Where(IsAlly));
-        var opposingTeam = new TeamComposition(players.Where(player => !IsAlly(player)));
-        var roleMatchup = RoleMatchup.CreateAll(alliedTeam, opposingTeam)
-            .FirstOrDefault(matchup =>
-                matchup.Role == activePlayer.NormalizedPosition
-                && ReferenceEquals(matchup.AlliedPlayer, activePlayer));
-        if (roleMatchup?.OpposingPlayer is null)
-        {
-            return Wait("same-role opponent lookup failed");
-        }
-
-        var opponentChampion = roleMatchup.OpposingPlayer.ChampionId;
-
-        if (string.IsNullOrWhiteSpace(opponentChampion))
-        {
-            return Wait("opponent champion id parse failed");
-        }
+        var opposingTeam = new TeamComposition(players.Where(player =>
+            !string.IsNullOrWhiteSpace(player.Team) && !IsAlly(player)));
+        var generated = RoleMatchup.CreateAll(alliedTeam, opposingTeam);
+        var roles = PositionNormalizer.StandardPositions
+            .Select(role =>
+            {
+                var matchup = generated.First(item => item.Role == role);
+                return new LiveRoleMatchupSignature(
+                    role,
+                    matchup.AlliedPlayer?.ChampionId,
+                    matchup.OpposingPlayer?.ChampionId);
+            })
+            .ToArray();
 
         _lastWaitingReason = null;
-
-        return new LiveMatchupSignature(
-            activePlayer.NormalizedPosition,
-            activePlayer.ChampionId,
-            opponentChampion);
+        return new LiveTeamMatchupSignature(
+            string.Join("|", roles.Select(role =>
+                $"{role.Role}:{role.QueryChampion ?? "-"}:{role.OpponentChampion ?? "-"}")),
+            roles);
     }
 
-    private LiveMatchupSignature? Wait(string reason)
+    public async Task<TeamMatchupStatisticsPresentation> GetPresentationAsync(
+        LiveTeamMatchupSignature signature)
+    {
+        var loadResult = await _statisticsDataService.LoadAsync();
+        if (loadResult.Status == StatisticsDatasetLoadStatus.NotAvailable)
+        {
+            return GlobalStatus(MatchupStatisticsQueryStatus.DatasetNotAvailable);
+        }
+
+        if (loadResult.Status != StatisticsDatasetLoadStatus.Loaded || loadResult.Dataset is null)
+        {
+            return GlobalStatus(MatchupStatisticsQueryStatus.DatasetInvalid);
+        }
+
+        var presentations = new List<MatchupStatisticsPresentation>(5);
+        foreach (var role in signature.Roles)
+        {
+            if (string.IsNullOrWhiteSpace(role.QueryChampion)
+                || string.IsNullOrWhiteSpace(role.OpponentChampion))
+            {
+                presentations.Add(await _presenter.PresentRoleStatusAsync(
+                    MatchupStatisticsQueryStatus.InvalidQuery,
+                    role.Role,
+                    role.QueryChampion,
+                    role.OpponentChampion));
+                continue;
+            }
+
+            var query = await _statisticsService.GetStatisticsAsync(
+                role.Role,
+                role.QueryChampion,
+                role.OpponentChampion);
+            Debug.WriteLine($"Statistics lookup [{role.Role}]: {query.Status}");
+            presentations.Add(query.Status == MatchupStatisticsQueryStatus.Success
+                && query.Statistics is not null
+                    ? await _presenter.PresentAsync(query.Statistics, loadResult.Dataset)
+                    : await _presenter.PresentRoleStatusAsync(
+                        query.Status,
+                        role.Role,
+                        role.QueryChampion,
+                        role.OpponentChampion));
+        }
+
+        return new TeamMatchupStatisticsPresentation(
+            MatchupPresentationState.LoadedStatistics,
+            string.Empty,
+            $"패치 {loadResult.Dataset.Patch}",
+            presentations);
+    }
+
+    private TeamMatchupStatisticsPresentation GlobalStatus(
+        MatchupStatisticsQueryStatus queryStatus)
+    {
+        var status = _presenter.PresentStatus(queryStatus);
+        return new TeamMatchupStatisticsPresentation(
+            status.State,
+            status.StatusText,
+            StatusDetailText: status.StatusDetailText);
+    }
+
+    private LiveTeamMatchupSignature? Wait(string reason)
     {
         if (!string.Equals(_lastWaitingReason, reason, StringComparison.Ordinal))
         {
@@ -97,38 +139,13 @@ public sealed class LiveStatisticsCoordinator
 
         return null;
     }
-
-    public async Task<MatchupStatisticsPresentation> GetPresentationAsync(
-        LiveMatchupSignature signature)
-    {
-        Debug.WriteLine(
-            $"Live matchup detected: {signature.Role} "
-            + $"{signature.QueryChampion} vs {signature.OpponentChampion}");
-        var query = await _statisticsService.GetStatisticsAsync(
-            signature.Role,
-            signature.QueryChampion,
-            signature.OpponentChampion);
-        Debug.WriteLine($"Statistics lookup: {query.Status}");
-
-        if (query.Status != MatchupStatisticsQueryStatus.Success
-            || query.Statistics is null)
-        {
-            return _presenter.PresentStatus(query.Status);
-        }
-
-        var loadResult = await _statisticsDataService.LoadAsync();
-
-        if (loadResult.Dataset is null)
-        {
-            return _presenter.PresentStatus(
-                MatchupStatisticsQueryStatus.DatasetNotAvailable);
-        }
-
-        return _presenter.Present(query.Statistics, loadResult.Dataset);
-    }
 }
 
-public readonly record struct LiveMatchupSignature(
+public sealed record LiveTeamMatchupSignature(
+    string CacheKey,
+    IReadOnlyList<LiveRoleMatchupSignature> Roles);
+
+public sealed record LiveRoleMatchupSignature(
     string Role,
-    string QueryChampion,
-    string OpponentChampion);
+    string? QueryChampion,
+    string? OpponentChampion);

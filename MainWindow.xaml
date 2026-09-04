@@ -1,93 +1,47 @@
 <Window x:Class="LoLMatchup.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="LoL Matchup" Height="700" Width="440"
-        MinHeight="520" MinWidth="380" ResizeMode="CanResize"
-        WindowStartupLocation="CenterScreen" Background="#10141C">
-    <Window.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#E5E7EB" />
-        </Style>
-    </Window.Resources>
-    <Grid Margin="28">
-        <TextBlock Text="LoL Matchup" HorizontalAlignment="Left"
-                   VerticalAlignment="Top" Foreground="#F3F4F6"
-                   FontSize="28" FontWeight="Bold" />
-        <Border x:Name="StatusPanel" HorizontalAlignment="Center"
-                VerticalAlignment="Center" Padding="20,12"
-                Background="#1B2230" CornerRadius="8">
-            <TextBlock x:Name="StatusText" Text="게임을 기다리는 중..."
-                       Foreground="#D6B66B" FontSize="14" TextAlignment="Center" />
-        </Border>
-        <ScrollViewer x:Name="StatisticsPanel" Margin="0,58,0,0"
-                      VerticalScrollBarVisibility="Auto" Visibility="Collapsed">
+        xmlns:views="clr-namespace:LoLMatchup.Views"
+        Title="LoL Matchup" Height="820" Width="440"
+        MinHeight="760" MinWidth="420" ResizeMode="CanResize"
+        WindowStartupLocation="CenterScreen" Background="#0D1118">
+    <Grid x:Name="RootLayout" Margin="24,18,24,20"
+          SizeChanged="RootLayout_SizeChanged">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <TextBlock Text="LoL Matchup" FontSize="25" FontWeight="Bold" />
+            <Border HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Padding="9,4" Background="#171D27" CornerRadius="10"
+                    BorderBrush="{StaticResource CardBorderBrush}" BorderThickness="1">
+                <TextBlock Text="LIVE" FontSize="10" FontWeight="SemiBold"
+                           Foreground="{StaticResource GoldAccentBrush}" />
+            </Border>
+        </Grid>
+
+        <Border x:Name="StatusPanel" Grid.Row="1" HorizontalAlignment="Stretch"
+                VerticalAlignment="Center" Padding="28,24"
+                Background="{StaticResource CardBackgroundBrush}"
+                BorderBrush="{StaticResource CardBorderBrush}"
+                BorderThickness="1" CornerRadius="12">
             <StackPanel>
-                <TextBlock Text="{Binding Role}" Foreground="#D6B66B"
-                           FontSize="13" FontWeight="SemiBold" />
-                <TextBlock Margin="0,4,0,0" FontSize="23" FontWeight="Bold"
-                           TextWrapping="Wrap">
-                    <Run Text="{Binding QueryChampion}" />
-                    <Run Text=" vs " Foreground="#8B95A7" />
-                    <Run Text="{Binding OpponentChampion}" />
-                </TextBlock>
-                <DockPanel Margin="0,8,0,16">
-                    <TextBlock Text="{Binding SampleSizeText}" FontSize="13"
-                               Foreground="#B9C1CE" />
-                    <TextBlock Text="{Binding MetadataText}" DockPanel.Dock="Right"
-                               HorizontalAlignment="Right" FontSize="11"
-                               Foreground="#7F8A9D" />
-                </DockPanel>
-                <Grid Margin="0,0,0,7">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="18" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="{Binding QueryChampion}" TextTrimming="CharacterEllipsis"
-                               Foreground="#79B8C8" FontWeight="SemiBold" />
-                    <TextBlock Grid.Column="1" Text="|" Foreground="#4A5568"
-                               HorizontalAlignment="Center" />
-                    <TextBlock Grid.Column="2" Text="{Binding OpponentChampion}"
-                               TextTrimming="CharacterEllipsis" Foreground="#C0A7D8"
-                               FontWeight="SemiBold" TextAlignment="Right" />
-                </Grid>
-                <ItemsControl ItemsSource="{Binding DisplayMetrics}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Margin="0,0,0,9" Padding="14,11"
-                                    Background="#1B2230" CornerRadius="8">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="18" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.ColumnSpan="3" Text="{Binding Label}"
-                                               Foreground="#AAB3C2" FontSize="12" />
-                                    <TextBlock Grid.Row="1" Margin="0,4,0,0"
-                                               Text="{Binding QueryValue}" Foreground="#79B8C8"
-                                               FontSize="19" FontWeight="SemiBold" />
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,4,0,0"
-                                               Text="|" Foreground="#4A5568"
-                                               HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Row="1" Grid.Column="2" Margin="0,4,0,0"
-                                               Text="{Binding OpponentValue}" Foreground="#C0A7D8"
-                                               FontSize="19" FontWeight="SemiBold"
-                                               TextAlignment="Right" />
-                                    <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Margin="0,5,0,0"
-                                               Text="{Binding DetailText}" Foreground="#7F8A9D"
-                                               FontSize="11" TextAlignment="Center" />
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <TextBlock Text="{Binding StatusText, FallbackValue=게임을 기다리는 중...}"
+                           Foreground="{StaticResource GoldAccentBrush}"
+                           FontSize="15" FontWeight="SemiBold"
+                           TextAlignment="Center" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding StatusDetailText, FallbackValue=리그 오브 레전드 게임이 시작되면 매치업 통계를 자동으로 표시합니다.}"
+                           Margin="0,8,0,0" Style="{StaticResource SecondaryTextStyle}"
+                           TextAlignment="Center" TextWrapping="Wrap" LineHeight="19" />
             </StackPanel>
-        </ScrollViewer>
+        </Border>
+
+        <Grid x:Name="StatisticsPanel" Grid.Row="1" Margin="0,14,0,0"
+              Visibility="Collapsed">
+            <views:PortraitStatisticsView x:Name="PortraitStatisticsView" />
+            <views:LandscapeStatisticsView x:Name="LandscapeStatisticsView"
+                                           Visibility="Collapsed" />
+        </Grid>
     </Grid>
 </Window>

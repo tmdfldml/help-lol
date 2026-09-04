@@ -1,0 +1,160 @@
+<UserControl x:Class="LoLMatchup.Views.PortraitStatisticsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <Style x:Key="CompactHeaderStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource MutedTextBrush}" />
+            <Setter Property="FontSize" Value="9" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="CompactQueryValueStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource QueryAccentBrush}" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="CompactOpponentValueStyle" TargetType="TextBlock"
+               BasedOn="{StaticResource CompactQueryValueStyle}">
+            <Setter Property="Foreground" Value="{StaticResource OpponentAccentBrush}" />
+        </Style>
+        <Style x:Key="HideWhenEmptyStyle" TargetType="TextBlock">
+            <Style.Triggers>
+                <Trigger Property="Text" Value="">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate x:Key="PortraitRoleCardTemplate">
+            <Border Style="{StaticResource CardStyle}" Padding="10,7">
+                <StackPanel>
+                    <Grid>
+                        <TextBlock Text="{Binding Role}" Foreground="{StaticResource GoldAccentBrush}"
+                                   FontSize="11" FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding SampleSizeText}" Style="{StaticResource MutedTextStyle}"
+                                   HorizontalAlignment="Right" />
+                    </Grid>
+                    <Grid Margin="0,4,0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="26" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="30" Height="30" CornerRadius="5" Background="#242C38"
+                                    ClipToBounds="True" BorderBrush="#354052" BorderThickness="1">
+                                <Grid>
+                                    <TextBlock Text="?" Foreground="{StaticResource MutedTextBrush}"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <Image Source="{Binding QueryChampionIcon}" Stretch="UniformToFill" />
+                                </Grid>
+                            </Border>
+                            <TextBlock Text="{Binding QueryChampionDisplayName}" Margin="6,0,0,0"
+                                       Foreground="{StaticResource QueryAccentBrush}" FontSize="12"
+                                       FontWeight="SemiBold" VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Text="VS" Foreground="{StaticResource MutedTextBrush}"
+                                   FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+                            <Border Width="30" Height="30" CornerRadius="5" Background="#242C38"
+                                    ClipToBounds="True" BorderBrush="#354052" BorderThickness="1">
+                                <Grid>
+                                    <TextBlock Text="?" Foreground="{StaticResource MutedTextBrush}"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <Image Source="{Binding OpponentChampionIcon}" Stretch="UniformToFill" />
+                                </Grid>
+                            </Border>
+                            <TextBlock Text="{Binding OpponentChampionDisplayName}" Margin="0,0,6,0"
+                                       Foreground="{StaticResource OpponentAccentBrush}" FontSize="12"
+                                       FontWeight="SemiBold" VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis" FlowDirection="LeftToRight" />
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock Text="{Binding StatusText}" HorizontalAlignment="Center"
+                               Foreground="{StaticResource SecondaryTextBrush}" FontSize="11"
+                               Style="{StaticResource HideWhenEmptyStyle}" />
+
+                    <Grid DataContext="{Binding CompactMetrics}">
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="38" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1.35*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1" Text="승률" Style="{StaticResource CompactHeaderStyle}" />
+                        <TextBlock Grid.Column="2" Text="L2" Style="{StaticResource CompactHeaderStyle}" />
+                        <TextBlock Grid.Column="3" Text="L3" Style="{StaticResource CompactHeaderStyle}" />
+                        <TextBlock Grid.Column="4" Text="L6" Style="{StaticResource CompactHeaderStyle}" />
+                        <TextBlock Grid.Column="5" Text="솔킬/경기 (총)"
+                                   Style="{StaticResource CompactHeaderStyle}" />
+                        <TextBlock Grid.Row="1" Text="아군" Style="{StaticResource CompactHeaderStyle}" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding QueryWinRate}"
+                                   Style="{StaticResource CompactQueryValueStyle}" />
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding QueryLevel2}"
+                                   Style="{StaticResource CompactQueryValueStyle}" />
+                        <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding QueryLevel3}"
+                                   Style="{StaticResource CompactQueryValueStyle}" />
+                        <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding QueryLevel6}"
+                                   Style="{StaticResource CompactQueryValueStyle}" />
+                        <TextBlock Grid.Row="1" Grid.Column="5" Text="{Binding QuerySoloKills}"
+                                   Style="{StaticResource CompactQueryValueStyle}" />
+                        <TextBlock Grid.Row="2" Text="적군" Style="{StaticResource CompactHeaderStyle}" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding OpponentWinRate}"
+                                   Style="{StaticResource CompactOpponentValueStyle}" />
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding OpponentLevel2}"
+                                   Style="{StaticResource CompactOpponentValueStyle}" />
+                        <TextBlock Grid.Row="2" Grid.Column="3" Text="{Binding OpponentLevel3}"
+                                   Style="{StaticResource CompactOpponentValueStyle}" />
+                        <TextBlock Grid.Row="2" Grid.Column="4" Text="{Binding OpponentLevel6}"
+                                   Style="{StaticResource CompactOpponentValueStyle}" />
+                        <TextBlock Grid.Row="2" Grid.Column="5" Text="{Binding OpponentSoloKills}"
+                                   Style="{StaticResource CompactOpponentValueStyle}" />
+                        <TextBlock Grid.Row="3" Grid.ColumnSpan="6" Text="{Binding UnknownText}"
+                                   Style="{StaticResource HideWhenEmptyStyle}"
+                                   Foreground="{StaticResource MutedTextBrush}" FontSize="9"
+                                   HorizontalAlignment="Right" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding PatchDisplayText}" Style="{StaticResource MutedTextStyle}"
+                   HorizontalAlignment="Right" Margin="0,0,2,5" />
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding DisplayMatchups}"
+                          ItemTemplate="{StaticResource PortraitRoleCardTemplate}">
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Margin" Value="0,0,0,6" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
