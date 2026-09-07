@@ -46,6 +46,17 @@ public sealed class ChampionMetadataService
             GetOrLoadIcon(entry.Icon));
     }
 
+    public async Task<IReadOnlyList<ChampionDisplayInfo>> GetAllChampionsAsync()
+    {
+        var metadata = await _metadata.Value;
+        return metadata.Values
+            .OrderBy(entry => entry.NameKo, StringComparer.Create(
+                System.Globalization.CultureInfo.GetCultureInfo("ko-KR"),
+                ignoreCase: true))
+            .Select(entry => new ChampionDisplayInfo(entry.Id, entry.NameKo, null))
+            .ToArray();
+    }
+
     private async Task<IReadOnlyDictionary<string, ChampionMetadataEntry>> LoadMetadataAsync()
     {
         try

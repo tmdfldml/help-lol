@@ -26,13 +26,48 @@
         </Style>
 
         <DataTemplate x:Key="PortraitRoleCardTemplate">
+            <Button Style="{StaticResource RoleCardButtonStyle}" IsEnabled="{Binding CanOpenDetail}"
+                    Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=RoleSelectionCommand}"
+                    CommandParameter="{Binding}">
             <Border Style="{StaticResource CardStyle}" Padding="10,7">
                 <StackPanel>
                     <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding Role}" Foreground="{StaticResource GoldAccentBrush}"
                                    FontSize="11" FontWeight="SemiBold" />
-                        <TextBlock Text="{Binding SampleSizeText}" Style="{StaticResource MutedTextStyle}"
-                                   HorizontalAlignment="Right" />
+                        <Border Grid.Column="1" Style="{StaticResource OutcomeBadgeStyle}"
+                                Margin="7,0,7,0" HorizontalAlignment="Left"
+                                ToolTip="{Binding OutcomeAdvantageDescription}">
+                            <TextBlock Text="{Binding OutcomeAdvantageText}"
+                                       Style="{StaticResource OutcomeBadgeTextStyle}" />
+                        </Border>
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock Text="{Binding SampleSizeText}"
+                                       Style="{StaticResource MutedTextStyle}" />
+                            <Border Style="{StaticResource ReliabilityBadgeStyle}" Margin="6,0,0,0"
+                                    ToolTip="{Binding ReliabilityDescription}">
+                                <TextBlock Text="{Binding ReliabilityText}"
+                                           Style="{StaticResource ReliabilityBadgeTextStyle}" />
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Margin="0,2,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding LevelTempoText, StringFormat=템포  {0}}"
+                                   Style="{StaticResource LevelTempoTextStyle}"
+                                   ToolTip="{Binding LevelTempoDescription}" />
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding CombatPressureText, StringFormat=교전  {0}}"
+                                   Style="{StaticResource CombatPressureTextStyle}"
+                                   TextAlignment="Right"
+                                   ToolTip="{Binding CombatPressureDescription}" />
                     </Grid>
                     <Grid Margin="0,4,0,4">
                         <Grid.ColumnDefinitions>
@@ -135,6 +170,7 @@
                     </Grid>
                 </StackPanel>
             </Border>
+            </Button>
         </DataTemplate>
     </UserControl.Resources>
 

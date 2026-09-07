@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using LoLMatchup.Models.Presentation;
+using LoLMatchup.Services.Development;
 
 namespace LoLMatchup.Services;
 
@@ -9,30 +10,40 @@ public sealed class LiveStatisticsCoordinator
     private readonly StatisticsDataService _statisticsDataService;
     private readonly MatchupStatisticsService _statisticsService;
     private readonly MatchupStatisticsPresenter _presenter;
+    private readonly DeveloperTestModeService? _developerTestMode;
     private string? _lastWaitingReason;
 
     public LiveStatisticsCoordinator(
         LiveClientService liveClientService,
         StatisticsDataService? statisticsDataService = null,
-        MatchupStatisticsPresenter? presenter = null)
+        MatchupStatisticsPresenter? presenter = null,
+        DeveloperTestModeService? developerTestMode = null)
     {
         _liveClientService = liveClientService;
         _statisticsDataService = statisticsDataService ?? new StatisticsDataService();
         _statisticsService = new MatchupStatisticsService(_statisticsDataService);
         _presenter = presenter
             ?? new MatchupStatisticsPresenter(new ChampionMetadataService());
+        _developerTestMode = developerTestMode;
     }
 
     public async Task<LiveTeamMatchupSignature?> GetCurrentMatchupAsync(
         CancellationToken cancellationToken = default)
     {
-        var players = await _liveClientService.GetPlayersAsync(cancellationToken);
+        var testScenario = _developerTestMode?.CurrentScenario;
+        var players = testScenario?.Players
+            ?? await _liveClientService.GetPlayersAsync(cancellationToken);
         if (players is null)
         {
             return Wait("playerlist fetch failed");
         }
 
-        var activePlayer = await _liveClientService.GetActivePlayerAsync(players, cancellationToken);
+        var activePlayer = testScenario is null
+            ? await _liveClientService.GetActivePlayerAsync(players, cancellationToken)
+            : players.FirstOrDefault(player => string.Equals(
+                player.RiotId,
+                testScenario.ActivePlayerRiotId,
+                StringComparison.OrdinalIgnoreCase));
         if (activePlayer is null)
         {
             return Wait("active player lookup failed");
@@ -63,8 +74,11 @@ public sealed class LiveStatisticsCoordinator
             .ToArray();
 
         _lastWaitingReason = null;
+        var sourceKey = testScenario is null
+            ? "LIVE"
+            : $"TEST:{_developerTestMode!.Version}";
         return new LiveTeamMatchupSignature(
-            string.Join("|", roles.Select(role =>
+            sourceKey + "|" + string.Join("|", roles.Select(role =>
                 $"{role.Role}:{role.QueryChampion ?? "-"}:{role.OpponentChampion ?? "-"}")),
             roles);
     }
@@ -116,7 +130,8 @@ public sealed class LiveStatisticsCoordinator
             MatchupPresentationState.LoadedStatistics,
             string.Empty,
             $"패치 {loadResult.Dataset.Patch}",
-            presentations);
+            presentations,
+            OutcomeSummary: TeamOutcomeSummaryPresenter.Create(presentations));
     }
 
     private TeamMatchupStatisticsPresentation GlobalStatus(

@@ -324,3 +324,225 @@ StatsCollector
 - 각 compact Role card는 30×30 icon, 한국어 이름, Role, 개별 표본 수와 아군/적군 값을 유지한다.
 - 솔로킬은 `경기당 평균 (총 횟수)`로 표시하고, level Unknown은 0보다 큰 항목만 card 하단에 요약한다.
 - landscape의 상세 dashboard와 공통 metric 표현은 변경하지 않았다.
+
+## Developer Test Mode
+
+- Debug 빌드에서만 in-app synthetic Live Client simulation 진입 버튼과 개발자 제어창을 제공한다.
+- 정상 5v5, TOP 1v1, 일부 Role 누락, 실제 dataset NotFound 및 custom 5-Role champion 선택을 지원한다.
+- synthetic player list는 실제 `LiveClientPlayer`, `ChampionIdParser`, `TeamComposition`, `RoleMatchup` 이후 production statistics pipeline을 그대로 사용하며 가짜 통계를 만들지 않는다.
+- champion 선택 목록은 packaged champion metadata를 한국어 이름순으로 재사용하고 `없음`을 선택할 수 있다.
+- 테스트 활성 상태는 저장하지 않으며 종료 시 실제 Live Client polling으로 복귀한다. Release UI에는 테스트 진입점과 TEST MODE 표시가 노출되지 않는다.
+- 개발자 창의 Button, TextBox, popup 및 list item은 명시적인 dark-theme enabled/hover/selected/disabled 색상을 사용한다.
+- 재사용 가능한 searchable champion picker가 한국어 이름 substring과 영문 ChampionId case-insensitive 검색을 지원하며, 각 picker는 독립된 filtered collection을 유지한다.
+
+## Stage 7-3 Window Usability & Persistence
+
+- `%LocalAppData%/LoLMatchInfo/settings.json`에 Always on Top, 창 위치/크기, 마지막 layout mode와 Portrait/Landscape별 최근 크기를 저장한다.
+- 기본값은 Always on Top 비활성, 위치 및 크기 기억 활성이다. 설정 파일이 없거나 손상되면 안전하게 기본값을 사용한다.
+- MainWindow의 PIN toggle은 `Topmost`를 즉시 적용하고 저장하며, 정상 종료 시 `RestoreBounds` 기반의 normal bounds를 저장한다.
+- 저장 위치가 현재 virtual desktop과 충분히 겹치지 않으면 primary work area 중앙으로 복구하고 비정상 크기는 현재 desktop 범위로 제한한다.
+- orientation profile은 기록만 하며 Portrait/Landscape 전환 시 저장 크기로 창을 강제 변경하지 않는다.
+- 설정 저장은 temporary file을 완전히 쓴 뒤 교체하며 Stage 7-4 Settings Window에서 재사용할 수 있는 `AppSettingsService` 기반으로 분리했다.
+
+## Stage 7-4 In-App Settings System
+
+- dark theme의 `SettingsWindow`에 일반, 화면, 데이터, 정보 섹션을 제공한다.
+- 설정 변경은 공유 `AppSettingsService`에 즉시 반영하고 저장하며, change event를 통해 MainWindow PIN과 Always on Top 설정을 양방향 동기화한다.
+- 창 위치/크기 기억 정책과 Portrait/Landscape 최근 크기를 앱 내부에서 확인하고 제어할 수 있다.
+- 설정 초기화는 `AppSettings`의 공식 기본값을 재사용하며 현재 MainWindow bounds를 즉시 강제 변경하지 않는다.
+- 데이터 페이지는 실제 WPF runtime dataset의 상태, patch, accepted match 수와 해석 가능한 scope/duration만 사용자 친화적으로 표시한다.
+- 정보 페이지의 앱 버전은 assembly metadata에서 읽고 Riot API key나 StatsCollector secret은 설정 UI에 노출하지 않는다.
+
+## Stage 7-5 Statistics Dataset Update & Publishing System
+
+- Settings 데이터 페이지의 경기 수는 Collector 진행량이 아니라 현재 WPF가 실제로 적용한 dataset의 `AcceptedMatches`임을 명확히 표시한다.
+- `PublishStatisticsDataset` 개발자 도구가 production Collector output을 공통 validation으로 검증한 뒤 WPF packaged baseline과 manifest로 명시적으로 publish한다.
+- WPF와 publish 도구는 동일한 schema, metadata, aggregate count 및 L2/L3/L6 불변식 검증을 사용한다. Solo Kill은 event count이므로 sample size보다 클 수 있다.
+- runtime dataset은 `%LocalAppData%/LoLMatchInfo/Data/Statistics/master_plus.json`의 유효한 업데이트 파일을 우선하고, 없거나 손상되면 packaged `Data/Statistics/master_plus.json`으로 fallback한다.
+- remote manifest는 Riot patch와 별도의 단조 증가 `datasetRevision`, dataset identity, file size, SHA-256 및 download URL을 표현한다.
+- update service는 정상 TLS의 전용 `HttpClient`로 manifest 확인, 다운로드, SHA-256 및 dataset validation, LocalAppData atomic installation을 담당하며 실패 시 기존 dataset을 유지한다.
+- 원격 manifest URL은 한 configuration 객체에서 관리하며, 실제 hosting 주소가 확정되기 전에는 미설정 상태로 안전하게 동작한다.
+- Settings에서 현재 적용 dataset의 상태, patch, accepted matches, scope, duration, source와 revision을 확인하고 수동 업데이트 확인/적용을 실행할 수 있다.
+
+## Stage 8
+
+### Stage 8-1 App Shell & Navigation Foundation
+
+- `MainWindow`를 window lifecycle, global header, overlay navigation 및 page hosting을 담당하는 application shell로 전환했다.
+- `HomeView`는 polling의 실제 game state와 공유 `StatisticsDataService`가 로드한 patch 및 applied match count를 표시한다.
+- `InGameView`가 기존 Waiting 상태와 `PortraitStatisticsView` / `LandscapeStatisticsView` hosting을 담당하며 Stage 7 dashboard 디자인은 유지한다.
+- 작은 `AppNavigationService`가 `Home`과 `InGame` current page 및 change event만 관리하며 외부 navigation/MVVM framework는 사용하지 않는다.
+- navigation drawer는 content 위 overlay로 열려 닫힌 상태에서 dashboard usable width를 줄이지 않으며 홈, 인게임, 기존 SettingsWindow 진입을 제공한다.
+- polling과 statistics lookup은 앱 전체에서 기존처럼 한 번만 실행하고 Home/InGame view instance와 마지막 presentation을 MainWindow lifetime 동안 재사용한다.
+- 새 `no game → active game` 전이에서 한 번만 InGame으로 자동 이동하고, active game 중 사용자가 Home으로 이동한 선택은 이후 polling에서 존중한다.
+- 기존 orientation threshold/hysteresis, Developer Test Mode, PIN/Topmost, window persistence, Settings와 dataset update 기능을 유지한다.
+
+### Stage 8-2 App Shell & In-Game UX Polish
+
+- global header를 compact dark controls로 정리하고 공유 game-active 상태에 따라 `WAITING`, `LIVE`, `TEST MODE`를 일관되게 표시한다.
+- Shell 전용 button/toggle/navigation style을 분리해 normal, hover, pressed, selected 및 disabled 상태가 WPF 기본 흰색 UI에 의존하지 않게 했다.
+- overlay navigation drawer는 현재 page 이름과 accent selected state를 표시하며 기존 backdrop click 및 ESC close 동작을 유지한다.
+- Home은 중복 product title 대신 간결한 page identity, game status card, runtime patch/applied match count card와 InGame quick action을 제공한다.
+- InGame은 기존 statistics 상단 여백을 compact page context로 치환하고 Waiting 문구를 page 역할에 맞게 다듬었다.
+- Portrait compact dashboard와 Landscape detailed dashboard의 정보 구조 및 orientation threshold/hysteresis는 변경하지 않았다.
+- InGameView가 dashboard hosting 경계를 유지해 다음 Matchup Detail navigation을 MainWindow에 다시 결합하지 않고 확장할 수 있다.
+
+### Stage 8-3 Matchup Detail Navigation
+
+- `AppPage.MatchupDetail`과 선택된 Role/champion IDs, patch 및 기존 Role presentation을 담는 재사용 detail navigation context를 추가했다.
+- Portrait와 Landscape의 Role card 전체가 동일한 command 경로로 mouse 및 keyboard 선택을 지원하며, champion이 누락된 Role은 비활성 상태를 유지한다.
+- `InGameView`가 두 dashboard의 Role selection을 하나의 event로 전달하고 MainWindow는 추가 dataset lookup 없이 기존 presentation으로 detail context를 구성한다.
+- `MatchupDetailView`는 아군/적군 champion icon과 이름, 표본, 승률, L2/L3/L6 및 15분 이전 솔로킬의 경기당 평균과 총 event 수를 표시한다.
+- NotFound matchup은 champion context를 유지한 채 데이터 없음 상태를 표시하고 가짜 0% metric을 만들지 않는다.
+- Detail back 또는 drawer의 InGame은 기존 InGameView instance로 복귀하며 Detail에서 ESC도 같은 경로를 사용한다.
+- 게임 종료 또는 Developer Test Stop 시 stale detail context를 제거하고 InGame Waiting으로 자동 복귀한다.
+- active presentation이 바뀌면 같은 Role/champion context만 갱신하고, 다른 game/champion이면 Detail을 재사용하지 않고 InGame으로 복귀한다.
+
+## Stage 9 Statistics Reliability Research
+
+- 현재 production dataset을 대상으로 sample-size 및 Role별 coverage 분포를 분석하는 독립 .NET 10 Console 도구 `Tools/AnalyzeStatisticsDataset/`를 추가했다.
+- win-rate 분포와 극단값 빈도, Wilson 95% 신뢰구간, 레벨 Unknown/data-quality, 솔로킬 event-per-match 분포를 분석한다.
+- `sampleSize >= 20`과 `sampleSize >= 50`에서 metric 간 Pearson correlation 및 방향 일치도를 연구용 지표로 계산하며 causation으로 해석하지 않는다.
+- 공통 `StatisticsDatasetValidator`를 재사용해 duplicate/reversed canonical key, malformed aggregate 및 count 불변식을 분석 전에 검증한다.
+- 분석 결과는 `Tools/AnalyzeStatisticsDataset/Output/statistics-analysis.json`과 `statistics-analysis.md`에 결정적으로 생성된다.
+- 후보 reliability 구간과 coverage tradeoff를 제안했지만, production WPF reliability label이나 유리/불리 판정에는 아직 적용하지 않았다.
+
+### Stage 9-1 Sample Reliability UI
+
+Stage 9 production 분석을 근거로 모든 Role에 동일한 표본 상태 policy를 적용한다.
+
+```text
+1-4   = 표본 부족
+5-19  = 참고용
+20-49 = 보통
+50+   = 상대적으로 충분
+```
+
+- WPF와 무관한 `SampleReliabilityClassifier` 한 곳에서 5/20/50 경계를 관리한다.
+- matchup presentation에 reliability level, 사용자 표시문 및 설명을 포함한다.
+- Portrait compact card와 Landscape card는 기존 표본 행에 중립적인 badge를 표시하며 champion side 색상과 분리한다.
+- Matchup Detail은 badge와 표본 상태 설명을 함께 표시한다.
+- 모든 표본에서 raw 통계를 그대로 유지하며 win rate 보정, metric 숨김, Wilson 직접 표시는 하지 않는다.
+- NotFound, Missing Role, dataset unavailable/invalid는 표본 상태와 구분하며 reliability를 표시하지 않는다.
+
+### Stage 9-2A Outcome Advantage Model Research
+
+- 최종 게임 승률만 사용하는 raw win-rate threshold Model A, Wilson interval Model B, practical-effect + Wilson Model C를 전체 production aggregate에 적용했다.
+- Stage 9-1 reliability band별 raw effect threshold를 달리하는 Conservative/Balanced/Permissive 연구 후보도 비교했다.
+- `SideAAdvantage`, `Neutral`, `SideBAdvantage`, `InsufficientEvidence`를 분리하고 key/sample 가중 coverage, Role/reliability breakdown, 작은 표본 위험 및 canonical A/B 대칭성을 검증했다.
+- L2/L3/L6/Solo Kill은 Outcome 판정 입력에서 제외하고 판정 후 방향 일치 진단에만 사용했다.
+- Stage 9-2B 후보로 `sampleSize >= 20`, `|winRate - 50%| >= 5pp`, `80% Wilson interval excludes 50%`인 대칭 규칙을 추천한다.
+- 연구 결과는 `Tools/AnalyzeStatisticsDataset/Output/advantage-model-analysis.json`과 `advantage-model-analysis.md`에 저장한다.
+- Production advantage classifier, UI, 색상 및 유리/불리 문구는 아직 구현하지 않았다.
+
+### Stage 9-2B Production Outcome Advantage
+
+Stage 9-2A에서 실제 production dataset으로 선택한 다음 단일 정책을 runtime에 적용한다.
+
+```text
+sampleSize >= 20
+AND |observed win rate - 50%| >= 5 percentage points
+AND 80% Wilson interval excludes 50%
+```
+
+- `OutcomeAdvantageClassifier`가 raw query-side wins/sample만 입력받아 `아군 우세 경향`, `뚜렷한 차이 없음`, `적군 우세 경향`, `판정 보류`를 구분한다.
+- 80% two-sided Wilson score interval과 production threshold는 한 domain policy에 중앙화되어 있으며 L2/L3/L6/솔로킬은 Outcome 입력으로 사용하지 않는다.
+- query-oriented 통계를 사용하므로 canonical ChampionA/B 순서를 UI가 재해석하지 않으며 reverse query에서는 아군/적군 방향만 정확히 반전된다.
+- 표본 reliability와 Outcome은 별도 enum/property로 유지하고 기존 raw metric 계산과 표시를 변경하지 않는다.
+- Portrait는 기존 header 행의 compact indicator를 사용해 440×820의 Role card 높이를 늘리지 않으며, Landscape와 Matchup Detail에도 동일 presentation 결과와 설명을 표시한다.
+- NotFound, Missing Role, dataset unavailable/invalid에는 Outcome을 생성하거나 표시하지 않는다.
+- Outcome은 dataset schema나 cache에 저장하지 않고 현재 dataset의 raw aggregate로 presentation 생성 시 계산한다.
+- production classifier를 전체 Stage 9-2A dataset에 적용한 결과는 A/아군 196, Neutral 1,374, B/적군 215, Insufficient 11,236으로 연구 권장 모델과 일치했다.
+- Stage 9-2A의 분석 산출물은 developer research artifact로 유지하며 WPF runtime에서 읽거나 배포하지 않는다.
+
+### Stage 9-2C-A Lane Pressure Model Research
+
+- production aggregate에서 L2/L3/L6의 A-B rate difference와 15분 이전 맞상대 solo-kill event-per-match difference 분포를 분석했다.
+- sample-size bucket과 Role별 volatility, level progression pattern, metric direction agreement 및 threshold sensitivity를 비교했다.
+- simple four-signal majority, level-only progression majority, L2/L3를 결합한 de-correlated model, Level Tempo와 Combat Pressure를 분리한 model을 전체 parameter sweep으로 검증했다.
+- 모든 후보에서 A/B reverse symmetry, key/sample-weighted coverage, Role/reliability breakdown 및 directional sample/effect 분포를 확인했다.
+- 최종 게임 승률과 `OutcomeAdvantage`는 입력에서 제외하고 결과 방향 비교에만 사용했다.
+- 연구 결과는 하나의 Lane Pressure label보다 `Level Tempo`와 `Combat Pressure`를 분리하는 방식을 권장한다.
+- production 후보는 두 축 모두 minimum sample 20을 사용한다. Level Tempo는 L2/L3/L6 각각 5pp threshold에서 같은 방향 신호가 최소 2개일 때 방향을 내고, Combat Pressure는 solo-kill event 차이가 경기당 0.10 이상일 때 방향을 낸다. 나머지는 Neutral이며 n<20은 InsufficientEvidence다.
+- 추천 사용자 용어는 `레벨 템포`, `교전 압박`, `경향`, `뚜렷한 차이 없음`, `판정 보류`다. 모든 Role을 포괄할 때는 `라인전 우세`보다 `초반 템포`가 안전하다.
+- `Tools/AnalyzeStatisticsDataset/Output/lane-pressure-model-analysis.json`과 `lane-pressure-model-analysis.md`를 결정적으로 생성하며 두 번 실행한 SHA-256 일치를 확인했다.
+- No production Lane Pressure classifier/UI implemented yet.
+
+### Stage 9-2C-B Production Level Tempo + Combat Pressure
+
+Stage 9-2C-A에서 선택한 두 개의 독립적인 early-game 지표를 production runtime에 적용한다.
+
+```text
+Common:
+minimum sample = 20
+
+Level Tempo:
+L2/L3/L6 threshold = 5 percentage points
+at least two same-side signals = side tendency
+otherwise Neutral
+
+Combat Pressure:
+solo-kill event difference per match threshold = 0.10
+otherwise Neutral
+```
+
+- `LevelTempoClassifier`는 L2/L3/L6의 `(AllyCount - EnemyCount) / SampleSize`를 각각 평가하며 Unknown을 분모에서 제거하지 않는다.
+- `CombatPressureClassifier`는 15분 이전 직접 맞상대 솔로킬 event count의 경기당 차이를 평가한다. 솔로킬은 probability가 아니며 한 경기에서 여러 event가 발생할 수 있다.
+- 두 classifier 모두 raw count만 사용하고 query 방향의 `AllyTendency`, `Neutral`, `EnemyTendency`, `InsufficientEvidence`를 반환한다.
+- Outcome, Reliability, Level Tempo, Combat Pressure는 서로 별도 개념이다. 이들을 합친 Lane Pressure 점수는 사용하지 않는다.
+- Portrait와 Landscape Role card에는 결과·템포·교전 경향을 compact하게 표시하고, Matchup Detail은 각 개념과 설명 및 기존 raw metric을 분리해 표시한다.
+- NotFound, Missing Role, dataset unavailable/invalid에는 Level Tempo와 Combat Pressure를 표시하지 않는다. 통계가 존재하지만 n<20인 경우에만 `판정 보류`다.
+- dataset schema, StatsCollector, polling, lookup 횟수는 변경하지 않으며 두 값은 presentation 생성 시 기존 query-oriented aggregate에서 파생한다.
+- 전체 13,021 key 회귀 결과는 Level Tempo A 780 / Neutral 240 / B 765 / Insufficient 11,236, Combat Pressure A 531 / Neutral 781 / B 473 / Insufficient 11,236이며 연구 결과 및 reverse symmetry와 일치한다.
+
+### Stage 9-3 Matchup Explanation UX
+
+- 기존 Sample Reliability, Outcome Advantage, Level Tempo, Combat Pressure 결과와 raw metric만 사용하는 deterministic rule-based explanation을 추가했다.
+- `MatchupExplanationService`가 사용자 설명 문구를 한 곳에서 생성하며 classifier의 판정이나 threshold를 다시 구현하지 않는다.
+- Outcome 설명은 실제 표본 수와 아군 최종 승률을 사용하며, Neutral을 작은 effect와 표본 불확실성으로 구분한다. Wilson 같은 고급 통계 용어는 사용자 UI에 직접 노출하지 않는다.
+- Level Tempo 설명은 classifier가 보존한 L2/L3/L6 signal을 사용해 실제 방향 근거를 `L2·L3` 등의 형태로 표시하고, 서로 충돌하는 signal과 한쪽으로 충분히 모이지 않은 경우를 구분한다.
+- Combat Pressure 설명은 아군/적군의 15분 이전 직접 맞상대 솔로킬 event-per-match를 같은 formatting policy로 표시한다.
+- Portrait와 Landscape dashboard는 기존 compact 결과만 유지하며 긴 설명을 추가하지 않는다. Matchup Detail에서 결과 경향, 레벨 템포, 교전 압박의 설명을 각각 독립적으로 표시한다.
+- NotFound, Missing Role, dataset unavailable/invalid에는 설명을 만들지 않으며 실제 통계가 있는 n<20 matchup에서만 각 판정 보류 이유를 표시한다.
+- 새로운 통계 모델, threshold, dataset lookup, Live Client 요청, persistence 또는 combined matchup verdict는 추가하지 않았다.
+
+### Stage 9-4A Team Summary Model Research
+
+- 현재 production dataset의 Outcome, Reliability, Level Tempo, Combat Pressure classifier 결과를 전체 및 Role별로 분석하고 Outcome × Reliability 교차표를 생성했다.
+- dataset이 개별 Role matchup aggregate만 포함하고 실제 한 경기의 5-Role 조합 row를 포함하지 않는다는 한계를 명시했다. Team Summary는 실제 팀 승률, 조합 시너지 또는 승패 예측이 아니다.
+- Equal Vote, minimum-evidence 변형, reliability-weighted, capped sample-weighted, directional-only, conservative equal majority, strong-only 후보를 deterministic fixture로 비교했다. fixture는 rule behavior 검증용이며 empirical game frequency로 해석하지 않는다.
+- sample-size weighting은 큰 표본 matchup 하나가 반대 방향 Role 여러 개를 뒤집을 수 있고, reliability weighting은 categorical band를 보정 확률처럼 오해하게 만들 수 있어 production 추천에서 제외했다.
+- production 후보는 Outcome Summary만 사용하는 `E_CONSERVATIVE_EQUAL`이다. 판정 가능한 Role이 최소 3개이고, 같은 방향 Role이 최소 2개이면서 반대 방향보다 많을 때만 해당 경향을 표시한다. 동률이나 약한 evidence는 Neutral, eligible Role 3개 미만은 InsufficientEvidence다.
+- 추천 UI는 InGame dashboard 상단의 compact `팀 결과 경향` strip이며, Team Reliability badge 대신 eligible/아군/적군/중립/unavailable Role 수를 표시한다.
+- Level Tempo와 Combat Pressure는 Role별 표시를 유지하도록 권장한다. 특히 Combat Pressure의 직접 맞상대 솔로킬은 JUNGLE/SUPPORT에서 team-level 의미가 제한적이다.
+- 연구 산출물은 `Tools/AnalyzeStatisticsDataset/Output/team-summary-model-analysis.json`과 `.md`이며 deterministic output을 확인했다.
+- No production Team Summary classifier/UI implemented yet.
+
+### Stage 9-4B Production Outcome Team Summary
+
+Stage 9-4A에서 선택한 conservative equal-vote 정책을 production WPF에 적용한다.
+
+```text
+Eligible roles < 3
+→ InsufficientEvidence
+
+Ally roles >= 2
+AND Ally roles > Enemy roles
+→ AllyTendency
+
+Enemy roles >= 2
+AND Enemy roles > Ally roles
+→ EnemyTendency
+
+otherwise
+→ Neutral
+```
+
+- `TeamOutcomeSummaryClassifier`는 이미 생성된 5개 Role presentation의 query-oriented Outcome enum만 동일한 1표로 집계한다.
+- Ally/Neutral/Enemy Outcome은 eligible이며, InsufficientEvidence, Missing Role, NotFound, dataset unavailable/invalid는 eligible이 아니다. Neutral은 unavailable과 구분한다.
+- reliability, sample size, raw win rate 및 Role importance weighting은 사용하지 않는다. Team sample size나 평균 승률도 만들지 않는다.
+- `TeamOutcomeSummaryResult`는 total/available/eligible Role 수와 Ally/Enemy/Neutral/Insufficient/unavailable count를 보존한다.
+- InGame dashboard 상단에 compact `팀 결과 경향` strip을 표시하고 `판정 N/5 · 아군 N · 적군 N · 중립 N` evidence를 함께 제공한다. Waiting 및 전체 dataset 오류 상태에서는 표시하지 않는다.
+- Team Summary는 기존 Role 통계 조회가 끝난 뒤 runtime에서 파생되며 추가 dataset lookup, Live Client 요청, polling 또는 persistence를 만들지 않는다.
+- Team Summary aggregates only role-level Outcome categories. It does not calculate team win probability or composition advantage.
+- Level Tempo and Combat Pressure remain role-level only.

@@ -1,0 +1,52 @@
+<UserControl x:Class="LoLMatchup.Views.Controls.SearchableChampionPicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" MinHeight="34">
+    <Grid>
+        <Border Background="#202733" BorderBrush="#354052" BorderThickness="1" CornerRadius="6">
+            <Grid>
+                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="30"/></Grid.ColumnDefinitions>
+                <TextBox x:Name="SearchBox" Margin="8,5,2,5" Padding="0" Background="Transparent"
+                         Foreground="#F1F4F8" BorderThickness="0" CaretBrush="#F1F4F8"
+                         SelectionBrush="#506477" FontSize="13" TextChanged="SearchBox_TextChanged"
+                         GotKeyboardFocus="SearchBox_GotKeyboardFocus" PreviewKeyDown="SearchBox_PreviewKeyDown" />
+                <Button Grid.Column="1" Content="▼" Click="ToggleButton_Click" Background="Transparent"
+                        Foreground="#A5AFBD" BorderThickness="0" Focusable="False" />
+            </Grid>
+        </Border>
+        <Popup x:Name="ResultsPopup" Placement="Bottom" PlacementTarget="{Binding ElementName=SearchBox}"
+               StaysOpen="False" AllowsTransparency="True">
+            <Border Margin="0,3,0,0" Padding="4" Background="#171D27" BorderBrush="#354052"
+                    BorderThickness="1" CornerRadius="6">
+                <Grid MaxHeight="250" MinWidth="210">
+                    <ListBox x:Name="ResultsList" Background="#171D27" Foreground="#F1F4F8"
+                             BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             SelectionChanged="ResultsList_SelectionChanged"
+                             MouseDoubleClick="ResultsList_MouseDoubleClick">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Foreground" Value="#F1F4F8"/><Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Padding" Value="8,5"/><Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="#27303E"/></Trigger>
+                                    <Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="#334454"/></Trigger>
+                                    <Trigger Property="IsEnabled" Value="False"><Setter Property="Foreground" Value="#596372"/></Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding KoreanDisplayName}" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding ChampionId, StringFormat='  {0}'}" Foreground="#8792A2"
+                                               FontSize="11" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <TextBlock x:Name="EmptyMessage" Text="검색 결과 없음" Foreground="#8792A2"
+                               Padding="10,8" Visibility="Collapsed"/>
+                </Grid>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

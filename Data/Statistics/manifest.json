@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "master-plus-kr-420",
+  "datasetRevision": 1788710852,
+  "patch": "16.17",
+  "tierScope": "MASTER_PLUS_SEEDED",
+  "region": "KR",
+  "queueId": 420,
+  "minimumGameDurationSeconds": 900,
+  "acceptedMatches": 31075,
+  "fileSizeBytes": 6310939,
+  "sha256": "df2620cd091f1e9094d913036792ef083ebd7d60c533c83ac93bea9996133e67",
+  "downloadUrl": null
+}

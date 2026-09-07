@@ -1,0 +1,76 @@
+<Window x:Class="LoLMatchup.Views.DeveloperTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:LoLMatchup.Views.Controls"
+        Title="Developer Test Mode" Width="600" Height="620"
+        MinWidth="560" MinHeight="540" WindowStartupLocation="CenterOwner"
+        Background="#0D1118" ShowInTaskbar="False">
+    <Window.Resources>
+        <Style x:Key="DeveloperButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="#F1F4F8"/><Setter Property="Background" Value="#242C38"/>
+            <Setter Property="BorderBrush" Value="#3A4658"/><Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,7"/><Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Chrome" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Chrome" Property="Background" Value="#303A49"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="Chrome" Property="Background" Value="#3A485A"/></Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#606A79"/><Setter TargetName="Chrome" Property="Background" Value="#171D27"/>
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="#252D39"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Text="Developer Test Mode" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Text="가상 경기 입력 · 실제 production 통계 사용" Margin="0,4,0,0"
+                       Style="{StaticResource MutedTextStyle}"/>
+        </StackPanel>
+        <WrapPanel Grid.Row="1" Margin="0,14,0,14">
+            <Button Content="정상 5v5" Click="Normal5v5_Click" Style="{StaticResource DeveloperButtonStyle}" Margin="0,0,7,0"/>
+            <Button Content="TOP 1v1" Click="Top1v1_Click" Style="{StaticResource DeveloperButtonStyle}" Margin="0,0,7,0"/>
+            <Button Content="일부 Role 누락" Click="Partial_Click" Style="{StaticResource DeveloperButtonStyle}" Margin="0,0,7,0"/>
+            <Button Content="통계 없음" Click="NotFound_Click" Style="{StaticResource DeveloperButtonStyle}"/>
+        </WrapPanel>
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Border Style="{StaticResource CardStyle}" Padding="14">
+                <Grid>
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="76"/><ColumnDefinition Width="*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="48"/><RowDefinition Height="48"/><RowDefinition Height="48"/><RowDefinition Height="48"/><RowDefinition Height="48"/></Grid.RowDefinitions>
+                    <TextBlock Grid.Column="1" Text="아군" Foreground="{StaticResource QueryAccentBrush}" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="3" Text="적군" Foreground="{StaticResource OpponentAccentBrush}" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Text="TOP" VerticalAlignment="Center"/><TextBlock Grid.Row="2" Text="JUNGLE" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="3" Text="MID" VerticalAlignment="Center"/><TextBlock Grid.Row="4" Text="ADC" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="5" Text="SUPPORT" VerticalAlignment="Center"/>
+                    <controls:SearchableChampionPicker x:Name="AllyTop" Grid.Row="1" Grid.Column="1" Margin="0,6" SelectionChanged="Picker_SelectionChanged"/>
+                    <controls:SearchableChampionPicker x:Name="EnemyTop" Grid.Row="1" Grid.Column="3" Margin="0,6" SelectionChanged="Picker_SelectionChanged"/>
+                    <controls:SearchableChampionPicker x:Name="AllyJungle" Grid.Row="2" Grid.Column="1" Margin="0,6" SelectionChanged="Picker_SelectionChanged"/>
+                    <controls:SearchableChampionPicker x:Name="EnemyJungle" Grid.Row="2" Grid.Column="3" Margin="0,6" SelectionChanged="Picker_SelectionChanged"/>
+                    <controls:SearchableChampionPicker x:Name="AllyMid" Grid.Row="3" Grid.Column="1" Margin="0,6" SelectionChanged="Picker_SelectionChanged"/>
+                    <controls:SearchableChampionPicker x:Name="EnemyMid" Grid.Row="3" Grid.Column="3" Margin="0,6" SelectionChanged="Picker_SelectionChanged"/>
+                    <controls:SearchableChampionPicker x:Name="AllyAdc" Grid.Row="4" Grid.Column="1" Margin="0,6" SelectionChanged="Picker_SelectionChanged"/>
+                    <controls:SearchableChampionPicker x:Name="EnemyAdc" Grid.Row="4" Grid.Column="3" Margin="0,6" SelectionChanged="Picker_SelectionChanged"/>
+                    <controls:SearchableChampionPicker x:Name="AllySupport" Grid.Row="5" Grid.Column="1" Margin="0,6" SelectionChanged="Picker_SelectionChanged"/>
+                    <controls:SearchableChampionPicker x:Name="EnemySupport" Grid.Row="5" Grid.Column="3" Margin="0,6" SelectionChanged="Picker_SelectionChanged"/>
+                </Grid>
+            </Border>
+        </ScrollViewer>
+        <DockPanel Grid.Row="3" Margin="0,16,0,0">
+            <Button Content="테스트 종료" Click="Stop_Click" Style="{StaticResource DeveloperButtonStyle}" DockPanel.Dock="Left"/>
+            <Button x:Name="StartCustomButton" Content="직접 구성 시작" Click="StartCustom_Click"
+                    Style="{StaticResource DeveloperButtonStyle}" HorizontalAlignment="Right" IsEnabled="False"/>
+        </DockPanel>
+    </Grid>
+</Window>

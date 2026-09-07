@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Models\Statistics\StatisticsDataset.cs" Link="Shared\StatisticsDataset.cs" />
+    <Compile Include="..\..\Models\Statistics\DatasetUpdateManifest.cs" Link="Shared\DatasetUpdateManifest.cs" />
+    <Compile Include="..\..\Services\Statistics\StatisticsDatasetValidator.cs" Link="Shared\StatisticsDatasetValidator.cs" />
+    <Compile Include="..\..\Models\Statistics\SampleReliabilityLevel.cs" Link="Shared\SampleReliabilityLevel.cs" />
+    <Compile Include="..\..\Services\Statistics\SampleReliabilityClassifier.cs" Link="Shared\SampleReliabilityClassifier.cs" />
+    <Compile Include="..\..\Models\Statistics\OutcomeAdvantageLevel.cs" Link="Shared\OutcomeAdvantageLevel.cs" />
+    <Compile Include="..\..\Models\Statistics\OutcomeAdvantageResult.cs" Link="Shared\OutcomeAdvantageResult.cs" />
+    <Compile Include="..\..\Services\Statistics\OutcomeAdvantageClassifier.cs" Link="Shared\OutcomeAdvantageClassifier.cs" />
+    <Compile Include="..\..\Models\Statistics\LevelTempoLevel.cs" Link="Shared\LevelTempoLevel.cs" />
+    <Compile Include="..\..\Models\Statistics\LevelTempoResult.cs" Link="Shared\LevelTempoResult.cs" />
+    <Compile Include="..\..\Services\Statistics\LevelTempoClassifier.cs" Link="Shared\LevelTempoClassifier.cs" />
+    <Compile Include="..\..\Models\Statistics\CombatPressureLevel.cs" Link="Shared\CombatPressureLevel.cs" />
+    <Compile Include="..\..\Models\Statistics\CombatPressureResult.cs" Link="Shared\CombatPressureResult.cs" />
+    <Compile Include="..\..\Services\Statistics\CombatPressureClassifier.cs" Link="Shared\CombatPressureClassifier.cs" />
+  </ItemGroup>
+</Project>

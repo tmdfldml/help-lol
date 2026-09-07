@@ -1,4 +1,5 @@
 using LoLMatchup.Models.Statistics;
+using LoLMatchup.Services.Statistics;
 
 namespace LoLMatchup.Services;
 

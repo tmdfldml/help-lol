@@ -1,14 +1,11 @@
-using System.Globalization;
 using LoLMatchup.Models.Presentation;
 using LoLMatchup.Models.Statistics;
+using LoLMatchup.Services.Statistics;
 
 namespace LoLMatchup.Services;
 
 public sealed class MatchupStatisticsPresenter
 {
-    private static readonly CultureInfo DisplayCulture =
-        CultureInfo.GetCultureInfo("ko-KR");
-
     private readonly ChampionMetadataService _championMetadataService;
 
     public MatchupStatisticsPresenter()
@@ -29,6 +26,35 @@ public sealed class MatchupStatisticsPresenter
             statistics.QueryChampion);
         var opponentChampion = await _championMetadataService.GetDisplayInfoAsync(
             statistics.OpponentChampion);
+        var reliabilityLevel = SampleReliabilityClassifier.Classify(
+            statistics.SampleSize);
+        var reliabilityText = PresentReliability(reliabilityLevel);
+        var outcomeAdvantage = OutcomeAdvantageClassifier.Classify(
+            statistics.WinsForQuery,
+            statistics.SampleSize);
+        var outcomeText = PresentOutcomeAdvantage(outcomeAdvantage.Level);
+        var levelTempo = LevelTempoClassifier.Classify(
+            statistics.SampleSize,
+            statistics.FirstLevel2.ForQuery,
+            statistics.FirstLevel2.ForOpponent,
+            statistics.FirstLevel2.Unknown,
+            statistics.FirstLevel3.ForQuery,
+            statistics.FirstLevel3.ForOpponent,
+            statistics.FirstLevel3.Unknown,
+            statistics.FirstLevel6.ForQuery,
+            statistics.FirstLevel6.ForOpponent,
+            statistics.FirstLevel6.Unknown);
+        var levelTempoText = PresentLevelTempo(levelTempo.Level);
+        var combatPressure = CombatPressureClassifier.Classify(
+            statistics.SampleSize,
+            statistics.SoloKillsBefore15ForQuery,
+            statistics.SoloKillsBefore15ForOpponent);
+        var combatPressureText = PresentCombatPressure(combatPressure.Level);
+        var explanation = MatchupExplanationService.Create(
+            reliabilityLevel,
+            outcomeAdvantage,
+            levelTempo,
+            combatPressure);
         return new MatchupStatisticsPresentation(
             MatchupPresentationState.LoadedStatistics,
             string.Empty,
@@ -55,9 +81,23 @@ public sealed class MatchupStatisticsPresenter
                     FormatEventsPerMatch(statistics.SoloKillsPerMatchForQuery),
                     FormatEventsPerMatch(statistics.SoloKillsPerMatchForOpponent),
                     $"총 {statistics.SoloKillsBefore15ForQuery:N0}회 / "
-                    + $"{statistics.SoloKillsBefore15ForOpponent:N0}회")
+                    + $"{statistics.SoloKillsBefore15ForOpponent:N0}회",
+                    $"총 {statistics.SoloKillsBefore15ForQuery:N0}회",
+                    $"총 {statistics.SoloKillsBefore15ForOpponent:N0}회")
             ],
-            CompactMetrics: CreateCompactMetrics(statistics));
+            CompactMetrics: CreateCompactMetrics(statistics),
+            ReliabilityLevel: reliabilityLevel,
+            ReliabilityText: reliabilityText,
+            ReliabilityDescription: explanation.Reliability,
+            OutcomeAdvantage: outcomeAdvantage,
+            OutcomeAdvantageText: outcomeText,
+            OutcomeAdvantageDescription: explanation.Outcome,
+            LevelTempo: levelTempo,
+            LevelTempoText: levelTempoText,
+            LevelTempoDescription: explanation.LevelTempo,
+            CombatPressure: combatPressure,
+            CombatPressureText: combatPressureText,
+            CombatPressureDescription: explanation.CombatPressure);
     }
 
     public MatchupStatisticsPresentation PresentStatus(
@@ -111,10 +151,10 @@ public sealed class MatchupStatisticsPresenter
     }
 
     internal static string FormatPercentage(double value) =>
-        value.ToString("P1", DisplayCulture);
+        StatisticsDisplayFormatter.Percentage(value);
 
     internal static string FormatEventsPerMatch(double value) =>
-        $"{value.ToString("F2", DisplayCulture)} / 경기";
+        StatisticsDisplayFormatter.EventsPerMatch(value);
 
     private static CompactMatchupMetricsPresentation CreateCompactMetrics(
         MatchupStatisticsResult statistics)
@@ -133,9 +173,9 @@ public sealed class MatchupStatisticsPresenter
             FormatPercentage(statistics.FirstLevel3.OpponentRate),
             FormatPercentage(statistics.FirstLevel6.QueryRate),
             FormatPercentage(statistics.FirstLevel6.OpponentRate),
-            $"{statistics.SoloKillsPerMatchForQuery.ToString("F2", DisplayCulture)} "
+            $"{StatisticsDisplayFormatter.Decimal2(statistics.SoloKillsPerMatchForQuery)} "
                 + $"({statistics.SoloKillsBefore15ForQuery:N0})",
-            $"{statistics.SoloKillsPerMatchForOpponent.ToString("F2", DisplayCulture)} "
+            $"{StatisticsDisplayFormatter.Decimal2(statistics.SoloKillsPerMatchForOpponent)} "
                 + $"({statistics.SoloKillsBefore15ForOpponent:N0})",
             unknown.Count == 0 ? string.Empty : $"미확인: {string.Join(" · ", unknown)}");
     }
@@ -155,4 +195,41 @@ public sealed class MatchupStatisticsPresenter
             FormatPercentage(level.QueryRate),
             FormatPercentage(level.OpponentRate),
             $"미확인 {FormatPercentage(level.UnknownRate)}");
+
+    private static string PresentReliability(
+        SampleReliabilityLevel level) => level switch
+        {
+            SampleReliabilityLevel.Poor => "표본 부족",
+            SampleReliabilityLevel.Reference => "참고용",
+            SampleReliabilityLevel.Moderate => "보통",
+            SampleReliabilityLevel.RelativelyStrong => "상대적으로 충분",
+            _ => string.Empty
+        };
+
+    private static string PresentOutcomeAdvantage(
+        OutcomeAdvantageLevel level) => level switch
+        {
+            OutcomeAdvantageLevel.AllyAdvantage => "아군 우세 경향",
+            OutcomeAdvantageLevel.EnemyAdvantage => "적군 우세 경향",
+            OutcomeAdvantageLevel.Neutral => "뚜렷한 차이 없음",
+            _ => "판정 보류"
+        };
+
+    private static string PresentLevelTempo(
+        LevelTempoLevel level) => level switch
+        {
+            LevelTempoLevel.AllyTendency => "아군 쪽 경향",
+            LevelTempoLevel.EnemyTendency => "적군 쪽 경향",
+            LevelTempoLevel.Neutral => "뚜렷한 차이 없음",
+            _ => "판정 보류"
+        };
+
+    private static string PresentCombatPressure(
+        CombatPressureLevel level) => level switch
+        {
+            CombatPressureLevel.AllyTendency => "아군 쪽 경향",
+            CombatPressureLevel.EnemyTendency => "적군 쪽 경향",
+            CombatPressureLevel.Neutral => "뚜렷한 차이 없음",
+            _ => "판정 보류"
+        };
 }

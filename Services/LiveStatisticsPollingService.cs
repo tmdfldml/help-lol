@@ -22,7 +22,7 @@ public sealed class LiveStatisticsPollingService
     }
 
     public async Task RunAsync(
-        Func<TeamMatchupStatisticsPresentation, Task> updatePresentationAsync,
+        Func<TeamMatchupStatisticsPresentation, bool, Task> updatePresentationAsync,
         CancellationToken cancellationToken)
     {
         using var timer = new PeriodicTimer(_interval);
@@ -47,7 +47,7 @@ public sealed class LiveStatisticsPollingService
                             waitingStatus.StatusText,
                             StatusDetailText: waitingStatus.StatusDetailText);
                         _currentState = waiting.State;
-                        await updatePresentationAsync(waiting);
+                        await updatePresentationAsync(waiting, false);
                     }
 
                     continue;
@@ -67,7 +67,7 @@ public sealed class LiveStatisticsPollingService
                     signature);
                 _currentSignatureKey = signature.CacheKey;
                 _currentState = presentation.State;
-                await updatePresentationAsync(presentation);
+                await updatePresentationAsync(presentation, true);
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
             {

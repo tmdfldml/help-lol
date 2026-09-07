@@ -1,0 +1,1754 @@
+{
+  "Dataset": {
+    "Patch": "16.17",
+    "AcceptedMatches": 31075,
+    "MatchupKeys": 13021,
+    "TierScope": "MASTER_PLUS_SEEDED",
+    "Region": "KR",
+    "QueueId": 420,
+    "MinimumGameDurationSeconds": 900,
+    "DatasetRevision": 1788710852
+  },
+  "ResearchScope": "Summarize five independent role-level categorical tendencies for faster reading; not a team win probability or composition model.",
+  "ImportantDataLimitation": "The dataset contains independent role matchup aggregates, not observed five-role team combinations. Empirical runtime team-summary coverage and predictive validity cannot be measured from this file.",
+  "OverallDistribution": {
+    "Role": "ALL",
+    "Total": 13021,
+    "Outcome": [
+      {
+        "Name": "Ally",
+        "Count": 196,
+        "Total": 13021,
+        "Rate": 0.01505260732662622
+      },
+      {
+        "Name": "Neutral",
+        "Count": 1374,
+        "Total": 13021,
+        "Rate": 0.1055218493203287
+      },
+      {
+        "Name": "Enemy",
+        "Count": 215,
+        "Total": 13021,
+        "Rate": 0.01651178864910529
+      },
+      {
+        "Name": "Insufficient",
+        "Count": 11236,
+        "Total": 13021,
+        "Rate": 0.8629137547039398
+      }
+    ],
+    "Reliability": [
+      {
+        "Name": "Unknown",
+        "Count": 0,
+        "Total": 13021,
+        "Rate": 0
+      },
+      {
+        "Name": "Poor",
+        "Count": 8132,
+        "Total": 13021,
+        "Rate": 0.6245296060210429
+      },
+      {
+        "Name": "Reference",
+        "Count": 3104,
+        "Total": 13021,
+        "Rate": 0.23838414868289687
+      },
+      {
+        "Name": "Moderate",
+        "Count": 1138,
+        "Total": 13021,
+        "Rate": 0.08739728131479917
+      },
+      {
+        "Name": "RelativelyStrong",
+        "Count": 647,
+        "Total": 13021,
+        "Rate": 0.04968896398126104
+      }
+    ],
+    "OutcomeReliability": [
+      {
+        "Outcome": "Ally",
+        "Reliability": "Unknown",
+        "Count": 0
+      },
+      {
+        "Outcome": "Ally",
+        "Reliability": "Poor",
+        "Count": 0
+      },
+      {
+        "Outcome": "Ally",
+        "Reliability": "Reference",
+        "Count": 0
+      },
+      {
+        "Outcome": "Ally",
+        "Reliability": "Moderate",
+        "Count": 118
+      },
+      {
+        "Outcome": "Ally",
+        "Reliability": "RelativelyStrong",
+        "Count": 78
+      },
+      {
+        "Outcome": "Neutral",
+        "Reliability": "Unknown",
+        "Count": 0
+      },
+      {
+        "Outcome": "Neutral",
+        "Reliability": "Poor",
+        "Count": 0
+      },
+      {
+        "Outcome": "Neutral",
+        "Reliability": "Reference",
+        "Count": 0
+      },
+      {
+        "Outcome": "Neutral",
+        "Reliability": "Moderate",
+        "Count": 892
+      },
+      {
+        "Outcome": "Neutral",
+        "Reliability": "RelativelyStrong",
+        "Count": 482
+      },
+      {
+        "Outcome": "Enemy",
+        "Reliability": "Unknown",
+        "Count": 0
+      },
+      {
+        "Outcome": "Enemy",
+        "Reliability": "Poor",
+        "Count": 0
+      },
+      {
+        "Outcome": "Enemy",
+        "Reliability": "Reference",
+        "Count": 0
+      },
+      {
+        "Outcome": "Enemy",
+        "Reliability": "Moderate",
+        "Count": 128
+      },
+      {
+        "Outcome": "Enemy",
+        "Reliability": "RelativelyStrong",
+        "Count": 87
+      },
+      {
+        "Outcome": "Insufficient",
+        "Reliability": "Unknown",
+        "Count": 0
+      },
+      {
+        "Outcome": "Insufficient",
+        "Reliability": "Poor",
+        "Count": 8132
+      },
+      {
+        "Outcome": "Insufficient",
+        "Reliability": "Reference",
+        "Count": 3104
+      },
+      {
+        "Outcome": "Insufficient",
+        "Reliability": "Moderate",
+        "Count": 0
+      },
+      {
+        "Outcome": "Insufficient",
+        "Reliability": "RelativelyStrong",
+        "Count": 0
+      }
+    ],
+    "LevelTempo": [
+      {
+        "Name": "Ally",
+        "Count": 780,
+        "Total": 13021,
+        "Rate": 0.059903233238614545
+      },
+      {
+        "Name": "Neutral",
+        "Count": 240,
+        "Total": 13021,
+        "Rate": 0.01843176407341986
+      },
+      {
+        "Name": "Enemy",
+        "Count": 765,
+        "Total": 13021,
+        "Rate": 0.058751247984025805
+      },
+      {
+        "Name": "Insufficient",
+        "Count": 11236,
+        "Total": 13021,
+        "Rate": 0.8629137547039398
+      }
+    ],
+    "CombatPressure": [
+      {
+        "Name": "Ally",
+        "Count": 531,
+        "Total": 13021,
+        "Rate": 0.04078027801244144
+      },
+      {
+        "Name": "Neutral",
+        "Count": 781,
+        "Total": 13021,
+        "Rate": 0.05998003225558713
+      },
+      {
+        "Name": "Enemy",
+        "Count": 473,
+        "Total": 13021,
+        "Rate": 0.03632593502803164
+      },
+      {
+        "Name": "Insufficient",
+        "Count": 11236,
+        "Total": 13021,
+        "Rate": 0.8629137547039398
+      }
+    ]
+  },
+  "RoleDistributions": [
+    {
+      "Role": "TOP",
+      "Total": 3853,
+      "Outcome": [
+        {
+          "Name": "Ally",
+          "Count": 37,
+          "Total": 3853,
+          "Rate": 0.009602906825849987
+        },
+        {
+          "Name": "Neutral",
+          "Count": 317,
+          "Total": 3853,
+          "Rate": 0.08227355307552557
+        },
+        {
+          "Name": "Enemy",
+          "Count": 45,
+          "Total": 3853,
+          "Rate": 0.011679211004412146
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 3454,
+          "Total": 3853,
+          "Rate": 0.8964443290942123
+        }
+      ],
+      "Reliability": [
+        {
+          "Name": "Unknown",
+          "Count": 0,
+          "Total": 3853,
+          "Rate": 0
+        },
+        {
+          "Name": "Poor",
+          "Count": 2503,
+          "Total": 3853,
+          "Rate": 0.6496236698676356
+        },
+        {
+          "Name": "Reference",
+          "Count": 951,
+          "Total": 3853,
+          "Rate": 0.2468206592265767
+        },
+        {
+          "Name": "Moderate",
+          "Count": 290,
+          "Total": 3853,
+          "Rate": 0.07526602647287828
+        },
+        {
+          "Name": "RelativelyStrong",
+          "Count": 109,
+          "Total": 3853,
+          "Rate": 0.028289644432909423
+        }
+      ],
+      "OutcomeReliability": [
+        {
+          "Outcome": "Ally",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Moderate",
+          "Count": 25
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "RelativelyStrong",
+          "Count": 12
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Moderate",
+          "Count": 231
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "RelativelyStrong",
+          "Count": 86
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Moderate",
+          "Count": 34
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "RelativelyStrong",
+          "Count": 11
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Poor",
+          "Count": 2503
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Reference",
+          "Count": 951
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Moderate",
+          "Count": 0
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "RelativelyStrong",
+          "Count": 0
+        }
+      ],
+      "LevelTempo": [
+        {
+          "Name": "Ally",
+          "Count": 171,
+          "Total": 3853,
+          "Rate": 0.04438100181676616
+        },
+        {
+          "Name": "Neutral",
+          "Count": 17,
+          "Total": 3853,
+          "Rate": 0.004412146379444588
+        },
+        {
+          "Name": "Enemy",
+          "Count": 211,
+          "Total": 3853,
+          "Rate": 0.054762522709576954
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 3454,
+          "Total": 3853,
+          "Rate": 0.8964443290942123
+        }
+      ],
+      "CombatPressure": [
+        {
+          "Name": "Ally",
+          "Count": 174,
+          "Total": 3853,
+          "Rate": 0.04515961588372697
+        },
+        {
+          "Name": "Neutral",
+          "Count": 53,
+          "Total": 3853,
+          "Rate": 0.013755515182974305
+        },
+        {
+          "Name": "Enemy",
+          "Count": 172,
+          "Total": 3853,
+          "Rate": 0.044640539839086425
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 3454,
+          "Total": 3853,
+          "Rate": 0.8964443290942123
+        }
+      ]
+    },
+    {
+      "Role": "JUNGLE",
+      "Total": 2025,
+      "Outcome": [
+        {
+          "Name": "Ally",
+          "Count": 31,
+          "Total": 2025,
+          "Rate": 0.015308641975308642
+        },
+        {
+          "Name": "Neutral",
+          "Count": 319,
+          "Total": 2025,
+          "Rate": 0.15753086419753087
+        },
+        {
+          "Name": "Enemy",
+          "Count": 41,
+          "Total": 2025,
+          "Rate": 0.020246913580246915
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 1634,
+          "Total": 2025,
+          "Rate": 0.8069135802469136
+        }
+      ],
+      "Reliability": [
+        {
+          "Name": "Unknown",
+          "Count": 0,
+          "Total": 2025,
+          "Rate": 0
+        },
+        {
+          "Name": "Poor",
+          "Count": 996,
+          "Total": 2025,
+          "Rate": 0.4918518518518519
+        },
+        {
+          "Name": "Reference",
+          "Count": 638,
+          "Total": 2025,
+          "Rate": 0.31506172839506175
+        },
+        {
+          "Name": "Moderate",
+          "Count": 267,
+          "Total": 2025,
+          "Rate": 0.13185185185185186
+        },
+        {
+          "Name": "RelativelyStrong",
+          "Count": 124,
+          "Total": 2025,
+          "Rate": 0.06123456790123457
+        }
+      ],
+      "OutcomeReliability": [
+        {
+          "Outcome": "Ally",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Moderate",
+          "Count": 22
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "RelativelyStrong",
+          "Count": 9
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Moderate",
+          "Count": 225
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "RelativelyStrong",
+          "Count": 94
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Moderate",
+          "Count": 20
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "RelativelyStrong",
+          "Count": 21
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Poor",
+          "Count": 996
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Reference",
+          "Count": 638
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Moderate",
+          "Count": 0
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "RelativelyStrong",
+          "Count": 0
+        }
+      ],
+      "LevelTempo": [
+        {
+          "Name": "Ally",
+          "Count": 192,
+          "Total": 2025,
+          "Rate": 0.09481481481481481
+        },
+        {
+          "Name": "Neutral",
+          "Count": 51,
+          "Total": 2025,
+          "Rate": 0.025185185185185185
+        },
+        {
+          "Name": "Enemy",
+          "Count": 148,
+          "Total": 2025,
+          "Rate": 0.07308641975308643
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 1634,
+          "Total": 2025,
+          "Rate": 0.8069135802469136
+        }
+      ],
+      "CombatPressure": [
+        {
+          "Name": "Ally",
+          "Count": 97,
+          "Total": 2025,
+          "Rate": 0.047901234567901234
+        },
+        {
+          "Name": "Neutral",
+          "Count": 212,
+          "Total": 2025,
+          "Rate": 0.10469135802469136
+        },
+        {
+          "Name": "Enemy",
+          "Count": 82,
+          "Total": 2025,
+          "Rate": 0.04049382716049383
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 1634,
+          "Total": 2025,
+          "Rate": 0.8069135802469136
+        }
+      ]
+    },
+    {
+      "Role": "MID",
+      "Total": 3152,
+      "Outcome": [
+        {
+          "Name": "Ally",
+          "Count": 53,
+          "Total": 3152,
+          "Rate": 0.01681472081218274
+        },
+        {
+          "Name": "Neutral",
+          "Count": 306,
+          "Total": 3152,
+          "Rate": 0.09708121827411167
+        },
+        {
+          "Name": "Enemy",
+          "Count": 64,
+          "Total": 3152,
+          "Rate": 0.02030456852791878
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 2729,
+          "Total": 3152,
+          "Rate": 0.8657994923857868
+        }
+      ],
+      "Reliability": [
+        {
+          "Name": "Unknown",
+          "Count": 0,
+          "Total": 3152,
+          "Rate": 0
+        },
+        {
+          "Name": "Poor",
+          "Count": 2061,
+          "Total": 3152,
+          "Rate": 0.6538705583756346
+        },
+        {
+          "Name": "Reference",
+          "Count": 668,
+          "Total": 3152,
+          "Rate": 0.21192893401015228
+        },
+        {
+          "Name": "Moderate",
+          "Count": 278,
+          "Total": 3152,
+          "Rate": 0.08819796954314721
+        },
+        {
+          "Name": "RelativelyStrong",
+          "Count": 145,
+          "Total": 3152,
+          "Rate": 0.04600253807106599
+        }
+      ],
+      "OutcomeReliability": [
+        {
+          "Outcome": "Ally",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Moderate",
+          "Count": 28
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "RelativelyStrong",
+          "Count": 25
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Moderate",
+          "Count": 208
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "RelativelyStrong",
+          "Count": 98
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Moderate",
+          "Count": 42
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "RelativelyStrong",
+          "Count": 22
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Poor",
+          "Count": 2061
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Reference",
+          "Count": 668
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Moderate",
+          "Count": 0
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "RelativelyStrong",
+          "Count": 0
+        }
+      ],
+      "LevelTempo": [
+        {
+          "Name": "Ally",
+          "Count": 190,
+          "Total": 3152,
+          "Rate": 0.060279187817258884
+        },
+        {
+          "Name": "Neutral",
+          "Count": 55,
+          "Total": 3152,
+          "Rate": 0.017449238578680203
+        },
+        {
+          "Name": "Enemy",
+          "Count": 178,
+          "Total": 3152,
+          "Rate": 0.056472081218274114
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 2729,
+          "Total": 3152,
+          "Rate": 0.8657994923857868
+        }
+      ],
+      "CombatPressure": [
+        {
+          "Name": "Ally",
+          "Count": 186,
+          "Total": 3152,
+          "Rate": 0.05901015228426396
+        },
+        {
+          "Name": "Neutral",
+          "Count": 91,
+          "Total": 3152,
+          "Rate": 0.028870558375634518
+        },
+        {
+          "Name": "Enemy",
+          "Count": 146,
+          "Total": 3152,
+          "Rate": 0.04631979695431472
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 2729,
+          "Total": 3152,
+          "Rate": 0.8657994923857868
+        }
+      ]
+    },
+    {
+      "Role": "ADC",
+      "Total": 1485,
+      "Outcome": [
+        {
+          "Name": "Ally",
+          "Count": 20,
+          "Total": 1485,
+          "Rate": 0.013468013468013467
+        },
+        {
+          "Name": "Neutral",
+          "Count": 192,
+          "Total": 1485,
+          "Rate": 0.1292929292929293
+        },
+        {
+          "Name": "Enemy",
+          "Count": 27,
+          "Total": 1485,
+          "Rate": 0.01818181818181818
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 1246,
+          "Total": 1485,
+          "Rate": 0.8390572390572391
+        }
+      ],
+      "Reliability": [
+        {
+          "Name": "Unknown",
+          "Count": 0,
+          "Total": 1485,
+          "Rate": 0
+        },
+        {
+          "Name": "Poor",
+          "Count": 953,
+          "Total": 1485,
+          "Rate": 0.6417508417508417
+        },
+        {
+          "Name": "Reference",
+          "Count": 293,
+          "Total": 1485,
+          "Rate": 0.19730639730639732
+        },
+        {
+          "Name": "Moderate",
+          "Count": 116,
+          "Total": 1485,
+          "Rate": 0.07811447811447811
+        },
+        {
+          "Name": "RelativelyStrong",
+          "Count": 123,
+          "Total": 1485,
+          "Rate": 0.08282828282828283
+        }
+      ],
+      "OutcomeReliability": [
+        {
+          "Outcome": "Ally",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Moderate",
+          "Count": 6
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "RelativelyStrong",
+          "Count": 14
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Moderate",
+          "Count": 94
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "RelativelyStrong",
+          "Count": 98
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Moderate",
+          "Count": 16
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "RelativelyStrong",
+          "Count": 11
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Poor",
+          "Count": 953
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Reference",
+          "Count": 293
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Moderate",
+          "Count": 0
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "RelativelyStrong",
+          "Count": 0
+        }
+      ],
+      "LevelTempo": [
+        {
+          "Name": "Ally",
+          "Count": 115,
+          "Total": 1485,
+          "Rate": 0.07744107744107744
+        },
+        {
+          "Name": "Neutral",
+          "Count": 48,
+          "Total": 1485,
+          "Rate": 0.03232323232323232
+        },
+        {
+          "Name": "Enemy",
+          "Count": 76,
+          "Total": 1485,
+          "Rate": 0.05117845117845118
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 1246,
+          "Total": 1485,
+          "Rate": 0.8390572390572391
+        }
+      ],
+      "CombatPressure": [
+        {
+          "Name": "Ally",
+          "Count": 57,
+          "Total": 1485,
+          "Rate": 0.03838383838383838
+        },
+        {
+          "Name": "Neutral",
+          "Count": 125,
+          "Total": 1485,
+          "Rate": 0.08417508417508418
+        },
+        {
+          "Name": "Enemy",
+          "Count": 57,
+          "Total": 1485,
+          "Rate": 0.03838383838383838
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 1246,
+          "Total": 1485,
+          "Rate": 0.8390572390572391
+        }
+      ]
+    },
+    {
+      "Role": "SUPPORT",
+      "Total": 2506,
+      "Outcome": [
+        {
+          "Name": "Ally",
+          "Count": 55,
+          "Total": 2506,
+          "Rate": 0.02194732641660016
+        },
+        {
+          "Name": "Neutral",
+          "Count": 240,
+          "Total": 2506,
+          "Rate": 0.09577015163607343
+        },
+        {
+          "Name": "Enemy",
+          "Count": 38,
+          "Total": 2506,
+          "Rate": 0.015163607342378291
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 2173,
+          "Total": 2506,
+          "Rate": 0.8671189146049482
+        }
+      ],
+      "Reliability": [
+        {
+          "Name": "Unknown",
+          "Count": 0,
+          "Total": 2506,
+          "Rate": 0
+        },
+        {
+          "Name": "Poor",
+          "Count": 1619,
+          "Total": 2506,
+          "Rate": 0.6460494812450119
+        },
+        {
+          "Name": "Reference",
+          "Count": 554,
+          "Total": 2506,
+          "Rate": 0.22106943335993615
+        },
+        {
+          "Name": "Moderate",
+          "Count": 187,
+          "Total": 2506,
+          "Rate": 0.07462090981644054
+        },
+        {
+          "Name": "RelativelyStrong",
+          "Count": 146,
+          "Total": 2506,
+          "Rate": 0.05826017557861133
+        }
+      ],
+      "OutcomeReliability": [
+        {
+          "Outcome": "Ally",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "Moderate",
+          "Count": 37
+        },
+        {
+          "Outcome": "Ally",
+          "Reliability": "RelativelyStrong",
+          "Count": 18
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Moderate",
+          "Count": 134
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "RelativelyStrong",
+          "Count": 106
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Moderate",
+          "Count": 16
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "RelativelyStrong",
+          "Count": 22
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Poor",
+          "Count": 1619
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Reference",
+          "Count": 554
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "Moderate",
+          "Count": 0
+        },
+        {
+          "Outcome": "Insufficient",
+          "Reliability": "RelativelyStrong",
+          "Count": 0
+        }
+      ],
+      "LevelTempo": [
+        {
+          "Name": "Ally",
+          "Count": 112,
+          "Total": 2506,
+          "Rate": 0.0446927374301676
+        },
+        {
+          "Name": "Neutral",
+          "Count": 69,
+          "Total": 2506,
+          "Rate": 0.02753391859537111
+        },
+        {
+          "Name": "Enemy",
+          "Count": 152,
+          "Total": 2506,
+          "Rate": 0.060654429369513166
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 2173,
+          "Total": 2506,
+          "Rate": 0.8671189146049482
+        }
+      ],
+      "CombatPressure": [
+        {
+          "Name": "Ally",
+          "Count": 17,
+          "Total": 2506,
+          "Rate": 0.006783719074221868
+        },
+        {
+          "Name": "Neutral",
+          "Count": 300,
+          "Total": 2506,
+          "Rate": 0.11971268954509177
+        },
+        {
+          "Name": "Enemy",
+          "Count": 16,
+          "Total": 2506,
+          "Rate": 0.006384676775738229
+        },
+        {
+          "Name": "Insufficient",
+          "Count": 2173,
+          "Total": 2506,
+          "Rate": 0.8671189146049482
+        }
+      ]
+    }
+  ],
+  "Candidates": [
+    {
+      "Id": "A_EQUAL_MIN2",
+      "Name": "Equal vote, minimum 2 eligible",
+      "Rule": "Eligible roles \u003C 2 =\u003E Insufficient; otherwise \u002B1/-1 majority, tie =\u003E Neutral.",
+      "Strength": "Simplest and highly explainable.",
+      "Risk": "One directional role can dominate several Neutral roles.",
+      "Simplicity": "High",
+      "Explainability": "High",
+      "ConservativeBehavior": "Low",
+      "MissingRobustness": "Medium",
+      "ReliabilityAwareness": "None",
+      "DominanceRisk": "Low",
+      "UiClarity": "High"
+    },
+    {
+      "Id": "A_EQUAL_MIN3",
+      "Name": "Equal vote, minimum 3 eligible",
+      "Rule": "Eligible roles \u003C 3 =\u003E Insufficient; otherwise \u002B1/-1 majority, tie =\u003E Neutral.",
+      "Strength": "Robust to missing/insufficient roles.",
+      "Risk": "Still allows one directional role to determine the result.",
+      "Simplicity": "High",
+      "Explainability": "High",
+      "ConservativeBehavior": "Medium",
+      "MissingRobustness": "High",
+      "ReliabilityAwareness": "None",
+      "DominanceRisk": "Low",
+      "UiClarity": "High"
+    },
+    {
+      "Id": "B_RELIABILITY_WEIGHTED",
+      "Name": "Reliability-weighted categorical vote",
+      "Rule": "Minimum 3 eligible; Moderate=1, RelativelyStrong=1.5, then weighted directional majority.",
+      "Strength": "Acknowledges broad evidence bands.",
+      "Risk": "Weights are heuristic, not calibrated accuracy; harder to explain.",
+      "Simplicity": "Medium",
+      "Explainability": "Medium",
+      "ConservativeBehavior": "Medium",
+      "MissingRobustness": "High",
+      "ReliabilityAwareness": "Heuristic",
+      "DominanceRisk": "Medium",
+      "UiClarity": "Medium"
+    },
+    {
+      "Id": "C_SAMPLE_WEIGHTED_CAPPED",
+      "Name": "Capped sample-weighted categorical vote",
+      "Rule": "Minimum 3 eligible; directional weight=sqrt(min(sampleSize,100)).",
+      "Strength": "Limits but does not remove sample dominance.",
+      "Risk": "A single large matchup may override multiple Role directions.",
+      "Simplicity": "Low",
+      "Explainability": "Low",
+      "ConservativeBehavior": "Low",
+      "MissingRobustness": "High",
+      "ReliabilityAwareness": "Raw sample",
+      "DominanceRisk": "High",
+      "UiClarity": "Low"
+    },
+    {
+      "Id": "D_DIRECTIONAL_MIN2",
+      "Name": "Directional majority only",
+      "Rule": "At least 2 directional roles; compare directional counts, tie =\u003E Neutral.",
+      "Strength": "Clear evidence-count interpretation.",
+      "Risk": "All-Neutral evidence becomes Insufficient despite being fully available.",
+      "Simplicity": "High",
+      "Explainability": "High",
+      "ConservativeBehavior": "Medium",
+      "MissingRobustness": "Medium",
+      "ReliabilityAwareness": "None",
+      "DominanceRisk": "Low",
+      "UiClarity": "High"
+    },
+    {
+      "Id": "E_CONSERVATIVE_EQUAL",
+      "Name": "Conservative equal majority",
+      "Rule": "Minimum 3 eligible; a side needs at least 2 directional roles and more votes than the other side; otherwise Neutral.",
+      "Strength": "Simple, resists one-role domination, and handles Neutral explicitly.",
+      "Risk": "May leave many runtime states Neutral; empirical frequency is unknown.",
+      "Simplicity": "High",
+      "Explainability": "High",
+      "ConservativeBehavior": "High",
+      "MissingRobustness": "High",
+      "ReliabilityAwareness": "None",
+      "DominanceRisk": "Low",
+      "UiClarity": "High"
+    },
+    {
+      "Id": "F_STRONG_ONLY",
+      "Name": "RelativelyStrong-only",
+      "Rule": "Only sampleSize \u003E= 50 roles are eligible; at least 2 required, then equal directional majority.",
+      "Strength": "Uses the strongest existing reliability band only.",
+      "Risk": "Very low per-key availability and likely poor runtime coverage.",
+      "Simplicity": "High",
+      "Explainability": "High",
+      "ConservativeBehavior": "High",
+      "MissingRobustness": "Low",
+      "ReliabilityAwareness": "Categorical",
+      "DominanceRisk": "Low",
+      "UiClarity": "Medium"
+    }
+  ],
+  "Fixtures": [
+    {
+      "Id": "A_3A_2B",
+      "Description": "3 Ally / 2 Enemy",
+      "AvailableRoles": 5,
+      "EligibleRoles": 5,
+      "AllyRoles": 3,
+      "NeutralRoles": 0,
+      "EnemyRoles": 2,
+      "UnavailableRoles": 0,
+      "Results": [
+        {
+          "ModelId": "A_EQUAL_MIN2",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "A_EQUAL_MIN3",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "B_RELIABILITY_WEIGHTED",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "C_SAMPLE_WEIGHTED_CAPPED",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "D_DIRECTIONAL_MIN2",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "E_CONSERVATIVE_EQUAL",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "F_STRONG_ONLY",
+          "Result": "InsufficientEvidence"
+        }
+      ]
+    },
+    {
+      "Id": "B_1A_4I",
+      "Description": "1 Ally / 4 Insufficient",
+      "AvailableRoles": 5,
+      "EligibleRoles": 1,
+      "AllyRoles": 1,
+      "NeutralRoles": 0,
+      "EnemyRoles": 0,
+      "UnavailableRoles": 0,
+      "Results": [
+        {
+          "ModelId": "A_EQUAL_MIN2",
+          "Result": "InsufficientEvidence"
+        },
+        {
+          "ModelId": "A_EQUAL_MIN3",
+          "Result": "InsufficientEvidence"
+        },
+        {
+          "ModelId": "B_RELIABILITY_WEIGHTED",
+          "Result": "InsufficientEvidence"
+        },
+        {
+          "ModelId": "C_SAMPLE_WEIGHTED_CAPPED",
+          "Result": "InsufficientEvidence"
+        },
+        {
+          "ModelId": "D_DIRECTIONAL_MIN2",
+          "Result": "InsufficientEvidence"
+        },
+        {
+          "ModelId": "E_CONSERVATIVE_EQUAL",
+          "Result": "InsufficientEvidence"
+        },
+        {
+          "ModelId": "F_STRONG_ONLY",
+          "Result": "InsufficientEvidence"
+        }
+      ]
+    },
+    {
+      "Id": "C_2A_2B_1N",
+      "Description": "2 Ally / 2 Enemy / 1 Neutral",
+      "AvailableRoles": 5,
+      "EligibleRoles": 5,
+      "AllyRoles": 2,
+      "NeutralRoles": 1,
+      "EnemyRoles": 2,
+      "UnavailableRoles": 0,
+      "Results": [
+        {
+          "ModelId": "A_EQUAL_MIN2",
+          "Result": "Neutral"
+        },
+        {
+          "ModelId": "A_EQUAL_MIN3",
+          "Result": "Neutral"
+        },
+        {
+          "ModelId": "B_RELIABILITY_WEIGHTED",
+          "Result": "Neutral"
+        },
+        {
+          "ModelId": "C_SAMPLE_WEIGHTED_CAPPED",
+          "Result": "Neutral"
+        },
+        {
+          "ModelId": "D_DIRECTIONAL_MIN2",
+          "Result": "Neutral"
+        },
+        {
+          "ModelId": "E_CONSERVATIVE_EQUAL",
+          "Result": "Neutral"
+        },
+        {
+          "ModelId": "F_STRONG_ONLY",
+          "Result": "InsufficientEvidence"
+        }
+      ]
+    },
+    {
+      "Id": "D_1A_STRONG_2B",
+      "Description": "1 Ally Strong / 2 Enemy Moderate / 2 Neutral",
+      "AvailableRoles": 5,
+      "EligibleRoles": 5,
+      "AllyRoles": 1,
+      "NeutralRoles": 2,
+      "EnemyRoles": 2,
+      "UnavailableRoles": 0,
+      "Results": [
+        {
+          "ModelId": "A_EQUAL_MIN2",
+          "Result": "EnemyTendency"
+        },
+        {
+          "ModelId": "A_EQUAL_MIN3",
+          "Result": "EnemyTendency"
+        },
+        {
+          "ModelId": "B_RELIABILITY_WEIGHTED",
+          "Result": "EnemyTendency"
+        },
+        {
+          "ModelId": "C_SAMPLE_WEIGHTED_CAPPED",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "D_DIRECTIONAL_MIN2",
+          "Result": "EnemyTendency"
+        },
+        {
+          "ModelId": "E_CONSERVATIVE_EQUAL",
+          "Result": "EnemyTendency"
+        },
+        {
+          "ModelId": "F_STRONG_ONLY",
+          "Result": "InsufficientEvidence"
+        }
+      ]
+    },
+    {
+      "Id": "E_2A_STRONG_1B",
+      "Description": "2 Ally Strong / 1 Enemy Moderate / 2 Neutral",
+      "AvailableRoles": 5,
+      "EligibleRoles": 5,
+      "AllyRoles": 2,
+      "NeutralRoles": 2,
+      "EnemyRoles": 1,
+      "UnavailableRoles": 0,
+      "Results": [
+        {
+          "ModelId": "A_EQUAL_MIN2",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "A_EQUAL_MIN3",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "B_RELIABILITY_WEIGHTED",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "C_SAMPLE_WEIGHTED_CAPPED",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "D_DIRECTIONAL_MIN2",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "E_CONSERVATIVE_EQUAL",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "F_STRONG_ONLY",
+          "Result": "AllyTendency"
+        }
+      ]
+    },
+    {
+      "Id": "F_ALL_NEUTRAL",
+      "Description": "All Neutral",
+      "AvailableRoles": 5,
+      "EligibleRoles": 5,
+      "AllyRoles": 0,
+      "NeutralRoles": 5,
+      "EnemyRoles": 0,
+      "UnavailableRoles": 0,
+      "Results": [
+        {
+          "ModelId": "A_EQUAL_MIN2",
+          "Result": "Neutral"
+        },
+        {
+          "ModelId": "A_EQUAL_MIN3",
+          "Result": "Neutral"
+        },
+        {
+          "ModelId": "B_RELIABILITY_WEIGHTED",
+          "Result": "Neutral"
+        },
+        {
+          "ModelId": "C_SAMPLE_WEIGHTED_CAPPED",
+          "Result": "Neutral"
+        },
+        {
+          "ModelId": "D_DIRECTIONAL_MIN2",
+          "Result": "InsufficientEvidence"
+        },
+        {
+          "ModelId": "E_CONSERVATIVE_EQUAL",
+          "Result": "Neutral"
+        },
+        {
+          "ModelId": "F_STRONG_ONLY",
+          "Result": "InsufficientEvidence"
+        }
+      ]
+    },
+    {
+      "Id": "G_ALL_INSUFFICIENT",
+      "Description": "All Insufficient",
+      "AvailableRoles": 5,
+      "EligibleRoles": 0,
+      "AllyRoles": 0,
+      "NeutralRoles": 0,
+      "EnemyRoles": 0,
+      "UnavailableRoles": 0,
+      "Results": [
+        {
+          "ModelId": "A_EQUAL_MIN2",
+          "Result": "InsufficientEvidence"
+        },
+        {
+          "ModelId": "A_EQUAL_MIN3",
+          "Result": "InsufficientEvidence"
+        },
+        {
+          "ModelId": "B_RELIABILITY_WEIGHTED",
+          "Result": "InsufficientEvidence"
+        },
+        {
+          "ModelId": "C_SAMPLE_WEIGHTED_CAPPED",
+          "Result": "InsufficientEvidence"
+        },
+        {
+          "ModelId": "D_DIRECTIONAL_MIN2",
+          "Result": "InsufficientEvidence"
+        },
+        {
+          "ModelId": "E_CONSERVATIVE_EQUAL",
+          "Result": "InsufficientEvidence"
+        },
+        {
+          "ModelId": "F_STRONG_ONLY",
+          "Result": "InsufficientEvidence"
+        }
+      ]
+    },
+    {
+      "Id": "H_4_ELIGIBLE_1_MISSING",
+      "Description": "2 Ally / 1 Enemy / 1 Neutral / 1 Missing",
+      "AvailableRoles": 4,
+      "EligibleRoles": 4,
+      "AllyRoles": 2,
+      "NeutralRoles": 1,
+      "EnemyRoles": 1,
+      "UnavailableRoles": 1,
+      "Results": [
+        {
+          "ModelId": "A_EQUAL_MIN2",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "A_EQUAL_MIN3",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "B_RELIABILITY_WEIGHTED",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "C_SAMPLE_WEIGHTED_CAPPED",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "D_DIRECTIONAL_MIN2",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "E_CONSERVATIVE_EQUAL",
+          "Result": "AllyTendency"
+        },
+        {
+          "ModelId": "F_STRONG_ONLY",
+          "Result": "InsufficientEvidence"
+        }
+      ]
+    }
+  ],
+  "Recommendation": {
+    "FinalDecision": "A_OUTCOME_ONLY",
+    "RecommendedModelId": "E_CONSERVATIVE_EQUAL",
+    "MinimumEligibleRoles": 3,
+    "MinimumDirectionalRolesForTendency": 2,
+    "Weighting": "Equal categorical votes; no reliability, role-importance, raw win-rate, or sample-size weighting.",
+    "Rule": "Eligible roles below 3 produce InsufficientEvidence. With sufficient eligible roles, at least two same-side directional roles and a strict majority over the opposite side are required; ties and weaker evidence are Neutral.",
+    "Title": "\uD300 \uACB0\uACFC \uACBD\uD5A5",
+    "StateTerms": "\uC544\uAD70 \uCABD \uACBD\uD5A5 / \uC801\uAD70 \uCABD \uACBD\uD5A5 / \uB69C\uB837\uD55C \uCC28\uC774 \uC5C6\uC74C / \uD310\uC815 \uBCF4\uB958",
+    "UiPlacement": "InGame dashboard header compact strip (approximately 40-70 px).",
+    "EvidenceDisplay": "Show eligible roles and Ally / Enemy / Neutral / unavailable counts; do not create a Team Reliability badge.",
+    "Rationale": "Recommend Outcome Summary only. Keep Level Tempo and Combat Pressure on role cards because aggregate data cannot validate team-level meaning, and direct-opponent solo kills vary in interpretation for JUNGLE/SUPPORT."
+  },
+  "Limitations": [
+    "No observed five-role combination rows are available, so fixture outcomes are behavioral tests rather than empirical frequencies.",
+    "Reliability bands are categorical communication aids, not calibrated probabilities or accuracy multipliers.",
+    "No candidate estimates team win probability, composition synergy, role importance, or an overall advantage score.",
+    "Sample sizes from different matchup keys must not be summed into a team sample size.",
+    "Missing and NotFound roles are unavailable, while Neutral is an eligible non-directional result and Insufficient lacks minimum evidence."
+  ]
+}
