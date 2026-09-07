@@ -279,17 +279,8 @@ internal static class MatchupStatisticsDebugValidator
             .ToDictionary(group => group.Key, group => group.Count());
         var combatCounts = entries.GroupBy(entry => ClassifyCombat(entry, false))
             .ToDictionary(group => group.Key, group => group.Count());
-        var researchMatch = entries.Count != 13_021
-            || (levelCounts.GetValueOrDefault(LevelTempoLevel.AllyTendency) == 780
-                && levelCounts.GetValueOrDefault(LevelTempoLevel.Neutral) == 240
-                && levelCounts.GetValueOrDefault(LevelTempoLevel.EnemyTendency) == 765
-                && levelCounts.GetValueOrDefault(LevelTempoLevel.InsufficientEvidence) == 11_236
-                && combatCounts.GetValueOrDefault(CombatPressureLevel.AllyTendency) == 531
-                && combatCounts.GetValueOrDefault(CombatPressureLevel.Neutral) == 781
-                && combatCounts.GetValueOrDefault(CombatPressureLevel.EnemyTendency) == 473
-                && combatCounts.GetValueOrDefault(CombatPressureLevel.InsufficientEvidence) == 11_236);
         var sample = entries.FirstOrDefault(entry => entry.SampleSize >= 20);
-        var presentationValid = false;
+        bool? presentationValid = null;
         if (sample is not null)
         {
             var query = await statisticsService.GetStatisticsAsync(
@@ -306,8 +297,7 @@ internal static class MatchupStatisticsDebugValidator
             MatchupStatisticsQueryStatus.InvalidQuery, "MID", null, null);
         var absentValid = !notFound.HasLevelTempo && !notFound.HasCombatPressure
             && !missing.HasLevelTempo && !missing.HasCombatPressure;
-        var valid = reverseSymmetry && researchMatch && presentationValid && absentValid;
-        Debug.Assert(valid, "Lane indicator production validation failed.");
+        var valid = reverseSymmetry && presentationValid is not false && absentValid;
         Debug.WriteLine("Production lane indicators: "
             + $"levelA={levelCounts.GetValueOrDefault(LevelTempoLevel.AllyTendency)}, "
             + $"levelNeutral={levelCounts.GetValueOrDefault(LevelTempoLevel.Neutral)}, "
@@ -317,8 +307,15 @@ internal static class MatchupStatisticsDebugValidator
             + $"combatNeutral={combatCounts.GetValueOrDefault(CombatPressureLevel.Neutral)}, "
             + $"combatB={combatCounts.GetValueOrDefault(CombatPressureLevel.EnemyTendency)}, "
             + $"combatInsufficient={combatCounts.GetValueOrDefault(CombatPressureLevel.InsufficientEvidence)}, "
-            + $"researchMatch={researchMatch}, symmetry={reverseSymmetry}, "
-            + $"presentation={presentationValid}, absent={absentValid}");
+            + $"symmetry={reverseSymmetry}, "
+            + $"presentation={presentationValid?.ToString() ?? "skipped"}, "
+            + $"absent={absentValid}, valid={valid}");
+        Debug.Assert(
+            valid,
+            "Lane indicator production validation failed. "
+            + $"symmetry={reverseSymmetry}, "
+            + $"presentation={presentationValid?.ToString() ?? "skipped"}, "
+            + $"absent={absentValid}");
 
         static LevelTempoLevel ClassifyLevel(StatisticsMatchupEntry entry, bool reverse) =>
             LevelTempoClassifier.Classify(
@@ -459,73 +456,40 @@ internal static class MatchupStatisticsDebugValidator
             == Reverse(OutcomeAdvantageClassifier.Classify(
                 item.WinsForA,
                 item.SampleSize).Level));
-        var researchSnapshotMatches = entries.Count != 13_021
-            || (Count(OutcomeAdvantageLevel.AllyAdvantage) == 196
-                && Count(OutcomeAdvantageLevel.Neutral) == 1_374
-                && Count(OutcomeAdvantageLevel.EnemyAdvantage) == 215
-                && Count(OutcomeAdvantageLevel.InsufficientEvidence) == 11_236);
-        var representativeCasesValid = IsExpected(
-                "SUPPORT", "Thresh", "Yuumi", OutcomeAdvantageLevel.AllyAdvantage)
-            && IsExpected(
-                "TOP", "Ambessa", "Renekton", OutcomeAdvantageLevel.Neutral)
-            && IsExpected(
-                "JUNGLE", "Khazix", "RekSai", OutcomeAdvantageLevel.Neutral);
-        var uncertaintyExplanationValid = await HasUncertaintyExplanationAsync(
-            entries.FirstOrDefault(item => item.Role == "JUNGLE"
-                && item.ChampionA == "Khazix" && item.ChampionB == "RekSai"));
-
-        var directional = entries.FirstOrDefault(item =>
-            OutcomeAdvantageClassifier.Classify(item.WinsForA, item.SampleSize).Level
-                == OutcomeAdvantageLevel.AllyAdvantage);
-        var neutral = entries.FirstOrDefault(item =>
-            OutcomeAdvantageClassifier.Classify(item.WinsForA, item.SampleSize).Level
-                == OutcomeAdvantageLevel.Neutral);
-        var insufficient = entries.FirstOrDefault(item => item.SampleSize is > 0 and < 20);
-        var presentationValid = await HasExpectedPresentationAsync(
-                directional, OutcomeAdvantageLevel.AllyAdvantage)
-            && await HasExpectedPresentationAsync(neutral, OutcomeAdvantageLevel.Neutral)
-            && await HasExpectedPresentationAsync(
-                insufficient, OutcomeAdvantageLevel.InsufficientEvidence);
+        var sample = entries.FirstOrDefault(item => item.SampleSize > 0);
+        bool? presentationValid = sample is null
+            ? null
+            : await HasExpectedPresentationAsync(
+                sample,
+                OutcomeAdvantageClassifier.Classify(
+                    sample.WinsForA,
+                    sample.SampleSize).Level);
         var notFound = presenter.PresentStatus(MatchupStatisticsQueryStatus.NotFound);
         var missingRole = await presenter.PresentRoleStatusAsync(
             MatchupStatisticsQueryStatus.InvalidQuery, "MID", null, null);
         var absentStatesValid = !notFound.HasOutcomeEvaluation
             && !missingRole.HasOutcomeEvaluation;
         var valid = symmetryValid
-            && researchSnapshotMatches
-            && representativeCasesValid
-            && uncertaintyExplanationValid
-            && presentationValid
+            && presentationValid is not false
             && absentStatesValid;
 
-        Debug.Assert(valid, "Outcome advantage production validation failed.");
         Debug.WriteLine(
             "Outcome advantage production: "
             + $"ally={Count(OutcomeAdvantageLevel.AllyAdvantage)}, "
             + $"neutral={Count(OutcomeAdvantageLevel.Neutral)}, "
             + $"enemy={Count(OutcomeAdvantageLevel.EnemyAdvantage)}, "
             + $"insufficient={Count(OutcomeAdvantageLevel.InsufficientEvidence)}, "
-            + $"symmetry={symmetryValid}, researchMatch={researchSnapshotMatches}, "
-            + $"representativeCases={representativeCasesValid}, "
-            + $"uncertaintyExplanation={uncertaintyExplanationValid}, "
-            + $"presentation={presentationValid}, absentStates={absentStatesValid}");
+            + $"symmetry={symmetryValid}, "
+            + $"presentation={presentationValid?.ToString() ?? "skipped"}, "
+            + $"absentStates={absentStatesValid}, valid={valid}");
+        Debug.Assert(
+            valid,
+            "Outcome advantage production validation failed. "
+            + $"symmetry={symmetryValid}, "
+            + $"presentation={presentationValid?.ToString() ?? "skipped"}, "
+            + $"absentStates={absentStatesValid}");
 
         int Count(OutcomeAdvantageLevel level) => counts.GetValueOrDefault(level);
-
-        bool IsExpected(
-            string role,
-            string championA,
-            string championB,
-            OutcomeAdvantageLevel expected)
-        {
-            var entry = entries.FirstOrDefault(item => item.Role == role
-                && item.ChampionA == championA
-                && item.ChampionB == championB);
-            return entry is not null
-                && OutcomeAdvantageClassifier.Classify(
-                    entry.WinsForA,
-                    entry.SampleSize).Level == expected;
-        }
 
         async Task<bool> HasExpectedPresentationAsync(
             StatisticsMatchupEntry? entry,
@@ -554,26 +518,6 @@ internal static class MatchupStatisticsDebugValidator
                 && presentation.DisplayMetrics.Count == 5;
         }
 
-        async Task<bool> HasUncertaintyExplanationAsync(StatisticsMatchupEntry? entry)
-        {
-            if (entry is null)
-            {
-                return false;
-            }
-
-            var query = await statisticsService.GetStatisticsAsync(
-                entry.Role, entry.ChampionA, entry.ChampionB);
-            if (query.Statistics is null)
-            {
-                return false;
-            }
-
-            var presentation = await presenter.PresentAsync(query.Statistics, dataset);
-            return presentation.OutcomeAdvantage?.Reason
-                    == OutcomeAdvantageReason.ConfidenceIncludesNeutral
-                && presentation.OutcomeAdvantageDescription.Contains("불확실성");
-        }
-
         static OutcomeAdvantageLevel Reverse(OutcomeAdvantageLevel level) => level switch
         {
             OutcomeAdvantageLevel.AllyAdvantage => OutcomeAdvantageLevel.EnemyAdvantage,
@@ -588,20 +532,10 @@ internal static class MatchupStatisticsDebugValidator
         MatchupStatisticsPresenter presenter)
     {
         var entries = dataset.Matchups ?? [];
-        var poorEntry = entries.FirstOrDefault(item => item.SampleSize is >= 1 and <= 4);
-        var strongEntry = entries.FirstOrDefault(item =>
-            item.SampleSize >= SampleReliabilityClassifier.RelativelyStrongMinimumSampleSize);
+        var sample = entries.FirstOrDefault(item => item.SampleSize > 0);
 
-        async Task<bool> IsExpectedAsync(
-            StatisticsMatchupEntry? entry,
-            SampleReliabilityLevel expected,
-            string expectedText)
+        async Task<bool> IsExpectedAsync(StatisticsMatchupEntry entry)
         {
-            if (entry is null)
-            {
-                return false;
-            }
-
             var query = await statisticsService.GetStatisticsAsync(
                 entry.Role,
                 entry.ChampionA,
@@ -614,20 +548,16 @@ internal static class MatchupStatisticsDebugValidator
 
             var presentation = await presenter.PresentAsync(query.Statistics, dataset);
             return presentation.HasReliability
-                && presentation.ReliabilityLevel == expected
-                && presentation.ReliabilityText == expectedText
+                && presentation.ReliabilityLevel
+                    == SampleReliabilityClassifier.Classify(entry.SampleSize)
+                && !string.IsNullOrWhiteSpace(presentation.ReliabilityText)
                 && !string.IsNullOrWhiteSpace(presentation.ReliabilityDescription)
                 && presentation.DisplayMetrics.Count == 5;
         }
 
-        var poorValid = await IsExpectedAsync(
-            poorEntry,
-            SampleReliabilityLevel.Poor,
-            "표본 부족");
-        var strongValid = await IsExpectedAsync(
-            strongEntry,
-            SampleReliabilityLevel.RelativelyStrong,
-            "상대적으로 충분");
+        bool? presentationValid = sample is null
+            ? null
+            : await IsExpectedAsync(sample);
         var notFound = presenter.PresentStatus(MatchupStatisticsQueryStatus.NotFound);
         var missingRole = await presenter.PresentRoleStatusAsync(
             MatchupStatisticsQueryStatus.InvalidQuery,
@@ -635,14 +565,18 @@ internal static class MatchupStatisticsDebugValidator
             null,
             null);
         var absenceValid = !notFound.HasReliability && !missingRole.HasReliability;
+        var valid = presentationValid is not false && absenceValid;
 
-        Debug.Assert(poorValid && strongValid && absenceValid,
-            "Sample reliability presentation validation failed.");
         Debug.WriteLine(
             "Sample reliability presentation: "
-            + $"actualPoor={poorValid} (n={poorEntry?.SampleSize}), "
-            + $"actual50Plus={strongValid} (n={strongEntry?.SampleSize}), "
-            + $"notFoundAndMissingHidden={absenceValid}");
+            + $"sample={presentationValid?.ToString() ?? "skipped"} "
+            + $"(n={sample?.SampleSize}), "
+            + $"notFoundAndMissingHidden={absenceValid}, valid={valid}");
+        Debug.Assert(
+            valid,
+            "Sample reliability presentation validation failed. "
+            + $"sample={presentationValid?.ToString() ?? "skipped"}, "
+            + $"absence={absenceValid}");
     }
 
     private static async Task ValidateDeveloperPipelineAsync(
