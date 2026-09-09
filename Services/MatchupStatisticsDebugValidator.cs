@@ -1,5 +1,6 @@
 #if DEBUG
 using System.Diagnostics;
+using LoLMatchup.Models.Presentation;
 using LoLMatchup.Models.Statistics;
 using LoLMatchup.Services.Development;
 using LoLMatchup.Services.Statistics;
@@ -139,9 +140,26 @@ internal static class MatchupStatisticsDebugValidator
                 == CombatPressureLevel.Neutral
             && CombatPressureClassifier.Classify(20, 25, 25).Level
                 == CombatPressureLevel.Neutral;
-        var valid = insufficient && levelBoundaries && signalPatterns && combatBoundaries;
-        Debug.Assert(valid, "Lane indicator boundary validation failed.");
-        Debug.WriteLine($"Lane indicator boundaries: valid={valid}");
+        var compactDirections = MatchupStatisticsPresenter
+            .CreateCompactDirectionIndicators(CreateCompactFixture(20));
+        var compactDirectionsValid = compactDirections.Count == 4
+            && compactDirections[0].Level == CompactDirectionLevel.Ally
+            && compactDirections[1].Level == CompactDirectionLevel.Enemy
+            && compactDirections[2].Level == CompactDirectionLevel.Neutral
+            && compactDirections[3].Level == CompactDirectionLevel.Ally
+            && MatchupStatisticsPresenter.CreateCompactDirectionIndicators(
+                CreateCompactFixture(19)).Count == 0;
+        var valid = insufficient && levelBoundaries && signalPatterns && combatBoundaries
+            && compactDirectionsValid;
+        Debug.Assert(
+            valid,
+            "Lane indicator boundary validation failed. "
+            + $"insufficient={insufficient}, level={levelBoundaries}, "
+            + $"signals={signalPatterns}, combat={combatBoundaries}, "
+            + $"compact={compactDirectionsValid}; "
+            + $"compactLevels={string.Join(',', compactDirections.Select(item => item.Level))}");
+        Debug.WriteLine(
+            $"Lane indicator boundaries: compact={compactDirectionsValid}, valid={valid}");
 
         static LevelTempoLevel Level(
             int sample,
@@ -149,6 +167,24 @@ internal static class MatchupStatisticsDebugValidator
             int l3a, int l3b, int l3u,
             int l6a, int l6b, int l6u) => LevelTempoClassifier.Classify(
                 sample, l2a, l2b, l2u, l3a, l3b, l3u, l6a, l6b, l6u).Level;
+
+        static MatchupStatisticsResult CreateCompactFixture(int sampleSize) => new(
+            "MID",
+            "AllyChampion",
+            "EnemyChampion",
+            sampleSize,
+            0,
+            sampleSize,
+            0,
+            1,
+            new LevelRaceStatistics(10, 9, sampleSize - 19, 0, 0, 0),
+            new LevelRaceStatistics(9, 10, sampleSize - 19, 0, 0, 0),
+            new LevelRaceStatistics(9, 9, sampleSize - 18, 0, 0, 0),
+            2,
+            1,
+            2d / sampleSize,
+            1d / sampleSize,
+            false);
     }
 
     private static void ValidateMatchupExplanations()

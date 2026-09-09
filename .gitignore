@@ -12,6 +12,9 @@ obj/
 
 Tools/StatsCollector/Data/State/
 Tools/StatsCollector/Data/Samples/
+Tools/PublishStatisticsDataset/Output/
+Tools/PublishStatisticsDataset/CloudflarePagesDeploy/
+Data/Statistics/*.bak
 
 publish/
 *_wpftmp.csproj

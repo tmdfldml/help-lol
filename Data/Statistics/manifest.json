@@ -1,14 +1,19 @@
 {
   "schemaVersion": 1,
+  "datasetSchemaVersion": 1,
   "datasetId": "master-plus-kr-420",
-  "datasetRevision": 1788710852,
+  "datasetRevision": 1788854099077,
   "patch": "16.17",
   "tierScope": "MASTER_PLUS_SEEDED",
   "region": "KR",
   "queueId": 420,
   "minimumGameDurationSeconds": 900,
-  "acceptedMatches": 31075,
-  "fileSizeBytes": 6310939,
-  "sha256": "df2620cd091f1e9094d913036792ef083ebd7d60c533c83ac93bea9996133e67",
-  "downloadUrl": null
+  "acceptedMatches": 51649,
+  "observations": 258245,
+  "matchupKeys": 15547,
+  "datasetGeneratedAtUtc": "2026-09-08T07:54:59.0778927+00:00",
+  "publishedAtUtc": "2026-09-08T08:58:54.4894712+00:00",
+  "fileSizeBytes": 7541418,
+  "sha256": "1aba43ed6108d5b2ba07b1ce170f546f8417d1c319f6a6459d97c077bb27fb14",
+  "downloadUrl": "master_plus.1788854099077.json"
 }

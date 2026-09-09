@@ -14,33 +14,13 @@ internal static class ProductionLaneIndicatorsVerification
         var reverseSymmetry = entries.All(entry =>
             Reverse(Level(entry)) == Level(entry, reverse: true)
             && Reverse(Combat(entry)) == Combat(entry, reverse: true));
-        var researchMatch = entries.Count != 13_021
-            || (Count(levelCounts, LevelTempoLevel.AllyTendency) == 780
-                && Count(levelCounts, LevelTempoLevel.Neutral) == 240
-                && Count(levelCounts, LevelTempoLevel.EnemyTendency) == 765
-                && Count(levelCounts, LevelTempoLevel.InsufficientEvidence) == 11_236
-                && Count(combatCounts, CombatPressureLevel.AllyTendency) == 531
-                && Count(combatCounts, CombatPressureLevel.Neutral) == 781
-                && Count(combatCounts, CombatPressureLevel.EnemyTendency) == 473
-                && Count(combatCounts, CombatPressureLevel.InsufficientEvidence) == 11_236);
-        var representativeCases =
-            Expected("TOP", "Kled", "Nasus", LevelTempoLevel.AllyTendency, null)
-            && Expected("TOP", "Gnar", "Kled", LevelTempoLevel.EnemyTendency, null)
-            && Expected("ADC", "Ezreal", "Jhin", LevelTempoLevel.Neutral,
-                CombatPressureLevel.EnemyTendency)
-            && Expected("ADC", "Jinx", "Kaisa", LevelTempoLevel.AllyTendency,
-                CombatPressureLevel.EnemyTendency)
-            && Expected("ADC", "Kaisa", "Kalista", LevelTempoLevel.EnemyTendency,
-                CombatPressureLevel.AllyTendency)
-            && Expected("TOP", "Jayce", "KSante", LevelTempoLevel.AllyTendency,
-                CombatPressureLevel.EnemyTendency);
-
-        if (!researchMatch || !reverseSymmetry || !representativeCases)
+        // Distributions describe this input, not an oracle from a historical snapshot.
+        // Synthetic policy boundaries are checked by ProductionPolicyRegression.
+        if (!reverseSymmetry)
         {
             throw new InvalidDataException(
                 "Production Level Tempo / Combat Pressure regression failed: "
-                + $"researchMatch={researchMatch}, reverseSymmetry={reverseSymmetry}, "
-                + $"representativeCases={representativeCases}; "
+                + $"reverseSymmetry={reverseSymmetry}; "
                 + $"level={Count(levelCounts, LevelTempoLevel.AllyTendency)}/"
                 + $"{Count(levelCounts, LevelTempoLevel.Neutral)}/"
                 + $"{Count(levelCounts, LevelTempoLevel.EnemyTendency)}/"
@@ -60,23 +40,7 @@ internal static class ProductionLaneIndicatorsVerification
             + $"Neutral={Count(combatCounts, CombatPressureLevel.Neutral)}, "
             + $"B={Count(combatCounts, CombatPressureLevel.EnemyTendency)}, "
             + $"Insufficient={Count(combatCounts, CombatPressureLevel.InsufficientEvidence)}");
-        Console.WriteLine($"levelTempoResearchMatch={researchMatch}");
-        Console.WriteLine($"combatPressureResearchMatch={researchMatch}");
         Console.WriteLine($"reverseSymmetry={reverseSymmetry}");
-        Console.WriteLine($"representativeCases={representativeCases}");
-
-        bool Expected(
-            string role,
-            string championA,
-            string championB,
-            LevelTempoLevel expectedLevel,
-            CombatPressureLevel? expectedCombat)
-        {
-            var entry = entries.FirstOrDefault(value => value.Role == role
-                && value.ChampionA == championA && value.ChampionB == championB);
-            return entry is not null && Level(entry) == expectedLevel
-                && (expectedCombat is null || Combat(entry) == expectedCombat);
-        }
     }
 
     private static LevelTempoLevel Level(StatisticsMatchupEntry entry, bool reverse = false)

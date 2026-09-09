@@ -20,5 +20,8 @@
     <Compile Include="..\..\Models\Statistics\CombatPressureLevel.cs" Link="Shared\CombatPressureLevel.cs" />
     <Compile Include="..\..\Models\Statistics\CombatPressureResult.cs" Link="Shared\CombatPressureResult.cs" />
     <Compile Include="..\..\Services\Statistics\CombatPressureClassifier.cs" Link="Shared\CombatPressureClassifier.cs" />
+    <Compile Include="..\..\Models\Statistics\TeamOutcomeSummaryLevel.cs" Link="Shared\TeamOutcomeSummaryLevel.cs" />
+    <Compile Include="..\..\Models\Statistics\TeamOutcomeSummaryResult.cs" Link="Shared\TeamOutcomeSummaryResult.cs" />
+    <Compile Include="..\..\Services\Statistics\TeamOutcomeSummaryClassifier.cs" Link="Shared\TeamOutcomeSummaryClassifier.cs" />
   </ItemGroup>
 </Project>

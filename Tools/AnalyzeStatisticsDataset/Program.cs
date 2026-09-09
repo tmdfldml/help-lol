@@ -23,11 +23,13 @@ Console.WriteLine($"Input: {inputPath}");
 
 try
 {
+    ProductionPolicyRegression.Verify();
     var dataset = JsonSerializer.Deserialize<StatisticsDataset>(await File.ReadAllBytesAsync(inputPath));
     if (!StatisticsDatasetValidator.TryValidate(dataset, out var index, out var validationError))
     {
         throw new InvalidDataException(validationError);
     }
+    Console.WriteLine("structuralValidation=True");
 
     var manifest = await LoadManifestAsync(Path.Combine(Path.GetDirectoryName(inputPath)!, "manifest.json"));
     var entries = index.Values.OrderBy(item => item.Role, StringComparer.Ordinal)

@@ -97,7 +97,8 @@ public sealed class MatchupStatisticsPresenter
             LevelTempoDescription: explanation.LevelTempo,
             CombatPressure: combatPressure,
             CombatPressureText: combatPressureText,
-            CombatPressureDescription: explanation.CombatPressure);
+            CombatPressureDescription: explanation.CombatPressure,
+            CompactDirectionIndicators: CreateCompactDirectionIndicators(statistics));
     }
 
     public MatchupStatisticsPresentation PresentStatus(
@@ -178,6 +179,56 @@ public sealed class MatchupStatisticsPresenter
             $"{StatisticsDisplayFormatter.Decimal2(statistics.SoloKillsPerMatchForOpponent)} "
                 + $"({statistics.SoloKillsBefore15ForOpponent:N0})",
             unknown.Count == 0 ? string.Empty : $"미확인: {string.Join(" · ", unknown)}");
+    }
+
+    internal static IReadOnlyList<CompactDirectionIndicatorPresentation>
+        CreateCompactDirectionIndicators(MatchupStatisticsResult statistics)
+    {
+        if (statistics.SampleSize < LevelTempoClassifier.MinimumSampleSize)
+        {
+            return [];
+        }
+
+        return
+        [
+            CreateDirectionIndicator(
+                "L2",
+                statistics.FirstLevel2.ForQuery,
+                statistics.FirstLevel2.ForOpponent),
+            CreateDirectionIndicator(
+                "L3",
+                statistics.FirstLevel3.ForQuery,
+                statistics.FirstLevel3.ForOpponent),
+            CreateDirectionIndicator(
+                "L6",
+                statistics.FirstLevel6.ForQuery,
+                statistics.FirstLevel6.ForOpponent),
+            CreateDirectionIndicator(
+                "솔로킬",
+                statistics.SoloKillsPerMatchForQuery,
+                statistics.SoloKillsPerMatchForOpponent)
+        ];
+    }
+
+    private static CompactDirectionIndicatorPresentation CreateDirectionIndicator(
+        string label,
+        double allyValue,
+        double enemyValue)
+    {
+        var level = allyValue.CompareTo(enemyValue) switch
+        {
+            > 0 => CompactDirectionLevel.Ally,
+            < 0 => CompactDirectionLevel.Enemy,
+            _ => CompactDirectionLevel.Neutral
+        };
+        var side = level switch
+        {
+            CompactDirectionLevel.Ally => "아군",
+            CompactDirectionLevel.Enemy => "적군",
+            _ => "비슷"
+        };
+
+        return new CompactDirectionIndicatorPresentation($"{label} {side}", level);
     }
 
     private static void AddUnknown(List<string> values, string label, double rate)

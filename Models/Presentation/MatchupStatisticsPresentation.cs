@@ -38,7 +38,8 @@ public sealed record MatchupStatisticsPresentation(
     string LevelTempoDescription = "",
     CombatPressureResult? CombatPressure = null,
     string CombatPressureText = "",
-    string CombatPressureDescription = "")
+    string CombatPressureDescription = "",
+    IReadOnlyList<CompactDirectionIndicatorPresentation>? CompactDirectionIndicators = null)
 {
     public IReadOnlyList<MatchupMetricPresentation> DisplayMetrics => Metrics ?? [];
     public bool HasStatistics => CompactMetrics is not null;
@@ -54,6 +55,10 @@ public sealed record MatchupStatisticsPresentation(
     public bool HasCombatPressure => HasStatistics && CombatPressure is not null;
     public CombatPressureLevel CombatPressureLevel =>
         CombatPressure?.Level ?? Models.Statistics.CombatPressureLevel.InsufficientEvidence;
+    public IReadOnlyList<CompactDirectionIndicatorPresentation> DisplayCompactDirectionIndicators =>
+        CompactDirectionIndicators ?? [];
+    public bool HasCompactDirectionIndicators => HasStatistics
+        && DisplayCompactDirectionIndicators.Count > 0;
     public bool CanOpenDetail => !string.IsNullOrWhiteSpace(QueryChampionId)
         && !string.IsNullOrWhiteSpace(OpponentChampionId);
 }

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LoLMatchup"><HintPath>../../bin/Debug/net10.0-windows/LoLMatchup.dll</HintPath></Reference>
+    <Content Include="../../Data/Champions/**/*" Link="Data/Champions/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../Data/Statistics/master_plus.json" Link="Data/Statistics/master_plus.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

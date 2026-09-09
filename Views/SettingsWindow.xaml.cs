@@ -14,9 +14,14 @@ public partial class SettingsWindow : Window
     private readonly AppSettingsService _settingsService;
     private readonly StatisticsDataService _statisticsDataService;
     private readonly DatasetUpdateService _datasetUpdateService;
+    private readonly CancellationTokenSource _lifetimeCancellation = new();
+    private readonly bool _updateEndpointConfigured;
     private bool _applyingSettings;
+    private bool _updateBusy;
     private DatasetUpdateManifest? _availableUpdate;
+    private DatasetUpdateManifest? _currentDatasetManifest;
     private long _currentDatasetRevision;
+    private int _currentAcceptedMatches;
 
     public SettingsWindow(
         AppSettingsService settingsService,
@@ -24,8 +29,10 @@ public partial class SettingsWindow : Window
     {
         _settingsService = settingsService;
         _statisticsDataService = statisticsDataService;
+        var updateOptions = DatasetUpdateOptions.FromEnvironment();
+        _updateEndpointConfigured = updateOptions.ManifestUri is not null;
         _datasetUpdateService = new DatasetUpdateService(
-            new DatasetUpdateOptions(),
+            updateOptions,
             _statisticsDataService.UpdatedDataFilePath);
         InitializeComponent();
 
@@ -41,14 +48,32 @@ public partial class SettingsWindow : Window
     {
         var result = await _statisticsDataService.LoadAsync();
         var manifest = await _statisticsDataService.LoadCompanionManifestAsync(result.Source);
-        _currentDatasetRevision = manifest?.DatasetRevision ?? 0;
+        var installedManifest = await _statisticsDataService.LoadInstalledUpdateManifestAsync();
+        var activeRevision = manifest?.DatasetRevision ?? 0;
+        var installedRevision = installedManifest?.DatasetRevision ?? 0;
+        _currentDatasetManifest = installedRevision > activeRevision
+            ? installedManifest
+            : manifest;
+        _currentDatasetRevision = Math.Max(activeRevision, installedRevision);
         ApplyDatasetInformation(result, manifest);
+        if (installedRevision > activeRevision)
+        {
+            UpdateStatusText.Text =
+                "새 통계 데이터가 설치되어 있습니다. 앱을 다시 시작하면 적용됩니다.";
+            CheckUpdateButton.Content = "재시작 필요";
+        }
+        else if (!_updateEndpointConfigured)
+        {
+            UpdateStatusText.Text = "업데이트 서버가 아직 설정되지 않았습니다.";
+        }
     }
 
     private void SettingsWindow_Closed(object? sender, EventArgs e)
     {
+        _lifetimeCancellation.Cancel();
         _settingsService.SettingsChanged -= SettingsService_SettingsChanged;
         _datasetUpdateService.Dispose();
+        _lifetimeCancellation.Dispose();
     }
 
     private void NavigationList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -120,37 +145,76 @@ public partial class SettingsWindow : Window
 
     private async void CheckUpdate_Click(object sender, RoutedEventArgs e)
     {
+        if (_updateBusy)
+        {
+            return;
+        }
+
         SetUpdateBusy(true, "업데이트 확인 중...");
-        var result = await _datasetUpdateService.CheckAsync(_currentDatasetRevision);
+        var result = await _datasetUpdateService.CheckAsync(
+            _currentDatasetManifest,
+            _lifetimeCancellation.Token);
+        if (!IsLoaded)
+        {
+            return;
+        }
+
         _availableUpdate = result.Status == DatasetUpdateStatus.UpdateAvailable
             ? result.Manifest
             : null;
-        UpdateStatusText.Text = result.Message;
+        UpdateStatusText.Text = _availableUpdate is null
+            ? result.Message
+            : $"새 통계 데이터가 있습니다. "
+                + $"{_currentAcceptedMatches:N0} → {_availableUpdate.AcceptedMatches:N0}경기";
         InstallUpdateButton.Visibility = _availableUpdate is null
             ? Visibility.Collapsed
             : Visibility.Visible;
+        CheckUpdateButton.Content = result.Status == DatasetUpdateStatus.UpToDate
+            ? "최신 상태"
+            : "업데이트 확인";
         SetUpdateBusy(false);
     }
 
     private async void InstallUpdate_Click(object sender, RoutedEventArgs e)
     {
-        if (_availableUpdate is null)
+        if (_availableUpdate is null || _updateBusy)
         {
             return;
         }
 
         SetUpdateBusy(true, "다운로드 중...");
-        var result = await _datasetUpdateService.InstallAsync(_availableUpdate);
+        var result = await _datasetUpdateService.InstallAsync(
+            _availableUpdate,
+            _lifetimeCancellation.Token);
+        if (!IsLoaded)
+        {
+            return;
+        }
+
         UpdateStatusText.Text = result.Message;
         InstallUpdateButton.Visibility = Visibility.Collapsed;
+        if (result.Status == DatasetUpdateStatus.Installed)
+        {
+            _currentDatasetRevision = result.Manifest?.DatasetRevision
+                ?? _currentDatasetRevision;
+            _currentDatasetManifest = result.Manifest;
+        }
         _availableUpdate = null;
+        CheckUpdateButton.Content = result.Status == DatasetUpdateStatus.Installed
+            ? "재시작 필요"
+            : "다시 시도";
         SetUpdateBusy(false);
     }
 
     private void SetUpdateBusy(bool busy, string? message = null)
     {
+        _updateBusy = busy;
         CheckUpdateButton.IsEnabled = !busy;
         InstallUpdateButton.IsEnabled = !busy;
+        if (busy)
+        {
+            CheckUpdateButton.Content = "확인 중...";
+        }
         if (message is not null)
         {
             UpdateStatusText.Text = message;
@@ -169,6 +233,7 @@ public partial class SettingsWindow : Window
         };
 
         var dataset = result.Dataset;
+        _currentAcceptedMatches = dataset?.AcceptedMatches ?? 0;
         DatasetPatchText.Text = dataset?.Patch ?? "—";
         AcceptedMatchesText.Text = dataset is null
             ? "—"
@@ -194,6 +259,9 @@ public partial class SettingsWindow : Window
         DatasetRevisionText.Text = manifest is { DatasetRevision: > 0 }
             ? manifest.DatasetRevision.ToString()
             : "기본 버전";
+        DatasetGeneratedAtText.Text = dataset is null
+            ? "—"
+            : dataset.GeneratedAtUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm");
     }
 
     private static string FormatSize(double width, double height) =>

@@ -10,5 +10,7 @@
     <Compile Include="..\..\Models\Statistics\DatasetUpdateManifest.cs" Link="Shared\DatasetUpdateManifest.cs" />
     <Compile Include="..\..\Services\Statistics\StatisticsDatasetValidator.cs" Link="Shared\StatisticsDatasetValidator.cs" />
     <Compile Include="..\..\Services\Statistics\DatasetUpdateOptions.cs" Link="Shared\DatasetUpdateOptions.cs" />
+    <Compile Include="..\..\Services\Statistics\DatasetUpdateService.cs" Link="Shared\DatasetUpdateService.cs" />
+    <Compile Include="..\..\Services\StatisticsDataService.cs" Link="Shared\StatisticsDataService.cs" />
   </ItemGroup>
 </Project>

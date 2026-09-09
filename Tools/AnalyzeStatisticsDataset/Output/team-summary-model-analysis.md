@@ -3,10 +3,10 @@
 ## Dataset Summary
 
 - Patch: `16.17`
-- Accepted matches: 31,075
-- Matchup keys: 13,021
+- Accepted matches: 51,649
+- Matchup keys: 15,547
 - Scope: `MASTER_PLUS_SEEDED` / `KR` / queue `420`
-- Dataset revision: 1788710852
+- Dataset revision: 1788854099077
 
 ## Research Scope
 
@@ -20,56 +20,56 @@ Summarize five independent role-level categorical tendencies for faster reading;
 
 | Role | State | Count | Percent |
 |---|---|---:|---:|
-| TOP | Ally | 37 | 0.96% |
-| TOP | Neutral | 317 | 8.23% |
-| TOP | Enemy | 45 | 1.17% |
-| TOP | Insufficient | 3,454 | 89.64% |
-| JUNGLE | Ally | 31 | 1.53% |
-| JUNGLE | Neutral | 319 | 15.75% |
-| JUNGLE | Enemy | 41 | 2.02% |
-| JUNGLE | Insufficient | 1,634 | 80.69% |
-| MID | Ally | 53 | 1.68% |
-| MID | Neutral | 306 | 9.71% |
-| MID | Enemy | 64 | 2.03% |
-| MID | Insufficient | 2,729 | 86.58% |
-| ADC | Ally | 20 | 1.35% |
-| ADC | Neutral | 192 | 12.93% |
-| ADC | Enemy | 27 | 1.82% |
-| ADC | Insufficient | 1,246 | 83.91% |
-| SUPPORT | Ally | 55 | 2.19% |
-| SUPPORT | Neutral | 240 | 9.58% |
-| SUPPORT | Enemy | 38 | 1.52% |
-| SUPPORT | Insufficient | 2,173 | 86.71% |
+| TOP | Ally | 63 | 1.36% |
+| TOP | Neutral | 524 | 11.28% |
+| TOP | Enemy | 71 | 1.53% |
+| TOP | Insufficient | 3,988 | 85.84% |
+| JUNGLE | Ally | 69 | 3.00% |
+| JUNGLE | Neutral | 435 | 18.90% |
+| JUNGLE | Enemy | 80 | 3.48% |
+| JUNGLE | Insufficient | 1,718 | 74.63% |
+| MID | Ally | 77 | 2.03% |
+| MID | Neutral | 446 | 11.76% |
+| MID | Enemy | 84 | 2.22% |
+| MID | Insufficient | 3,185 | 83.99% |
+| ADC | Ally | 27 | 1.51% |
+| ADC | Neutral | 247 | 13.77% |
+| ADC | Enemy | 51 | 2.84% |
+| ADC | Insufficient | 1,469 | 81.88% |
+| SUPPORT | Ally | 71 | 2.36% |
+| SUPPORT | Neutral | 358 | 11.88% |
+| SUPPORT | Enemy | 56 | 1.86% |
+| SUPPORT | Insufficient | 2,528 | 83.90% |
 
 ## Per-role Reliability Distribution
 
 | Role | State | Count | Percent |
 |---|---|---:|---:|
 | TOP | Unknown | 0 | 0.00% |
-| TOP | Poor | 2,503 | 64.96% |
-| TOP | Reference | 951 | 24.68% |
-| TOP | Moderate | 290 | 7.53% |
-| TOP | RelativelyStrong | 109 | 2.83% |
+| TOP | Poor | 2,845 | 61.24% |
+| TOP | Reference | 1,143 | 24.60% |
+| TOP | Moderate | 430 | 9.26% |
+| TOP | RelativelyStrong | 228 | 4.91% |
 | JUNGLE | Unknown | 0 | 0.00% |
-| JUNGLE | Poor | 996 | 49.19% |
-| JUNGLE | Reference | 638 | 31.51% |
-| JUNGLE | Moderate | 267 | 13.19% |
-| JUNGLE | RelativelyStrong | 124 | 6.12% |
+| JUNGLE | Poor | 1,048 | 45.53% |
+| JUNGLE | Reference | 670 | 29.11% |
+| JUNGLE | Moderate | 328 | 14.25% |
+| JUNGLE | RelativelyStrong | 256 | 11.12% |
 | MID | Unknown | 0 | 0.00% |
-| MID | Poor | 2,061 | 65.39% |
-| MID | Reference | 668 | 21.19% |
-| MID | Moderate | 278 | 8.82% |
-| MID | RelativelyStrong | 145 | 4.60% |
+| MID | Poor | 2,378 | 62.71% |
+| MID | Reference | 807 | 21.28% |
+| MID | Moderate | 328 | 8.65% |
+| MID | RelativelyStrong | 279 | 7.36% |
 | ADC | Unknown | 0 | 0.00% |
-| ADC | Poor | 953 | 64.18% |
-| ADC | Reference | 293 | 19.73% |
-| ADC | Moderate | 116 | 7.81% |
-| ADC | RelativelyStrong | 123 | 8.28% |
+| ADC | Poor | 1,115 | 62.15% |
+| ADC | Reference | 354 | 19.73% |
+| ADC | Moderate | 151 | 8.42% |
+| ADC | RelativelyStrong | 174 | 9.70% |
 | SUPPORT | Unknown | 0 | 0.00% |
-| SUPPORT | Poor | 1,619 | 64.60% |
-| SUPPORT | Reference | 554 | 22.11% |
-| SUPPORT | Moderate | 187 | 7.46% |
-| SUPPORT | RelativelyStrong | 146 | 5.83% |
+| SUPPORT | Poor | 1,847 | 61.30% |
+| SUPPORT | Reference | 681 | 22.60% |
+| SUPPORT | Moderate | 252 | 8.36% |
+| SUPPORT | RelativelyStrong | 233 | 7.73% |
 
 ## Outcome × Reliability
 
@@ -77,46 +77,46 @@ Counts are empirical per-key classifier results; they are not observed team comb
 
 | Role | Outcome | Reliability | Count |
 |---|---|---|---:|
-| TOP | Ally | Moderate | 25 |
-| TOP | Ally | RelativelyStrong | 12 |
-| TOP | Neutral | Moderate | 231 |
-| TOP | Neutral | RelativelyStrong | 86 |
-| TOP | Enemy | Moderate | 34 |
-| TOP | Enemy | RelativelyStrong | 11 |
-| TOP | Insufficient | Poor | 2,503 |
-| TOP | Insufficient | Reference | 951 |
-| JUNGLE | Ally | Moderate | 22 |
-| JUNGLE | Ally | RelativelyStrong | 9 |
-| JUNGLE | Neutral | Moderate | 225 |
-| JUNGLE | Neutral | RelativelyStrong | 94 |
-| JUNGLE | Enemy | Moderate | 20 |
-| JUNGLE | Enemy | RelativelyStrong | 21 |
-| JUNGLE | Insufficient | Poor | 996 |
-| JUNGLE | Insufficient | Reference | 638 |
-| MID | Ally | Moderate | 28 |
-| MID | Ally | RelativelyStrong | 25 |
-| MID | Neutral | Moderate | 208 |
-| MID | Neutral | RelativelyStrong | 98 |
-| MID | Enemy | Moderate | 42 |
-| MID | Enemy | RelativelyStrong | 22 |
-| MID | Insufficient | Poor | 2,061 |
-| MID | Insufficient | Reference | 668 |
-| ADC | Ally | Moderate | 6 |
-| ADC | Ally | RelativelyStrong | 14 |
-| ADC | Neutral | Moderate | 94 |
-| ADC | Neutral | RelativelyStrong | 98 |
-| ADC | Enemy | Moderate | 16 |
-| ADC | Enemy | RelativelyStrong | 11 |
-| ADC | Insufficient | Poor | 953 |
-| ADC | Insufficient | Reference | 293 |
+| TOP | Ally | Moderate | 39 |
+| TOP | Ally | RelativelyStrong | 24 |
+| TOP | Neutral | Moderate | 348 |
+| TOP | Neutral | RelativelyStrong | 176 |
+| TOP | Enemy | Moderate | 43 |
+| TOP | Enemy | RelativelyStrong | 28 |
+| TOP | Insufficient | Poor | 2,845 |
+| TOP | Insufficient | Reference | 1,143 |
+| JUNGLE | Ally | Moderate | 41 |
+| JUNGLE | Ally | RelativelyStrong | 28 |
+| JUNGLE | Neutral | Moderate | 240 |
+| JUNGLE | Neutral | RelativelyStrong | 195 |
+| JUNGLE | Enemy | Moderate | 47 |
+| JUNGLE | Enemy | RelativelyStrong | 33 |
+| JUNGLE | Insufficient | Poor | 1,048 |
+| JUNGLE | Insufficient | Reference | 670 |
+| MID | Ally | Moderate | 36 |
+| MID | Ally | RelativelyStrong | 41 |
+| MID | Neutral | Moderate | 252 |
+| MID | Neutral | RelativelyStrong | 194 |
+| MID | Enemy | Moderate | 40 |
+| MID | Enemy | RelativelyStrong | 44 |
+| MID | Insufficient | Poor | 2,378 |
+| MID | Insufficient | Reference | 807 |
+| ADC | Ally | Moderate | 11 |
+| ADC | Ally | RelativelyStrong | 16 |
+| ADC | Neutral | Moderate | 116 |
+| ADC | Neutral | RelativelyStrong | 131 |
+| ADC | Enemy | Moderate | 24 |
+| ADC | Enemy | RelativelyStrong | 27 |
+| ADC | Insufficient | Poor | 1,115 |
+| ADC | Insufficient | Reference | 354 |
 | SUPPORT | Ally | Moderate | 37 |
-| SUPPORT | Ally | RelativelyStrong | 18 |
-| SUPPORT | Neutral | Moderate | 134 |
-| SUPPORT | Neutral | RelativelyStrong | 106 |
-| SUPPORT | Enemy | Moderate | 16 |
-| SUPPORT | Enemy | RelativelyStrong | 22 |
-| SUPPORT | Insufficient | Poor | 1,619 |
-| SUPPORT | Insufficient | Reference | 554 |
+| SUPPORT | Ally | RelativelyStrong | 34 |
+| SUPPORT | Neutral | Moderate | 187 |
+| SUPPORT | Neutral | RelativelyStrong | 171 |
+| SUPPORT | Enemy | Moderate | 28 |
+| SUPPORT | Enemy | RelativelyStrong | 28 |
+| SUPPORT | Insufficient | Poor | 1,847 |
+| SUPPORT | Insufficient | Reference | 681 |
 
 ## Aggregation Model Definitions
 
@@ -243,26 +243,26 @@ Recommend an Outcome-only categorical summary using the conservative equal-vote 
 
 | Role | State | Count | Percent |
 |---|---|---:|---:|
-| TOP | Ally | 171 | 4.44% |
-| TOP | Neutral | 17 | 0.44% |
-| TOP | Enemy | 211 | 5.48% |
-| TOP | Insufficient | 3,454 | 89.64% |
-| JUNGLE | Ally | 192 | 9.48% |
-| JUNGLE | Neutral | 51 | 2.52% |
-| JUNGLE | Enemy | 148 | 7.31% |
-| JUNGLE | Insufficient | 1,634 | 80.69% |
-| MID | Ally | 190 | 6.03% |
-| MID | Neutral | 55 | 1.74% |
-| MID | Enemy | 178 | 5.65% |
-| MID | Insufficient | 2,729 | 86.58% |
-| ADC | Ally | 115 | 7.74% |
-| ADC | Neutral | 48 | 3.23% |
-| ADC | Enemy | 76 | 5.12% |
-| ADC | Insufficient | 1,246 | 83.91% |
-| SUPPORT | Ally | 112 | 4.47% |
-| SUPPORT | Neutral | 69 | 2.75% |
-| SUPPORT | Enemy | 152 | 6.07% |
-| SUPPORT | Insufficient | 2,173 | 86.71% |
+| TOP | Ally | 255 | 5.49% |
+| TOP | Neutral | 46 | 0.99% |
+| TOP | Enemy | 357 | 7.68% |
+| TOP | Insufficient | 3,988 | 85.84% |
+| JUNGLE | Ally | 290 | 12.60% |
+| JUNGLE | Neutral | 66 | 2.87% |
+| JUNGLE | Enemy | 228 | 9.90% |
+| JUNGLE | Insufficient | 1,718 | 74.63% |
+| MID | Ally | 266 | 7.01% |
+| MID | Neutral | 86 | 2.27% |
+| MID | Enemy | 255 | 6.72% |
+| MID | Insufficient | 3,185 | 83.99% |
+| ADC | Ally | 138 | 7.69% |
+| ADC | Neutral | 88 | 4.91% |
+| ADC | Enemy | 99 | 5.52% |
+| ADC | Insufficient | 1,469 | 81.88% |
+| SUPPORT | Ally | 166 | 5.51% |
+| SUPPORT | Neutral | 98 | 3.25% |
+| SUPPORT | Enemy | 221 | 7.33% |
+| SUPPORT | Insufficient | 2,528 | 83.90% |
 
 The same categorical mechanics are technically possible, but the aggregate file cannot validate whether five independent level-timing tendencies form a meaningful team-level tempo measure. Keep Level Tempo on role cards for now.
 
@@ -270,26 +270,26 @@ The same categorical mechanics are technically possible, but the aggregate file 
 
 | Role | State | Count | Percent |
 |---|---|---:|---:|
-| TOP | Ally | 174 | 4.52% |
-| TOP | Neutral | 53 | 1.38% |
-| TOP | Enemy | 172 | 4.46% |
-| TOP | Insufficient | 3,454 | 89.64% |
-| JUNGLE | Ally | 97 | 4.79% |
-| JUNGLE | Neutral | 212 | 10.47% |
-| JUNGLE | Enemy | 82 | 4.05% |
-| JUNGLE | Insufficient | 1,634 | 80.69% |
-| MID | Ally | 186 | 5.90% |
-| MID | Neutral | 91 | 2.89% |
-| MID | Enemy | 146 | 4.63% |
-| MID | Insufficient | 2,729 | 86.58% |
-| ADC | Ally | 57 | 3.84% |
-| ADC | Neutral | 125 | 8.42% |
-| ADC | Enemy | 57 | 3.84% |
-| ADC | Insufficient | 1,246 | 83.91% |
-| SUPPORT | Ally | 17 | 0.68% |
-| SUPPORT | Neutral | 300 | 11.97% |
-| SUPPORT | Enemy | 16 | 0.64% |
-| SUPPORT | Insufficient | 2,173 | 86.71% |
+| TOP | Ally | 296 | 6.37% |
+| TOP | Neutral | 78 | 1.68% |
+| TOP | Enemy | 284 | 6.11% |
+| TOP | Insufficient | 3,988 | 85.84% |
+| JUNGLE | Ally | 140 | 6.08% |
+| JUNGLE | Neutral | 317 | 13.77% |
+| JUNGLE | Enemy | 127 | 5.52% |
+| JUNGLE | Insufficient | 1,718 | 74.63% |
+| MID | Ally | 258 | 6.80% |
+| MID | Neutral | 134 | 3.53% |
+| MID | Enemy | 215 | 5.67% |
+| MID | Insufficient | 3,185 | 83.99% |
+| ADC | Ally | 78 | 4.35% |
+| ADC | Neutral | 160 | 8.92% |
+| ADC | Enemy | 87 | 4.85% |
+| ADC | Insufficient | 1,469 | 81.88% |
+| SUPPORT | Ally | 32 | 1.06% |
+| SUPPORT | Neutral | 434 | 14.40% |
+| SUPPORT | Enemy | 19 | 0.63% |
+| SUPPORT | Insufficient | 2,528 | 83.90% |
 
 Do not promote a team Combat Summary yet. Direct-opponent solo-kill frequency has role-dependent meaning, especially for JUNGLE and SUPPORT, and omits other combat participation.
 

@@ -7,6 +7,9 @@ public sealed class DatasetUpdateManifest
     [JsonPropertyName("schemaVersion")]
     public int SchemaVersion { get; init; }
 
+    [JsonPropertyName("datasetSchemaVersion")]
+    public int DatasetSchemaVersion { get; init; }
+
     [JsonPropertyName("datasetId")]
     public string DatasetId { get; init; } = string.Empty;
 
@@ -30,6 +33,18 @@ public sealed class DatasetUpdateManifest
 
     [JsonPropertyName("acceptedMatches")]
     public int AcceptedMatches { get; init; }
+
+    [JsonPropertyName("observations")]
+    public int Observations { get; init; }
+
+    [JsonPropertyName("matchupKeys")]
+    public int MatchupKeys { get; init; }
+
+    [JsonPropertyName("datasetGeneratedAtUtc")]
+    public DateTimeOffset DatasetGeneratedAtUtc { get; init; }
+
+    [JsonPropertyName("publishedAtUtc")]
+    public DateTimeOffset PublishedAtUtc { get; init; }
 
     [JsonPropertyName("fileSizeBytes")]
     public long FileSizeBytes { get; init; }

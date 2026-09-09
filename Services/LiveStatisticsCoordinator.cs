@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using LoLMatchup.Models.Presentation;
+#if DEBUG
 using LoLMatchup.Services.Development;
+#endif
 
 namespace LoLMatchup.Services;
 
@@ -10,40 +12,55 @@ public sealed class LiveStatisticsCoordinator
     private readonly StatisticsDataService _statisticsDataService;
     private readonly MatchupStatisticsService _statisticsService;
     private readonly MatchupStatisticsPresenter _presenter;
+#if DEBUG
     private readonly DeveloperTestModeService? _developerTestMode;
+#endif
     private string? _lastWaitingReason;
 
     public LiveStatisticsCoordinator(
         LiveClientService liveClientService,
         StatisticsDataService? statisticsDataService = null,
-        MatchupStatisticsPresenter? presenter = null,
-        DeveloperTestModeService? developerTestMode = null)
+        MatchupStatisticsPresenter? presenter = null
+#if DEBUG
+        , DeveloperTestModeService? developerTestMode = null
+#endif
+        )
     {
         _liveClientService = liveClientService;
         _statisticsDataService = statisticsDataService ?? new StatisticsDataService();
         _statisticsService = new MatchupStatisticsService(_statisticsDataService);
         _presenter = presenter
             ?? new MatchupStatisticsPresenter(new ChampionMetadataService());
+#if DEBUG
         _developerTestMode = developerTestMode;
+#endif
     }
 
     public async Task<LiveTeamMatchupSignature?> GetCurrentMatchupAsync(
         CancellationToken cancellationToken = default)
     {
+#if DEBUG
         var testScenario = _developerTestMode?.CurrentScenario;
         var players = testScenario?.Players
             ?? await _liveClientService.GetPlayersAsync(cancellationToken);
+#else
+        var players = await _liveClientService.GetPlayersAsync(cancellationToken);
+#endif
         if (players is null)
         {
             return Wait("playerlist fetch failed");
         }
 
+#if DEBUG
         var activePlayer = testScenario is null
             ? await _liveClientService.GetActivePlayerAsync(players, cancellationToken)
             : players.FirstOrDefault(player => string.Equals(
                 player.RiotId,
                 testScenario.ActivePlayerRiotId,
                 StringComparison.OrdinalIgnoreCase));
+#else
+        var activePlayer = await _liveClientService.GetActivePlayerAsync(players, cancellationToken);
+#endif
         if (activePlayer is null)
         {
             return Wait("active player lookup failed");
@@ -74,9 +91,13 @@ public sealed class LiveStatisticsCoordinator
             .ToArray();
 
         _lastWaitingReason = null;
+#if DEBUG
         var sourceKey = testScenario is null
             ? "LIVE"
             : $"TEST:{_developerTestMode!.Version}";
+#else
+        const string sourceKey = "LIVE";
+#endif
         return new LiveTeamMatchupSignature(
             sourceKey + "|" + string.Join("|", roles.Select(role =>
                 $"{role.Role}:{role.QueryChampion ?? "-"}:{role.OpponentChampion ?? "-"}")),

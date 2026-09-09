@@ -14,6 +14,8 @@
 - Stage 6: production statistics 표시 파이프라인 구현 완료
 - Stage 7-1: local champion display metadata와 한국어 이름/아이콘 표시 구현 완료
 - Stage 7-2: WPF 통계 화면 layout 및 visual polish 완료
+- Stage 8: application shell, navigation 및 matchup detail 구현 완료
+- Stage 9-5: statistics update pipeline의 publish/update/install 및 public hosting 연결 완료
 
 ## Stage 5 StatsCollector
 
@@ -546,3 +548,89 @@ otherwise
 - Team Summary는 기존 Role 통계 조회가 끝난 뒤 runtime에서 파생되며 추가 dataset lookup, Live Client 요청, polling 또는 persistence를 만들지 않는다.
 - Team Summary aggregates only role-level Outcome categories. It does not calculate team win probability or composition advantage.
 - Level Tempo and Combat Pressure remain role-level only.
+
+### Stage 9-4C Portrait Summary UI Simplification
+
+- Portrait의 raw percentage/count 표를 제거하고 Outcome, Level Tempo, Combat Pressure 요약을 중심으로 구성했다.
+- 표본 20경기 이상에서는 query 방향 raw count를 한 번 비교해 L2/L3/L6/솔로킬 compact 방향 indicator를 표시한다.
+- 표본 20경기 미만에서는 production 판정 보류를 유지하고 raw 방향 indicator를 숨긴다.
+- Landscape의 상세 통계와 Matchup Detail의 raw 수치 및 설명은 변경하지 않았다.
+- statistics model, production classifier threshold, dataset schema, lookup 및 polling 동작은 변경하지 않았다.
+
+### Stage 9-5 Statistics Update Pipeline Completion
+
+- `PublishStatisticsDataset`은 명시적으로 선택한 Collector `MIN900S` output을 공통 validator로 검증한 뒤 packaged baseline과 remote-upload artifact를 생성한다.
+- remote artifact는 `manifest.json`과 revision별 immutable `master_plus.{datasetRevision}.json`만 포함한다. 동일 source의 revision과 dataset SHA-256은 재실행해도 동일하며, 같은 revision의 다른 content를 덮어쓰지 않는다.
+- manifest schema는 dataset schema/revision, patch, scope, region, queue, 최소 경기 길이, accepted matches, observations, matchup key 수, dataset 생성/배포 시각, file size, SHA-256 및 download URL을 포함한다.
+- runtime manifest endpoint는 `LOLMATCHINFO_STATS_MANIFEST_URL` 환경 변수 하나로 구성한다. Release에서는 manifest와 dataset 모두 HTTPS만 허용하고, Debug에서만 loopback HTTP를 허용한다. relative dataset URL은 manifest URL 기준으로 해석한다.
+- updater는 manifest 64 KiB 및 dataset 128 MiB size guard, streaming download, declared/actual size, SHA-256, 공통 dataset validation과 manifest-dataset metadata 일치를 모두 확인한 뒤에만 `%LocalAppData%/LoLMatchInfo/Data/Statistics/master_plus.json`에 설치한다.
+- dataset과 companion manifest 교체는 임시 파일과 rollback 파일을 사용하는 원자적 흐름이며, 성공/실패 후 임시 rollback을 정리해 영구 `.bak`을 만들지 않는다. download 중단이나 교체 실패 시 기존 local dataset을 보존한다.
+- revision이 같으면 최신 상태, 더 크면 update available, 더 작으면 downgrade 금지로 처리한다. current runtime 우선순위인 valid LocalAppData update → packaged baseline과 invalid-local fallback은 유지한다.
+- Settings 데이터 화면은 현재 patch, 적용 경기 수, source, revision, dataset 생성 시각을 보여주고, 중복 클릭 없이 비동기로 확인/다운로드한다. 설치 후 hot reload 대신 `앱을 다시 시작하면 적용됩니다`를 안내한다.
+- synthetic/temp-file 회귀 검증은 latest, newer/install, SHA mismatch, size mismatch, malformed manifest, invalid dataset, older/no downgrade, network failure, interrupted download, atomic rollback 및 packaged fallback을 포함한다.
+- WPF runtime updater에는 Riot API key, GitHub token 또는 hosting credential이 없으며 private repository API에 의존하지 않는다.
+- 정적 HTTPS hosting 인계 절차와 cache/upload 순서는 `docs/remote-statistics-hosting.md`에 기록했다.
+- 실제 public remote hosting endpoint는 아직 배포되지 않았다. Runtime updater는 hosting-ready이며 temp files와 실제 loopback HTTP를 사용하는 integration fixture로 검증되었다.
+- 현재 packaged baseline은 patch `16.17`, accepted matches `51,649`, observations `258,245`, matchup keys `15,547`, dataset revision `1788854099077`이다.
+
+### Stage 9-5B-1 Cloudflare Pages Deployment Package
+
+- `PublishStatisticsDataset --prepare-cloudflare-pages`가 검증된 publisher manifest와 manifest가 정확히 지정한 revision dataset으로 Direct Upload package를 생성한다.
+- package root에는 Cloudflare cache policy용 `_headers`와 `/statistics/master-plus/` 아래의 manifest 및 단일 immutable revision dataset만 포함한다.
+- dataset 전체 validation, manifest metadata, file size/SHA-256, 25 MiB per-file guard, file allowlist, credential pattern 및 개인 식별자 scan을 모두 통과한 뒤에만 기존 generated folder를 교체한다.
+- dataset은 byte-for-byte 복사하므로 publisher artifact의 SHA-256이 유지된다. manifest의 같은-directory relative URL을 유지해 첫 배포 전에도 package를 만들 수 있고 pages.dev/custom domain에 독립적이다.
+- generated `CloudflarePagesDeploy/` folder는 Git에서 제외한다. source code, docs 및 `Data/Statistics` baseline의 기존 추적 정책은 변경하지 않는다.
+- manifest는 `no-cache, max-age=0, must-revalidate`, revision dataset은 `public, max-age=31536000, immutable`을 사용한다.
+- package 생성 시 실제 deployment path에서 manifest/dataset HTTP 200과 dataset SHA를 확인한다. updater loopback 회귀도 `/statistics/master-plus/` 구조와 relative dataset resolution을 검증한다.
+- Stage 9-5B-1에서 static upload package를 준비했으며, 실제 public Workers endpoint 연결 상태는 다음 Stage 9-5B-2에 기록한다.
+
+### Stage 9-5B-2 Production Endpoint Final Connection
+
+- Stage 9 Statistics / Publishing / Hosting complete.
+- Cloudflare Workers Static Assets public endpoint를 production statistics distribution에 연결했다.
+- production manifest endpoint는 `DatasetUpdateOptions` 한 곳에서 관리하며, 일반 사용자는 환경 변수를 설정할 필요가 없다. 명시적 `LOLMATCHINFO_STATS_MANIFEST_URL` override가 우선하고 Debug loopback HTTP fixture도 유지한다.
+- Release updater의 HTTPS-only 정책과 기본 TLS certificate validation을 유지하며 Riot API key, Cloudflare token 또는 다른 client credential을 사용하지 않는다.
+- manifest의 same-directory relative dataset URL이 Workers HTTPS URL로 정상 해석됨을 확인했다.
+- 실제 remote manifest/dataset GET, file size, SHA-256, shared dataset validation 및 manifest↔dataset metadata 검증을 통과했다.
+- 실제 Workers 응답은 manifest에 `no-cache, max-age=0, must-revalidate`, immutable revision dataset에 `public, max-age=31536000, immutable`을 제공하며 두 파일 모두 `application/json`이다.
+- 현재 public revision `1788854099077`은 packaged baseline과 같아 Release Settings의 정상 결과는 `최신 상태`이며 restart-required가 아니다.
+- local update가 없는 개발 PC에서는 현재 active revision source가 packaged baseline임을 확인했다.
+- network/invalid manifest failure 시 기존 dataset 보존, packaged fallback, downgrade 방지 및 same-revision immutable identity conflict 회귀 검증을 유지한다.
+- production deployment는 새 immutable dataset을 먼저 올리고 공개 GET/SHA를 확인한 뒤 manifest를 마지막에 교체한다.
+- public production endpoint verified. Current remote revision equals packaged baseline. Public newer-revision download/install/restart activation will be verified with the next valid dataset revision; production artifact는 테스트 목적으로 조작하지 않는다.
+
+### Stage 9-6 Full Regression & Bug Hunt
+
+- 2026-09-09 검증 결과와 항목별 근거를 `docs/regression-test-report.md`에 기록했다. 전체 GUI 회귀 완료 또는 release 승인 상태는 아니다.
+- 총 146개 검증 항목: PASS 69 / FAIL 2 / PARTIAL 56 / BLOCKED 0 / MANUAL VERIFICATION REQUIRED 19.
+- 미해결 P0 0 / P1 1 / P2 0 / P3 1. 미검증 범위의 안전성을 보장하지 않는다.
+- WPF Debug/Release, StatsCollector, Publisher, Analyzer의 5개 build 모두 warning 0 / error 0. 실제 Debug/Release startup, 주요 Developer Test preset, 5 Role Detail와 Back 반복, Release Settings production UpToDate를 확인했다.
+- 현재 packaged/public dataset은 patch 16.17, accepted 51,649, observations 258,245, keys 15,547, revision 1788854099077. 전체 level invariants, production classifier reverse symmetry, updater self-test 및 public GET/size/SHA 검증이 통과했다.
+- B001 (Medium/P1): Analyzer의 `ProductionLaneIndicatorsVerification`이 과거 연구 representative classification을 최신 dataset에도 강제하여 exit 1. WPF startup 문제가 아니며, snapshot-specific 검증을 명시적 identity/fixture로 분리한 후 재검증해야 한다.
+- B002 (Low/P3): Release UI에는 TEST가 보이지 않지만 DeveloperTestWindow BAML 및 개발 fixture 구현은 DLL에 포함된다.
+- 이번 단계는 discovery 결과를 기록했으며 production/분석 코드는 변경하지 않았다. GUI pixel/DPI/keyboard, 수백 회 lookup, 취소/재시작 및 장기 리소스 검증의 미완료 범위는 보고서에 명시했다.
+- Stage 10 준비 작업은 가능하나 regression gate 통과는 보류한다. B001 수정과 남은 검증 보완 후 판단한다.
+- UI resize 테스트가 사용자 settings에 저장되어 초기 관찰 창 위치/크기를 복원했다. 테스트 전 원본 byte backup이 없어 과거 landscape 크기의 정확한 복원은 보장하지 못하며, 상세 내역을 보고서에 남겼다.
+
+### Stage 9-6B Regression Fix Pass — 재개 및 검증 완료 (2026-09-09)
+
+- 기존 working tree의 B001/B002 수정과 회귀 실행기를 보존·검토한 뒤 중단 지점부터 검증했다. production 코드의 추가 수정은 필요하지 않았다.
+- B001 FIXED/VERIFIED: Analyzer snapshot-specific representative/distribution assertion을 제거한 기존 변경과 synthetic 정책 검증 통과. 현재 dataset 및 분포가 달라지는 scaled synthetic dataset 모두 exit 0; malformed JSON exit 1. production threshold 변경 없음.
+- B002 FIXED/VERIFIED: Release Compile/Page 제외와 DEBUG 참조 분리. PE metadata/BAML 검사에서 Release 개발 타입 0/BAML 0, Debug 5/2로 개발 테스트 유지 확인.
+- WPF Debug/Release 및 Analyzer build warning 0/error 0. DEBUG validators, Start/Stop 서비스 계층 20회, partial/notfound/custom/off-meta, no-game 복귀, public UpToDate 통과. GUI 조작 테스트와 구분한다.
+- 최신 회귀 매트릭스: PASS 74 / FAIL 0 / PARTIAL 53 / BLOCKED 0 / MANUAL VERIFICATION REQUIRED 19. 알려진 미해결 P0 0 / P1 0 / P2 0 / P3 0.
+- Stage 10-A 준비·설계 진입 가능. 전체 GUI regression gate/release 승인은 보류. Stage 10-A가 전체 회귀 통과를 전제로 한다면 진입도 보류한다. pixel/DPI/multi-monitor/keyboard, 취소·재시작·장기 stress 및 실제 public newer revision activation은 미완료다.
+- 상세 명령·결과·변경 파일·보호 범위는 docs/regression-test-report.md의 최신 Stage 9-6B 절 참조. 기존 Stage 9-6의 FAIL/OPEN 숫자는 당시 이력이다.
+
+### Stage 9-6D Portrait Priority Readability Polish (2026-09-10 완료)
+
+- Portrait summary hierarchy strengthened: 결과/초반/교전 label은 공통 10 DIP muted style, value는 9→13 DIP 및 기존 SemiBold를 사용한다. 38 DIP label column과 18 DIP 높이의 세 행을 공유한다.
+- Outcome/Tempo/Combat value readability improved: 기존 문구·색상 trigger·binding을 유지하며 value에 ellipsis를 적용하지 않는다. 실제 normal5v5에서 긴 중립 문장과 양쪽 경향 문장을 확인했다.
+- Compact chips visually demoted to secondary information: 글씨 크기(9 DIP)와 cyan/purple/gray, WrapPanel을 유지하고 테두리 대비만 낮췄다.
+- 카드 패딩 9,6→9,4 및 챔피언 영역 상하 margin 3→2로 공간을 재배분했다. 이전/이후 화면의 카드 높이는 약 118→130px이며 다섯 카드 총 증가량은 약 60px이다. 작은 창에서는 스크롤로 전 역할에 접근한다.
+- No statistics logic changed. C# model/presenter/classifier/threshold, wording, tooltip 및 navigation 변경 없음. Landscape/Detail unchanged; 실제 화면과 orientation 복귀도 확인했다. Team Summary strip 변경 없음.
+- Debug/Release 최종 build 각각 warning 0/error 0. Debug 실제 normal5v5/Partial/NotFound/Detail/Landscape 및 완료된 Start/Stop 5회 확인. Release Home/WAITING/패치/경기 수 및 TEST 비노출 startup 확인.
+- 최소 크기 목표 420×760와 440×820에 대응하도록 조작했으며 도구가 반환한 실제 캡처 영역은 406×753 및 426×813이다. OS 외곽 크기는 별도 API로 계측하지 않았으므로 정확한 외곽 크기 검증과 구분한다. 두 영역 모두 긴 판정문/신뢰도 표시, 수평 overflow 없음, 스크롤 하단 SUPPORT 접근을 확인했다.
+- Portrait readability P1 = FIXED (관찰한 기본 DPI/fixture 범위). 3초 판단 가독성 개선은 렌더 기반 평가이며 사용자 실험 결과는 아니다.
+- n<20 Custom 실제 UI는 picker 자동화 입력이 반영되지 않아 미확인. 기존 n<20 판정 보류/chip hidden 정책 및 binding은 수정하지 않았다. 재실행 뒤 남은 Start/Stop을 완료했으며 실패한 입력은 성공 횟수에 넣지 않았다.
+- 범위 밖 Settings 대비/metadata, drawer/scrollbar, Detail affordance, Home/onboarding, tooltip/용어 개선은 남겨 두었다. 기존 dirty files와 문서 이력을 보존하고 commit/reset/revert/delete하지 않았다.

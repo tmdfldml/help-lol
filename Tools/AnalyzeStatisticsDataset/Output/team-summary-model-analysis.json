@@ -1,75 +1,75 @@
 {
   "Dataset": {
     "Patch": "16.17",
-    "AcceptedMatches": 31075,
-    "MatchupKeys": 13021,
+    "AcceptedMatches": 51649,
+    "MatchupKeys": 15547,
     "TierScope": "MASTER_PLUS_SEEDED",
     "Region": "KR",
     "QueueId": 420,
     "MinimumGameDurationSeconds": 900,
-    "DatasetRevision": 1788710852
+    "DatasetRevision": 1788854099077
   },
   "ResearchScope": "Summarize five independent role-level categorical tendencies for faster reading; not a team win probability or composition model.",
   "ImportantDataLimitation": "The dataset contains independent role matchup aggregates, not observed five-role team combinations. Empirical runtime team-summary coverage and predictive validity cannot be measured from this file.",
   "OverallDistribution": {
     "Role": "ALL",
-    "Total": 13021,
+    "Total": 15547,
     "Outcome": [
       {
         "Name": "Ally",
-        "Count": 196,
-        "Total": 13021,
-        "Rate": 0.01505260732662622
+        "Count": 307,
+        "Total": 15547,
+        "Rate": 0.019746574901910337
       },
       {
         "Name": "Neutral",
-        "Count": 1374,
-        "Total": 13021,
-        "Rate": 0.1055218493203287
+        "Count": 2010,
+        "Total": 15547,
+        "Rate": 0.12928539268025985
       },
       {
         "Name": "Enemy",
-        "Count": 215,
-        "Total": 13021,
-        "Rate": 0.01651178864910529
+        "Count": 342,
+        "Total": 15547,
+        "Rate": 0.021997813082909885
       },
       {
         "Name": "Insufficient",
-        "Count": 11236,
-        "Total": 13021,
-        "Rate": 0.8629137547039398
+        "Count": 12888,
+        "Total": 15547,
+        "Rate": 0.8289702193349199
       }
     ],
     "Reliability": [
       {
         "Name": "Unknown",
         "Count": 0,
-        "Total": 13021,
+        "Total": 15547,
         "Rate": 0
       },
       {
         "Name": "Poor",
-        "Count": 8132,
-        "Total": 13021,
-        "Rate": 0.6245296060210429
+        "Count": 9233,
+        "Total": 15547,
+        "Rate": 0.5938766321476813
       },
       {
         "Name": "Reference",
-        "Count": 3104,
-        "Total": 13021,
-        "Rate": 0.23838414868289687
+        "Count": 3655,
+        "Total": 15547,
+        "Rate": 0.2350935871872387
       },
       {
         "Name": "Moderate",
-        "Count": 1138,
-        "Total": 13021,
-        "Rate": 0.08739728131479917
+        "Count": 1489,
+        "Total": 15547,
+        "Rate": 0.09577410432880942
       },
       {
         "Name": "RelativelyStrong",
-        "Count": 647,
-        "Total": 13021,
-        "Rate": 0.04968896398126104
+        "Count": 1170,
+        "Total": 15547,
+        "Rate": 0.07525567633627066
       }
     ],
     "OutcomeReliability": [
@@ -91,12 +91,12 @@
       {
         "Outcome": "Ally",
         "Reliability": "Moderate",
-        "Count": 118
+        "Count": 164
       },
       {
         "Outcome": "Ally",
         "Reliability": "RelativelyStrong",
-        "Count": 78
+        "Count": 143
       },
       {
         "Outcome": "Neutral",
@@ -116,12 +116,12 @@
       {
         "Outcome": "Neutral",
         "Reliability": "Moderate",
-        "Count": 892
+        "Count": 1143
       },
       {
         "Outcome": "Neutral",
         "Reliability": "RelativelyStrong",
-        "Count": 482
+        "Count": 867
       },
       {
         "Outcome": "Enemy",
@@ -141,12 +141,12 @@
       {
         "Outcome": "Enemy",
         "Reliability": "Moderate",
-        "Count": 128
+        "Count": 182
       },
       {
         "Outcome": "Enemy",
         "Reliability": "RelativelyStrong",
-        "Count": 87
+        "Count": 160
       },
       {
         "Outcome": "Insufficient",
@@ -156,12 +156,12 @@
       {
         "Outcome": "Insufficient",
         "Reliability": "Poor",
-        "Count": 8132
+        "Count": 9233
       },
       {
         "Outcome": "Insufficient",
         "Reliability": "Reference",
-        "Count": 3104
+        "Count": 3655
       },
       {
         "Outcome": "Insufficient",
@@ -177,116 +177,116 @@
     "LevelTempo": [
       {
         "Name": "Ally",
-        "Count": 780,
-        "Total": 13021,
-        "Rate": 0.059903233238614545
+        "Count": 1115,
+        "Total": 15547,
+        "Rate": 0.07171801633755709
       },
       {
         "Name": "Neutral",
-        "Count": 240,
-        "Total": 13021,
-        "Rate": 0.01843176407341986
+        "Count": 384,
+        "Total": 15547,
+        "Rate": 0.024699298900109346
       },
       {
         "Name": "Enemy",
-        "Count": 765,
-        "Total": 13021,
-        "Rate": 0.058751247984025805
+        "Count": 1160,
+        "Total": 15547,
+        "Rate": 0.07461246542741365
       },
       {
         "Name": "Insufficient",
-        "Count": 11236,
-        "Total": 13021,
-        "Rate": 0.8629137547039398
+        "Count": 12888,
+        "Total": 15547,
+        "Rate": 0.8289702193349199
       }
     ],
     "CombatPressure": [
       {
         "Name": "Ally",
-        "Count": 531,
-        "Total": 13021,
-        "Rate": 0.04078027801244144
+        "Count": 804,
+        "Total": 15547,
+        "Rate": 0.051714157072103945
       },
       {
         "Name": "Neutral",
-        "Count": 781,
-        "Total": 13021,
-        "Rate": 0.05998003225558713
+        "Count": 1123,
+        "Total": 15547,
+        "Rate": 0.0722325850646427
       },
       {
         "Name": "Enemy",
-        "Count": 473,
-        "Total": 13021,
-        "Rate": 0.03632593502803164
+        "Count": 732,
+        "Total": 15547,
+        "Rate": 0.04708303852833344
       },
       {
         "Name": "Insufficient",
-        "Count": 11236,
-        "Total": 13021,
-        "Rate": 0.8629137547039398
+        "Count": 12888,
+        "Total": 15547,
+        "Rate": 0.8289702193349199
       }
     ]
   },
   "RoleDistributions": [
     {
       "Role": "TOP",
-      "Total": 3853,
+      "Total": 4646,
       "Outcome": [
         {
           "Name": "Ally",
-          "Count": 37,
-          "Total": 3853,
-          "Rate": 0.009602906825849987
+          "Count": 63,
+          "Total": 4646,
+          "Rate": 0.013560051657339646
         },
         {
           "Name": "Neutral",
-          "Count": 317,
-          "Total": 3853,
-          "Rate": 0.08227355307552557
+          "Count": 524,
+          "Total": 4646,
+          "Rate": 0.11278519156263453
         },
         {
           "Name": "Enemy",
-          "Count": 45,
-          "Total": 3853,
-          "Rate": 0.011679211004412146
+          "Count": 71,
+          "Total": 4646,
+          "Rate": 0.015281962978906586
         },
         {
           "Name": "Insufficient",
-          "Count": 3454,
-          "Total": 3853,
-          "Rate": 0.8964443290942123
+          "Count": 3988,
+          "Total": 4646,
+          "Rate": 0.8583727938011192
         }
       ],
       "Reliability": [
         {
           "Name": "Unknown",
           "Count": 0,
-          "Total": 3853,
+          "Total": 4646,
           "Rate": 0
         },
         {
           "Name": "Poor",
-          "Count": 2503,
-          "Total": 3853,
-          "Rate": 0.6496236698676356
+          "Count": 2845,
+          "Total": 4646,
+          "Rate": 0.6123547137322428
         },
         {
           "Name": "Reference",
-          "Count": 951,
-          "Total": 3853,
-          "Rate": 0.2468206592265767
+          "Count": 1143,
+          "Total": 4646,
+          "Rate": 0.24601808006887646
         },
         {
           "Name": "Moderate",
-          "Count": 290,
-          "Total": 3853,
-          "Rate": 0.07526602647287828
+          "Count": 430,
+          "Total": 4646,
+          "Rate": 0.09255273353422298
         },
         {
           "Name": "RelativelyStrong",
-          "Count": 109,
-          "Total": 3853,
-          "Rate": 0.028289644432909423
+          "Count": 228,
+          "Total": 4646,
+          "Rate": 0.04907447266465777
         }
       ],
       "OutcomeReliability": [
@@ -308,12 +308,12 @@
         {
           "Outcome": "Ally",
           "Reliability": "Moderate",
-          "Count": 25
+          "Count": 39
         },
         {
           "Outcome": "Ally",
           "Reliability": "RelativelyStrong",
-          "Count": 12
+          "Count": 24
         },
         {
           "Outcome": "Neutral",
@@ -333,12 +333,12 @@
         {
           "Outcome": "Neutral",
           "Reliability": "Moderate",
-          "Count": 231
+          "Count": 348
         },
         {
           "Outcome": "Neutral",
           "Reliability": "RelativelyStrong",
-          "Count": 86
+          "Count": 176
         },
         {
           "Outcome": "Enemy",
@@ -358,12 +358,12 @@
         {
           "Outcome": "Enemy",
           "Reliability": "Moderate",
-          "Count": 34
+          "Count": 43
         },
         {
           "Outcome": "Enemy",
           "Reliability": "RelativelyStrong",
-          "Count": 11
+          "Count": 28
         },
         {
           "Outcome": "Insufficient",
@@ -373,12 +373,12 @@
         {
           "Outcome": "Insufficient",
           "Reliability": "Poor",
-          "Count": 2503
+          "Count": 2845
         },
         {
           "Outcome": "Insufficient",
           "Reliability": "Reference",
-          "Count": 951
+          "Count": 1143
         },
         {
           "Outcome": "Insufficient",
@@ -394,115 +394,115 @@
       "LevelTempo": [
         {
           "Name": "Ally",
-          "Count": 171,
-          "Total": 3853,
-          "Rate": 0.04438100181676616
+          "Count": 255,
+          "Total": 4646,
+          "Rate": 0.05488592337494619
         },
         {
           "Name": "Neutral",
-          "Count": 17,
-          "Total": 3853,
-          "Rate": 0.004412146379444588
+          "Count": 46,
+          "Total": 4646,
+          "Rate": 0.009900990099009901
         },
         {
           "Name": "Enemy",
-          "Count": 211,
-          "Total": 3853,
-          "Rate": 0.054762522709576954
+          "Count": 357,
+          "Total": 4646,
+          "Rate": 0.07684029272492467
         },
         {
           "Name": "Insufficient",
-          "Count": 3454,
-          "Total": 3853,
-          "Rate": 0.8964443290942123
+          "Count": 3988,
+          "Total": 4646,
+          "Rate": 0.8583727938011192
         }
       ],
       "CombatPressure": [
         {
           "Name": "Ally",
-          "Count": 174,
-          "Total": 3853,
-          "Rate": 0.04515961588372697
+          "Count": 296,
+          "Total": 4646,
+          "Rate": 0.06371071889797675
         },
         {
           "Name": "Neutral",
-          "Count": 53,
-          "Total": 3853,
-          "Rate": 0.013755515182974305
+          "Count": 78,
+          "Total": 4646,
+          "Rate": 0.016788635385277657
         },
         {
           "Name": "Enemy",
-          "Count": 172,
-          "Total": 3853,
-          "Rate": 0.044640539839086425
+          "Count": 284,
+          "Total": 4646,
+          "Rate": 0.06112785191562634
         },
         {
           "Name": "Insufficient",
-          "Count": 3454,
-          "Total": 3853,
-          "Rate": 0.8964443290942123
+          "Count": 3988,
+          "Total": 4646,
+          "Rate": 0.8583727938011192
         }
       ]
     },
     {
       "Role": "JUNGLE",
-      "Total": 2025,
+      "Total": 2302,
       "Outcome": [
         {
           "Name": "Ally",
-          "Count": 31,
-          "Total": 2025,
-          "Rate": 0.015308641975308642
+          "Count": 69,
+          "Total": 2302,
+          "Rate": 0.02997393570807993
         },
         {
           "Name": "Neutral",
-          "Count": 319,
-          "Total": 2025,
-          "Rate": 0.15753086419753087
+          "Count": 435,
+          "Total": 2302,
+          "Rate": 0.1889661164205039
         },
         {
           "Name": "Enemy",
-          "Count": 41,
-          "Total": 2025,
-          "Rate": 0.020246913580246915
+          "Count": 80,
+          "Total": 2302,
+          "Rate": 0.03475238922675934
         },
         {
           "Name": "Insufficient",
-          "Count": 1634,
-          "Total": 2025,
-          "Rate": 0.8069135802469136
+          "Count": 1718,
+          "Total": 2302,
+          "Rate": 0.7463075586446568
         }
       ],
       "Reliability": [
         {
           "Name": "Unknown",
           "Count": 0,
-          "Total": 2025,
+          "Total": 2302,
           "Rate": 0
         },
         {
           "Name": "Poor",
-          "Count": 996,
-          "Total": 2025,
-          "Rate": 0.4918518518518519
+          "Count": 1048,
+          "Total": 2302,
+          "Rate": 0.45525629887054736
         },
         {
           "Name": "Reference",
-          "Count": 638,
-          "Total": 2025,
-          "Rate": 0.31506172839506175
+          "Count": 670,
+          "Total": 2302,
+          "Rate": 0.29105125977410945
         },
         {
           "Name": "Moderate",
-          "Count": 267,
-          "Total": 2025,
-          "Rate": 0.13185185185185186
+          "Count": 328,
+          "Total": 2302,
+          "Rate": 0.1424847958297133
         },
         {
           "Name": "RelativelyStrong",
-          "Count": 124,
-          "Total": 2025,
-          "Rate": 0.06123456790123457
+          "Count": 256,
+          "Total": 2302,
+          "Rate": 0.11120764552562988
         }
       ],
       "OutcomeReliability": [
@@ -524,12 +524,12 @@
         {
           "Outcome": "Ally",
           "Reliability": "Moderate",
-          "Count": 22
+          "Count": 41
         },
         {
           "Outcome": "Ally",
           "Reliability": "RelativelyStrong",
-          "Count": 9
+          "Count": 28
         },
         {
           "Outcome": "Neutral",
@@ -549,12 +549,12 @@
         {
           "Outcome": "Neutral",
           "Reliability": "Moderate",
-          "Count": 225
+          "Count": 240
         },
         {
           "Outcome": "Neutral",
           "Reliability": "RelativelyStrong",
-          "Count": 94
+          "Count": 195
         },
         {
           "Outcome": "Enemy",
@@ -574,12 +574,12 @@
         {
           "Outcome": "Enemy",
           "Reliability": "Moderate",
-          "Count": 20
+          "Count": 47
         },
         {
           "Outcome": "Enemy",
           "Reliability": "RelativelyStrong",
-          "Count": 21
+          "Count": 33
         },
         {
           "Outcome": "Insufficient",
@@ -589,12 +589,12 @@
         {
           "Outcome": "Insufficient",
           "Reliability": "Poor",
-          "Count": 996
+          "Count": 1048
         },
         {
           "Outcome": "Insufficient",
           "Reliability": "Reference",
-          "Count": 638
+          "Count": 670
         },
         {
           "Outcome": "Insufficient",
@@ -610,115 +610,115 @@
       "LevelTempo": [
         {
           "Name": "Ally",
-          "Count": 192,
-          "Total": 2025,
-          "Rate": 0.09481481481481481
+          "Count": 290,
+          "Total": 2302,
+          "Rate": 0.1259774109470026
         },
         {
           "Name": "Neutral",
-          "Count": 51,
-          "Total": 2025,
-          "Rate": 0.025185185185185185
+          "Count": 66,
+          "Total": 2302,
+          "Rate": 0.028670721112076455
         },
         {
           "Name": "Enemy",
-          "Count": 148,
-          "Total": 2025,
-          "Rate": 0.07308641975308643
+          "Count": 228,
+          "Total": 2302,
+          "Rate": 0.09904430929626412
         },
         {
           "Name": "Insufficient",
-          "Count": 1634,
-          "Total": 2025,
-          "Rate": 0.8069135802469136
+          "Count": 1718,
+          "Total": 2302,
+          "Rate": 0.7463075586446568
         }
       ],
       "CombatPressure": [
         {
           "Name": "Ally",
-          "Count": 97,
-          "Total": 2025,
-          "Rate": 0.047901234567901234
+          "Count": 140,
+          "Total": 2302,
+          "Rate": 0.060816681146828845
         },
         {
           "Name": "Neutral",
-          "Count": 212,
-          "Total": 2025,
-          "Rate": 0.10469135802469136
+          "Count": 317,
+          "Total": 2302,
+          "Rate": 0.13770634231103387
         },
         {
           "Name": "Enemy",
-          "Count": 82,
-          "Total": 2025,
-          "Rate": 0.04049382716049383
+          "Count": 127,
+          "Total": 2302,
+          "Rate": 0.05516941789748045
         },
         {
           "Name": "Insufficient",
-          "Count": 1634,
-          "Total": 2025,
-          "Rate": 0.8069135802469136
+          "Count": 1718,
+          "Total": 2302,
+          "Rate": 0.7463075586446568
         }
       ]
     },
     {
       "Role": "MID",
-      "Total": 3152,
+      "Total": 3792,
       "Outcome": [
         {
           "Name": "Ally",
-          "Count": 53,
-          "Total": 3152,
-          "Rate": 0.01681472081218274
+          "Count": 77,
+          "Total": 3792,
+          "Rate": 0.02030590717299578
         },
         {
           "Name": "Neutral",
-          "Count": 306,
-          "Total": 3152,
-          "Rate": 0.09708121827411167
+          "Count": 446,
+          "Total": 3792,
+          "Rate": 0.11761603375527427
         },
         {
           "Name": "Enemy",
-          "Count": 64,
-          "Total": 3152,
-          "Rate": 0.02030456852791878
+          "Count": 84,
+          "Total": 3792,
+          "Rate": 0.022151898734177215
         },
         {
           "Name": "Insufficient",
-          "Count": 2729,
-          "Total": 3152,
-          "Rate": 0.8657994923857868
+          "Count": 3185,
+          "Total": 3792,
+          "Rate": 0.8399261603375527
         }
       ],
       "Reliability": [
         {
           "Name": "Unknown",
           "Count": 0,
-          "Total": 3152,
+          "Total": 3792,
           "Rate": 0
         },
         {
           "Name": "Poor",
-          "Count": 2061,
-          "Total": 3152,
-          "Rate": 0.6538705583756346
+          "Count": 2378,
+          "Total": 3792,
+          "Rate": 0.6271097046413502
         },
         {
           "Name": "Reference",
-          "Count": 668,
-          "Total": 3152,
-          "Rate": 0.21192893401015228
+          "Count": 807,
+          "Total": 3792,
+          "Rate": 0.21281645569620253
         },
         {
           "Name": "Moderate",
-          "Count": 278,
-          "Total": 3152,
-          "Rate": 0.08819796954314721
+          "Count": 328,
+          "Total": 3792,
+          "Rate": 0.08649789029535865
         },
         {
           "Name": "RelativelyStrong",
-          "Count": 145,
-          "Total": 3152,
-          "Rate": 0.04600253807106599
+          "Count": 279,
+          "Total": 3792,
+          "Rate": 0.07357594936708861
         }
       ],
       "OutcomeReliability": [
@@ -740,12 +740,12 @@
         {
           "Outcome": "Ally",
           "Reliability": "Moderate",
-          "Count": 28
+          "Count": 36
         },
         {
           "Outcome": "Ally",
           "Reliability": "RelativelyStrong",
-          "Count": 25
+          "Count": 41
         },
         {
           "Outcome": "Neutral",
@@ -765,12 +765,12 @@
         {
           "Outcome": "Neutral",
           "Reliability": "Moderate",
-          "Count": 208
+          "Count": 252
         },
         {
           "Outcome": "Neutral",
           "Reliability": "RelativelyStrong",
-          "Count": 98
+          "Count": 194
         },
         {
           "Outcome": "Enemy",
@@ -790,12 +790,12 @@
         {
           "Outcome": "Enemy",
           "Reliability": "Moderate",
-          "Count": 42
+          "Count": 40
         },
         {
           "Outcome": "Enemy",
           "Reliability": "RelativelyStrong",
-          "Count": 22
+          "Count": 44
         },
         {
           "Outcome": "Insufficient",
@@ -805,12 +805,12 @@
         {
           "Outcome": "Insufficient",
           "Reliability": "Poor",
-          "Count": 2061
+          "Count": 2378
         },
         {
           "Outcome": "Insufficient",
           "Reliability": "Reference",
-          "Count": 668
+          "Count": 807
         },
         {
           "Outcome": "Insufficient",
@@ -826,115 +826,115 @@
       "LevelTempo": [
         {
           "Name": "Ally",
-          "Count": 190,
-          "Total": 3152,
-          "Rate": 0.060279187817258884
+          "Count": 266,
+          "Total": 3792,
+          "Rate": 0.07014767932489452
         },
         {
           "Name": "Neutral",
-          "Count": 55,
-          "Total": 3152,
-          "Rate": 0.017449238578680203
+          "Count": 86,
+          "Total": 3792,
+          "Rate": 0.02267932489451477
         },
         {
           "Name": "Enemy",
-          "Count": 178,
-          "Total": 3152,
-          "Rate": 0.056472081218274114
+          "Count": 255,
+          "Total": 3792,
+          "Rate": 0.06724683544303797
         },
         {
           "Name": "Insufficient",
-          "Count": 2729,
-          "Total": 3152,
-          "Rate": 0.8657994923857868
+          "Count": 3185,
+          "Total": 3792,
+          "Rate": 0.8399261603375527
         }
       ],
       "CombatPressure": [
         {
           "Name": "Ally",
-          "Count": 186,
-          "Total": 3152,
-          "Rate": 0.05901015228426396
+          "Count": 258,
+          "Total": 3792,
+          "Rate": 0.0680379746835443
         },
         {
           "Name": "Neutral",
-          "Count": 91,
-          "Total": 3152,
-          "Rate": 0.028870558375634518
+          "Count": 134,
+          "Total": 3792,
+          "Rate": 0.03533755274261603
         },
         {
           "Name": "Enemy",
-          "Count": 146,
-          "Total": 3152,
-          "Rate": 0.04631979695431472
+          "Count": 215,
+          "Total": 3792,
+          "Rate": 0.05669831223628692
         },
         {
           "Name": "Insufficient",
-          "Count": 2729,
-          "Total": 3152,
-          "Rate": 0.8657994923857868
+          "Count": 3185,
+          "Total": 3792,
+          "Rate": 0.8399261603375527
         }
       ]
     },
     {
       "Role": "ADC",
-      "Total": 1485,
+      "Total": 1794,
       "Outcome": [
         {
           "Name": "Ally",
-          "Count": 20,
-          "Total": 1485,
-          "Rate": 0.013468013468013467
+          "Count": 27,
+          "Total": 1794,
+          "Rate": 0.015050167224080268
         },
         {
           "Name": "Neutral",
-          "Count": 192,
-          "Total": 1485,
-          "Rate": 0.1292929292929293
+          "Count": 247,
+          "Total": 1794,
+          "Rate": 0.13768115942028986
         },
         {
           "Name": "Enemy",
-          "Count": 27,
-          "Total": 1485,
-          "Rate": 0.01818181818181818
+          "Count": 51,
+          "Total": 1794,
+          "Rate": 0.028428093645484948
         },
         {
           "Name": "Insufficient",
-          "Count": 1246,
-          "Total": 1485,
-          "Rate": 0.8390572390572391
+          "Count": 1469,
+          "Total": 1794,
+          "Rate": 0.8188405797101449
         }
       ],
       "Reliability": [
         {
           "Name": "Unknown",
           "Count": 0,
-          "Total": 1485,
+          "Total": 1794,
           "Rate": 0
         },
         {
           "Name": "Poor",
-          "Count": 953,
-          "Total": 1485,
-          "Rate": 0.6417508417508417
+          "Count": 1115,
+          "Total": 1794,
+          "Rate": 0.6215161649944259
         },
         {
           "Name": "Reference",
-          "Count": 293,
-          "Total": 1485,
-          "Rate": 0.19730639730639732
+          "Count": 354,
+          "Total": 1794,
+          "Rate": 0.19732441471571907
         },
         {
           "Name": "Moderate",
-          "Count": 116,
-          "Total": 1485,
-          "Rate": 0.07811447811447811
+          "Count": 151,
+          "Total": 1794,
+          "Rate": 0.08416945373467112
         },
         {
           "Name": "RelativelyStrong",
-          "Count": 123,
-          "Total": 1485,
-          "Rate": 0.08282828282828283
+          "Count": 174,
+          "Total": 1794,
+          "Rate": 0.09698996655518395
         }
       ],
       "OutcomeReliability": [
@@ -956,62 +956,62 @@
         {
           "Outcome": "Ally",
           "Reliability": "Moderate",
-          "Count": 6
+          "Count": 11
         },
         {
           "Outcome": "Ally",
           "Reliability": "RelativelyStrong",
-          "Count": 14
-        },
-        {
-          "Outcome": "Neutral",
-          "Reliability": "Unknown",
-          "Count": 0
-        },
-        {
-          "Outcome": "Neutral",
-          "Reliability": "Poor",
-          "Count": 0
-        },
-        {
-          "Outcome": "Neutral",
-          "Reliability": "Reference",
-          "Count": 0
-        },
-        {
-          "Outcome": "Neutral",
-          "Reliability": "Moderate",
-          "Count": 94
-        },
-        {
-          "Outcome": "Neutral",
-          "Reliability": "RelativelyStrong",
-          "Count": 98
-        },
-        {
-          "Outcome": "Enemy",
-          "Reliability": "Unknown",
-          "Count": 0
-        },
-        {
-          "Outcome": "Enemy",
-          "Reliability": "Poor",
-          "Count": 0
-        },
-        {
-          "Outcome": "Enemy",
-          "Reliability": "Reference",
-          "Count": 0
-        },
-        {
-          "Outcome": "Enemy",
-          "Reliability": "Moderate",
           "Count": 16
         },
         {
+          "Outcome": "Neutral",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "Moderate",
+          "Count": 116
+        },
+        {
+          "Outcome": "Neutral",
+          "Reliability": "RelativelyStrong",
+          "Count": 131
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Unknown",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Poor",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Reference",
+          "Count": 0
+        },
+        {
+          "Outcome": "Enemy",
+          "Reliability": "Moderate",
+          "Count": 24
+        },
+        {
           "Outcome": "Enemy",
           "Reliability": "RelativelyStrong",
-          "Count": 11
+          "Count": 27
         },
         {
           "Outcome": "Insufficient",
@@ -1021,12 +1021,12 @@
         {
           "Outcome": "Insufficient",
           "Reliability": "Poor",
-          "Count": 953
+          "Count": 1115
         },
         {
           "Outcome": "Insufficient",
           "Reliability": "Reference",
-          "Count": 293
+          "Count": 354
         },
         {
           "Outcome": "Insufficient",
@@ -1042,115 +1042,115 @@
       "LevelTempo": [
         {
           "Name": "Ally",
-          "Count": 115,
-          "Total": 1485,
-          "Rate": 0.07744107744107744
+          "Count": 138,
+          "Total": 1794,
+          "Rate": 0.07692307692307693
         },
         {
           "Name": "Neutral",
-          "Count": 48,
-          "Total": 1485,
-          "Rate": 0.03232323232323232
+          "Count": 88,
+          "Total": 1794,
+          "Rate": 0.04905239687848383
         },
         {
           "Name": "Enemy",
-          "Count": 76,
-          "Total": 1485,
-          "Rate": 0.05117845117845118
+          "Count": 99,
+          "Total": 1794,
+          "Rate": 0.05518394648829431
         },
         {
           "Name": "Insufficient",
-          "Count": 1246,
-          "Total": 1485,
-          "Rate": 0.8390572390572391
+          "Count": 1469,
+          "Total": 1794,
+          "Rate": 0.8188405797101449
         }
       ],
       "CombatPressure": [
         {
           "Name": "Ally",
-          "Count": 57,
-          "Total": 1485,
-          "Rate": 0.03838383838383838
+          "Count": 78,
+          "Total": 1794,
+          "Rate": 0.043478260869565216
         },
         {
           "Name": "Neutral",
-          "Count": 125,
-          "Total": 1485,
-          "Rate": 0.08417508417508418
+          "Count": 160,
+          "Total": 1794,
+          "Rate": 0.08918617614269789
         },
         {
           "Name": "Enemy",
-          "Count": 57,
-          "Total": 1485,
-          "Rate": 0.03838383838383838
+          "Count": 87,
+          "Total": 1794,
+          "Rate": 0.048494983277591976
         },
         {
           "Name": "Insufficient",
-          "Count": 1246,
-          "Total": 1485,
-          "Rate": 0.8390572390572391
+          "Count": 1469,
+          "Total": 1794,
+          "Rate": 0.8188405797101449
         }
       ]
     },
     {
       "Role": "SUPPORT",
-      "Total": 2506,
+      "Total": 3013,
       "Outcome": [
         {
           "Name": "Ally",
-          "Count": 55,
-          "Total": 2506,
-          "Rate": 0.02194732641660016
+          "Count": 71,
+          "Total": 3013,
+          "Rate": 0.023564553601062063
         },
         {
           "Name": "Neutral",
-          "Count": 240,
-          "Total": 2506,
-          "Rate": 0.09577015163607343
+          "Count": 358,
+          "Total": 3013,
+          "Rate": 0.11881845336873548
         },
         {
           "Name": "Enemy",
-          "Count": 38,
-          "Total": 2506,
-          "Rate": 0.015163607342378291
+          "Count": 56,
+          "Total": 3013,
+          "Rate": 0.018586126783936275
         },
         {
           "Name": "Insufficient",
-          "Count": 2173,
-          "Total": 2506,
-          "Rate": 0.8671189146049482
+          "Count": 2528,
+          "Total": 3013,
+          "Rate": 0.8390308662462662
         }
       ],
       "Reliability": [
         {
           "Name": "Unknown",
           "Count": 0,
-          "Total": 2506,
+          "Total": 3013,
           "Rate": 0
         },
         {
           "Name": "Poor",
-          "Count": 1619,
-          "Total": 2506,
-          "Rate": 0.6460494812450119
+          "Count": 1847,
+          "Total": 3013,
+          "Rate": 0.6130102887487554
         },
         {
           "Name": "Reference",
-          "Count": 554,
-          "Total": 2506,
-          "Rate": 0.22106943335993615
+          "Count": 681,
+          "Total": 3013,
+          "Rate": 0.22602057749751078
         },
         {
           "Name": "Moderate",
-          "Count": 187,
-          "Total": 2506,
-          "Rate": 0.07462090981644054
+          "Count": 252,
+          "Total": 3013,
+          "Rate": 0.08363757052771324
         },
         {
           "Name": "RelativelyStrong",
-          "Count": 146,
-          "Total": 2506,
-          "Rate": 0.05826017557861133
+          "Count": 233,
+          "Total": 3013,
+          "Rate": 0.07733156322602058
         }
       ],
       "OutcomeReliability": [
@@ -1177,7 +1177,7 @@
         {
           "Outcome": "Ally",
           "Reliability": "RelativelyStrong",
-          "Count": 18
+          "Count": 34
         },
         {
           "Outcome": "Neutral",
@@ -1197,12 +1197,12 @@
         {
           "Outcome": "Neutral",
           "Reliability": "Moderate",
-          "Count": 134
+          "Count": 187
         },
         {
           "Outcome": "Neutral",
           "Reliability": "RelativelyStrong",
-          "Count": 106
+          "Count": 171
         },
         {
           "Outcome": "Enemy",
@@ -1222,12 +1222,12 @@
         {
           "Outcome": "Enemy",
           "Reliability": "Moderate",
-          "Count": 16
+          "Count": 28
         },
         {
           "Outcome": "Enemy",
           "Reliability": "RelativelyStrong",
-          "Count": 22
+          "Count": 28
         },
         {
           "Outcome": "Insufficient",
@@ -1237,12 +1237,12 @@
         {
           "Outcome": "Insufficient",
           "Reliability": "Poor",
-          "Count": 1619
+          "Count": 1847
         },
         {
           "Outcome": "Insufficient",
           "Reliability": "Reference",
-          "Count": 554
+          "Count": 681
         },
         {
           "Outcome": "Insufficient",
@@ -1258,53 +1258,53 @@
       "LevelTempo": [
         {
           "Name": "Ally",
-          "Count": 112,
-          "Total": 2506,
-          "Rate": 0.0446927374301676
+          "Count": 166,
+          "Total": 3013,
+          "Rate": 0.05509459010952539
         },
         {
           "Name": "Neutral",
-          "Count": 69,
-          "Total": 2506,
-          "Rate": 0.02753391859537111
+          "Count": 98,
+          "Total": 3013,
+          "Rate": 0.032525721871888486
         },
         {
           "Name": "Enemy",
-          "Count": 152,
-          "Total": 2506,
-          "Rate": 0.060654429369513166
+          "Count": 221,
+          "Total": 3013,
+          "Rate": 0.07334882177231995
         },
         {
           "Name": "Insufficient",
-          "Count": 2173,
-          "Total": 2506,
-          "Rate": 0.8671189146049482
+          "Count": 2528,
+          "Total": 3013,
+          "Rate": 0.8390308662462662
         }
       ],
       "CombatPressure": [
         {
           "Name": "Ally",
-          "Count": 17,
-          "Total": 2506,
-          "Rate": 0.006783719074221868
+          "Count": 32,
+          "Total": 3013,
+          "Rate": 0.010620643876535016
         },
         {
           "Name": "Neutral",
-          "Count": 300,
-          "Total": 2506,
-          "Rate": 0.11971268954509177
+          "Count": 434,
+          "Total": 3013,
+          "Rate": 0.14404248257550614
         },
         {
           "Name": "Enemy",
-          "Count": 16,
-          "Total": 2506,
-          "Rate": 0.006384676775738229
+          "Count": 19,
+          "Total": 3013,
+          "Rate": 0.006306007301692665
         },
         {
           "Name": "Insufficient",
-          "Count": 2173,
-          "Total": 2506,
-          "Rate": 0.8671189146049482
+          "Count": 2528,
+          "Total": 3013,
+          "Rate": 0.8390308662462662
         }
       ]
     }

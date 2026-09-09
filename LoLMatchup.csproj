@@ -30,4 +30,10 @@
     <Compile Remove="Tools\**\*.cs" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <Page Remove="Views\DeveloperTestWindow.xaml;Views\Controls\SearchableChampionPicker.xaml" />
+    <Compile Remove="Views\DeveloperTestWindow.xaml.cs;Views\Controls\SearchableChampionPicker.xaml.cs" />
+    <Compile Remove="Models\Development\**\*.cs;Services\Development\**\*.cs;Services\MatchupStatisticsDebugValidator.cs" />
+  </ItemGroup>
+
 </Project>

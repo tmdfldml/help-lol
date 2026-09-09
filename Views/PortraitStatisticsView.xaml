@@ -2,21 +2,6 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Resources>
-        <Style x:Key="CompactHeaderStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{StaticResource MutedTextBrush}" />
-            <Setter Property="FontSize" Value="9" />
-            <Setter Property="TextAlignment" Value="Center" />
-        </Style>
-        <Style x:Key="CompactQueryValueStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{StaticResource QueryAccentBrush}" />
-            <Setter Property="FontSize" Value="11" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="TextAlignment" Value="Center" />
-        </Style>
-        <Style x:Key="CompactOpponentValueStyle" TargetType="TextBlock"
-               BasedOn="{StaticResource CompactQueryValueStyle}">
-            <Setter Property="Foreground" Value="{StaticResource OpponentAccentBrush}" />
-        </Style>
         <Style x:Key="HideWhenEmptyStyle" TargetType="TextBlock">
             <Style.Triggers>
                 <Trigger Property="Text" Value="">
@@ -25,151 +10,165 @@
             </Style.Triggers>
         </Style>
 
+        <Style x:Key="PortraitSummaryLabelStyle" TargetType="TextBlock"
+               BasedOn="{StaticResource MutedTextStyle}">
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
         <DataTemplate x:Key="PortraitRoleCardTemplate">
-            <Button Style="{StaticResource RoleCardButtonStyle}" IsEnabled="{Binding CanOpenDetail}"
+            <Button Style="{StaticResource RoleCardButtonStyle}"
+                    IsEnabled="{Binding CanOpenDetail}"
                     Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=RoleSelectionCommand}"
                     CommandParameter="{Binding}">
-            <Border Style="{StaticResource CardStyle}" Padding="10,7">
-                <StackPanel>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Role}" Foreground="{StaticResource GoldAccentBrush}"
-                                   FontSize="11" FontWeight="SemiBold" />
-                        <Border Grid.Column="1" Style="{StaticResource OutcomeBadgeStyle}"
-                                Margin="7,0,7,0" HorizontalAlignment="Left"
-                                ToolTip="{Binding OutcomeAdvantageDescription}">
-                            <TextBlock Text="{Binding OutcomeAdvantageText}"
-                                       Style="{StaticResource OutcomeBadgeTextStyle}" />
-                        </Border>
-                        <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <TextBlock Text="{Binding SampleSizeText}"
-                                       Style="{StaticResource MutedTextStyle}" />
-                            <Border Style="{StaticResource ReliabilityBadgeStyle}" Margin="6,0,0,0"
-                                    ToolTip="{Binding ReliabilityDescription}">
-                                <TextBlock Text="{Binding ReliabilityText}"
-                                           Style="{StaticResource ReliabilityBadgeTextStyle}" />
-                            </Border>
-                        </StackPanel>
-                    </Grid>
-                    <Grid Margin="0,2,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding LevelTempoText, StringFormat=템포  {0}}"
-                                   Style="{StaticResource LevelTempoTextStyle}"
-                                   ToolTip="{Binding LevelTempoDescription}" />
-                        <TextBlock Grid.Column="1"
-                                   Text="{Binding CombatPressureText, StringFormat=교전  {0}}"
-                                   Style="{StaticResource CombatPressureTextStyle}"
-                                   TextAlignment="Right"
-                                   ToolTip="{Binding CombatPressureDescription}" />
-                    </Grid>
-                    <Grid Margin="0,4,0,4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="26" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal">
-                            <Border Width="30" Height="30" CornerRadius="5" Background="#242C38"
-                                    ClipToBounds="True" BorderBrush="#354052" BorderThickness="1">
-                                <Grid>
-                                    <TextBlock Text="?" Foreground="{StaticResource MutedTextBrush}"
-                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                    <Image Source="{Binding QueryChampionIcon}" Stretch="UniformToFill" />
-                                </Grid>
-                            </Border>
-                            <TextBlock Text="{Binding QueryChampionDisplayName}" Margin="6,0,0,0"
-                                       Foreground="{StaticResource QueryAccentBrush}" FontSize="12"
-                                       FontWeight="SemiBold" VerticalAlignment="Center"
-                                       TextTrimming="CharacterEllipsis" />
-                        </StackPanel>
-                        <TextBlock Grid.Column="1" Text="VS" Foreground="{StaticResource MutedTextBrush}"
-                                   FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        <StackPanel Grid.Column="2" Orientation="Horizontal" FlowDirection="RightToLeft">
-                            <Border Width="30" Height="30" CornerRadius="5" Background="#242C38"
-                                    ClipToBounds="True" BorderBrush="#354052" BorderThickness="1">
-                                <Grid>
-                                    <TextBlock Text="?" Foreground="{StaticResource MutedTextBrush}"
-                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                    <Image Source="{Binding OpponentChampionIcon}" Stretch="UniformToFill" />
-                                </Grid>
-                            </Border>
-                            <TextBlock Text="{Binding OpponentChampionDisplayName}" Margin="0,0,6,0"
-                                       Foreground="{StaticResource OpponentAccentBrush}" FontSize="12"
-                                       FontWeight="SemiBold" VerticalAlignment="Center"
-                                       TextTrimming="CharacterEllipsis" FlowDirection="LeftToRight" />
-                        </StackPanel>
-                    </Grid>
+                <Border Style="{StaticResource CardStyle}" Padding="9,4">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Role}"
+                                       Foreground="{StaticResource GoldAccentBrush}"
+                                       FontSize="11" FontWeight="SemiBold" />
+                            <StackPanel Grid.Column="1" Orientation="Horizontal"
+                                        HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding SampleSizeText}"
+                                           Style="{StaticResource MutedTextStyle}" />
+                                <Border Style="{StaticResource ReliabilityBadgeStyle}"
+                                        Margin="6,0,0,0"
+                                        ToolTip="{Binding ReliabilityDescription}">
+                                    <TextBlock Text="{Binding ReliabilityText}"
+                                               Style="{StaticResource ReliabilityBadgeTextStyle}" />
+                                </Border>
+                            </StackPanel>
+                        </Grid>
 
-                    <TextBlock Text="{Binding StatusText}" HorizontalAlignment="Center"
-                               Foreground="{StaticResource SecondaryTextBrush}" FontSize="11"
-                               Style="{StaticResource HideWhenEmptyStyle}" />
+                        <Grid Margin="0,2,0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="26" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="28" Height="28" CornerRadius="5"
+                                        Background="#242C38" ClipToBounds="True"
+                                        BorderBrush="#354052" BorderThickness="1">
+                                    <Grid>
+                                        <TextBlock Text="?"
+                                                   Foreground="{StaticResource MutedTextBrush}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
+                                        <Image Source="{Binding QueryChampionIcon}"
+                                               Stretch="UniformToFill" />
+                                    </Grid>
+                                </Border>
+                                <TextBlock Text="{Binding QueryChampionDisplayName}"
+                                           Margin="6,0,0,0"
+                                           Foreground="{StaticResource QueryAccentBrush}"
+                                           FontSize="12" FontWeight="SemiBold"
+                                           VerticalAlignment="Center"
+                                           TextTrimming="CharacterEllipsis" />
+                            </StackPanel>
+                            <TextBlock Grid.Column="1" Text="VS"
+                                       Foreground="{StaticResource MutedTextBrush}"
+                                       FontSize="9" HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                            <StackPanel Grid.Column="2" Orientation="Horizontal"
+                                        FlowDirection="RightToLeft">
+                                <Border Width="28" Height="28" CornerRadius="5"
+                                        Background="#242C38" ClipToBounds="True"
+                                        BorderBrush="#354052" BorderThickness="1">
+                                    <Grid>
+                                        <TextBlock Text="?"
+                                                   Foreground="{StaticResource MutedTextBrush}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
+                                        <Image Source="{Binding OpponentChampionIcon}"
+                                               Stretch="UniformToFill" />
+                                    </Grid>
+                                </Border>
+                                <TextBlock Text="{Binding OpponentChampionDisplayName}"
+                                           Margin="0,0,6,0"
+                                           Foreground="{StaticResource OpponentAccentBrush}"
+                                           FontSize="12" FontWeight="SemiBold"
+                                           VerticalAlignment="Center"
+                                           TextTrimming="CharacterEllipsis"
+                                           FlowDirection="LeftToRight" />
+                            </StackPanel>
+                        </Grid>
 
-                    <Grid DataContext="{Binding CompactMetrics}">
-                        <Grid.Style>
-                            <Style TargetType="Grid">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding}" Value="{x:Null}">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Grid.Style>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="38" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="1.35*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="1" Text="승률" Style="{StaticResource CompactHeaderStyle}" />
-                        <TextBlock Grid.Column="2" Text="L2" Style="{StaticResource CompactHeaderStyle}" />
-                        <TextBlock Grid.Column="3" Text="L3" Style="{StaticResource CompactHeaderStyle}" />
-                        <TextBlock Grid.Column="4" Text="L6" Style="{StaticResource CompactHeaderStyle}" />
-                        <TextBlock Grid.Column="5" Text="솔킬/경기 (총)"
-                                   Style="{StaticResource CompactHeaderStyle}" />
-                        <TextBlock Grid.Row="1" Text="아군" Style="{StaticResource CompactHeaderStyle}" />
-                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding QueryWinRate}"
-                                   Style="{StaticResource CompactQueryValueStyle}" />
-                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding QueryLevel2}"
-                                   Style="{StaticResource CompactQueryValueStyle}" />
-                        <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding QueryLevel3}"
-                                   Style="{StaticResource CompactQueryValueStyle}" />
-                        <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding QueryLevel6}"
-                                   Style="{StaticResource CompactQueryValueStyle}" />
-                        <TextBlock Grid.Row="1" Grid.Column="5" Text="{Binding QuerySoloKills}"
-                                   Style="{StaticResource CompactQueryValueStyle}" />
-                        <TextBlock Grid.Row="2" Text="적군" Style="{StaticResource CompactHeaderStyle}" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding OpponentWinRate}"
-                                   Style="{StaticResource CompactOpponentValueStyle}" />
-                        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding OpponentLevel2}"
-                                   Style="{StaticResource CompactOpponentValueStyle}" />
-                        <TextBlock Grid.Row="2" Grid.Column="3" Text="{Binding OpponentLevel3}"
-                                   Style="{StaticResource CompactOpponentValueStyle}" />
-                        <TextBlock Grid.Row="2" Grid.Column="4" Text="{Binding OpponentLevel6}"
-                                   Style="{StaticResource CompactOpponentValueStyle}" />
-                        <TextBlock Grid.Row="2" Grid.Column="5" Text="{Binding OpponentSoloKills}"
-                                   Style="{StaticResource CompactOpponentValueStyle}" />
-                        <TextBlock Grid.Row="3" Grid.ColumnSpan="6" Text="{Binding UnknownText}"
-                                   Style="{StaticResource HideWhenEmptyStyle}"
-                                   Foreground="{StaticResource MutedTextBrush}" FontSize="9"
-                                   HorizontalAlignment="Right" />
-                    </Grid>
-                </StackPanel>
-            </Border>
+                        <TextBlock Text="{Binding StatusText}"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{StaticResource SecondaryTextBrush}"
+                                   FontSize="11"
+                                   Style="{StaticResource HideWhenEmptyStyle}" />
+
+                        <Grid Margin="0,0,0,3">
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding HasOutcomeEvaluation}"
+                                                     Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="38" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="결과"
+                                       Style="{StaticResource PortraitSummaryLabelStyle}" />
+                            <TextBlock Grid.Column="1" Text="{Binding OutcomeAdvantageText}"
+                                       Style="{StaticResource OutcomeBadgeTextStyle}"
+                                       FontSize="13" VerticalAlignment="Center"
+                                       TextWrapping="NoWrap" TextTrimming="None"
+                                       ToolTip="{Binding OutcomeAdvantageDescription}" />
+                            <TextBlock Grid.Row="1" Text="초반"
+                                       Style="{StaticResource PortraitSummaryLabelStyle}" />
+                            <TextBlock Grid.Row="1" Grid.Column="1"
+                                       Text="{Binding LevelTempoText}"
+                                       Style="{StaticResource LevelTempoTextStyle}"
+                                       FontSize="13" VerticalAlignment="Center"
+                                       TextWrapping="NoWrap" TextTrimming="None"
+                                       ToolTip="{Binding LevelTempoDescription}" />
+                            <TextBlock Grid.Row="2" Text="교전"
+                                       Style="{StaticResource PortraitSummaryLabelStyle}" />
+                            <TextBlock Grid.Row="2" Grid.Column="1"
+                                       Text="{Binding CombatPressureText}"
+                                       Style="{StaticResource CombatPressureTextStyle}"
+                                       FontSize="13" VerticalAlignment="Center"
+                                       TextWrapping="NoWrap" TextTrimming="None"
+                                       ToolTip="{Binding CombatPressureDescription}" />
+                        </Grid>
+
+                        <ItemsControl ItemsSource="{Binding DisplayCompactDirectionIndicators}"
+                                      ItemTemplate="{StaticResource PortraitDirectionChipTemplate}">
+                            <ItemsControl.Style>
+                                <Style TargetType="ItemsControl">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding HasCompactDirectionIndicators}"
+                                                     Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ItemsControl.Style>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
             </Button>
         </DataTemplate>
     </UserControl.Resources>
@@ -179,7 +178,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding PatchDisplayText}" Style="{StaticResource MutedTextStyle}"
+        <TextBlock Text="{Binding PatchDisplayText}"
+                   Style="{StaticResource MutedTextStyle}"
                    HorizontalAlignment="Right" Margin="0,0,2,5" />
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled">
@@ -187,7 +187,7 @@
                           ItemTemplate="{StaticResource PortraitRoleCardTemplate}">
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="ContentPresenter">
-                        <Setter Property="Margin" Value="0,0,0,6" />
+                        <Setter Property="Margin" Value="0,0,0,5" />
                     </Style>
                 </ItemsControl.ItemContainerStyle>
             </ItemsControl>

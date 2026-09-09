@@ -32,6 +32,17 @@ public sealed class StatisticsDataService
         var datasetPath = source == StatisticsDatasetSource.UpdatedLocal
             ? _updatedDataFilePath
             : _packagedDataFilePath;
+        return await LoadManifestForDatasetAsync(datasetPath, cancellationToken);
+    }
+
+    public Task<DatasetUpdateManifest?> LoadInstalledUpdateManifestAsync(
+        CancellationToken cancellationToken = default) =>
+        LoadManifestForDatasetAsync(_updatedDataFilePath, cancellationToken);
+
+    private static async Task<DatasetUpdateManifest?> LoadManifestForDatasetAsync(
+        string datasetPath,
+        CancellationToken cancellationToken)
+    {
         var manifestPath = Path.Combine(Path.GetDirectoryName(datasetPath)!, "manifest.json");
         if (!File.Exists(manifestPath))
         {

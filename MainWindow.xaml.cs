@@ -5,7 +5,9 @@ using LoLMatchup.Models.Navigation;
 using LoLMatchup.Models.Settings;
 using LoLMatchup.Models.Presentation;
 using LoLMatchup.Services;
+#if DEBUG
 using LoLMatchup.Services.Development;
+#endif
 using LoLMatchup.Services.Settings;
 using LoLMatchup.Services.Navigation;
 using LoLMatchup.Views;
