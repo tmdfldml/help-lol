@@ -6,6 +6,8 @@ using LoLMatchup.Models.Statistics;
 using LoLMatchup.Services;
 using LoLMatchup.Services.Settings;
 using LoLMatchup.Services.Statistics;
+using LoLMatchup.Services.Diagnostics;
+using LoLMatchup.Services.Logging;
 
 namespace LoLMatchup.Views;
 
@@ -14,6 +16,7 @@ public partial class SettingsWindow : Window
     private readonly AppSettingsService _settingsService;
     private readonly StatisticsDataService _statisticsDataService;
     private readonly DatasetUpdateService _datasetUpdateService;
+    private readonly AppDiagnosticsService _diagnostics;
     private readonly CancellationTokenSource _lifetimeCancellation = new();
     private readonly bool _updateEndpointConfigured;
     private bool _applyingSettings;
@@ -25,19 +28,23 @@ public partial class SettingsWindow : Window
 
     public SettingsWindow(
         AppSettingsService settingsService,
-        StatisticsDataService statisticsDataService)
+        StatisticsDataService statisticsDataService, AppDiagnosticsService diagnostics, IAppLogger logger,
+        DatasetUpdateOptions? updateOptions = null)
     {
+        _diagnostics = diagnostics;
         _settingsService = settingsService;
         _statisticsDataService = statisticsDataService;
-        var updateOptions = DatasetUpdateOptions.FromEnvironment();
+        updateOptions ??= DatasetUpdateOptions.FromEnvironment();
         _updateEndpointConfigured = updateOptions.ManifestUri is not null;
         _datasetUpdateService = new DatasetUpdateService(
             updateOptions,
-            _statisticsDataService.UpdatedDataFilePath);
+            _statisticsDataService.UpdatedDataFilePath, logger: logger);
         InitializeComponent();
 
         SettingsPathText.Text = _settingsService.SettingsPath;
-        VersionText.Text = $"Version {GetApplicationVersion()}";
+        VersionText.Text = $"버전 {_diagnostics.Snapshot.AppVersion}";
+        _diagnostics.Changed += Diagnostics_Changed;
+        ApplyDiagnostics();
         ApplySettings(_settingsService.Current);
         _settingsService.SettingsChanged += SettingsService_SettingsChanged;
         Loaded += SettingsWindow_Loaded;
@@ -47,15 +54,18 @@ public partial class SettingsWindow : Window
     private async void SettingsWindow_Loaded(object sender, RoutedEventArgs e)
     {
         var result = await _statisticsDataService.LoadAsync();
+        if (!IsLoaded) return;
         var manifest = await _statisticsDataService.LoadCompanionManifestAsync(result.Source);
+        if (!IsLoaded) return;
         var installedManifest = await _statisticsDataService.LoadInstalledUpdateManifestAsync();
+        if (!IsLoaded) return;
         var activeRevision = manifest?.DatasetRevision ?? 0;
         var installedRevision = installedManifest?.DatasetRevision ?? 0;
         _currentDatasetManifest = installedRevision > activeRevision
             ? installedManifest
             : manifest;
         _currentDatasetRevision = Math.Max(activeRevision, installedRevision);
-        ApplyDatasetInformation(result, manifest);
+        ApplyDatasetInformation(result);
         if (installedRevision > activeRevision)
         {
             UpdateStatusText.Text =
@@ -72,8 +82,9 @@ public partial class SettingsWindow : Window
     {
         _lifetimeCancellation.Cancel();
         _settingsService.SettingsChanged -= SettingsService_SettingsChanged;
+        _diagnostics.Changed -= Diagnostics_Changed;
         _datasetUpdateService.Dispose();
-        _lifetimeCancellation.Dispose();
+        // Awaiting handlers still inspect this token after cancellation; keep it valid until GC.
     }
 
     private void NavigationList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -163,16 +174,30 @@ public partial class SettingsWindow : Window
             ? result.Manifest
             : null;
         UpdateStatusText.Text = _availableUpdate is null
-            ? result.Message
+            ? PresentUpdateResult(result)
             : $"새 통계 데이터가 있습니다. "
                 + $"{_currentAcceptedMatches:N0} → {_availableUpdate.AcceptedMatches:N0}경기";
         InstallUpdateButton.Visibility = _availableUpdate is null
             ? Visibility.Collapsed
             : Visibility.Visible;
         CheckUpdateButton.Content = result.Status == DatasetUpdateStatus.UpToDate
-            ? "최신 상태"
-            : "업데이트 확인";
+            ? "다시 확인"
+            : "통계 업데이트 확인";
         SetUpdateBusy(false);
+    }
+
+    private void Diagnostics_Changed(object? sender, EventArgs e) => ApplyDiagnostics();
+
+    private void ApplyDiagnostics()
+    {
+        var snapshot = _diagnostics.Snapshot;
+        DatasetPatchText.Text = snapshot.DatasetPatch ?? "—";
+        AcceptedMatchesText.Text = snapshot.DatasetAcceptedMatches is { } count ? $"{count:N0}경기" : "—";
+        DatasetSourceText.Text = snapshot.LocationText;
+        DatasetRevisionText.Text = snapshot.RevisionText;
+        DatasetGeneratedAtText.Text = snapshot.GeneratedText;
+        GamePatchText.Text = "게임 패치: " + (snapshot.CurrentGamePatch ?? "확인 불가");
+        PatchCompatibilityText.Text = snapshot.CompatibilityText;
     }
 
     private async void InstallUpdate_Click(object sender, RoutedEventArgs e)
@@ -191,7 +216,7 @@ public partial class SettingsWindow : Window
             return;
         }
 
-        UpdateStatusText.Text = result.Message;
+        UpdateStatusText.Text = PresentUpdateResult(result);
         InstallUpdateButton.Visibility = Visibility.Collapsed;
         if (result.Status == DatasetUpdateStatus.Installed)
         {
@@ -205,6 +230,10 @@ public partial class SettingsWindow : Window
             : "다시 시도";
         SetUpdateBusy(false);
     }
+
+    private static string PresentUpdateResult(DatasetUpdateCheckResult result) => result.Status is DatasetUpdateStatus.InvalidManifest or DatasetUpdateStatus.SizeMismatch or DatasetUpdateStatus.HashMismatch or DatasetUpdateStatus.InvalidDataset or DatasetUpdateStatus.NetworkFailure or DatasetUpdateStatus.InstallFailure
+        ? "데이터 업데이트를 완료하지 못했습니다. 기존 데이터는 계속 사용할 수 있습니다. 잠시 후 다시 시도해 주세요."
+        : result.Message;
 
     private void SetUpdateBusy(bool busy, string? message = null)
     {
@@ -222,8 +251,7 @@ public partial class SettingsWindow : Window
     }
 
     private void ApplyDatasetInformation(
-        StatisticsDatasetLoadResult result,
-        DatasetUpdateManifest? manifest)
+        StatisticsDatasetLoadResult result)
     {
         DatasetStatusText.Text = result.Status switch
         {
@@ -234,10 +262,8 @@ public partial class SettingsWindow : Window
 
         var dataset = result.Dataset;
         _currentAcceptedMatches = dataset?.AcceptedMatches ?? 0;
-        DatasetPatchText.Text = dataset?.Patch ?? "—";
-        AcceptedMatchesText.Text = dataset is null
-            ? "—"
-            : $"{dataset.AcceptedMatches:N0}경기";
+
+
         TierScopeText.Text = dataset?.TierScope switch
         {
             "MASTER_PLUS_SEEDED" => "마스터 이상 (시드 기반)",
@@ -250,28 +276,11 @@ public partial class SettingsWindow : Window
             > 0 => $"{dataset.MinimumGameDurationSeconds.Value / 60.0:0.#}분",
             _ => "—"
         };
-        DatasetSourceText.Text = result.Source switch
-        {
-            StatisticsDatasetSource.Packaged => "기본 제공",
-            StatisticsDatasetSource.UpdatedLocal => "업데이트됨",
-            _ => "—"
-        };
-        DatasetRevisionText.Text = manifest is { DatasetRevision: > 0 }
-            ? manifest.DatasetRevision.ToString()
-            : "기본 버전";
-        DatasetGeneratedAtText.Text = dataset is null
-            ? "—"
-            : dataset.GeneratedAtUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm");
+        ApplyDiagnostics();
     }
 
     private static string FormatSize(double width, double height) =>
         $"{width:0} × {height:0}";
 
-    private static string GetApplicationVersion()
-    {
-        var version = Assembly.GetEntryAssembly()?.GetName().Version;
-        return version is null
-            ? "알 수 없음"
-            : $"{version.Major}.{version.Minor}.{version.Build}";
-    }
+
 }

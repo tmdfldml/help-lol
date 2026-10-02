@@ -20,7 +20,12 @@
                         <TextBlock Text="{Binding OpponentDetailText}" Foreground="{StaticResource MutedTextBrush}" FontSize="10" TextAlignment="Right"/>
                     </StackPanel>
                     <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Text="{Binding DetailText}" Margin="0,5,0,0"
-                               Foreground="{StaticResource MutedTextBrush}" FontSize="10" TextAlignment="Center" TextWrapping="Wrap"/>
+                               Foreground="{StaticResource SecondaryTextBrush}" FontSize="11" TextAlignment="Center" TextWrapping="Wrap">
+                        <TextBlock.Style><Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers><DataTrigger Binding="{Binding QueryDetailText}" Value=""><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers>
+                        </Style></TextBlock.Style>
+                    </TextBlock>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -46,7 +51,7 @@
                                     <Grid><TextBlock Text="?" Foreground="{StaticResource MutedTextBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/><Image x:Name="AllyIcon" Stretch="UniformToFill"/></Grid>
                                 </Border>
                                 <TextBlock x:Name="AllyNameText" Margin="0,7,0,0" Foreground="{StaticResource QueryAccentBrush}" FontSize="17" FontWeight="SemiBold" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
-                                <TextBlock x:Name="AllyIdText" Foreground="{StaticResource MutedTextBrush}" FontSize="10" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                <TextBlock x:Name="AllyIdText" Visibility="Collapsed" Foreground="{StaticResource MutedTextBrush}" FontSize="10" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
                             </StackPanel>
                             <TextBlock Grid.Column="1" Text="VS" Foreground="{StaticResource MutedTextBrush}" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <StackPanel Grid.Column="2" HorizontalAlignment="Center" MaxWidth="145">
@@ -54,7 +59,7 @@
                                     <Grid><TextBlock Text="?" Foreground="{StaticResource MutedTextBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/><Image x:Name="EnemyIcon" Stretch="UniformToFill"/></Grid>
                                 </Border>
                                 <TextBlock x:Name="EnemyNameText" Margin="0,7,0,0" Foreground="{StaticResource OpponentAccentBrush}" FontSize="17" FontWeight="SemiBold" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
-                                <TextBlock x:Name="EnemyIdText" Foreground="{StaticResource MutedTextBrush}" FontSize="10" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                <TextBlock x:Name="EnemyIdText" Visibility="Collapsed" Foreground="{StaticResource MutedTextBrush}" FontSize="10" TextAlignment="Center" TextTrimming="CharacterEllipsis"/>
                             </StackPanel>
                         </Grid>
                         <Grid Margin="0,10,0,0">
@@ -73,7 +78,7 @@
                             </Border>
                             <TextBlock x:Name="ReliabilityDescriptionText" Grid.Column="1"
                                        Margin="9,0,0,0" VerticalAlignment="Center"
-                                       Style="{StaticResource MutedTextStyle}" TextWrapping="Wrap" />
+                                       Style="{StaticResource SecondaryTextStyle}" FontSize="13" LineHeight="20" TextWrapping="Wrap" />
                         </Grid>
                         <Grid x:Name="OutcomePanel" Margin="0,8,0,0" Visibility="Collapsed">
                             <Grid.ColumnDefinitions>
@@ -89,7 +94,7 @@
                                 <TextBlock Text="게임 결과 경향" Style="{StaticResource SecondaryTextStyle}"
                                            FontWeight="SemiBold" />
                                 <TextBlock x:Name="OutcomeDescriptionText"
-                                           Style="{StaticResource MutedTextStyle}" TextWrapping="Wrap" />
+                                           Style="{StaticResource SecondaryTextStyle}" FontSize="13" LineHeight="20" TextWrapping="Wrap" />
                             </StackPanel>
                         </Grid>
                         <Grid x:Name="LevelTempoPanel" Margin="0,8,0,0" Visibility="Collapsed">
@@ -105,7 +110,7 @@
                             </StackPanel>
                             <TextBlock x:Name="LevelTempoDescriptionText" Grid.Column="1"
                                        Margin="9,0,0,0" VerticalAlignment="Center"
-                                       Style="{StaticResource MutedTextStyle}" TextWrapping="Wrap" />
+                                       Style="{StaticResource SecondaryTextStyle}" FontSize="13" LineHeight="20" TextWrapping="Wrap" />
                         </Grid>
                         <Grid x:Name="CombatPressurePanel" Margin="0,8,0,0" Visibility="Collapsed">
                             <Grid.ColumnDefinitions>
@@ -120,7 +125,7 @@
                             </StackPanel>
                             <TextBlock x:Name="CombatPressureDescriptionText" Grid.Column="1"
                                        Margin="9,0,0,0" VerticalAlignment="Center"
-                                       Style="{StaticResource MutedTextStyle}" TextWrapping="Wrap" />
+                                       Style="{StaticResource SecondaryTextStyle}" FontSize="13" LineHeight="20" TextWrapping="Wrap" />
                         </Grid>
                     </StackPanel>
                 </Border>
@@ -132,8 +137,8 @@
                 <ItemsControl x:Name="MetricsItems" Margin="0,10,0,0" ItemTemplate="{StaticResource DetailMetricTemplate}">
                     <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel ItemWidth="320"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                 </ItemsControl>
-                <TextBlock x:Name="SoloKillExplanation" Text="솔로킬은 게임 시작 후 15분 이전, 맞은편 역할 상대를 직접 처치한 이벤트입니다."
-                           Margin="3,1,3,8" Style="{StaticResource MutedTextStyle}" TextWrapping="Wrap"/>
+                <TextBlock x:Name="SoloKillExplanation" Text="솔로킬은 15분 이전, 도움 없이 같은 역할의 맞상대를 직접 처치한 횟수입니다. 수치는 경기당 횟수이며 승률이 아닙니다."
+                           Margin="3,1,3,8" Style="{StaticResource SecondaryTextStyle}" FontSize="13" LineHeight="20" TextWrapping="Wrap"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

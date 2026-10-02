@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text.Json;
 using LoLMatchup.Models.Statistics;
+using LoLMatchup.Services.Logging;
 
 namespace LoLMatchup.Services.Statistics;
 
@@ -17,12 +18,14 @@ public sealed class DatasetUpdateService : IDisposable
     private readonly string _datasetPath;
     private readonly string _manifestPath;
     private readonly bool _ownsHttpClient;
+    private readonly IAppLogger _logger;
 
     public DatasetUpdateService(
         DatasetUpdateOptions options,
         string datasetPath,
-        HttpClient? httpClient = null)
+        HttpClient? httpClient = null, IAppLogger? logger = null)
     {
+        _logger = logger ?? NullAppLogger.Instance;
         _options = options;
         _datasetPath = datasetPath;
         _manifestPath = Path.Combine(Path.GetDirectoryName(datasetPath)!, "manifest.json");
@@ -44,6 +47,16 @@ public sealed class DatasetUpdateService : IDisposable
             cancellationToken);
 
     private async Task<DatasetUpdateCheckResult> CheckCoreAsync(
+        long currentRevision, DatasetUpdateManifest? currentManifest, CancellationToken cancellationToken)
+    {
+        _logger.Log(AppLogLevel.Info, AppLogEvent.ManifestCheckStarted);
+        _logger.Log(AppLogLevel.Info, AppLogEvent.CurrentRevision, currentRevision);
+        var result = await CheckUnloggedAsync(currentRevision, currentManifest, cancellationToken);
+        LogResult(result, cancellationToken);
+        return result;
+    }
+
+    private async Task<DatasetUpdateCheckResult> CheckUnloggedAsync(
         long currentRevision,
         DatasetUpdateManifest? currentManifest,
         CancellationToken cancellationToken)
@@ -118,26 +131,60 @@ public sealed class DatasetUpdateService : IDisposable
         }
         catch (JsonException exception)
         {
-            Debug.WriteLine($"Dataset manifest JSON failure: {exception.Message}");
+            Debug.WriteLine($"Dataset manifest JSON failure: {exception.GetType().Name}");
             return new(DatasetUpdateStatus.InvalidManifest,
                 "업데이트 정보가 올바르지 않습니다.");
         }
         catch (InvalidDataException exception)
         {
-            Debug.WriteLine($"Dataset manifest size guard failure: {exception.Message}");
+            Debug.WriteLine($"Dataset manifest size guard failure: {exception.GetType().Name}");
             return new(DatasetUpdateStatus.InvalidManifest,
                 "업데이트 정보의 크기가 허용 범위를 벗어났습니다.");
         }
         catch (Exception exception) when (exception is HttpRequestException
             or OperationCanceledException or IOException or ObjectDisposedException)
         {
-            Debug.WriteLine($"Dataset update check failure: {exception.Message}");
+            Debug.WriteLine($"Dataset update check failure: {exception.GetType().Name}");
             return new(DatasetUpdateStatus.NetworkFailure,
                 "업데이트 서버에 연결하지 못했습니다. 현재 데이터는 계속 사용할 수 있습니다.");
         }
     }
 
     public async Task<DatasetUpdateCheckResult> InstallAsync(
+        DatasetUpdateManifest manifest, CancellationToken cancellationToken = default)
+    {
+        _logger.Log(AppLogLevel.Info, AppLogEvent.DownloadStarted, manifest.DatasetRevision);
+        var result = await InstallCoreAsync(manifest, cancellationToken);
+        LogResult(result, cancellationToken);
+        return result;
+    }
+
+    private void LogResult(DatasetUpdateCheckResult result, CancellationToken token)
+    {
+        if (token.IsCancellationRequested)
+        {
+            _logger.Log(AppLogLevel.Info, AppLogEvent.UpdateCancelled);
+            return;
+        }
+        if (result.Manifest is { } manifest)
+            _logger.Log(AppLogLevel.Info, AppLogEvent.ManifestRevision, manifest.DatasetRevision);
+        var eventId = result.Status switch
+        {
+            DatasetUpdateStatus.UpToDate => AppLogEvent.UpToDate,
+            DatasetUpdateStatus.NoDowngrade => AppLogEvent.NoDowngrade,
+            DatasetUpdateStatus.UpdateAvailable => AppLogEvent.UpdateAvailable,
+            DatasetUpdateStatus.Installed => AppLogEvent.InstallSucceeded,
+            DatasetUpdateStatus.InvalidManifest or DatasetUpdateStatus.InvalidDataset
+                or DatasetUpdateStatus.HashMismatch or DatasetUpdateStatus.SizeMismatch => AppLogEvent.ValidationFailed,
+            _ => AppLogEvent.UpdateFailed
+        };
+        _logger.Log(eventId is AppLogEvent.ValidationFailed or AppLogEvent.UpdateFailed
+            ? AppLogLevel.Warning : AppLogLevel.Info, eventId);
+        if (result.Status == DatasetUpdateStatus.Installed)
+            _logger.Log(AppLogLevel.Info, AppLogEvent.RestartRequired);
+    }
+
+    private async Task<DatasetUpdateCheckResult> InstallCoreAsync(
         DatasetUpdateManifest manifest,
         CancellationToken cancellationToken = default)
     {
@@ -247,13 +294,13 @@ public sealed class DatasetUpdateService : IDisposable
         }
         catch (InvalidDataException exception)
         {
-            Debug.WriteLine($"Dataset size guard failure: {exception.Message}");
+            Debug.WriteLine($"Dataset size guard failure: {exception.GetType().Name}");
             return new(DatasetUpdateStatus.SizeMismatch,
                 "다운로드한 데이터의 크기가 업데이트 정보와 다릅니다.");
         }
         catch (JsonException exception)
         {
-            Debug.WriteLine($"Dataset JSON failure: {exception.Message}");
+            Debug.WriteLine($"Dataset JSON failure: {exception.GetType().Name}");
             return new(DatasetUpdateStatus.InvalidDataset,
                 "다운로드한 통계 데이터가 올바르지 않아 적용하지 않았습니다.");
         }
@@ -261,7 +308,7 @@ public sealed class DatasetUpdateService : IDisposable
             or OperationCanceledException or IOException or UnauthorizedAccessException
             or CryptographicException or ObjectDisposedException)
         {
-            Debug.WriteLine($"Dataset install failure: {exception.Message}");
+            Debug.WriteLine($"Dataset install failure: {exception.GetType().Name}");
             return new(DatasetUpdateStatus.InstallFailure,
                 "업데이트 설치에 실패했습니다. 기존 데이터는 계속 사용할 수 있습니다.");
         }
@@ -457,7 +504,7 @@ public sealed class DatasetUpdateService : IDisposable
         }
     }
 
-    private static void RestoreOrRemove(
+    private void RestoreOrRemove(
         string destination,
         string backup,
         bool destinationExisted)
@@ -476,11 +523,11 @@ public sealed class DatasetUpdateService : IDisposable
         catch (Exception exception) when (exception is IOException
             or UnauthorizedAccessException)
         {
-            Debug.WriteLine($"Dataset rollback failure: {exception.Message}");
+            _logger.Log(AppLogLevel.Error, AppLogEvent.RollbackFailed, exception: exception);
         }
     }
 
-    private static void TryDelete(string path)
+    private void TryDelete(string path)
     {
         try
         {
@@ -492,7 +539,7 @@ public sealed class DatasetUpdateService : IDisposable
         catch (Exception exception) when (exception is IOException
             or UnauthorizedAccessException)
         {
-            Debug.WriteLine($"Temporary update file cleanup failure: {exception.Message}");
+            _logger.Log(AppLogLevel.Warning, AppLogEvent.CleanupFailed, exception: exception);
         }
     }
 }

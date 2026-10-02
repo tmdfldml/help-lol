@@ -43,6 +43,15 @@
             <Button Content="TOP 1v1" Click="Top1v1_Click" Style="{StaticResource DeveloperButtonStyle}" Margin="0,0,7,0"/>
             <Button Content="일부 Role 누락" Click="Partial_Click" Style="{StaticResource DeveloperButtonStyle}" Margin="0,0,7,0"/>
             <Button Content="통계 없음" Click="NotFound_Click" Style="{StaticResource DeveloperButtonStyle}"/>
+            <Button Content="패치 불일치" Click="PatchMismatch_Click" Style="{StaticResource DeveloperButtonStyle}"/>
+            <Button Content="패치 초기화" Click="PatchReset_Click" Style="{StaticResource DeveloperButtonStyle}"/>
+            <Button Content="420×760" Tag="420,760" Click="Viewport_Click" Style="{StaticResource DeveloperButtonStyle}"/>
+            <Button Content="440×820" Tag="440,820" Click="Viewport_Click" Style="{StaticResource DeveloperButtonStyle}"/>
+            <Button Content="760×420" Tag="760,420" Click="Viewport_Click" Style="{StaticResource DeveloperButtonStyle}"/>
+            <Button Content="1280×800" Tag="1280,800" Click="Viewport_Click" Style="{StaticResource DeveloperButtonStyle}"/>
+            <Button Content="업데이트 실패" Click="UpdateFailure_Click" Style="{StaticResource DeveloperButtonStyle}"/>
+            <Button Content="UI 오류 (앱 종료)" Click="CrashUi_Click" Style="{StaticResource DeveloperButtonStyle}"/>
+            <Button Content="Task 오류 (앱 종료)" Click="CrashTask_Click" Style="{StaticResource DeveloperButtonStyle}"/>
         </WrapPanel>
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <Border Style="{StaticResource CardStyle}" Padding="14">

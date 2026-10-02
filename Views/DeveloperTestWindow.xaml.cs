@@ -51,6 +51,50 @@ public partial class DeveloperTestWindow : Window
 
     private void Stop_Click(object sender, RoutedEventArgs e) => _testMode.Stop();
 
+    private void PatchMismatch_Click(object sender, RoutedEventArgs e)
+    {
+        var diagnostics = ((App)Application.Current).Diagnostics;
+        var patch = diagnostics.Snapshot.DatasetPatch?.Split('.');
+        if (patch is { Length: 2 } && int.TryParse(patch[1], out var minor) && minor < int.MaxValue)
+            diagnostics.SetCurrentGameVersion($"{patch[0]}.{minor + 1}.0");
+    }
+
+    private void PatchReset_Click(object sender, RoutedEventArgs e) =>
+        ((App)Application.Current).Diagnostics.SetCurrentGameVersion(null);
+
+    private void Viewport_Click(object sender, RoutedEventArgs e)
+    {
+        if (Owner is not { } owner || sender is not System.Windows.Controls.Button { Tag: string size }) return;
+        var parts = size.Split(',');
+        var width = int.Parse(parts[0], System.Globalization.CultureInfo.InvariantCulture);
+        var height = int.Parse(parts[1], System.Globalization.CultureInfo.InvariantCulture);
+        owner.WindowState = WindowState.Normal;
+        owner.MinWidth = width > height ? 760 : 420;
+        owner.MinHeight = width > height ? 420 : 760;
+        owner.Width = width;
+        owner.Height = height;
+        Close();
+    }
+
+    private void UpdateFailure_Click(object sender, RoutedEventArgs e)
+    {
+        if (Owner is MainWindow main) main.ShowUpdateFailureFixture();
+        Close();
+    }
+    private void CrashUi_Click(object sender, RoutedEventArgs e) =>
+        throw new InvalidOperationException("Controlled diagnostic fixture.", new ArgumentException("Inner fixture."));
+
+    private void CrashTask_Click(object sender, RoutedEventArgs e)
+    {
+        CreateUnobservedTask();
+        GC.Collect();
+        // No WaitForPendingFinalizers: the fatal handler may show a dialog on that thread.
+    }
+
+    [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+    private static void CreateUnobservedTask() =>
+        _ = Task.FromException(new InvalidOperationException("Controlled task fixture."));
+
     private void StartCustom_Click(object sender, RoutedEventArgs e)
     {
         if (!ChampionSelectors().Any(picker => picker.SelectedChampionId is not null))

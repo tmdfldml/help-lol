@@ -17,4 +17,5 @@ Tools/PublishStatisticsDataset/CloudflarePagesDeploy/
 Data/Statistics/*.bak
 
 publish/
+artifacts/
 *_wpftmp.csproj

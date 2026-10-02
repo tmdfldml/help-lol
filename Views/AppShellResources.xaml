@@ -17,6 +17,7 @@
                                       VerticalAlignment="Center"/>
                 </Border>
                 <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource QueryAccentBrush}"/></Trigger>
                     <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Chrome" Property="Background" Value="#222B38"/></Trigger>
                     <Trigger Property="IsPressed" Value="True"><Setter TargetName="Chrome" Property="Background" Value="#2C3746"/></Trigger>
                     <Trigger Property="IsEnabled" Value="False"><Setter Property="Foreground" Value="#606A79"/><Setter TargetName="Chrome" Property="Background" Value="#121720"/></Trigger>
@@ -43,9 +44,10 @@
                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
             <ControlTemplate.Triggers>
-                <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Chrome" Property="Background" Value="#222B38"/></Trigger>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Chrome" Property="Background" Value="#222B38"/></Trigger>
                 <Trigger Property="IsPressed" Value="True"><Setter TargetName="Chrome" Property="Background" Value="#2C3746"/></Trigger>
                 <Trigger Property="IsChecked" Value="True"><Setter Property="Foreground" Value="{StaticResource GoldAccentBrush}"/><Setter TargetName="Chrome" Property="Background" Value="#2B2A25"/><Setter TargetName="Chrome" Property="BorderBrush" Value="#756640"/></Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource QueryAccentBrush}"/><Setter TargetName="Chrome" Property="BorderThickness" Value="2"/></Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate></Setter.Value></Setter>
     </Style>
@@ -61,9 +63,87 @@
                 <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </Border>
             <ControlTemplate.Triggers>
-                <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Chrome" Property="Background" Value="#1D2632"/></Trigger>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Chrome" Property="Background" Value="#1D2632"/></Trigger>
                 <Trigger Property="IsChecked" Value="True"><Setter Property="Foreground" Value="{StaticResource GoldAccentBrush}"/><Setter TargetName="Chrome" Property="Background" Value="#242D3A"/><Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource GoldAccentBrush}"/></Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource QueryAccentBrush}"/><Setter TargetName="Chrome" Property="BorderThickness" Value="2"/></Trigger>
             </ControlTemplate.Triggers>
+        </ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style TargetType="ToolTip">
+        <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+        <Setter Property="Background" Value="#222C39"/>
+        <Setter Property="BorderBrush" Value="#526176"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="12,9"/>
+        <Setter Property="MaxWidth" Value="340"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ToolTip">
+            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                <ContentPresenter><ContentPresenter.Resources><Style TargetType="TextBlock"><Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/><Setter Property="TextWrapping" Value="Wrap"/></Style></ContentPresenter.Resources></ContentPresenter>
+            </Border>
+        </ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style x:Key="ScrollPageStyle" TargetType="RepeatButton">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="RepeatButton"><Border Background="Transparent"/></ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style x:Key="ScrollThumbStyle" TargetType="Thumb">
+        <Setter Property="Background" Value="#536176"/>
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Thumb">
+            <Border x:Name="ThumbChrome" Background="{TemplateBinding Background}" CornerRadius="5" Margin="3"/>
+            <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ThumbChrome" Property="Background" Value="#8192A8"/></Trigger>
+                <Trigger Property="IsDragging" Value="True"><Setter TargetName="ThumbChrome" Property="Background" Value="{StaticResource QueryAccentBrush}"/></Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style TargetType="ScrollBar">
+        <Setter Property="Width" Value="16"/>
+        <Setter Property="Background" Value="#101620"/>
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ScrollBar">
+            <Border Background="{TemplateBinding Background}">
+                <Track x:Name="PART_Track" IsDirectionReversed="True" Orientation="Vertical">
+                    <Track.DecreaseRepeatButton><RepeatButton Command="ScrollBar.PageUpCommand" Style="{StaticResource ScrollPageStyle}"/></Track.DecreaseRepeatButton>
+                    <Track.Thumb><Thumb MinHeight="28" Style="{StaticResource ScrollThumbStyle}"/></Track.Thumb>
+                    <Track.IncreaseRepeatButton><RepeatButton Command="ScrollBar.PageDownCommand" Style="{StaticResource ScrollPageStyle}"/></Track.IncreaseRepeatButton>
+                </Track>
+            </Border>
+        </ControlTemplate></Setter.Value></Setter>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Width" Value="Auto"/><Setter Property="Height" Value="16"/>
+                <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ScrollBar">
+                    <Border Background="{TemplateBinding Background}">
+                        <Track x:Name="PART_Track" IsDirectionReversed="False" Orientation="Horizontal">
+                            <Track.DecreaseRepeatButton><RepeatButton Command="ScrollBar.PageLeftCommand" Style="{StaticResource ScrollPageStyle}"/></Track.DecreaseRepeatButton>
+                            <Track.Thumb><Thumb MinWidth="28" Style="{StaticResource ScrollThumbStyle}"/></Track.Thumb>
+                            <Track.IncreaseRepeatButton><RepeatButton Command="ScrollBar.PageRightCommand" Style="{StaticResource ScrollPageStyle}"/></Track.IncreaseRepeatButton>
+                        </Track>
+                    </Border>
+                </ControlTemplate></Setter.Value></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="Expander">
+        <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}"/>
+        <Setter Property="Margin" Value="0,8,0,0"/>
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Expander">
+            <StackPanel>
+                <ToggleButton IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" Style="{StaticResource ShellToggleButtonStyle}" HorizontalContentAlignment="Left" Padding="9,7">
+                    <StackPanel Orientation="Horizontal"><TextBlock x:Name="Arrow" Text="›" Margin="0,0,9,0" Foreground="{StaticResource QueryAccentBrush}"/><ContentPresenter ContentSource="Header"/></StackPanel>
+                </ToggleButton>
+                <ContentPresenter x:Name="ExpandedContent" Visibility="Collapsed" ContentSource="Content"/>
+            </StackPanel>
+            <ControlTemplate.Triggers><Trigger Property="IsExpanded" Value="True"><Setter TargetName="Arrow" Property="Text" Value="⌄"/><Setter TargetName="ExpandedContent" Property="Visibility" Value="Visible"/></Trigger></ControlTemplate.Triggers>
+        </ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style x:Key="DrawerBackdropStyle" TargetType="Button">
+        <Setter Property="Background" Value="#99000000"/>
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button"><Border Background="{TemplateBinding Background}"/></ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style x:Key="{x:Static SystemParameters.FocusVisualStyleKey}" TargetType="Control">
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Control">
+            <Border BorderBrush="#82B8C5" BorderThickness="2" CornerRadius="5" Margin="-2"/>
         </ControlTemplate></Setter.Value></Setter>
     </Style>
 </ResourceDictionary>

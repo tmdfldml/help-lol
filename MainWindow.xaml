@@ -41,8 +41,8 @@
             <views:MatchupDetailView x:Name="MatchupDetailView" Visibility="Collapsed"/>
         </Grid>
 
-        <Grid x:Name="NavigationOverlay" Grid.RowSpan="2" Panel.ZIndex="20" Visibility="Collapsed">
-            <Button Background="#99000000" BorderThickness="0" Click="DrawerBackdrop_Click"
+        <Grid x:Name="NavigationOverlay" Grid.RowSpan="2" Panel.ZIndex="20" Visibility="Collapsed" KeyboardNavigation.TabNavigation="Cycle">
+            <Button Style="{StaticResource DrawerBackdropStyle}" Focusable="False" AutomationProperties.Name="메뉴 닫기" BorderThickness="0" Click="DrawerBackdrop_Click"
                     HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             <Border Width="210" HorizontalAlignment="Left" Background="#121923"
                     BorderBrush="{StaticResource CardBorderBrush}" BorderThickness="1" CornerRadius="8"

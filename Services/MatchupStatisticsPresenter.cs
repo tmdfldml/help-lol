@@ -107,7 +107,7 @@ public sealed class MatchupStatisticsPresenter
             MatchupStatisticsQueryStatus.NotFound => new(
                 MatchupPresentationState.MatchupNotFound,
                 "해당 매치업의 통계가 없습니다.",
-                StatusDetailText: "게임은 감지되었지만 아직 충분한 통계가 수집되지 않았습니다."),
+                StatusDetailText: "아직 수집된 경기가 없는 조합입니다. 다른 역할의 통계는 계속 확인할 수 있습니다."),
             MatchupStatisticsQueryStatus.DatasetNotAvailable => new(
                 MatchupPresentationState.DatasetNotAvailable,
                 "통계 데이터를 사용할 수 없습니다.",
@@ -122,8 +122,8 @@ public sealed class MatchupStatisticsPresenter
                 StatusDetailText: "통계 데이터의 집계 값이 유효하지 않습니다."),
             _ => new(
                 MatchupPresentationState.Waiting,
-                "게임을 기다리는 중...",
-                StatusDetailText: "리그 오브 레전드 게임이 시작되면\n매치업 통계를 자동으로 표시합니다.")
+                "게임을 기다리는 중입니다",
+                StatusDetailText: "앱을 켜 둔 채 League 게임을 시작하세요.\n게임이 감지되면 매치업을 자동으로 표시합니다.")
         };
 
     public async Task<MatchupStatisticsPresentation> PresentRoleStatusAsync(
@@ -141,14 +141,17 @@ public sealed class MatchupStatisticsPresenter
             status == MatchupStatisticsQueryStatus.NotFound
                 ? MatchupPresentationState.MatchupNotFound
                 : MatchupPresentationState.Waiting,
-            detected ? "통계 없음" : "감지 중...",
+            detected ? "통계 없음" : "역할 정보를 확인하는 중",
             role,
             queryChampionId ?? string.Empty,
             query.KoreanDisplayName,
             query.IconSource,
             opponentChampionId ?? string.Empty,
             opponent.KoreanDisplayName,
-            opponent.IconSource);
+            opponent.IconSource,
+            StatusDetailText: detected
+                ? "아직 수집된 경기가 없는 조합입니다."
+                : "확인되는 역할부터 자동으로 표시합니다.");
     }
 
     internal static string FormatPercentage(double value) =>

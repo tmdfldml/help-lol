@@ -634,3 +634,64 @@ otherwise
 - Portrait readability P1 = FIXED (관찰한 기본 DPI/fixture 범위). 3초 판단 가독성 개선은 렌더 기반 평가이며 사용자 실험 결과는 아니다.
 - n<20 Custom 실제 UI는 picker 자동화 입력이 반영되지 않아 미확인. 기존 n<20 판정 보류/chip hidden 정책 및 binding은 수정하지 않았다. 재실행 뒤 남은 Start/Stop을 완료했으며 실패한 입력은 성공 횟수에 넣지 않았다.
 - 범위 밖 Settings 대비/metadata, drawer/scrollbar, Detail affordance, Home/onboarding, tooltip/용어 개선은 남겨 두었다. 기존 dirty files와 문서 이력을 보존하고 commit/reset/revert/delete하지 않았다.
+
+## Stage 10-A — Release Readiness Foundation (2026-09-10)
+
+Stage 10-A 배포 준비 기반을 구현하고 아래 범위에서 검증했다. 시작 상태는 `main`, `aa35d13` (Stage 9 complete), clean working tree였다. 기존 Stage 9 통계/classifier/Team Summary 정책, dataset schema, collector, production endpoint와 updater 보안 정책을 유지한다.
+
+- Logging architecture: `App`이 `AppLogger`와 `AppDiagnosticsService`를 소유하며 생성자 주입으로 loader/polling/champion metadata/Settings updater에 연결한다. 새로운 DI 또는 logging package 없음. 공유 updater를 쓰는 console 도구는 기본 no-op logger를 사용한다.
+- Log path: `%LocalAppData%\LoLMatchInfo\Logs`. UTF-8 일별 일반 로그 및 별도 crash 파일. 기존 settings/Data 경로 유지. 30일/최대 100개 managed 파일, 일별 일반 로그 약 4 MiB 상한, lock으로 thread 간 write 보호. 모든 logging I/O 실패는 best effort로 격리한다.
+- Crash handling: Dispatcher/AppDomain/TaskScheduler handler를 resource 초기화 전에 등록한다. unexpected unhandled 및 필수 dataset startup 실패는 Critical → crash diagnostics → 한국어 안내 → 종료. interlocked 재진입 방어 및 마지막 process exit 경로가 있다. UI와 unobserved Task의 실제 fixture 종료를 확인했다.
+- Recoverable: 정상 no-game/network 부재는 반복 Error로 남기지 않는다. invalid local dataset은 Warning과 packaged fallback을 유지한다. optional metadata/icon fallback은 비치명적이다. updater 실패는 기존 데이터 사용 가능/재시도 안내를 제공한다.
+- Privacy rules: 로그 API에는 고정 enum 이벤트/숫자만 전달한다. 예외 원문 Message/Data/ToString, 파일 경로, raw player/HTTP/환경변수 데이터는 저장하지 않는다. 예외 타입/HResult/안전한 분류 메시지/파일 경로 없는 메서드 stack/inner chain만 남긴다. 예외 12개·각 48 frame 상한. 원문 메시지 제거에 따른 원인 정보 손실은 의도적인 privacy tradeoff다.
+- Diagnostics model: immutable `AppDiagnosticsSnapshot`으로 app/build/.NET/OS/architecture와 active dataset patch/revision/generated/source/location/matches, current game patch/compatibility를 공유한다. Settings About/Data와 startup/crash가 같은 source를 사용한다. 설치됐지만 재시작되지 않은 revision은 active snapshot과 분리한다. app version은 assembly runtime metadata에서 읽는다.
+- Patch compatibility source: 기존 `playerlist`/`activeplayername`에 game version이 없고 Riot 공식 Live Client sample의 `gameData`에도 version 필드가 없다. production game patch는 Unknown이다. 추가 Riot Web API/key 요청, 날짜/Data Dragon/manifest timestamp 추정 없음. 실제 게임 패치는 MANUAL/BLOCKED이며 확인했다고 주장하지 않는다.
+- Patch normalization: 2~4개 숫자 component를 major.minor로 비교한다. CurrentPatch/PatchMismatch/Unknown, 잘못된 값은 Unknown. generated time만 오래됐다고 stale로 분류하지 않는다. Settings에 게임 패치/데이터 패치와 비차단 한국어 안내를 추가했다. 게임 종료 시 current game patch는 초기화한다.
+- Debug/Release separation: Debug 개발자 창에 synthetic mismatch/reset 및 UI/Task crash 버튼을 추가했다. 기존 Release Compile/Page exclusion 유지. 최종 PE 검사: Release 개발 타입 0, 개발 BAML 0, crash/patch fixture method 0. Debug 각각 5/2/4 유지. Release의 기존 collapsed test shell markup은 실행 가능한 개발 기능을 제공하지 않는다.
+- Tests performed: 요청한 5개 build invocation (앱 Debug/Release + 도구 3개) 모두 최종 warning 0/error 0. synthetic diagnostics, 500개 concurrent log write, write failure, cleanup, privacy, exception chain/long message/null stack/depth, loader fallback 통과. 기존 statistics regression 및 updater self-test 19개 통과. Debug normal5v5 Start/Stop 3회, Settings unknown/mismatch, UI fatal/Task fatal, Release Home/Data/UpToDate/정상 종료 확인. 실제 무게임 5분 로그 Waiting 1회/Error 0/crash 0. 정상 종료는 crash를 만들지 않는다.
+- Production GET-only verification: revision `1788854099077`, patch `16.17`, accepted `51,649`, bytes `7,541,418`, SHA-256 `1aba43ed6108d5b2ba07b1ce170f546f8417d1c319f6a6459d97c077bb27fb14`. 실제 response 기반이며 production upload/deploy 없음.
+- Known limitations: AppDomain 전용 실제 crash, missing packaged resource 실제 startup, ACL/disk-full, 다중 프로세스 log contention, 실제 게임 패치 연동은 전수 runtime 검증하지 않았다. Task fixture는 이번 실행에서 통과했지만 GC timing 일반 보장은 없다. Stage 9의 DPI/접근성/기타 기존 수동 항목을 이번 결과로 일괄 PASS 처리하지 않는다.
+
+판정: **Stage 10-A foundation 완료**. 새로 확인된 미해결 P0/P1 없음. Stage 10-B 작업 계획을 시작할 수 있으나 전체 public release/installer/signing 승인 또는 실제 game patch 지원 완료를 의미하지 않는다. 상세 운영 정책은 `docs/diagnostics-and-logging.md`, 실행 증거와 제한은 `docs/regression-test-report.md` 참조.
+
+## Stage 10-B — Product UX (2026-09-10)
+
+Stage 10-A의 미커밋 변경을 보존한 상태에서 Product UX를 구현했다. 시작 브랜치는 `main`, HEAD는 `aa35d13`이다. 통계 metric/classifier/Team Summary 계산, dataset schema, Riot API, updater 검증·설치 정책 및 logging/crash 기반은 유지한다. 새로운 의존성은 없다.
+
+- Home: 현재 상태 → 시작 행동 → 자동 감지/인게임 흐름 → 적용 통계 순서. 읽기 폭을 제한하고 상단에 배치하며 작은 창에서는 스크롤한다. 실제 렌더에서 시작 흐름이 충분하여 별도 modal onboarding/persistence는 추가하지 않았다.
+- States: 정상 게임 대기, 역할 정보 확인 중, 수집된 조합 통계 없음, 근거 부족에 따른 판정 보류, 업데이트 실패, 게임 패치 확인 불가를 구분한다. Unknown은 현재 연결 정보의 한계를 설명하며 게임 실행 후 반드시 확인된다고 약속하지 않는다. mismatch는 non-blocking이다.
+- Cards: 유효한 챔피언 쌍에만 작은 `›` 진입 표시. Hand/hover border/keyboard focus를 유지·보완한다. Portrait 결과·초반·교전 값 13 DIP SemiBold와 secondary chip/WrapPanel을 유지한다. 용어/레벨 선취/15분 이전 무도움 직접 맞상대 솔로킬 툴팁을 추가했다. reliability 이름과 1–4/5–19/20–49/50+ 경계는 변경하지 않았다.
+- Team Summary: `라인별 결과 경향 요약` 설명을 추가했다. 팀 승리 확률로 표시하지 않고 기존 equal-vote 정책을 유지한다.
+- Settings: section title/설명 대비, dark navigation/expander/toggle를 정리했다. 초기화 confirmation 유지. 저장 경로·기억된 정확한 창 크기·revision/source는 접힌 정보로 이동했다. 데이터 정상 여부와 원격 최신 여부를 별도 카드로 표시한다. About은 버전과 앱 설명 중심이다.
+- Theme/Detail/Landscape: dark translucent drawer backdrop, native Track/Thumb 기반 16 DIP dark scrollbar, dark wrapping tooltip, 공통 focus visual. Detail 내부 champion ID 숨김, 설명 13 DIP/20 line height, 중복 solo total footer 제거. Landscape는 가용 폭 1080 미만 2열/이상 3열, 최대 폭 1260, 아군/적군 라벨 및 긴 지표명 줄바꿈을 사용한다.
+- Debug-only: 기존 Developer Test 창에 420×760/440×820/760×420/1280×800 viewport 및 localhost 업데이트 실패 검증 버튼을 추가했다. endpoint 주입은 해당 Settings 인스턴스에 한정되고 환경변수·production endpoint는 변경하지 않는다. Release 제외 검사는 새 메서드까지 검사한다.
+- Verification: WPF Debug/Release, StatsCollector/PublishStatisticsDataset/AnalyzeStatisticsDataset 모두 warning 0/error 0. 로그·통계 회귀/20회 fixture cycle/partial/notfound/Release 타입·BAML 분리 통과. 실제 Debug 화면 및 Release Home/Settings/About/Data/Unknown/production UpToDate 확인. 스크린샷은 도구 출력에만 남겼다.
+- Scope limits: 실제 League 경기/게임 패치 수집, 모든 DPI·긴 이름 조합·스크린리더 전수 검증은 수행하지 않았다. 작은 창은 다섯 역할 및 상세 내용에 스크롤이 필요하다. synthetic NotFound는 실제 미등록 champion ID를 사용하는 기존 fixture이다. Settings 소유 창의 모든 키보드 경로는 자동화 도구 제약으로 전수 검증하지 않았다.
+
+판정: **Stage 10-B 완료 (명시한 UX 범위)**. P2-1~P2-7 개선 완료, 새 미해결 P0/P1 없음. Stage 10-C 계획/구현을 시작할 수 있다. 전체 공개 배포·서명·installer 승인이나 실제 게임 패치 지원 완료를 의미하지 않는다. 상세 검증은 `docs/regression-test-report.md` 참조.
+
+## Stage 10-C — Distribution & Release Packaging (2026-09-11)
+
+Stage 10-A/B의 미커밋 변경을 보존한 채 Windows 배포 기반을 추가했다. 제품명 `LoL Match Info`, assembly/executable `LoLMatchInfo`, closed-beta 버전 `0.9.0`을 SDK-style project metadata 한 곳에서 관리한다. About와 diagnostics는 assembly version을 계속 읽으며 executable Product/File metadata도 같은 값을 사용한다.
+
+- `WinX64.pubxml`: Windows x64 self-contained, multi-file, trimming/ReadyToRun 비활성 Release publish. installer를 통해 묶으므로 single-file보다 packaged dataset/champion asset의 단순하고 검증 가능한 경로를 우선했다.
+- `scripts/build-release.ps1`: 안전하게 `artifacts` 하위 staging만 재생성하고 publish/검증/portable ZIP/Inno installer(compiler가 있을 때)/SHA-256/app release manifest를 만든다. Git clean, remote upload, production dataset 변경은 없다.
+- `scripts/validate-release.ps1`: executable, 7,541,418-byte baseline과 manifest, champion metadata/173 icons를 확인하고 PDB/source/dev tools/DeveloperTestWindow/high-risk secret/privacy marker/developer path를 거부한다.
+- `installer/LoLMatchInfo.iss`: Inno Setup 6 기반 per-user 설치. `%LocalAppData%\Programs\LoLMatchInfo`, Start Menu 필수, Desktop 선택, Add/Remove Programs와 uninstall, 같은 AppId upgrade, LocalAppData user data 보존을 정의한다.
+- local artifact: publish 575 files / 158,844,328 bytes, portable ZIP 68,291,025 bytes. ZIP SHA-256 `edca2108c7ef4ef9e388c0ea5b31d2fe60d07ce97fba91bb88a0c798c6422b7d`. generated artifacts는 Git ignore다.
+- 실제 publish 실행본은 project 밖 Temp working directory에서 5~8초 생존 후 정상 종료했고 창 제목 `LoL Match Info`, Release diagnostics version `0.9.0`, packaged revision `1788854099077`, Waiting/Shutdown 로그를 확인했다. publish 폴더 runtime write는 0개였다.
+- production statistics endpoint read-only regression은 UpToDate, Release 개발 type/BAML/fixture method는 0, 기존 통계·logging 회귀는 통과했다. 요청한 앱 Debug/Release와 3개 tool build는 모두 warning 0/error 0이다.
+- 최초 검사에서는 per-user Inno Setup 경로를 탐지하지 못해 installer lifecycle이 `BLOCKED`였다. Stage 10-C2에서 `%ProgramFiles(x86)%`, `%ProgramFiles%`, `%LocalAppData%\Programs`와 PATH를 모두 검사하도록 수정했다. signing certificate/signtool은 없고 앱 아이콘은 remaining branding polish다.
+
+### Stage 10-C2 — Inno Setup Detection and Installer Lifecycle (2026-09-11)
+
+- 실제 Inno Setup 6.7.3 compiler를 `%LocalAppData%\Programs\Inno Setup 6\ISCC.exe`에서 자동 탐지했다. source/script에 사용자 이름은 없다.
+- 최종 0.9.0 installer build 성공: `LoLMatchInfo-0.9.0-win-x64-setup.exe`, 51,627,661 bytes, SHA-256 `905bc70aa386a9dea7644dc023c29996083b35ffb816bf392224ab187192c4e1`. checksum과 release manifest의 filename/version/size/hash가 일치한다.
+- silent per-user install exit 0. Inno log는 user privileges `None`, administrative install mode `No`, restart 불필요를 기록했다. 실제 경로 `%LocalAppData%\Programs\LoLMatchInfo`, HKCU installed-app metadata 0.9.0/publisher/uninstall, Start Menu app/uninstall shortcut 생성, Desktop shortcut 기본 미생성을 확인했다.
+- 설치본은 577개 파일이며 packaged publish 575개와 Inno uninstall 파일 2개다. baseline/manifest, champion metadata/173 icons, self-contained runtime이 있고 dev tool/source/PDB/fixture 파일은 없다.
+- Start Menu shortcut 실행은 실제 installed executable을 열었고 title `LoL Match Info`, responding true, diagnostics version 0.9.0, packaged patch 16.17/revision 1788854099077/matches 51,649, Waiting 및 정상 Shutdown을 기록했다. 종료 후 orphan process 0, 575개 payload hash가 publish와 모두 일치해 install-directory runtime write가 없었다.
+- uninstall exit 0 후 install directory, Start Menu group, HKCU uninstall entry가 제거됐다. `%LocalAppData%\LoLMatchInfo`와 기존 settings SHA-256 `532CD0343AE5614BC7EB441769465E83FF01D08E934D123AE67675F45E77848B`, 로그는 보존됐다. 동일 0.9.0 reinstall/Start Menu startup도 통과했다.
+- source를 변경하지 않은 isolated 0.9.1 publish/installer로 running-app upgrade를 실행했다. Restart Manager가 실행 중 앱을 발견·종료했고 installer exit 0, installed/app version 0.9.1, executable hash 변경, settings/log 보존을 확인했다. 이후 0.9.0으로 재설치하고 최종 0.9.0 release를 다시 build했다.
+- production endpoint는 기존 read-only regression에서 UpToDate다. native GUI automation surface가 없어 설치본의 About/Settings Data 버튼을 이번 실행에서 직접 조작하지 못했으므로 해당 화면 확인만 `PARTIAL`; process/metadata/log와 updater 회귀 증거는 PASS다. 기존 crash log 2개는 과거 Debug fixture이며 정상 installer 실행으로 새 crash는 생성되지 않았다.
+
+판정: **Stage 10-C COMPLETE (closed-beta distribution scope)**. installer build/install/Start Menu launch/logging/uninstall/user-data preservation/reinstall/running-app upgrade/artifact validation을 실제 통과했다. 새 P0/P1/P2는 없고, automatic downgrade 차단 부재는 기존 release-process 정책으로 남는 P3다. signing은 `UNSIGNED BETA`, final `.ico`와 직접 GUI Settings smoke는 Stage 10-D 전 remaining manual polish다.

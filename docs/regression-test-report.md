@@ -370,3 +370,188 @@ UI 리뷰에서 발견한 Portrait 핵심 판정 가독성 P1을 최소 범위�
 판정: **Portrait readability P1 = FIXED**, 실제 관찰한 기본 DPI·대표 fixture 범위에서 핵심 값의 크기/간격/보조 chip 대비가 개선됐다. 한 역할의 세 판단을 빠르게 읽기 쉬워졌다는 렌더 기반 평가이며, 3초 사용자 실험 또는 모든 DPI 통과를 의미하지 않는다.
 
 검증 스크린샷은 tool output으로만 확인했다. 기존 사용자 설정 자동 저장을 피하도록 검증용 프로세스를 종료했으며, 설정 옵션·dataset·배포물은 편집하지 않았다. Settings contrast, Data metadata hierarchy, drawer/scrollbar, Detail affordance, onboarding, tooltip, wording 등 P2/P3는 이번 변경에 포함하지 않았다.
+
+## Stage 10-A — Release Readiness Foundation (2026-09-10)
+
+시작: `main` / `aa35d13`, working tree clean. 기존 Stage 9 보고서는 보존한다. 아래 PASS는 명시된 범위의 관찰 결과이며 이전 수동 항목 전체를 승격하지 않는다.
+
+| 검증 | 결과 | 관찰/제한 |
+|---|---|---|
+| WPF Debug build | PASS | 최종 `dotnet build .\LoLMatchup.csproj`: warning 0/error 0 |
+| WPF Release build | PASS | 최종 `dotnet build .\LoLMatchup.csproj -c Release`: warning 0/error 0 |
+| StatsCollector build | PASS | warning 0/error 0 |
+| PublishStatisticsDataset build | PASS | warning 0/error 0 |
+| AnalyzeStatisticsDataset build | PASS | warning 0/error 0 |
+| Diagnostics regression | PASS | `Tools/RegressionScratch/DiagnosticsRegression.cs`, temporary directory only |
+| Patch normalization | PASS | 16.17.1 / 16.17 / 16.17.123.456 match; 16.18.0 mismatch; null/invalid component/invalid part count Unknown |
+| Common snapshot | PASS | packaged/local sources, revision 7→8, missing generated time, immutable old snapshot, reset to Unknown |
+| Logging concurrency/level | PASS | 500 parallel writes, 500 complete unique lines; Info threshold excludes Debug |
+| Privacy and bounded crash | PASS | synthetic secret/identity/path/query markers and 100,000-character messages omitted; outer+2 inner preserved, null stack safe, depth 12 bounded |
+| Logging failure | PASS | temp regular file blocks log-directory creation; Log/LogSnapshot/Cleanup do not throw; WriteCrash returns null |
+| Retention | PASS | 31-day managed fake file removed, current daily file retained, unrelated old keep.log untouched, managed max count 100 |
+| Invalid dataset fallback | PASS | malformed local warns and loads packaged; both-invalid returns failure for app fatal startup guard |
+| Optional champion resources | PARTIAL | existing metadata fallback validator passes; missing icon behavior/code reviewed, no new full missing-icon GUI exercise |
+| Statistics regression | PASS | existing DEBUG validators, all current dataset classifications/reverse invariants and 20 service fixture Start/Stop cycles |
+| Updater regression | PASS | existing `--self-test`: all 19 named scenarios, including latest/conflict/newer/install/HTTPS/loopback/SHA/size/metadata/downgrade/network/interruption/cancel-dispose/atomic rollback/fallback |
+| Production read-only | PASS | actual manifest and dataset GET, validation, size, SHA, metadata; no writes to production |
+| Debug Home/Settings | PASS | actual Home patch/count/Waiting; Settings shared metadata and normal Unknown game patch |
+| No-game 5 minutes | PASS | KST 02:40:31.249 Waiting → 02:45:35.119 observation (~304 sec), Waiting exactly 1, Error/Critical 0, crash files 0. 10 physical log lines included startup snapshot and 4 manual updater events |
+| GUI transitions | PASS | normal5v5→Stop→Waiting three complete cycles. GameDetected UTC 17:45:50, 17:46:35, 17:47:11; Waiting 17:46:07, 17:46:53, 17:48:15. One event each, no polling spam |
+| Synthetic mismatch GUI | PASS | Debug game 16.18 / dataset 16.17; Settings explicitly says existing statistics remain usable; 5-role dashboard and summary remain active; dataset files unchanged |
+| Normal Debug shutdown | PASS | Shutdown UTC 17:48:43; no crash file, visible test process exited |
+| Actual Dispatcher fatal | PASS | Debug UI crash button → Korean dialog + Critical FatalDispatcher + separate 1,807-byte crash with inner exception/method stack; acknowledge → process gone |
+| Actual TaskScheduler fatal | PASS (one run) | faulted unobserved Task + GC → Critical FatalTask + 756-byte crash + Korean dialog; acknowledge → process gone. GC timing is not guaranteed across runtimes |
+| AppDomain fatal | PARTIAL | handler registered and shared fatal path reviewed; no separate actual AppDomain crash injected |
+| Release Home/Data | PASS | actual Home startup, no TEST/DEBUG/developer controls; Data patch/revision/generated/Unknown displayed |
+| Release updater | PASS | actual Settings request shows 최신 데이터입니다 / 최신 상태; log CheckStarted/current/manifest revision/UpToDate |
+| Release shutdown | PASS | Shutdown UTC 17:55:14; no remaining LoLMatchup process on final inspection; crash count stayed 2 (the deliberate Debug fixtures) |
+| Actual log privacy scan | PASS | all generated local log files: API-key/header/player-ID/name/user-profile/match-ID patterns 0; no actual log copied into repo |
+| Release PE/resources | PASS | Debug developer types 5/BAML 2/diagnostic fixture methods 4; Release 0/0/0 |
+| Async/cancellation | PARTIAL | production async entrypoints awaited WPF events; no production fire-and-forget. Closing guards and polling cancellation reviewed; existing updater cancel/dispose tests pass. GUI slow-download/close stress not newly executed |
+| Actual game patch | MANUAL/BLOCKED | no reliable version in existing calls; official sample gameData has no version. No guessed version or API key path added |
+| Git hygiene | PASS | git diff --check; existing *.log ignore sufficient; no tracked/generated local logs or production dataset changes |
+
+Production response observed during this run:
+
+- Revision `1788854099077`, patch `16.17`, accepted matches `51,649`, observations `258,245`, matchup keys `15,547`.
+- Dataset `master_plus.1788854099077.json`, `7,541,418` bytes.
+- SHA-256 `1aba43ed6108d5b2ba07b1ce170f546f8417d1c319f6a6459d97c077bb27fb14`.
+- Both actual Debug and Release updater checks returned UpToDate; revision was read from the response, not assumed from the Stage 9 report.
+
+Execution notes: an initial sandboxed/hidden `dotnet run` could not supply the normal desktop/log evidence and was excluded from smoke results; its remaining test process was stopped. Initial network-limited regression failed the public endpoint check, then completed successfully with read-only network access. During cleanup, one stale method signature and an executable lock caused intermediate build failures; both were resolved and final builds passed 0/0. UI automation occasionally returned stale indices/geometry; only visibly completed actions and logged transitions were counted. Desktop smoke used the actual built app executable through computer-use.
+
+Known limits: original exception messages are intentionally omitted for privacy; filename/line numbers are not stored. Logging is best effort under disk/permission/multiprocess contention, and process kill/stack overflow/power loss may not yield a crash record. Real ACL/disk-full, separate AppDomain/missing-resource startup crash, every DPI and existing Stage 9 manual cases remain unverified. No new unresolved P0/P1 found; no unrelated P2/P3 polish was included.
+
+Stage 10-A foundation: **COMPLETE within this scope**. Stage 10-B planning can proceed. This is not a blanket public-release gate approval and does not claim actual runtime game patch acquisition.
+
+## Stage 10-B — Product UX regression (2026-09-10)
+
+Start: `main`, HEAD `aa35d13`. Stage 10-A dirty files were retained; no reset/revert/delete/commit. Reviewed PROJECT_STATUS, this report, diagnostics-and-logging, and Stage 9 P2 feedback. No statistics policy/schema/production deployment/dependency changes.
+
+| Check | Result | Evidence / limits |
+|---|---|---|
+| P2-1 Detail affordance | PASS | Small `›` only for CanOpenDetail; disabled missing role has no arrow; native Button command, Hand, hover border and gold keyboard focus. TOP entered with Enter |
+| P2-2 Settings contrast | PASS | Explicit section text inheritance fixes dark title; readable secondary descriptions; dark list items, toggles and expanders; reset confirmation retained |
+| P2-3 Data hierarchy | PASS | Normal dataset separate from unchecked/latest/update error; patch and accepted count visible; collection/technical details collapsed; About version 1.0.0 without build internals |
+| P2-4 Drawer | PASS | Dark translucent backdrop stays dark; outside click closes; Space opens, Enter selects Home, focus returns to menu; Tab cycle retained |
+| P2-5 Scrollbar | PASS | Native ScrollViewer/Track/Thumb, 16 DIP track, visible normal/hover/drag states. Portrait and Settings actual thumb drags scroll content; Portrait wheel observed |
+| P2-6 States | PASS | Home no-game and active; Waiting normal action guidance; Partial MID says role information being checked; NotFound explains uncollected combination; mismatch remains usable |
+| P2-7 Meaning | PASS | Outcome/early/combat labels and L2/L3/L6/solo chips have short explanations; dark tooltip actual render; sample reliability thresholds unchanged |
+| Portrait 420×760 | PASS | Exact Debug viewport preset plus prior border resize. Tool capture about 406×753 (nonclient crop); core values/chips readable; no horizontal overflow; SUPPORT reachable by scrolling |
+| Portrait 440×820 | PASS | Debug viewport preset, capture about 426×813; 13 DIP values and secondary chips preserved, 5 roles accessible by scrolling; final build rechecked |
+| Landscape 760×420 | PASS | Two columns, normal cards and scrolling. Small height intentionally requires vertical scrolling |
+| Landscape 1280×800 | PASS | Three columns, constrained content width, ally/enemy headings, full solo metric via wrap. NotFound synthetic long names prompted bounded text width fix |
+| Detail TOP/MID | PASS | Both opened; Korean names and stronger wrapped explanations, no visible internal ID. MID bottom shows one total per side and per-game solo values |
+| Patch Unknown | PASS | Release no-game Data: current connection cannot confirm game patch, statistics remain accessible. No unsupported promise to acquire patch after game start |
+| Patch mismatch | PASS | Debug synthetic 16.18 vs dataset 16.17; nonblocking Korean explanation; active data/count retained |
+| Updater failure UI | PASS | Debug instance-only http://127.0.0.1:9/manifest.json, actual update check failure; existing-data/retry guidance and enabled check button; production URI untouched |
+| Release production update | PASS | Actual Settings check returned `최신 데이터입니다`, button `다시 확인`; GET-only, no download/install/deploy |
+| Keyboard | PASS, bounded | Tab and Shift+Tab main navigation, Space drawer, Enter Home/InGame and TOP card; visible card focus. Owned Settings keyboard paths not exhaustively exercised because tool activates owner |
+| Mouse/theme | PASS | Role card hover border, shell button feedback, dark drawer/nav selection, dark wrapping tooltip; no red/green result palette |
+| Debug smoke | PASS | Actual built executable: Home, Portrait/Landscape, TOP/MID Detail, General/Display/Data and Developer Test. Viewport/failure fixtures remain Debug-only |
+| Release smoke | PASS | Actual built executable: Home, Waiting, Settings General/Data/About, Unknown, production UpToDate; no TEST UI |
+| WPF Debug build | PASS | dotnet build LoLMatchup.csproj: 0 warnings / 0 errors |
+| WPF Release build | PASS | dotnet build LoLMatchup.csproj -c Release: 0 / 0 |
+| StatsCollector build | PASS | dotnet build Tools/StatsCollector/StatsCollector.csproj: 0 / 0 |
+| Publisher build | PASS | dotnet build Tools/PublishStatisticsDataset/PublishStatisticsDataset.csproj: 0 / 0 |
+| Analyzer build | PASS | dotnet build Tools/AnalyzeStatisticsDataset/AnalyzeStatisticsDataset.csproj: 0 / 0 |
+| Logging regression | PASS | UTF-8/concurrent 500 writes, exception privacy/depth, log I/O failure isolation, 30-day/100-file retention, dataset fallback, immutable diagnostics and patch cases |
+| Statistics regression | PASS | Existing Debug validators, classifier/reliability/summary boundaries and reverse direction; 20 start/stop cycles/40 notifications; Partial/NotFound/custom/off-meta pipelines |
+| Release artifacts | PASS | PE metadata/resource scan: Debug 5 developer types/2 BAML/7 fixture methods; Release 0/0/0 (includes viewport/update failure/crash/patch methods) |
+| Privacy | PASS | UI/resources/Logging/Diagnostics and real runtime logs: RIOT_API_KEY, RGAPI-, PUUID, RiotId, summonerName, Authorization markers 0. No raw exception or HTTP/player payload logging added |
+| Git | PASS | diff --check; no screenshots/logs/dataset modifications added to repo; Stage 10-A changes preserved |
+
+Execution notes: desktop smoke launched built EXEs through computer-use (not a claim that a hidden sandbox `dotnet run` supplied desktop evidence). First regression run completed local cases but failed the network-restricted public endpoint check; read-only elevated rerun exited 0 and passed all cases including UpToDate and artifact scans. Failed/stale/out-of-bounds UI automation attempts were reobserved and not counted as successful tests. Viewport presets were added to avoid claiming exact dimensions from imprecise drags. Crash fixtures were not deliberately rerun in Stage 10-B; separation and logger tests cover the quick regression requirement. Original settings were restored byte-for-byte after verifying that only viewport geometry had changed and all LoLMatchup processes had exited. Final normal Shutdown was logged.
+
+Product decision: Home provides persistent, dismiss-free first-use guidance, so no separate onboarding modal or boolean was added. No separate UX document was necessary. Stage 9 identity and Portrait P1 hierarchy remain. P2-1 through P2-7 addressed; no new unresolved P0/P1 or distinct blocking P2/P3 found in the observed scope. Remaining manual coverage: real League start/end, real game patch acquisition, all DPI/screen readers, every long localized name, exhaustive owned-window keyboard paths. This is not a public distribution/signing/installer approval.
+
+Stage 10-B: **COMPLETE within the requested Product UX scope**. Stage 10-C can proceed.
+
+Stage 10-B file list (21; additional working-tree files belong to preserved Stage 10-A work):
+
+- MainWindow.xaml
+- MainWindow.xaml.cs
+- Services/MatchupStatisticsPresenter.cs
+- Services/Diagnostics/AppDiagnosticsService.cs
+- Tools/RegressionScratch/Program.cs
+- Views/AppShellResources.xaml
+- Views/StatisticsViewResources.xaml
+- Views/DeveloperTestWindow.xaml
+- Views/DeveloperTestWindow.xaml.cs
+- Views/HomeView.xaml
+- Views/HomeView.xaml.cs
+- Views/InGameView.xaml
+- Views/InGameView.xaml.cs
+- Views/LandscapeStatisticsView.xaml
+- Views/LandscapeStatisticsView.xaml.cs
+- Views/MatchupDetailView.xaml
+- Views/PortraitStatisticsView.xaml
+- Views/SettingsWindow.xaml
+- Views/SettingsWindow.xaml.cs
+- PROJECT_STATUS.md
+- docs/regression-test-report.md
+
+## Stage 10-C — Distribution & Release Packaging (2026-09-11)
+
+Start: `main`, HEAD `aa35d13`. Stage 10-A/B dirty files were retained; no reset, revert, checkout overwrite, delete, clean, commit, production deployment, or statistics policy/schema change.
+
+| Check | Result | Evidence / limits |
+|---|---|---|
+| Five requested builds | PASS | WPF Debug/Release, StatsCollector, PublishStatisticsDataset, AnalyzeStatisticsDataset: each warning 0/error 0 |
+| Release profile | PASS | `win-x64`, self-contained, multi-file, no trimming, no ReadyToRun, Release PDB disabled |
+| Fresh publish | PASS | `artifacts/publish/win-x64`, 575 files, 158,844,328 bytes (151.49 MiB) |
+| Required content | PASS | `LoLMatchInfo.exe`; baseline 7,541,418 bytes; statistics manifest; champion metadata; 173 PNG icons |
+| Forbidden content | PASS | no source/PDB/.env/tool executable; binary scan found no DeveloperTestWindow, RGAPI-, or RIOT_API_KEY |
+| Privacy/path scan | PASS | text artifact scan found no Authorization header, PUUID, riotId, summonerName, matchId, or `C:\Users\<developer>` path |
+| Executable metadata | PASS | Product/File description `LoL Match Info`; FileVersion `0.9.0.0`; ProductVersion `0.9.0`; filename `LoLMatchInfo.exe` |
+| Portable archive | PASS | 575 entries, 68,291,025 bytes (65.13 MiB), no separate portable data mode |
+| SHA-256 | PASS | `edca2108c7ef4ef9e388c0ea5b31d2fe60d07ce97fba91bb88a0c798c6422b7d`, filename and size recorded |
+| App release manifest | PASS | schema 1, channel closed-beta, RID, version, type/file/hash/size; URL intentionally null; separate from dataset manifest |
+| Arbitrary working directory startup | PASS | publish executable launched with Temp as CWD, remained alive after 5 and 8 seconds, title `LoL Match Info`, closed normally |
+| Existing user data/logging | PASS | existing LocalAppData was not deleted/reset; Release log recorded Startup, diagnostics 0.9.0, packaged dataset, Waiting, Shutdown |
+| Install-directory write | PASS | second startup snapshot found 0 created/size/timestamp changes under publish directory |
+| Production stats updater | PASS | existing regression performed read-only public check and returned UpToDate; no deploy/download mutation |
+| Statistics/logging regression | PASS | diagnostics/logger/privacy/fallback/classifier/lookup/20-cycle/partial/notfound/custom/off-meta suite exited 0 |
+| Release development separation | PASS | developer types 0, developer BAML 0, diagnostic fixture methods 0 |
+| Installer source | PASS | Inno Setup source defines per-user install, shortcuts, uninstall metadata, close-app behavior, stable AppId and user-data preservation |
+| Installer build | BLOCKED | Inno Setup 6 `ISCC.exe` not installed; script reported blocker and did not claim an installer |
+| Installer/install/uninstall/reinstall/upgrade | BLOCKED | no installer binary; no lifecycle claim. Downgrade prevention remains release-process policy rather than code enforcement |
+| Clean first run | MANUAL | avoided deleting or redirecting the real user profile; isolated known-folder UI test remains |
+| Screen smoke | MANUAL | native app automation API unavailable; process/title/log startup verified, but Home/Waiting/Settings/Data/About were not visually rechecked in this Stage |
+| Offline/failure | PARTIAL | packaged baseline startup and existing recoverable-failure regression passed; system network was not disabled and installed-build offline UI was not exercised |
+| Code signing/icon | MANUAL | `UNSIGNED BETA`, no certificate/signtool and no final `.ico`; targets and safe signing insertion points documented |
+| Defender/SmartScreen | MANUAL | security settings were not changed; unsigned warning policy documented, quarantine/UI not automated |
+| Git hygiene | PASS | `artifacts/` ignored; source/profile/scripts/docs remain trackable; `git diff --check` clean apart from line-ending notices |
+
+The first self-contained restore was blocked by sandbox network and then completed with approved NuGet access. Two script compatibility defects (XML version selection and Windows PowerShell 5.1 string comparison) were found during real execution and fixed before the final artifact run. Renaming the assembly exposed two RegressionScratch hard-coded DLL paths; both were updated and the full harness then exited 0.
+
+New unresolved issue count: P0 0 / P1 0 / P2 0 / P3 0. Installer tool absence and actual lifecycle/GUI checks are tracked as BLOCKED/MANUAL rather than defects. Stage 10-C is **PARTIAL** until Inno Setup builds the installer and isolated install → run → update/log → uninstall/reinstall/upgrade smoke is completed.
+
+## Stage 10-C2 — Inno Setup Detection Fix and Installer Lifecycle (2026-09-11)
+
+This section supersedes the Stage 10-C installer blocker above. Start remained `main` at `aa35d13`; all Stage 10-A/B/C dirty files and the newly observed untracked collector 16.18 output were preserved.
+
+| Check | Result | Evidence / limits |
+|---|---|---|
+| Per-user ISCC detection | PASS | `%LocalAppData%\Programs\Inno Setup 6\ISCC.exe`, compiler 6.7.3; Program Files x86/64 and PATH fallbacks retained; no username in source |
+| Final release pipeline | PASS | publish validation, portable ZIP, Inno compile, checksums and release manifest all completed |
+| Final installer | PASS | `LoLMatchInfo-0.9.0-win-x64-setup.exe`; 51,627,661 bytes; SHA-256 `905bc70aa386a9dea7644dc023c29996083b35ffb816bf392224ab187192c4e1` |
+| Checksum/manifest | PASS | installer and portable present in `SHA256SUMS.txt`; manifest installer filename/version/size/hash matched actual file, URL null |
+| Install privilege/location | PASS | silent install exit 0; log: user privileges None, administrative mode No; `%LocalAppData%\Programs\LoLMatchInfo` |
+| Shortcuts/installed-app entry | PASS | Start Menu app and uninstall shortcuts; Desktop absent by default; HKCU display name/version/publisher/location/uninstall verified |
+| Installed payload | PASS | 577 files including 575 publish files plus 2 Inno uninstall files; baseline, manifest, champion metadata and 173 icons present |
+| Installed dev artifacts | PASS | no PDB/source/.env/collector/publisher/analyzer/DeveloperTestWindow filenames; publish validator and Release PE separation retained |
+| Start Menu startup | PASS | installed process path, title `LoL Match Info`, responding true; diagnostics 0.9.0 and packaged dataset; normal Waiting/Shutdown |
+| Installed About/Settings UI | PARTIAL | assembly/file/diagnostics version and dataset metadata prove backing state; native UI automation exposed no app surface, so panels were not directly clicked |
+| Production statistics update | PASS/PARTIAL | existing read-only regression returned UpToDate and installed payload hashes match; installed Settings button was not directly invoked |
+| Installed logging/crash | PASS | startup/diagnostics/Waiting/Shutdown appended under LocalAppData; historical two deliberate Debug crash files remained, no new normal-run crash |
+| Install-directory writes | PASS | all 575 installed payload hashes exactly matched final publish after runtime; settings/logs remained outside install root |
+| Shutdown | PASS | CloseMainWindow completed; remaining LoLMatchInfo processes 0 |
+| Uninstall | PASS | exit 0; install directory, Start Menu group and HKCU uninstall entry removed |
+| User-data preservation | PASS | user-data directory/settings/logs preserved; settings hash remained `532CD0343AE5614BC7EB441769465E83FF01D08E934D123AE67675F45E77848B` |
+| Reinstall | PASS | same 0.9.0 installer exit 0; recreated shortcut launched installed app normally with existing user data |
+| Isolated upgrade | PASS | temporary 0.9.1 publish validated; running 0.9.0 detected and shut down by Restart Manager; installed/app version updated, executable replaced, settings/logs preserved |
+| Version restoration | PASS | source never left 0.9.0; installed app returned to 0.9.0; final 0.9.0 release rebuilt successfully |
+| Signing/SmartScreen/icon | MANUAL | UNSIGNED BETA; security settings unchanged; no SmartScreen automation; final `.ico` remains branding polish |
+
+Final severity: P0 0 / P1 0 / P2 0 / P3 1. P3 is the already documented lack of installer-enforced downgrade blocking; closed-beta release procedure must not distribute an older installer. Direct About/Settings screen interaction remains PARTIAL, not falsely promoted to PASS. Stage 10-C is **COMPLETE within the closed-beta distribution scope**; Stage 10-D may proceed with unsigned-build disclosure and remaining manual branding/GUI checks.

@@ -31,7 +31,7 @@ public partial class InGameView : UserControl
         {
             presentation = presentation with
             {
-                StatusDetailText = "현재 인게임 데이터가 없습니다.\n게임이 시작되면 이 화면에 매치업 통계가 표시됩니다."
+                StatusDetailText = "앱을 켜 둔 채 League 게임을 시작하세요.\n게임이 감지되면 매치업을 자동으로 표시합니다."
             };
         }
 
@@ -52,7 +52,7 @@ public partial class InGameView : UserControl
     {
         SetPresentation(new TeamMatchupStatisticsPresentation(
             MatchupPresentationState.Waiting,
-            "게임을 기다리는 중...",
+            "게임을 기다리는 중입니다",
             StatusDetailText: "리그 오브 레전드 게임이 시작되면\n매치업 통계를 자동으로 표시합니다."));
     }
 

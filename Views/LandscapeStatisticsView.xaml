@@ -1,7 +1,7 @@
 <UserControl x:Class="LoLMatchup.Views.LandscapeStatisticsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid>
+    <Grid MaxWidth="1260">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -14,7 +14,7 @@
                           ItemTemplate="{StaticResource RoleDashboardCardTemplate}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="3" />
+                        <UniformGrid Columns="{Binding ColumnCount, RelativeSource={RelativeSource AncestorType=UserControl}}" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemContainerStyle>

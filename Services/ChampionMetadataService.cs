@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using LoLMatchup.Models.Champions;
+using LoLMatchup.Services.Logging;
 
 namespace LoLMatchup.Services;
 
@@ -15,9 +16,12 @@ public sealed class ChampionMetadataService
     private readonly Dictionary<string, ImageSource?> _iconCache =
         new(StringComparer.OrdinalIgnoreCase);
     private readonly object _iconCacheLock = new();
+    private readonly IAppLogger _logger;
+    private bool _iconFailureLogged;
 
-    public ChampionMetadataService()
+    public ChampionMetadataService(IAppLogger? logger = null)
     {
+        _logger = logger ?? NullAppLogger.Instance;
         var dataDirectory = Path.Combine(
             AppContext.BaseDirectory,
             "Data",
@@ -123,7 +127,7 @@ public sealed class ChampionMetadataService
         }
     }
 
-    private static ImageSource? LoadIcon(string path)
+    private ImageSource? LoadIcon(string path)
     {
         try
         {
@@ -141,12 +145,20 @@ public sealed class ChampionMetadataService
             or FormatException
             or NotSupportedException)
         {
+            if (!_iconFailureLogged)
+            {
+                _iconFailureLogged = true;
+                _logger.Log(AppLogLevel.Warning, AppLogEvent.OptionalIconFallback);
+            }
             return null;
         }
     }
 
-    private static IReadOnlyDictionary<string, ChampionMetadataEntry> EmptyIndex() =>
-        new Dictionary<string, ChampionMetadataEntry>(StringComparer.OrdinalIgnoreCase);
+    private IReadOnlyDictionary<string, ChampionMetadataEntry> EmptyIndex()
+    {
+        _logger.Log(AppLogLevel.Warning, AppLogEvent.OptionalMetadataFallback);
+        return new Dictionary<string, ChampionMetadataEntry>(StringComparer.OrdinalIgnoreCase);
+    }
 
     private sealed class ChampionMetadataDocument
     {

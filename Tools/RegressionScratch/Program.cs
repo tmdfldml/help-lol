@@ -15,6 +15,7 @@ internal static class Program
 
     private static async Task RunAsync()
     {
+        await DiagnosticsRegression.RunAsync();
         Trace.Listeners.Add(new ConsoleTraceListener());
         var metadata = new ChampionMetadataService();
         var validator = typeof(LiveStatisticsCoordinator).Assembly.GetType("LoLMatchup.Services.MatchupStatisticsDebugValidator")!;
@@ -66,12 +67,15 @@ internal static class Program
 
         foreach (var config in new[] { "Debug", "Release" })
         {
-            var assemblyPath = Path.Combine(Directory.GetCurrentDirectory(), "bin", config, "net10.0-windows", "LoLMatchup.dll");
+            var assemblyPath = Path.Combine(Directory.GetCurrentDirectory(), "bin", config, "net10.0-windows", "LoLMatchInfo.dll");
             using var stream = File.OpenRead(assemblyPath);
             using var pe = new PEReader(stream);
             var reader = pe.GetMetadataReader();
             var names = reader.TypeDefinitions.Select(handle => reader.GetString(reader.GetTypeDefinition(handle).Name)).ToArray();
             var developerTypes = names.Count(x => x.Contains("DeveloperTest") || x.Contains("SearchableChampionPicker"));
+            var crashMethods = reader.MethodDefinitions.Select(handle => reader.GetString(reader.GetMethodDefinition(handle).Name))
+                .Count(name => name is "CrashUi_Click" or "CrashTask_Click" or "CreateUnobservedTask" or "PatchMismatch_Click" or "Viewport_Click" or "UpdateFailure_Click" or "ShowUpdateFailureFixture");
+            Require(config == "Debug" ? crashMethods == 7 : crashMethods == 0, "Crash/patch fixtures excluded from Release");
             var resourceDirectory = pe.PEHeaders.CorHeader!.ResourcesDirectory;
             var baml = new List<string>();
             foreach (var handle in reader.ManifestResources)
@@ -86,7 +90,7 @@ internal static class Program
             }
             Require(config == "Debug" ? developerTypes > 0 && baml.Count == 2 : developerTypes == 0 && baml.Count == 0,
                 "Developer PE types and embedded BAML " + config);
-            Console.WriteLine($"{config} artifact: developer types={developerTypes}, developer BAML={baml.Count}: PASS");
+            Console.WriteLine($"{config} artifact: developer types={developerTypes}, developer BAML={baml.Count}, diagnostic fixture methods={crashMethods}: PASS");
         }
 
         async Task Check(LoLMatchup.Models.Development.DeveloperTestScenario scenario,

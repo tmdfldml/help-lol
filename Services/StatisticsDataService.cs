@@ -2,6 +2,7 @@ using System.IO;
 using System.Text.Json;
 using LoLMatchup.Models.Statistics;
 using LoLMatchup.Services.Statistics;
+using LoLMatchup.Services.Logging;
 
 namespace LoLMatchup.Services;
 
@@ -11,9 +12,11 @@ public sealed class StatisticsDataService
     private readonly string _packagedDataFilePath;
     private readonly string _updatedDataFilePath;
     private readonly Lazy<Task<StatisticsDatasetLoadResult>> _loadResult;
+    private readonly IAppLogger _logger;
 
-    public StatisticsDataService(string? packagedDataFilePath = null, string? updatedDataFilePath = null)
+    public StatisticsDataService(string? packagedDataFilePath = null, string? updatedDataFilePath = null, IAppLogger? logger = null)
     {
+        _logger = logger ?? NullAppLogger.Instance;
         _packagedDataFilePath = packagedDataFilePath ?? Path.Combine(
             AppContext.BaseDirectory, "Data", "Statistics", DatasetFileName);
         _updatedDataFilePath = updatedDataFilePath ?? Path.Combine(
@@ -81,6 +84,8 @@ public sealed class StatisticsDataService
     private async Task<StatisticsDatasetLoadResult> LoadCoreAsync()
     {
         var updated = await TryLoadAsync(_updatedDataFilePath, StatisticsDatasetSource.UpdatedLocal);
+        if (updated.Status != StatisticsDatasetLoadStatus.Loaded && File.Exists(_updatedDataFilePath))
+            _logger.Log(AppLogLevel.Warning, AppLogEvent.LocalDatasetFallback);
         return updated.Status == StatisticsDatasetLoadStatus.Loaded
             ? updated
             : await TryLoadAsync(_packagedDataFilePath, StatisticsDatasetSource.Packaged);

@@ -5,6 +5,8 @@ using LoLMatchup.Models.Navigation;
 using LoLMatchup.Models.Settings;
 using LoLMatchup.Models.Presentation;
 using LoLMatchup.Services;
+using LoLMatchup.Services.Logging;
+using LoLMatchup.Services.Diagnostics;
 #if DEBUG
 using LoLMatchup.Services.Development;
 #endif
@@ -28,8 +30,10 @@ public partial class MainWindow : Window
 
     private readonly CancellationTokenSource _pollingCancellation = new();
     private readonly LiveClientService _liveClientService = new();
-    private readonly ChampionMetadataService _championMetadataService = new();
-    private readonly StatisticsDataService _statisticsDataService = new();
+    private readonly ChampionMetadataService _championMetadataService;
+    private readonly StatisticsDataService _statisticsDataService;
+    private readonly AppLogger _logger;
+    private readonly AppDiagnosticsService _diagnostics;
     private readonly AppSettingsService _settingsService = new();
     private readonly AppNavigationService _navigationService = new();
     private SettingsWindow? _settingsWindow;
@@ -44,6 +48,11 @@ public partial class MainWindow : Window
 
     public MainWindow()
     {
+        var app = (App)Application.Current;
+        _logger = app.Logger;
+        _diagnostics = app.Diagnostics;
+        _statisticsDataService = new StatisticsDataService(logger: _logger);
+        _championMetadataService = new ChampionMetadataService(_logger);
         InitializeComponent();
         ApplySavedSettings();
         _settingsService.SettingsChanged += SettingsService_SettingsChanged;
@@ -70,6 +79,16 @@ public partial class MainWindow : Window
         _hasStartedPolling = true;
 
         var dataset = await _statisticsDataService.LoadAsync();
+        if (_pollingCancellation.IsCancellationRequested) return;
+        if (dataset.Status != StatisticsDatasetLoadStatus.Loaded)
+        {
+            ((App)Application.Current).HandleFatal(new InvalidOperationException(), AppLogEvent.FatalStartup);
+            return;
+        }
+        var manifest = await _statisticsDataService.LoadCompanionManifestAsync(dataset.Source);
+        if (_pollingCancellation.IsCancellationRequested) return;
+        _diagnostics.SetDataset(dataset, manifest);
+        _logger.LogSnapshot(_diagnostics.Snapshot);
         HomeView.SetDataset(
             dataset.Dataset,
             dataset.Status == StatisticsDatasetLoadStatus.Invalid
@@ -89,7 +108,8 @@ public partial class MainWindow : Window
             , developerTestMode: _developerTestMode
 #endif
             );
-        var pollingService = new LiveStatisticsPollingService(coordinator);
+        if (_pollingCancellation.IsCancellationRequested) return;
+        var pollingService = new LiveStatisticsPollingService(coordinator, logger: _logger);
 
         try
         {
@@ -105,7 +125,6 @@ public partial class MainWindow : Window
         finally
         {
             _liveClientService.Dispose();
-            _pollingCancellation.Dispose();
         }
     }
 
@@ -151,7 +170,7 @@ public partial class MainWindow : Window
 
         _settingsWindow = new SettingsWindow(
             _settingsService,
-            _statisticsDataService)
+            _statisticsDataService, _diagnostics, _logger)
         {
             Owner = this
         };
@@ -159,11 +178,27 @@ public partial class MainWindow : Window
         _settingsWindow.Show();
     }
 
-    private void NavigationButton_Click(object sender, RoutedEventArgs e) =>
-        NavigationOverlay.Visibility = NavigationOverlay.Visibility == Visibility.Visible
-            ? Visibility.Collapsed
-            : Visibility.Visible;
-
+#if DEBUG
+    internal void ShowUpdateFailureFixture()
+    {
+        _settingsWindow?.Close();
+        _settingsWindow = new SettingsWindow(_settingsService, _statisticsDataService, _diagnostics, _logger,
+            new LoLMatchup.Services.Statistics.DatasetUpdateOptions { ManifestUri = new Uri("http://127.0.0.1:9/manifest.json") })
+        { Owner = this };
+        _settingsWindow.Closed += (_, _) => _settingsWindow = null;
+        _settingsWindow.Show();
+    }
+#endif
+    private void NavigationButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (NavigationOverlay.Visibility == Visibility.Visible)
+        {
+            CloseDrawer();
+            return;
+        }
+        NavigationOverlay.Visibility = Visibility.Visible;
+        HomeNavigationItem.Focus();
+    }
     private void DrawerBackdrop_Click(object sender, RoutedEventArgs e) => CloseDrawer();
 
     private void HomeNavigation_Click(object sender, RoutedEventArgs e)
@@ -238,7 +273,11 @@ public partial class MainWindow : Window
         }
     }
 
-    private void CloseDrawer() => NavigationOverlay.Visibility = Visibility.Collapsed;
+    private void CloseDrawer()
+    {
+        NavigationOverlay.Visibility = Visibility.Collapsed;
+        NavigationButton.Focus();
+    }
 
     private void SettingsService_SettingsChanged(object? sender, EventArgs e)
     {
@@ -428,6 +467,7 @@ public partial class MainWindow : Window
     {
         var newlyDetected = gameActive && !_gameActive;
         _gameActive = gameActive;
+        if (!gameActive) _diagnostics.SetCurrentGameVersion(null);
         UpdateHeaderStatus();
         HomeView.SetGameActive(gameActive);
         InGameView.SetPresentation(presentation);

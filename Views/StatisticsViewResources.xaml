@@ -4,7 +4,7 @@
                     xmlns:presentation="clr-namespace:LoLMatchup.Models.Presentation">
     <SolidColorBrush x:Key="PrimaryTextBrush" Color="#F1F4F8" />
     <SolidColorBrush x:Key="SecondaryTextBrush" Color="#A5AFBD" />
-    <SolidColorBrush x:Key="MutedTextBrush" Color="#707B8B" />
+    <SolidColorBrush x:Key="MutedTextBrush" Color="#929EAF" />
     <SolidColorBrush x:Key="CardBackgroundBrush" Color="#171D27" />
     <SolidColorBrush x:Key="CardBorderBrush" Color="#27303E" />
     <SolidColorBrush x:Key="QueryAccentBrush" Color="#82B8C5" />
@@ -160,7 +160,7 @@
         </Style.Triggers>
     </Style>
     <DataTemplate x:Key="PortraitDirectionChipTemplate">
-        <Border Style="{StaticResource PortraitDirectionChipStyle}">
+        <Border Style="{StaticResource PortraitDirectionChipStyle}" ToolTip="L2·L3·L6은 해당 레벨에 먼저 도달한 쪽의 경향입니다. 솔로킬은 15분 이전 도움 없이 직접 맞상대를 처치한 횟수 기준입니다.">
             <TextBlock Text="{Binding Text}"
                        Style="{StaticResource PortraitDirectionChipTextStyle}" />
         </Border>
@@ -233,6 +233,10 @@
         <Setter Property="TextAlignment" Value="Center" />
         <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
+    <Style x:Key="RoleTitleStyle" TargetType="TextBlock">
+        <Setter Property="Text" Value="{Binding Role, StringFormat={}{0}  ›}"/>
+        <Style.Triggers><DataTrigger Binding="{Binding CanOpenDetail}" Value="False"><Setter Property="Text" Value="{Binding Role}"/></DataTrigger></Style.Triggers>
+    </Style>
     <Style x:Key="RoleCardButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/><Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="1"/><Setter Property="Padding" Value="0"/>
@@ -299,7 +303,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBlock Text="{Binding Label}" Style="{StaticResource MutedTextStyle}"
-                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                       VerticalAlignment="Center" TextWrapping="Wrap" ToolTip="{Binding Label}" />
             <TextBlock Grid.Column="1" Text="{Binding QueryValue}"
                        Foreground="{StaticResource QueryAccentBrush}" FontSize="12"
                        FontWeight="SemiBold" TextAlignment="Right" />
@@ -319,7 +323,7 @@
         <Border Style="{StaticResource CardStyle}" Padding="12,10">
             <StackPanel>
                 <Grid>
-                    <TextBlock Text="{Binding Role}" Foreground="{StaticResource GoldAccentBrush}"
+                    <TextBlock Style="{StaticResource RoleTitleStyle}" Foreground="{StaticResource GoldAccentBrush}"
                                FontSize="12" FontWeight="SemiBold" />
                     <Border Style="{StaticResource OutcomeBadgeStyle}"
                             HorizontalAlignment="Right"
@@ -329,11 +333,12 @@
                     </Border>
                 </Grid>
                 <Grid Margin="0,4,0,0">
+                    <Grid.Style><Style TargetType="Grid"><Style.Triggers><DataTrigger Binding="{Binding HasStatistics}" Value="False"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></Grid.Style>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="{Binding LevelTempoText, StringFormat=템포  {0}}"
+                    <TextBlock Text="{Binding LevelTempoText, StringFormat=초반  {0}}"
                                Style="{StaticResource LevelTempoTextStyle}"
                                ToolTip="{Binding LevelTempoDescription}" />
                     <TextBlock Grid.Column="1"
@@ -342,6 +347,7 @@
                                TextAlignment="Right"
                                ToolTip="{Binding CombatPressureDescription}" />
                 </Grid>
+                <Grid Margin="0,7,0,0"><TextBlock Text="아군" Foreground="{StaticResource QueryAccentBrush}" FontSize="10"/><TextBlock Text="적군" HorizontalAlignment="Right" Foreground="{StaticResource OpponentAccentBrush}" FontSize="10"/></Grid>
                 <Grid Margin="0,6,0,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -357,7 +363,7 @@
                                 <Image Source="{Binding QueryChampionIcon}" Stretch="UniformToFill" />
                             </Grid>
                         </Border>
-                        <TextBlock Text="{Binding QueryChampionDisplayName}" Margin="7,0,0,0"
+                        <TextBlock Text="{Binding QueryChampionDisplayName}" MaxWidth="95" Margin="7,0,0,0"
                                    Foreground="{StaticResource QueryAccentBrush}" FontSize="13"
                                    FontWeight="SemiBold" VerticalAlignment="Center"
                                    TextTrimming="CharacterEllipsis" />
@@ -373,7 +379,7 @@
                                 <Image Source="{Binding OpponentChampionIcon}" Stretch="UniformToFill" />
                             </Grid>
                         </Border>
-                        <TextBlock Text="{Binding OpponentChampionDisplayName}" Margin="0,0,7,0"
+                        <TextBlock Text="{Binding OpponentChampionDisplayName}" MaxWidth="95" Margin="0,0,7,0"
                                    Foreground="{StaticResource OpponentAccentBrush}" FontSize="13"
                                    FontWeight="SemiBold" VerticalAlignment="Center"
                                    TextTrimming="CharacterEllipsis" FlowDirection="LeftToRight" />
@@ -391,6 +397,7 @@
                     <TextBlock Text="{Binding StatusText}" Foreground="{StaticResource SecondaryTextBrush}"
                                FontSize="11" HorizontalAlignment="Right" />
                 </Grid>
+                <TextBlock Text="{Binding StatusDetailText}" Style="{StaticResource MutedTextStyle}" TextWrapping="Wrap"/>
                 <Separator Margin="0,5,0,3" Background="#293241" />
                 <ItemsControl ItemsSource="{Binding DisplayMetrics}"
                               ItemTemplate="{StaticResource CompactMetricRowTemplate}" />

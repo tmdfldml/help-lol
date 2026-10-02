@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Net.Http;
 using LoLMatchup.Models.Presentation;
+using LoLMatchup.Services.Logging;
 
 namespace LoLMatchup.Services;
 
@@ -12,11 +13,14 @@ public sealed class LiveStatisticsPollingService
     private readonly TimeSpan _interval;
     private string? _currentSignatureKey;
     private MatchupPresentationState? _currentState;
+    private readonly IAppLogger _logger;
+    private bool _networkFailureLogged;
 
     public LiveStatisticsPollingService(
         LiveStatisticsCoordinator coordinator,
-        TimeSpan? interval = null)
+        TimeSpan? interval = null, IAppLogger? logger = null)
     {
+        _logger = logger ?? NullAppLogger.Instance;
         _coordinator = coordinator;
         _interval = interval ?? DefaultInterval;
     }
@@ -33,6 +37,7 @@ public sealed class LiveStatisticsPollingService
             {
                 var signature = await _coordinator.GetCurrentMatchupAsync(
                     cancellationToken);
+                _networkFailureLogged = false;
 
                 if (signature is null)
                 {
@@ -40,6 +45,7 @@ public sealed class LiveStatisticsPollingService
 
                     if (_currentState != MatchupPresentationState.Waiting)
                     {
+                        _logger.Log(AppLogLevel.Info, AppLogEvent.Waiting);
                         var waitingStatus = new MatchupStatisticsPresenter().PresentStatus(
                             MatchupStatisticsQueryStatus.InvalidQuery);
                         var waiting = new TeamMatchupStatisticsPresentation(
@@ -65,6 +71,8 @@ public sealed class LiveStatisticsPollingService
 
                 var presentation = await _coordinator.GetPresentationAsync(
                     signature);
+                _logger.Log(AppLogLevel.Info, _currentSignatureKey is null
+                    ? AppLogEvent.GameDetected : AppLogEvent.MatchupChanged);
                 _currentSignatureKey = signature.CacheKey;
                 _currentState = presentation.State;
                 await updatePresentationAsync(presentation, true);
@@ -75,7 +83,9 @@ public sealed class LiveStatisticsPollingService
             }
             catch (HttpRequestException exception)
             {
-                Debug.WriteLine($"Live Client polling failed: {exception.Message}");
+                if (!_networkFailureLogged)
+                    _logger.Log(AppLogLevel.Warning, AppLogEvent.LiveClientUnavailable, exception: exception);
+                _networkFailureLogged = true;
             }
         }
         while (await timer.WaitForNextTickAsync(cancellationToken));

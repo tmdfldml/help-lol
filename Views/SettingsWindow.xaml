@@ -19,9 +19,10 @@
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="6" Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <ContentPresenter RecognizesAccessKey="True" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource QueryAccentBrush}"/></Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="Chrome" Property="Background" Value="#303A49" />
                             </Trigger>
@@ -53,9 +54,10 @@
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="13">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <ContentPresenter RecognizesAccessKey="True" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource QueryAccentBrush}"/></Trigger>
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter Property="Content" Value="ON" />
                                 <Setter Property="Foreground" Value="#0D1118" />
@@ -70,7 +72,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
+        <Style x:Key="SectionTitleStyle" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
             <Setter Property="FontSize" Value="20" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Margin" Value="0,0,0,18" />
@@ -98,6 +100,9 @@
                             <Setter Property="Padding" Value="14,10"/><Setter Property="Margin" Value="0,0,0,4"/>
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                             <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem">
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="5" Padding="{TemplateBinding Padding}"><ContentPresenter RecognizesAccessKey="True"/></Border>
+                            </ControlTemplate></Setter.Value></Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
                                     <Setter Property="Background" Value="#27313E"/>
@@ -116,88 +121,105 @@
                     <StackPanel x:Name="GeneralPanel">
                         <TextBlock Text="일반" Style="{StaticResource SectionTitleStyle}"/>
                         <Border Style="{StaticResource SettingCardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="설정 저장 위치" FontWeight="SemiBold"/>
-                                <TextBlock x:Name="SettingsPathText" Margin="0,7,0,0" TextWrapping="Wrap"
-                                           Style="{StaticResource MutedTextStyle}"/>
-                            </StackPanel>
-                        </Border>
-                        <Border Style="{StaticResource SettingCardStyle}">
                             <Grid>
                                 <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                                 <StackPanel>
                                     <TextBlock Text="설정 초기화" FontWeight="SemiBold"/>
-                                    <TextBlock Text="모든 앱 설정을 공식 기본값으로 되돌립니다."
-                                               Margin="0,5,12,0" Style="{StaticResource MutedTextStyle}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="화면 표시와 창 위치·크기 설정을 기본값으로 되돌립니다."
+                                               Margin="0,5,12,0" Style="{StaticResource SecondaryTextStyle}" TextWrapping="Wrap"/>
                                 </StackPanel>
                                 <Button Grid.Column="1" Content="초기화" Style="{StaticResource SettingsButtonStyle}"
                                         VerticalAlignment="Center" Click="ResetSettings_Click"/>
                             </Grid>
                         </Border>
+                        <Expander Header="고급 정보">
+                            <StackPanel Margin="16,10,0,10">
+                                <TextBlock Text="설정 저장 위치" Style="{StaticResource SecondaryTextStyle}"/>
+                                <TextBlock x:Name="SettingsPathText" Margin="0,7,0,0" TextWrapping="Wrap" Style="{StaticResource MutedTextStyle}"/>
+                            </StackPanel>
+                        </Expander>
                     </StackPanel>
 
                     <StackPanel x:Name="DisplayPanel" Visibility="Collapsed">
                         <TextBlock Text="화면" Style="{StaticResource SectionTitleStyle}"/>
                         <Border Style="{StaticResource SettingCardStyle}"><Grid>
                             <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                            <StackPanel><TextBlock Text="항상 위에 표시" FontWeight="SemiBold"/><TextBlock Text="다른 창보다 위에 LoL Matchup을 유지합니다." Margin="0,4,12,0" Style="{StaticResource MutedTextStyle}"/></StackPanel>
+                            <StackPanel><TextBlock Text="항상 위에 표시" FontWeight="SemiBold"/><TextBlock Text="다른 창보다 위에 LoL Matchup을 유지합니다." Margin="0,4,12,0" Style="{StaticResource SecondaryTextStyle}"/></StackPanel>
                             <ToggleButton x:Name="AlwaysOnTopSettingToggle" Grid.Column="1" Style="{StaticResource SettingsToggleStyle}" Checked="SettingToggle_Changed" Unchecked="SettingToggle_Changed"/>
                         </Grid></Border>
                         <Border Style="{StaticResource SettingCardStyle}"><Grid>
                             <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                            <StackPanel><TextBlock Text="창 위치 기억" FontWeight="SemiBold"/><TextBlock Text="종료할 때 현재 창 위치를 기억합니다." Margin="0,4,12,0" Style="{StaticResource MutedTextStyle}"/></StackPanel>
+                            <StackPanel><TextBlock Text="창 위치 기억" FontWeight="SemiBold"/><TextBlock Text="종료할 때 현재 창 위치를 기억합니다." Margin="0,4,12,0" Style="{StaticResource SecondaryTextStyle}"/></StackPanel>
                             <ToggleButton x:Name="RememberPositionToggle" Grid.Column="1" Style="{StaticResource SettingsToggleStyle}" Checked="SettingToggle_Changed" Unchecked="SettingToggle_Changed"/>
                         </Grid></Border>
                         <Border Style="{StaticResource SettingCardStyle}"><Grid>
                             <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                            <StackPanel><TextBlock Text="창 크기 기억" FontWeight="SemiBold"/><TextBlock Text="종료할 때 현재 창 크기를 기억합니다." Margin="0,4,12,0" Style="{StaticResource MutedTextStyle}"/></StackPanel>
+                            <StackPanel><TextBlock Text="창 크기 기억" FontWeight="SemiBold"/><TextBlock Text="종료할 때 현재 창 크기를 기억합니다." Margin="0,4,12,0" Style="{StaticResource SecondaryTextStyle}"/></StackPanel>
                             <ToggleButton x:Name="RememberSizeToggle" Grid.Column="1" Style="{StaticResource SettingsToggleStyle}" Checked="SettingToggle_Changed" Unchecked="SettingToggle_Changed"/>
                         </Grid></Border>
-                        <Border Style="{StaticResource SettingCardStyle}"><Grid>
+                        <Expander Header="기억된 창 크기"><Grid Margin="16,12,0,12">
                             <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                             <StackPanel><TextBlock Text="최근 세로형 크기" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="PortraitSizeText" Margin="0,3,0,8" FontWeight="SemiBold"/><TextBlock Text="최근 가로형 크기" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="LandscapeSizeText" Margin="0,3,0,0" FontWeight="SemiBold"/></StackPanel>
-                            <TextBlock x:Name="LastLayoutText" Grid.Column="1" VerticalAlignment="Top" Style="{StaticResource MutedTextStyle}"/>
-                        </Grid></Border>
+                            <TextBlock x:Name="LastLayoutText" Grid.Column="1" VerticalAlignment="Top" Style="{StaticResource SecondaryTextStyle}"/>
+                        </Grid></Expander>
                     </StackPanel>
 
                     <StackPanel x:Name="DataPanel" Visibility="Collapsed">
                         <TextBlock Text="데이터" Style="{StaticResource SectionTitleStyle}"/>
                         <Border Style="{StaticResource SettingCardStyle}">
-                            <Grid>
-                                <Grid.ColumnDefinitions><ColumnDefinition Width="135"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-                                <TextBlock Text="데이터 상태" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="DatasetStatusText" Grid.Column="1" FontWeight="SemiBold"/>
-                                <TextBlock Grid.Row="1" Text="현재 패치" Margin="0,10,0,0" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="DatasetPatchText" Grid.Row="1" Grid.Column="1" Margin="0,10,0,0"/>
-                                <TextBlock Grid.Row="2" Text="앱 적용 경기 수" Margin="0,10,0,0" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="AcceptedMatchesText" Grid.Row="2" Grid.Column="1" Margin="0,10,0,0"/>
-                                <TextBlock Grid.Row="3" Text="대상 티어" Margin="0,10,0,0" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="TierScopeText" Grid.Row="3" Grid.Column="1" Margin="0,10,0,0"/>
-                                <TextBlock Grid.Row="4" Text="최소 경기 길이" Margin="0,10,0,0" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="DurationPolicyText" Grid.Row="4" Grid.Column="1" Margin="0,10,0,0"/>
-                                <TextBlock Grid.Row="5" Text="데이터 위치" Margin="0,10,0,0" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="DatasetSourceText" Grid.Row="5" Grid.Column="1" Margin="0,10,0,0"/>
-                                <TextBlock Grid.Row="6" Text="데이터 버전" Margin="0,10,0,0" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="DatasetRevisionText" Grid.Row="6" Grid.Column="1" Margin="0,10,0,0"/>
-                                <TextBlock Grid.Row="7" Text="데이터 생성" Margin="0,10,0,0" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="DatasetGeneratedAtText" Grid.Row="7" Grid.Column="1" Margin="0,10,0,0"/>
-                            </Grid>
+                            <StackPanel>
+                                <TextBlock Text="적용 중인 통계" FontWeight="SemiBold" FontSize="14"/>
+                                <Grid Margin="0,12,0,0">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="120"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions><RowDefinition/><RowDefinition/><RowDefinition/></Grid.RowDefinitions>
+                                    <TextBlock Text="데이터 상태" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="DatasetStatusText" Grid.Column="1" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                                    <TextBlock Grid.Row="1" Text="데이터 패치" Margin="0,9,0,0" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="DatasetPatchText" Grid.Row="1" Grid.Column="1" Margin="0,9,0,0"/>
+                                    <TextBlock Grid.Row="2" Text="적용 경기 수" Margin="0,9,0,0" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="AcceptedMatchesText" Grid.Row="2" Grid.Column="1" Margin="0,9,0,0"/>
+                                </Grid>
+                            </StackPanel>
                         </Border>
                         <Border Style="{StaticResource SettingCardStyle}">
                             <StackPanel>
-                                <TextBlock x:Name="UpdateStatusText" Text="업데이트를 수동으로 확인할 수 있습니다."
-                                           Style="{StaticResource SecondaryTextStyle}" TextWrapping="Wrap"/>
-                                <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-                                    <Button x:Name="CheckUpdateButton" Content="업데이트 확인"
-                                            Style="{StaticResource SettingsButtonStyle}" Click="CheckUpdate_Click"/>
-                                    <Button x:Name="InstallUpdateButton" Content="업데이트 적용" Margin="8,0,0,0"
-                                            Style="{StaticResource SettingsButtonStyle}" Click="InstallUpdate_Click"
-                                            Visibility="Collapsed"/>
-                                </StackPanel>
+                                <TextBlock Text="업데이트 상태" FontWeight="SemiBold" FontSize="14"/>
+                                <TextBlock x:Name="UpdateStatusText" Text="아직 확인하지 않았습니다. 최신 통계가 있는지 확인하세요."
+                                           Margin="0,7,0,0" Style="{StaticResource SecondaryTextStyle}" TextWrapping="Wrap"/>
+                                <WrapPanel Margin="0,12,0,0">
+                                    <Button x:Name="CheckUpdateButton" Content="통계 업데이트 확인" Style="{StaticResource SettingsButtonStyle}" Click="CheckUpdate_Click"/>
+                                    <Button x:Name="InstallUpdateButton" Content="업데이트 적용" Margin="8,0,0,0" Style="{StaticResource SettingsButtonStyle}" Click="InstallUpdate_Click" Visibility="Collapsed"/>
+                                </WrapPanel>
                             </StackPanel>
                         </Border>
+                        <Border Style="{StaticResource SettingCardStyle}">
+                            <StackPanel>
+                                <TextBlock x:Name="GamePatchText" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="PatchCompatibilityText" Margin="0,7,0,0" TextWrapping="Wrap" Style="{StaticResource SecondaryTextStyle}"/>
+                            </StackPanel>
+                        </Border>
+                        <Expander Header="통계 수집 정보">
+                            <Grid Margin="16,12,0,12">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="120"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions><RowDefinition/><RowDefinition/><RowDefinition/></Grid.RowDefinitions>
+                                <TextBlock Text="대상 티어" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="TierScopeText" Grid.Column="1" TextWrapping="Wrap"/>
+                                <TextBlock Grid.Row="1" Text="최소 경기 길이" Margin="0,10,0,0" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="DurationPolicyText" Grid.Row="1" Grid.Column="1" Margin="0,10,0,0"/>
+                                <TextBlock Grid.Row="2" Text="생성 시각" Margin="0,10,0,0" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="DatasetGeneratedAtText" Grid.Row="2" Grid.Column="1" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                            </Grid>
+                        </Expander>
+                        <Expander Header="기술 정보">
+                            <Grid Margin="16,12,0,12">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="120"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions><RowDefinition/><RowDefinition/></Grid.RowDefinitions>
+                                <TextBlock Text="데이터 위치" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="DatasetSourceText" Grid.Column="1"/>
+                                <TextBlock Grid.Row="1" Text="리비전" Margin="0,10,0,0" Style="{StaticResource SecondaryTextStyle}"/><TextBlock x:Name="DatasetRevisionText" Grid.Row="1" Grid.Column="1" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                            </Grid>
+                        </Expander>
                     </StackPanel>
-
                     <StackPanel x:Name="AboutPanel" Visibility="Collapsed">
                         <TextBlock Text="정보" Style="{StaticResource SectionTitleStyle}"/>
                         <Border Style="{StaticResource SettingCardStyle}" Padding="20">
                             <StackPanel>
                                 <TextBlock Text="LoL Matchup" FontSize="23" FontWeight="Bold"/>
                                 <TextBlock x:Name="VersionText" Margin="0,8,0,0" Foreground="{StaticResource GoldAccentBrush}"/>
-                                <TextBlock Text="Windows desktop application" Margin="0,5,0,0" Style="{StaticResource SecondaryTextStyle}"/>
+                                <TextBlock Text="게임 시작과 함께 확인하는 포지션별 매치업 통계" Margin="0,5,0,0" Style="{StaticResource SecondaryTextStyle}"/>
                                 <Separator Margin="0,18" Background="{StaticResource CardBorderBrush}"/>
                                 <TextBlock Text="LoL Matchup은 Riot Games의 공식 앱이 아닙니다."
                                            Style="{StaticResource SecondaryTextStyle}" TextWrapping="Wrap"/>

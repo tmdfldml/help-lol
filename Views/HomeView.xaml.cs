@@ -12,10 +12,10 @@ public partial class HomeView : UserControl
 
     public void SetGameActive(bool active)
     {
-        GameStatusText.Text = active ? "게임 감지됨" : "게임을 기다리는 중";
+        GameStatusText.Text = active ? "게임 감지됨" : "게임을 기다리는 중입니다";
         GameStatusDetailText.Text = active
             ? "현재 게임의 5개 포지션 매치업을 확인할 수 있습니다."
-            : "League of Legends 게임이 시작되면 자동으로 매치업을 감지합니다.";
+            : "앱을 켜 둔 채 League 게임을 시작하면 자동으로 감지합니다.";
     }
 
     public void SetDataset(StatisticsDataset? dataset, string unavailableText)

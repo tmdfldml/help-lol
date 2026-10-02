@@ -10,7 +10,7 @@
                 Padding="28,24" Background="{StaticResource CardBackgroundBrush}"
                 BorderBrush="{StaticResource CardBorderBrush}" BorderThickness="1" CornerRadius="12">
             <StackPanel>
-                <TextBlock Text="{Binding StatusText, FallbackValue=게임을 기다리는 중...}"
+                <TextBlock Text="{Binding StatusText, FallbackValue=게임을 기다리는 중입니다}"
                            Foreground="{StaticResource GoldAccentBrush}" FontSize="15"
                            FontWeight="SemiBold" TextAlignment="Center" TextWrapping="Wrap"/>
                 <TextBlock Text="{Binding StatusDetailText, FallbackValue=리그 오브 레전드 게임이 시작되면 매치업 통계를 자동으로 표시합니다.}"
@@ -43,7 +43,7 @@
                                    Style="{StaticResource TeamOutcomeSummaryTextStyle}" />
                     </Border>
                     <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="0,3,0,0"
-                               Text="{Binding OutcomeSummaryEvidenceText}"
+                               Text="{Binding OutcomeSummaryEvidenceText, StringFormat=라인별 결과 경향 요약 · {0}}"
                                Style="{StaticResource MutedTextStyle}" FontSize="10"
                                TextWrapping="Wrap" />
                 </Grid>
