@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Ornn",
+  "championName": "오른",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "용암 균열",
+      "description": "오른이 지면을 내려쳐 적에게 물리 피해를 입히고 둔화시키는 균열을 만들어냅니다. 잠시 후 목표 지점에 용암 기둥이 생성됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        9,
+        8.5,
+        8,
+        7.5,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Ornn.spells[0]: cooldown[]",
+      "icon": "Ornn_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "불꽃 풀무질",
+      "description": "오른이 전진하며 불꽃을 뿜습니다. 마지막 불꽃에 맞은 적은 불안정 상태가 됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11.5,
+        11,
+        10.5,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Ornn.spells[1]: cooldown[]",
+      "icon": "Ornn_W.png"
+    },
+    {
+      "key": "E",
+      "name": "화염 돌진",
+      "description": "오른이 돌진하며 통과한 적에게 피해를 입힙니다. 오른이 돌진 중 지형지물에 충돌하면, 그 충돌로 인해 충격파가 발생해 적에게 피해를 입히고 공중으로 띄웁니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        13.5,
+        13,
+        12.5,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Ornn.spells[2]: cooldown[]",
+      "icon": "Ornn_E.png"
+    },
+    {
+      "key": "R",
+      "name": "대장장이 신의 부름",
+      "description": "오른이 목표 위치에 거대한 불의 정령을 소환합니다. 불의 정령은 오른에게로 다가오며 점점 이동 속도가 빨라집니다. 정령이 밟고 지나간 적은 피해를 입고 둔화되며 불안정 상태가 됩니다. 오른이 대장장이 신의 부름을 재시전하면 정령 쪽으로 돌진합니다. 오른이 돌진해 정령에 부딪히면 정령의 진행 방향이 바뀝니다. 진행 방향이 바뀐 정령은 부딪힌 모든 적을 공중으로 띄우며 전과 동일한 피해를 입히고 다시 불안정 상태로 만듭니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        140,
+        120,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Ornn.spells[3]: cooldown[]",
+      "icon": "Ornn_R.png"
+    }
+  ]
+}

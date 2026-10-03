@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 2,
+  "championId": "Veigar",
+  "championName": "베이가",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "사악한 일격",
+      "description": "베이가가 어둠의 에너지를 발사하여 처음 맞은 적 둘에게 마법 피해를 입힙니다. 이 스킬로 적 유닛을 처치하면 베이가의 주문력이 영구적으로 상승합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        5.5,
+        5,
+        4.5,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Veigar.spells[0]: cooldown[]",
+      "icon": "Veigar_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "암흑 물질",
+      "description": "베이가가 하늘에서 거대한 암흑 물질을 떨어뜨려 마법 피해를 입힙니다. 극악 중첩이 쌓이면 암흑 물질의 재사용 대기시간이 감소합니다.",
+      "cooldownType": "Unknown",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Veigar.spells[1]: zero/invalid cooldown; mechanic or numeric timer unresolved; UNVERIFIED",
+      "icon": "Veigar_W.png"
+    },
+    {
+      "key": "E",
+      "name": "사건의 지평선",
+      "description": "베이가가 공간의 가장자리를 왜곡해 지나가는 적을 기절시키는 감옥을 생성합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        20,
+        18.5,
+        17,
+        15.5,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Veigar.spells[2]: cooldown[]",
+      "icon": "Veigar_E.png"
+    },
+    {
+      "key": "R",
+      "name": "태초의 폭발",
+      "description": "적 챔피언을 맞춰 매우 큰 마법 피해를 입힙니다. 피해량은 대상의 잃은 체력에 비례해 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        90,
+        60
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Veigar.spells[3]: cooldown[]",
+      "icon": "Veigar_R.png"
+    }
+  ]
+}

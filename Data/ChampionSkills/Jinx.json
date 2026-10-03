@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Jinx",
+  "championName": "징크스",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "휘릭휘릭!",
+      "description": "징크스는 '빵야빵야' 미니건과 '생선대가리' 로켓 런처 중에서 원하는 것을 선택하여 기본 공격을 변경할 수 있습니다. 미니건으로 공격하면 공격 속도가 상승하고, 로켓 런처로 공격하면 광역 피해를 입히고 사거리가 증가하지만 마나가 소모되고 공격 속도가 느려집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        0.9,
+        0.9,
+        0.9,
+        0.9,
+        0.9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Jinx.spells[0]: cooldown[]",
+      "icon": "Jinx_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "빠직!",
+      "description": "징크스가 빠직!으로 전기 충격파를 발사해 처음 적중한 적을 둔화시키고 위치를 드러내며 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        8,
+        7,
+        6,
+        5,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Jinx.spells[1]: cooldown[]",
+      "icon": "Jinx_W.png"
+    },
+    {
+      "key": "E",
+      "name": "와작와작 뻥!",
+      "description": "징크스가 와작와작 지뢰를 일렬로 던지면 5초 후에 폭발하며 주변 적들을 불태웁니다. 와작와작 지뢰는 적 챔피언이 밟으면 물어뜯어 제자리에 묶습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        24,
+        20.5,
+        17,
+        13.5,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Jinx.spells[2]: cooldown[]",
+      "icon": "Jinx_E.png"
+    },
+    {
+      "key": "R",
+      "name": "초강력 초토화 로켓!",
+      "description": "징크스가 맵을 가로지르는 강력한 로켓을 발사합니다. 발사 후 비행 거리에 비례해 로켓의 피해량이 증가합니다. 로켓은 적 챔피언과 충돌하면 폭발하며, 해당 챔피언과 주위의 적에게 잃은 체력에 비례하여 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        85,
+        65,
+        45
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Jinx.spells[3]: cooldown[]",
+      "icon": "Jinx_R.png"
+    }
+  ]
+}

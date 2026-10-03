@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Soraka",
+  "championName": "소라카",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "별부름",
+      "description": "지정한 위치에 하늘에서 별이 떨어져 적에게 마법 피해를 입히고 이동 속도를 느려지게 합니다. 별부름이 적 챔피언에게 적중하면 소라카가 체력을 회복합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        8,
+        7,
+        6,
+        5,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Soraka.spells[0]: cooldown[]",
+      "icon": "Soraka_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "은하의 마력",
+      "description": "소라카가 자신의 체력을 일정 부분 희생하여 아군 유닛을 치유합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        5,
+        4,
+        3,
+        2
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Soraka.spells[1]: cooldown[]",
+      "icon": "Soraka_W.png"
+    },
+    {
+      "key": "E",
+      "name": "별의 균형",
+      "description": "영역 내의 모든 적을 침묵시키는 구역을 생성합니다. 영역이 해제될 때 아직 안에 남아있는 모든 적은 제자리에 묶입니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        20,
+        19,
+        18,
+        17,
+        16
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Soraka.spells[2]: cooldown[]",
+      "icon": "Soraka_E.png"
+    },
+    {
+      "key": "R",
+      "name": "기원",
+      "description": "소라카가 아군에게 희망을 불어넣어 자신과 아군 챔피언들의 체력을 즉시 회복합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        150,
+        135,
+        120
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Soraka.spells[3]: cooldown[]",
+      "icon": "Soraka_R.png"
+    }
+  ]
+}

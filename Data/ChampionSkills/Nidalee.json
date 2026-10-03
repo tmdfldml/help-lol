@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 2,
+  "championId": "Nidalee",
+  "championName": "니달리",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "창 투척 / 숨통 끊기",
+      "description": "인간 모습일 때 - 니달리가 가시 달린 창을 대상에게 던집니다. 창이 날아가는 동안 피해가 더욱 커집니다. 쿠거 모습일 때 - 다음 공격 시 적에게 치명적인 공격을 가합니다. 대상의 체력이 낮을수록 더 큰 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nidalee.spells[0]: cooldown[]",
+      "icon": "Nidalee_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "매복 덫 / 급습",
+      "description": "인간 모습일 때 - 니달리가 적이 밟으면 피해를 입히며 모습을 드러내는 함정을 깝니다. 쿠거 모습일 때 - 앞으로 살짝 뛰어오르며 착지 시 주위에 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        13,
+        12,
+        11,
+        10,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nidalee.spells[1]: cooldown[]",
+      "icon": "Nidalee_W.png"
+    },
+    {
+      "key": "E",
+      "name": "태고의 생명력 / 할퀴기",
+      "description": "인간 모습일 때 - 니달리가 쿠거의 영혼과 교신하여 아군을 치료하고 짧은 시간 아군의 공격 속도를 높입니다. 쿠거 모습일 때 - 니달리가 한쪽 방향을 발톱으로 공격하여, 앞에 있는 적들에게 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nidalee.spells[2]: cooldown[]",
+      "icon": "Nidalee_E.png"
+    },
+    {
+      "key": "R",
+      "name": "쿠거의 상",
+      "description": "니달리가 쿠거로 변신하여 새로운 스킬을 사용할 수 있게 됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nidalee.spells[3]: cooldown[]",
+      "icon": "Nidalee_R.png"
+    }
+  ]
+}

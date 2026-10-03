@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Zac",
+  "championName": "자크",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "탄성 주먹",
+      "description": "자크가 팔을 쭉 뻗어 적을 붙잡습니다. 다른 적을 공격하면 둘을 서로에게 던져 충돌하게 합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        12.5,
+        11,
+        9.5,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Zac.spells[0]: cooldown[]",
+      "icon": "Zac_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "불안정 물질",
+      "description": "자크의 몸이 폭발하며 주위 적들에게 대상 최대 체력의 일정 비율에 해당하는 마법 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Zac.spells[1]: cooldown[]",
+      "icon": "Zac_W.png"
+    },
+    {
+      "key": "E",
+      "name": "새총 발사",
+      "description": "자크가 지면에 두 팔을 붙이고 뒤로 늘어난 다음, 전방으로 몸을 날립니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        21,
+        18,
+        15,
+        12,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Zac.spells[2]: cooldown[]",
+      "icon": "Zac_E.png"
+    },
+    {
+      "key": "R",
+      "name": "바운스!",
+      "description": "자크가 4회 튀어 올라 적중당한 적을 공중에 띄우고 둔화시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        105,
+        90
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Zac.spells[3]: cooldown[]",
+      "icon": "Zac_R.png"
+    }
+  ]
+}

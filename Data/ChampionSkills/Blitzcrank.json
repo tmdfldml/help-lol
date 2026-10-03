@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Blitzcrank",
+  "championName": "블리츠크랭크",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "로켓 손",
+      "description": "블리츠크랭크가 오른손을 발사하여 앞에 있는 적을 붙잡아 당기면서 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        20,
+        19,
+        18,
+        17,
+        16
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Blitzcrank.spells[0]: cooldown[]",
+      "icon": "Blitzcrank_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "폭주",
+      "description": "블리츠크랭크가 힘을 충전하여 이동 및 공격 속도를 크게 향상시킵니다. 이 효과가 끝나면 일시적으로 이동 속도가 느려집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        15,
+        15,
+        15,
+        15,
+        15
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Blitzcrank.spells[1]: cooldown[]",
+      "icon": "Blitzcrank_W.png"
+    },
+    {
+      "key": "E",
+      "name": "강철 주먹",
+      "description": "블리츠크랭크가 주먹에 힘을 모아 다음 공격 시 적에게 두 배의 피해를 입히고 적을 공중으로 띄웁니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        7,
+        6.5,
+        6,
+        5.5,
+        5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Blitzcrank.spells[2]: cooldown[]",
+      "icon": "Blitzcrank_E.png"
+    },
+    {
+      "key": "R",
+      "name": "정전기장",
+      "description": "블리츠크랭크의 공격을 받은 적에게 표식을 남기고 1초 후 번개 피해를 입힙니다. 스킬 사용 시 주변 적의 보호막을 제거하고 피해를 입히며 잠시 침묵에 걸리게 합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        60,
+        40,
+        20
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Blitzcrank.spells[3]: cooldown[]",
+      "icon": "Blitzcrank_R.png"
+    }
+  ]
+}

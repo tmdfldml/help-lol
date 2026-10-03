@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Nilah",
+  "championName": "닐라",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "무형의 검",
+      "description": "지정한 방향으로 칼날 채찍을 후려쳐 일직선상에 있는 모든 적에게 피해를 입힙니다. 공격 사거리가 잠깐 동안 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nilah.spells[0]: cooldown[]",
+      "icon": "Nilah_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "승리의 장막",
+      "description": "자신을 안개로 감싸 이동 속도를 얻고 우아하게 모든 기본 공격을 회피합니다. 안개 지속시간 중 닐라에게 닿은 아군에게도 이 효과가 적용됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        26,
+        25,
+        24,
+        23,
+        22
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nilah.spells[1]: cooldown[]",
+      "icon": "Nilah_W.png"
+    },
+    {
+      "key": "E",
+      "name": "급류",
+      "description": "대상을 향해 맹렬히 돌진해 경로상의 모든 적에게 피해를 입힙니다.",
+      "cooldownType": "Charge",
+      "cooldowns": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nilah.spells[2]: maxammo=2; charge candidate from maxammo; recharge numeric values absent/unresolved; cast cooldown from cooldown[] (positive values only)",
+      "icon": "Nilah_E.png"
+    },
+    {
+      "key": "R",
+      "name": "환희",
+      "description": "신나게 칼날 채찍을 휘둘러 주변 모든 적에게 피해를 입히고 가까이 끌어당깁니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        110,
+        95,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nilah.spells[3]: cooldown[]",
+      "icon": "Nilah_R.png"
+    }
+  ]
+}

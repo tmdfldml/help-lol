@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Poppy",
+  "championName": "뽀삐",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "망치 강타",
+      "description": "뽀삐가 망치를 휘둘러 피해를 입히고 적의 움직임을 느리게 만드는 지대를 생성합니다. 지대는 잠시 후 폭발합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        8,
+        7,
+        6,
+        5,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Poppy.spells[0]: cooldown[]",
+      "icon": "Poppy_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "굳건한 태세",
+      "description": "기본 지속 효과로 뽀삐가 추가 방어력과 마법 저항력을 얻습니다. 뽀삐의 체력이 낮아지면 이 효과가 더 커집니다. 사용 시에는 뽀삐의 이동 속도가 증가하며 주변에서 돌진하는 적을 막습니다. 뽀삐에게 막힌 적은 느려지고 이동 스킬을 사용할 수 없습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        20,
+        18,
+        16,
+        14,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Poppy.spells[1]: cooldown[]",
+      "icon": "Poppy_W.png"
+    },
+    {
+      "key": "E",
+      "name": "용감한 돌진",
+      "description": "뽀삐가 돌진해 대상을 밀어냅니다. 대상이 지형에 부딪힐 경우 기절합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        13,
+        12,
+        11,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Poppy.spells[2]: cooldown[]",
+      "icon": "Poppy_E.png"
+    },
+    {
+      "key": "R",
+      "name": "수호자의 심판",
+      "description": "뽀삐가 잠시 정신을 집중한 뒤 망치를 휘둘러 피해를 입히고 적을 굉장히 멀리 날려버립니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        140,
+        120,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Poppy.spells[3]: cooldown[]",
+      "icon": "Poppy_R.png"
+    }
+  ]
+}

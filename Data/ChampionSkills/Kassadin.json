@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Kassadin",
+  "championName": "카사딘",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "무의 구체",
+      "description": "카사딘이 대상에게 공허 에너지로 구성된 구체를 발사하여 피해를 입히고 정신 집중을 끊습니다. 여분의 에너지는 카사딘의 몸을 감싸 잠시 동안 보호막을 형성하며 마법 피해를 흡수합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        9,
+        8.5,
+        8,
+        7.5,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kassadin.spells[0]: cooldown[]",
+      "icon": "Kassadin_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "황천의 검",
+      "description": "기본 지속 효과: 카사딘의 기본 공격이 추가 마법 피해를 입힙니다. 사용 시: 카사딘의 다음 기본 공격이 큰 추가 마법 피해를 입히고 마나가 회복됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kassadin.spells[1]: cooldown[]",
+      "icon": "Kassadin_W.png"
+    },
+    {
+      "key": "E",
+      "name": "힘의 파동",
+      "description": "카사딘이 자신의 영역 안에서 사용된 스킬에서 에너지를 뽑아냅니다. 충전이 완료되면 힘의 파동을 사용하여 정면 원뿔 반경에 있는 적의 속도를 늦추고 피해를 입힐 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        21,
+        20,
+        19,
+        18,
+        17
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kassadin.spells[2]: cooldown[]",
+      "icon": "Kassadin_E.png"
+    },
+    {
+      "key": "R",
+      "name": "균열 이동",
+      "description": "카사딘이 가까운 지역으로 순간 이동하면서 주변 적 유닛에게 피해를 입힙니다. 짧은 시간 동안 여러 번의 균열 이동을 시전하면 마나를 추가로 소모하는 대신 추가 피해를 입힐 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        5,
+        3.5,
+        2
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kassadin.spells[3]: cooldown[]",
+      "icon": "Kassadin_R.png"
+    }
+  ]
+}

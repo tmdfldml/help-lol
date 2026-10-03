@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Vex",
+  "championName": "벡스",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "안개 화살",
+      "description": "피해를 입히는 화살을 발사합니다. 화살은 날아가는 동안 속도가 빨라집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        8,
+        7,
+        6,
+        5,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vex.spells[0]: cooldown[]",
+      "icon": "Vex_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "거리 두기",
+      "description": "보호막을 얻고 주변 적에게 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        16,
+        15,
+        14,
+        13,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vex.spells[1]: cooldown[]",
+      "icon": "Vex_W.png"
+    },
+    {
+      "key": "E",
+      "name": "커지는 어둠",
+      "description": "피해를 입히고 둔화시키는 영역을 소환하며 적에게 우울을 적용합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vex.spells[2]: cooldown[]",
+      "icon": "Vex_E.png"
+    },
+    {
+      "key": "R",
+      "name": "그림자 파동",
+      "description": "적 챔피언에게 표식을 남기는 발사체를 날립니다. 재사용하면 벡스가 대상에게 돌진하여 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        140,
+        120,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vex.spells[3]: cooldown[]",
+      "icon": "Vex_R.png"
+    }
+  ]
+}

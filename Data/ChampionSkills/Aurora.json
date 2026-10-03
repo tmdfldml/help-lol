@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Aurora",
+  "championName": "오로라",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "이중 저주",
+      "description": "오로라가 적중한 적에게 저주를 내리는 에너지를 발사합니다. 재사용하면 내린 저주를 다시 불러들이며 이때 저주에 적중한 경로상의 적에게 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        9,
+        8.5,
+        8,
+        7.5,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Aurora.spells[0]: cooldown[]",
+      "icon": "Aurora_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "장막 너머로",
+      "description": "오로라가 지정한 방향으로 뛰어올라 착지 시 영혼 세계에 진입하고 짧은 시간 동안 투명 상태가 되며 이동 속도가 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        22,
+        21,
+        20,
+        19,
+        18
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Aurora.spells[1]: cooldown[]",
+      "icon": "Aurora_W.png"
+    },
+    {
+      "key": "E",
+      "name": "마법의 문",
+      "description": "오로라가 세계를 합치고 영혼 마법을 발사해 적에게 피해를 입히며 둔화시킨 다음 안전한 뒤쪽으로 깡충 뜁니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        15,
+        14,
+        13,
+        12,
+        11
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Aurora.spells[2]: cooldown[]",
+      "icon": "Aurora_E.png"
+    },
+    {
+      "key": "R",
+      "name": "세계의 경계",
+      "description": "오로라가 지정한 방향으로 뛰어올라 적중한 적에게 피해를 입히고 둔화시키는 충격파를 방출합니다. 이후 안에 있는 적을 둔화시키고 오로라가 한쪽에서 반대편으로 이동할 수 있는 영역을 생성합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        140,
+        120,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Aurora.spells[3]: cooldown[]",
+      "icon": "Aurora_R.png"
+    }
+  ]
+}

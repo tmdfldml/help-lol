@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "KSante",
+  "championName": "크산테",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "엔토포 타격",
+      "description": "크산테가 타격해 짧은 일직선상에 있는 적에게 피해를 입히고 둔화시킵니다. 적중 시 엔토포 타격 중첩을 1회 얻습니다. 2회 중첩되면 크산테가 적들을 끌어당기는 충격파를 발사합니다. 총공세 시 재사용 대기시간이 감소합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        3.5,
+        3.5,
+        3.5,
+        3.5,
+        3.5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.KSante.spells[0]: cooldown[]",
+      "icon": "KSante_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "길을 여는 자",
+      "description": "크산테가 충전하며 받는 피해량이 감소합니다. 이후 돌진하며 적을 뒤로 밀어내고 기절시킵니다. 총공세 시 피해량이 증가하고 더는 적을 뒤로 밀어내거나 기절시키지 않습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        13,
+        12,
+        11,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.KSante.spells[1]: cooldown[]",
+      "icon": "KSante_W.png"
+    },
+    {
+      "key": "E",
+      "name": "발놀림",
+      "description": "크산테가 돌진해 보호막을 얻습니다. 아군을 대상으로 지정하면 크산테가 해당 아군에게 돌진하며 돌진 사거리가 증가하고 크산테와 아군 모두 보호막을 얻습니다. 총공세 시 재사용 대기시간이 감소하고 속도가 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9.5,
+        9,
+        8.5,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.KSante.spells[2]: cooldown[]",
+      "icon": "KSante_E.png"
+    },
+    {
+      "key": "R",
+      "name": "총공세",
+      "description": "크산테가 적을 뒤로 밀어내며 경로에 있는 벽을 뚫고 날려 버립니다. 이후 총공세 상태에 돌입하고 적을 뒤쫓아 돌진하며, 이때 방어력이 감소하는 대신 피해량과 체력 회복량이 증가하고 변형된 스킬을 얻습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.KSante.spells[3]: cooldown[]",
+      "icon": "KSante_R.png"
+    }
+  ]
+}

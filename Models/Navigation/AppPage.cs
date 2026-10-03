@@ -4,5 +4,6 @@ public enum AppPage
 {
     Home,
     InGame,
-    MatchupDetail
+    MatchupDetail,
+    ChampionSkillDetail
 }

@@ -555,3 +555,59 @@ This section supersedes the Stage 10-C installer blocker above. Start remained `
 | Signing/SmartScreen/icon | MANUAL | UNSIGNED BETA; security settings unchanged; no SmartScreen automation; final `.ico` remains branding polish |
 
 Final severity: P0 0 / P1 0 / P2 0 / P3 1. P3 is the already documented lack of installer-enforced downgrade blocking; closed-beta release procedure must not distribute an older installer. Direct About/Settings screen interaction remains PARTIAL, not falsely promoted to PASS. Stage 10-C is **COMPLETE within the closed-beta distribution scope**; Stage 10-D may proceed with unsigned-build disclosure and remaining manual branding/GUI checks.
+
+## Stage 10-E — Champion Skill Reference & Skill Order (2026-10-03)
+
+Started from clean `main` at `cfc7aba`; prior five commits inspected. No commit/reset/revert/checkout overwrite/git clean. Existing statistics aggregate, collectors, updater and classifiers have no diff.
+
+| Check | Result | Evidence / limits |
+|---|---|---|
+| Source gate first | PASS | Official Data Dragon schema, OP.GG help/terms/robots and one public SkillOrder table reviewed before implementing collection. Conflicting external terms block external collector. See champion-skill-data.md for URLs and decision. |
+| Champion coverage | PASS | All 173 existing metadata IDs loaded; four QWER slots each; 692 PNGs. Missing champions 0. |
+| Cooldown fidelity | PASS with limitation | Values from source cooldown arrays, source maxrank checked. 21 nonpositive/invalid arrays explicitly unavailable; no made-up replacements. Actual R ranks and decimal formatting checked. |
+| Startup/lazy/cache | PASS | Constructor performs no reads. Cached requests reuse result and emit no additional logs. Reading every champion took 192 ms with OS cache warm; first full sweep took 2,970 ms. These are local sweep observations, not end-to-end startup benchmarks. |
+| Data failure isolation | PASS | Missing/malformed champion, wrong ID, absent patch, malformed individual cooldown type, negative cooldown, missing/duplicate/invalid spell keys, unsafe ID/icon path. WPF unknown/malformed view remains usable. |
+| Skill Order separation | PASS | Synthetic Akali/Gragas/Pantheon TOP/JUNGLE/MID; no role or patch fallback. Duplicate keys and malformed orders rejected. Empty production orders. |
+| Skill Order UI | PASS | Synthetic priority, sequence, source attribution and transition to absent-role empty state checked in both Debug and Release control harness. No synthetic values packaged. |
+| Native Debug flow | PASS | normal5v5 → TOP Akali / JUNGLE Vi / MID Syndra enemy portraits → Skill Detail; QWER/cooldown/order empty; Back and Escape. |
+| Portrait 420×760 | PASS | Native UI inspected; readable wrapped text/cooldowns, dark scroll; R and empty state inspected at bottom. |
+| Portrait 440×820 | PASS | Native Syndra view inspected, no horizontal clipping. |
+| Landscape 760×420 | PASS | Native skill detail and dashboard; vertical scroll retained. Full detail requires scrolling. |
+| Click collision / existing Matchup Detail | PASS | Portrait and Landscape enemy activation opened skill page only; Landscape card body opened existing TOP Matchup Detail. |
+| Patch mismatch | PASS | Reused diagnostics comparison; WPF control harness shows nonblocking warning. Production game patch remains unknown until a verified source exists. |
+| Missing icons | PASS | WPF harness loads copied champion JSON without icons and keeps four readable rows. |
+| Debug / Release control smoke | PASS | Actual respective application assemblies; TOP/JUNGLE/MID, 3 content sizes, 4 rows, patch warning, order missing/present/attribution, missing/malformed and stale content clearing. PNGs under ignored test/artifacts directories. |
+| Native Release smoke | PASS/PARTIAL | Release startup window inspected, no TEST UI. Skill page tested using Release assembly control harness; no real game was available to drive native Release InGame. |
+| App builds | PASS | `dotnet build LoLMatchup.csproj` and `-c Release`: 0 warnings / 0 errors. |
+| Tools builds | PASS | ChampionSkillDataCollector, StatsCollector, PublishStatisticsDataset, AnalyzeStatisticsDataset: 0 warnings / 0 errors. |
+| Existing regression suite | PASS | Diagnostics/log privacy, classifiers, metadata, fixtures, 20 start/stop cycles, partial/notfound, read-only updater UpToDate, Release dev type/BAML/fixture method counts 0. |
+| Runtime network boundary | PASS | Skill service/view read only local JSON/icons; no Riot/OP.GG runtime client. Existing unrelated live client/updater behavior is unchanged. |
+| Stage 10-C final pipeline | PASS | Final publish, ZIP, Inno 6.7.3 compile, checksums and manifest succeeded without warnings. Initial sandbox NuGet/ISCC access failures resolved with restore and authorized execution. |
+| Package content | PASS | ZIP 1,442 entries, skill directory 867 entries; compiler log confirms all 867 skill files included in installer. Tool/cache/source absent. |
+| Dev artifact / secret / privacy | PASS | Expanded existing validate-release.ps1 scan passed over final publish. Collector EXE/DLL explicitly forbidden; PDB/source/dev UI/high-risk/privacy/profile-path scans retained. |
+| Size | PASS | Before 575 files / 159,188,392 bytes; after 1,442 files / 163,132,360 bytes. Increase 3,943,968 bytes (~3.76 MiB / 2.48%). |
+| Portable | PASS | 72,506,324 bytes; SHA-256 `8a239ba5eb97130401c38f82eb7b60703256acbd7dd488c18cef093b8a0c9bed`. |
+| Installer | PASS | 55,729,896 bytes; SHA-256 `6bb514b22731621a632d7484168eab596d2cc105d3b0d94fe60345dc3057b03f`. New install/upgrade/uninstall not repeated. |
+| Documentation / diff | PASS | PROJECT_STATUS and regression report appended; champion-skill-data.md added. `git diff --check` clean. |
+
+New P0/P1: none found. P2 limitations: authorized populated Skill Order source pending; official static spell coverage (21 unavailable cooldowns / transformation subspells). P3: editorial shortening for complex champion descriptions. QWER and order fallback/extension are complete; populated Skill Priority is deliberately deferred, so the full feature is not represented as complete. Stage 11 RC remains conditional on accepted scope limits and real-game/DPI/manual release acceptance. No new deployment or user installation was performed.
+
+### Stage 10-E cooldown accuracy follow-up (2026-10-03)
+
+Supersedes the initial 21-item cooldown limitation/blanket fidelity assessment above. [Complete item-by-item evidence and reproduction](cooldown-audit-16.17.1.md).
+
+| Check | Result | Evidence / limits |
+|---|---|---|
+| Same-version official source | PASS | Fresh 16.17.1 Korean championFull.json SHA-256 equals cached generator source; 21 original manifest entries extracted and compared |
+| 21 classifications | REVIEWED | NORMAL_SPECIAL_CASE 9; DISPLAY_IMPROVEMENT_NEEDED 8; DATA_BUG 1; UNVERIFIED 3 |
+| Confirmed application defect | FIXED | Urgot W positive-only validation discarded `[12,9,6,3,0]`; source max-rank toggle verified, all ranks restored with explanatory note |
+| Full regeneration | PASS | 173 champion / 692 spell / missing 0; hash changes only Urgot.json and manifest.json; unavailable 21 → 20 |
+| Structural/source comparison | PASS | QWER/rank/value/malformed errors 0; all-zero 20, mixed-zero 1, negative (including -1) 0, empty 0, repeated rank arrays 197 |
+| Unresolved semantics | UNVERIFIED | Gangplank E, Karthus Q, Zeri Q; source zeros do not establish a zero-second gameplay cooldown |
+| Native UI, corrected output | PASS | Urgot W: all five source numbers and `5랭크: 토글 전환` visible |
+| Native UI, conservative fallback | PASS | Singed Q and Vi W: `정보 없음`, no false zero-second cooldown; existing Debug test fixtures, current DPI |
+| Builds | PASS | App Debug and Release: 0 warnings / 0 errors |
+| Skill regression | PASS | `dotnet run --project Tools/RegressionScratch -- --skills-only`, includes exact Urgot ranks and note assertion |
+| Existing packaged artifacts | NOT REBUILT | Above ZIP/installer/publish hashes remain historical, pre-correction; no installation/deployment claim |
+
+Stage 11 RC remains conditional. Structural correctness does not close the 3 UNVERIFIED or the 8 explanatory display limitations; neither full gameplay accuracy nor transformation-subspell completeness is asserted.

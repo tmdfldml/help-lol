@@ -11,7 +11,13 @@ using LoLMatchup.Models.Presentation;
 internal static class Program
 {
     [STAThread]
-    private static void Main() => RunAsync().GetAwaiter().GetResult();
+    private static void Main(string[] args)
+    {
+        if (args.Contains("--skill-ui-only")) { SkillUiRegression.Run(); return; }
+        if (args.Contains("--skill-shell-ui-only")) { SkillUiRegression.Run(shell: true); return; }
+        SkillDataRegression.RunAsync().GetAwaiter().GetResult();
+        if (!args.Contains("--skills-only")) RunAsync().GetAwaiter().GetResult();
+    }
 
     private static async Task RunAsync()
     {

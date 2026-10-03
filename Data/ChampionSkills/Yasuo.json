@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Yasuo",
+  "championName": "야스오",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "강철 폭풍",
+      "description": "전방으로 내질러 일직선 상의 모든 적에게 피해를 입힙니다. 적중 시, 몇 초간 폭풍 구름 효과가 1회 중첩됩니다. 2회 중첩되면 강철 폭풍 스킬이 회오리바람을 발사하여 공중으로 띄워올립니다. 강철 폭풍은 기본 공격으로 간주되어 같은 효과가 적용됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Yasuo.spells[0]: cooldown[]",
+      "icon": "Yasuo_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "바람 장막",
+      "description": "4초간 모든 적의 투사체를 막아주는 움직이는 벽을 생성합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        25,
+        23,
+        21,
+        19,
+        17
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Yasuo.spells[1]: cooldown[]",
+      "icon": "Yasuo_W.png"
+    },
+    {
+      "key": "E",
+      "name": "질풍검",
+      "description": "대상 적을 뚫고 돌진하여 마법 피해를 입힙니다. 이후 사용할 때마다 돌진의 피해량이 증가하며 최대치에 도달하면 더 이상 증가하지 않습니다. 몇 초 내에는 동일한 대상에게 재사용할 수 없습니다. 돌진 도중 사용할 경우, 강철 폭풍이 원형으로 타격합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        0.5,
+        0.4,
+        0.3,
+        0.2,
+        0.1
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Yasuo.spells[2]: cooldown[]",
+      "icon": "Yasuo_E.png"
+    },
+    {
+      "key": "R",
+      "name": "최후의 숨결",
+      "description": "공중에 뜬 적 챔피언에게 점멸하여 물리 피해를 입히고, 해당 지역에서 공중에 떠 있는 모든 적을 공중에 붙들어둡니다. 기류가 최대치로 차는 대신, 폭풍 구름의 중첩이 모두 초기화됩니다. 이후 몇 초 동안 야스오의 치명타에 높은 방어구 관통력이 추가로 적용됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        70,
+        50,
+        30
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Yasuo.spells[3]: cooldown[]",
+      "icon": "Yasuo_R.png"
+    }
+  ]
+}

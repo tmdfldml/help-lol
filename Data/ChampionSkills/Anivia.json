@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 2,
+  "championId": "Anivia",
+  "championName": "애니비아",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "냉기 폭발",
+      "description": "애니비아가 날개를 모아 얼음 구체를 소환한 뒤 발사하여 명중 당한 적들을 냉각에 빠뜨리고 피해를 입힙니다. 폭발 시 일정 반경 안에 있는 적에게 피해를 입히고 기절시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        10,
+        9,
+        8,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Anivia.spells[0]: cooldown[]",
+      "icon": "Anivia_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "결정화",
+      "description": "애니비아가 공기 중의 수분을 빙결시켜 지나갈 수 없는 얼음 벽을 만듭니다. 벽은 얼마 지나지 않아 녹아버립니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        17,
+        17,
+        17,
+        17,
+        17
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Anivia.spells[1]: cooldown[]",
+      "icon": "Anivia_W.png"
+    },
+    {
+      "key": "E",
+      "name": "동상",
+      "description": "애니비아가 날개를 퍼덕이며 적에게 얼음 바람을 일으켜 피해를 입힙니다. 최근 냉기 폭발이나 최대 크기에 도달한 얼음 폭풍에 적중당한 대상이 입는 피해는 2배로 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Anivia.spells[2]: cooldown[]",
+      "icon": "Anivia_E.png"
+    },
+    {
+      "key": "R",
+      "name": "얼음 폭풍",
+      "description": "애니비아가 얼음의 비와 폭풍우를 소환하여 적에게 피해를 입히고 이동 속도를 늦춥니다.",
+      "cooldownType": "Toggle",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Anivia.spells[3]: tooltip <toggle>; numeric switch delay is not presented as a standard cooldown",
+      "icon": "Anivia_R.png"
+    }
+  ]
+}

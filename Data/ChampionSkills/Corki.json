@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Corki",
+  "championName": "코르키",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "인광탄",
+      "description": "코르키가 지정한 위치에 인광탄을 던져, 해당 지역 안의 적들에게 마법 피해를 입힙니다. 또한, 이 공격은 지속시간 동안 해당 지역의 유닛들을 드러내 줍니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        9,
+        8.5,
+        8,
+        7.5,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Corki.spells[0]: cooldown[]",
+      "icon": "Corki_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "발키리",
+      "description": "코르키가 목표 위치로 비행하며 폭탄을 투하하여 불타는 흔적을 남겨, 그 안에 있는 적에게 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        20,
+        18,
+        16,
+        14,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Corki.spells[1]: cooldown[]",
+      "icon": "Corki_W.png"
+    },
+    {
+      "key": "E",
+      "name": "개틀링 건",
+      "description": "코르키가 정면에 원뿔 형태로 개틀링 건을 발사하여 적의 방어력과 마법 저항력을 낮추고 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Corki.spells[2]: cooldown[]",
+      "icon": "Corki_E.png"
+    },
+    {
+      "key": "R",
+      "name": "미사일 폭격",
+      "description": "코르키가 목표 지점에 충돌 시 폭발하는 미사일을 발사하여 해당 지역에 있는 적들에게 피해를 입힙니다. 코르키는 시간이 지날수록 미사일을 저장하여 최대치까지 장전해 둘 수 있습니다. 3번째 발사하는 미사일은 '큰 놈'으로, 추가 피해를 입힙니다.",
+      "cooldownType": "Charge",
+      "cooldowns": [
+        2,
+        2,
+        2
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Corki.spells[3]: maxammo=4; tooltip storage/recharge metadata; recharge numeric values absent/unresolved; cast cooldown from cooldown[] (positive values only); maximum placeholder unresolved",
+      "icon": "Corki_R.png"
+    }
+  ]
+}

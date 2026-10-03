@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Braum",
+  "championName": "브라움",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "동상",
+      "description": "브라움이 방패에서 빙결을 뿜어내 둔화를 적용하고 마법 피해를 입힙니다. 뇌진탕 펀치 중첩이 1회 쌓입니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        8,
+        7.5,
+        7,
+        6.5,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Braum.spells[0]: cooldown[]",
+      "icon": "Braum_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "내가 지킨다",
+      "description": "브라움이 대상 아군 챔피언이나 미니언에게 도약합니다. 대상에게 다다르면 브라움과 아군은 몇 초 동안 방어력과 마법 저항력이 오릅니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11,
+        10,
+        9,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Braum.spells[1]: cooldown[]",
+      "icon": "Braum_W.png"
+    },
+    {
+      "key": "E",
+      "name": "불굴",
+      "description": "브라움이 몇 초 동안 한 방향으로 방패를 들어 올려, 날아오는 투사체를 대신 맞고 파괴합니다. 첫 번째 공격은 아무 피해도 주지 않고, 이후 해당 방향에서 오는 공격은 피해량이 줄어듭니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        16,
+        14,
+        12,
+        10,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Braum.spells[2]: cooldown[]",
+      "icon": "Braum_E.png"
+    },
+    {
+      "key": "R",
+      "name": "빙하 균열",
+      "description": "브라움이 지면을 내리쳐 부근과 전방 직선상의 적들을 띄워올립니다. 이 직선을 따라 균열이 가며 적들을 둔화시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        130,
+        115,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Braum.spells[3]: cooldown[]",
+      "icon": "Braum_R.png"
+    }
+  ]
+}

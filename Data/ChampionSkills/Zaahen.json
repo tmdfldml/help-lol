@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Zaahen",
+  "championName": "자헨",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "다르킨의 글레이브",
+      "description": "자헨이 다음 기본 공격 시 두 번 공격하며 추가 피해를 입히고 체력을 회복합니다. 자헨은 이 스킬을 다시 사용해 다음 기본 공격 시 대상에게 추가 피해를 입히고 공중에 띄울 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9,
+        8,
+        7,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Zaahen.spells[0]: cooldown[]",
+      "icon": "Zaahen_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "공포의 귀환",
+      "description": "자헨이 지정한 방향으로 내질러 적중한 적에게 피해를 입히고 끌어당깁니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        13.5,
+        13,
+        12.5,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Zaahen.spells[1]: cooldown[]",
+      "icon": "Zaahen_W.png"
+    },
+    {
+      "key": "E",
+      "name": "찬란한 쇄도",
+      "description": "자헨이 지정한 위치로 돌진하고 주변을 가릅니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9.5,
+        9,
+        8.5,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Zaahen.spells[2]: cooldown[]",
+      "icon": "Zaahen_E.png"
+    },
+    {
+      "key": "R",
+      "name": "단호한 판결",
+      "description": "자헨이 날아오른 후 아래로 내려찍으며 적에게 피해를 입히고 입힌 피해량의 일부만큼 체력을 회복합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        110,
+        95,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Zaahen.spells[3]: cooldown[]",
+      "icon": "Zaahen_R.png"
+    }
+  ]
+}

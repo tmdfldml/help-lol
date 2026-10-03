@@ -28,6 +28,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="Data\ChampionSkills\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <None Update="Data\Statistics\master_plus.json"
           CopyToOutputDirectory="PreserveNewest"
           CopyToPublishDirectory="PreserveNewest" />

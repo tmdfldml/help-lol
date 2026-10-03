@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 2,
+  "championId": "Zeri",
+  "championName": "제리",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "집중 사격",
+      "description": "처음 적중한 적에게 물리 피해를 입히는 공격 7발을 발사합니다. 이 스킬은 기본 공격으로 간주됩니다.",
+      "cooldownType": "Unknown",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Zeri.spells[0]: zero/invalid cooldown; mechanic or numeric timer unresolved; UNVERIFIED",
+      "icon": "Zeri_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "초강력 레이저",
+      "description": "제리가 전기 파동을 발사해 처음 적중하는 적을 둔화시키고 피해를 입힙니다. 파동이 벽에 맞으면 장거리 레이저로 확산됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11,
+        10,
+        9,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Zeri.spells[1]: cooldown[]",
+      "icon": "Zeri_W.png"
+    },
+    {
+      "key": "E",
+      "name": "스파크 돌진",
+      "description": "제리가 짧은 거리를 돌진하며 집중 사격을 충전합니다. 충전된 집중 사격은 적을 꿰뚫습니다. 돌진 시 맞닥트리는 지형을 모두 뛰어넘습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        24,
+        22.5,
+        21,
+        19.5,
+        18
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Zeri.spells[2]: cooldown[]",
+      "icon": "Zeri_E.png"
+    },
+    {
+      "key": "R",
+      "name": "번개 방출",
+      "description": "제리가 전류를 방출하고 자신을 과충전해, 피해량과 이동 속도가 증가합니다. 제리가 적 챔피언을 맞힐 때마다 이동 속도 증가 효과가 중첩되고 지속시간이 회복됩니다. 과충전된 동안 집중 사격이 더욱 빠른 3연발 사격으로 바뀌며, 대상 주변 적에게 번개가 연쇄적으로 튑니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        80,
+        75,
+        70
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Zeri.spells[3]: cooldown[]",
+      "icon": "Zeri_R.png"
+    }
+  ]
+}

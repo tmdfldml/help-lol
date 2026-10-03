@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Nami",
+  "championName": "나미",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "물의 감옥",
+      "description": "거대한 물방울을 지정한 위치로 발사해 물방울이 닿은 적에게 피해를 입히고 닿는 순간 기절시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11,
+        10,
+        9,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nami.spells[0]: cooldown[]",
+      "icon": "Nami_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "밀물 썰물",
+      "description": "밀려드는 파도를 보내 아군 및 적 챔피언을 번갈아 맞히면서, 아군은 치유하고 적에게는 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nami.spells[1]: cooldown[]",
+      "icon": "Nami_W.png"
+    },
+    {
+      "key": "E",
+      "name": "파도 소환사의 축복",
+      "description": "잠시 동안 아군 챔피언들을 강화해, 기본 공격과 스킬 사용 시 추가 마법 피해를 입히고 대상에게 둔화를 걸 수 있게 만듭니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        11,
+        11,
+        11,
+        11
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nami.spells[2]: cooldown[]",
+      "icon": "Nami_E.png"
+    },
+    {
+      "key": "R",
+      "name": "해일",
+      "description": "적들을 공중으로 띄우고 둔화를 걸면서 피해를 입히는 거대한 해일을 소환합니다. 여기에 맞은 아군은 밀려오는 파도의 효과를 두 배로 받습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        110,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nami.spells[3]: cooldown[]",
+      "icon": "Nami_R.png"
+    }
+  ]
+}

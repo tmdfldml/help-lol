@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 2,
+  "championId": "TwistedFate",
+  "championName": "트위스티드 페이트",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "와일드 카드",
+      "description": "트위스티드 페이트는 카드 세 장을 던져 지나가는 카드에 맞은 각 적 유닛에게 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        5.75,
+        5.5,
+        5.25,
+        5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.TwistedFate.spells[0]: cooldown[]",
+      "icon": "TwistedFate_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "카드 뽑기",
+      "description": "트위스티드 페이트가 카드 더미에서 다음 공격에 쓸 마법 카드를 한 장 골라 공격 시 추가 효과를 부여합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.TwistedFate.spells[1]: cooldown[]",
+      "icon": "TwistedFate_W.png"
+    },
+    {
+      "key": "E",
+      "name": "속임수 덱",
+      "description": "4번째 공격마다 트위스티드 페이트가 추가 피해를 입힙니다. 또한 공격 속도가 증가합니다.",
+      "cooldownType": "Passive",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.TwistedFate.spells[2]: passive-only tooltip, no active section; cooldown all zero",
+      "icon": "TwistedFate_E.png"
+    },
+    {
+      "key": "R",
+      "name": "운명",
+      "description": "트위스티드 페이트가 적의 미래를 점치면서 모든 적 챔피언의 위치를 탐지해내고, 어디든지 이동할 수 있는 관문 스킬을 1.5초 동안 사용할 수 있게 됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        170,
+        140,
+        110
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.TwistedFate.spells[3]: cooldown[]",
+      "icon": "TwistedFate_R.png"
+    }
+  ]
+}

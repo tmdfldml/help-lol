@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Shaco",
+  "championName": "샤코",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "속임수",
+      "description": "샤코가 즉시 투명해지며 지정한 위치로 순간이동합니다. 투명 상태에서 가하는 첫 번째 기본 공격이 강화되어 추가 피해를 입히고 뒤에서 공격 시 치명타로 적중합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        13,
+        12.5,
+        12,
+        11.5,
+        11
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Shaco.spells[0]: cooldown[]",
+      "icon": "Shaco_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "깜짝 상자",
+      "description": "샤코가 깜짝 상자를 숨깁니다. 상자가 발동되면 주변의 적들을 공포 상태에 빠뜨린 다음 공격합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        15,
+        15,
+        15,
+        15,
+        15
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Shaco.spells[1]: cooldown[]",
+      "icon": "Shaco_W.png"
+    },
+    {
+      "key": "E",
+      "name": "양날 독",
+      "description": "샤코의 단검은 공격에 맞은 대상을 중독시켜 이동 속도를 늦춥니다. 샤코는 단검을 던져 적에게 피해를 입히고 중독시킬 수 있으며 이때 대상의 체력이 30% 이하면 추가 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Shaco.spells[2]: cooldown[]",
+      "icon": "Shaco_E.png"
+    },
+    {
+      "key": "R",
+      "name": "환각",
+      "description": "샤코가 자신의 환영을 생성합니다. 적 포탑에게는 환영의 피해량이 줄어듭니다. 환영은 죽을 경우 폭발하며 세 개의 작은 깜짝 상자를 남겨 주변 적에게 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        100,
+        90,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Shaco.spells[3]: cooldown[]",
+      "icon": "Shaco_R.png"
+    }
+  ]
+}

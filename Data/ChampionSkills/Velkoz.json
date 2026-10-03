@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Velkoz",
+  "championName": "벨코즈",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "플라즈마 분열",
+      "description": "벨코즈가 플라즈마 광선을 발사하고 나서 스킬을 재사용하거나 적에게 맞으면 광선이 둘로 갈라집니다. 이 광선은 적중 시 둔화를 적용하고 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Velkoz.spells[0]: cooldown[]",
+      "icon": "Velkoz_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "공허 균열",
+      "description": "벨코즈가 공허로 통하는 균열을 열어 최초 피해를 입힌 다음, 잠시 시간이 지난 후 두 번째 폭발로 피해를 가합니다.",
+      "cooldownType": "Charge",
+      "cooldowns": [
+        1.5,
+        1.5,
+        1.5,
+        1.5,
+        1.5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": 2,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Velkoz.spells[1]: maxammo=2; tooltip storage/recharge metadata; recharge numeric values absent/unresolved; cast cooldown from cooldown[] (positive values only)",
+      "icon": "Velkoz_W.png"
+    },
+    {
+      "key": "E",
+      "name": "지각 붕괴",
+      "description": "벨코즈가 일정 범위를 폭발시켜 적을 띄우고, 가까이 있는 적들은 약간 멀리 밀어냅니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11.5,
+        11,
+        10.5,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Velkoz.spells[2]: cooldown[]",
+      "icon": "Velkoz_E.png"
+    },
+    {
+      "key": "R",
+      "name": "생물 분해 광선",
+      "description": "벨코즈가 정신을 집중하고 광선을 발사하면, 광선이 2.5초 동안 커서 위치를 따라가며 마법 피해를 입히고 적을 둔화시킵니다. 유기물 분해 연구가 완료된 적 챔피언은 마법 피해 대신 고정 피해를 입습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        100,
+        90,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Velkoz.spells[3]: cooldown[]",
+      "icon": "Velkoz_R.png"
+    }
+  ]
+}

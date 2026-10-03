@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Gwen",
+  "championName": "그웬",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "싹둑싹둑!",
+      "description": "그웬이 최대 6회까지 가위질하여 원뿔 범위에 마법 피해를 입힙니다. 중앙에 있는 유닛에게는 고정 피해를 입히고 적중할 때마다 기본 지속 효과를 적용합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6.5,
+        5.75,
+        5,
+        4.25,
+        3.5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Gwen.spells[0]: cooldown[]",
+      "icon": "Gwen_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "신성한 안개",
+      "description": "그웬이 안개를 소환하여 안개 밖에 있는 적으로부터 자신을 보호합니다. 안개에 들어오는 적만이 그웬을 대상으로 지정할 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        22,
+        21,
+        20,
+        19,
+        18
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Gwen.spells[1]: cooldown[]",
+      "icon": "Gwen_W.png"
+    },
+    {
+      "key": "E",
+      "name": "돌격가위",
+      "description": "짧은 거리를 돌진한 후 몇 초 동안 그웬의 공격 속도, 공격 사거리, 적중 시 마법 피해가 증가합니다. 이때 적에게 공격을 적중시키면 이 스킬의 재사용 대기시간을 일부 돌려받습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        13,
+        12.5,
+        12,
+        11.5,
+        11
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Gwen.spells[2]: cooldown[]",
+      "icon": "Gwen_E.png"
+    },
+    {
+      "key": "R",
+      "name": "바느질",
+      "description": "그웬이 바늘을 던져 적중한 적에게 마법 피해를 입히고 둔화시킵니다. 챔피언에게 적중 시 가위 난도질을 적용합니다. 이 스킬은 최대 2회 더 사용할 수 있으며, 재사용할 때마다 추가 바늘을 던져 더 많은 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Gwen.spells[3]: cooldown[]",
+      "icon": "Gwen_R.png"
+    }
+  ]
+}

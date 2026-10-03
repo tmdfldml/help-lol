@@ -10,7 +10,8 @@ public enum AppLogEvent
     ManifestCheckStarted, CurrentRevision, ManifestRevision, UpToDate, NoDowngrade,
     UpdateAvailable, DownloadStarted, ValidationFailed, InstallSucceeded,
     RestartRequired, UpdateFailed, UpdateCancelled, RollbackFailed, CleanupFailed,
-    Waiting, GameDetected, MatchupChanged, LiveClientUnavailable
+    Waiting, GameDetected, MatchupChanged, LiveClientUnavailable,
+    SkillDataLoaded, SkillDataMissing, SkillDataMalformed, SkillOrderUnavailable
 }
 
 /// <summary>Implementations must never throw; callers supply fixed events, not user data.</summary>

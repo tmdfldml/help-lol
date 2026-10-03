@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Lux",
+  "championName": "럭스",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "빛의 속박",
+      "description": "럭스가 빛의 구를 발사하여 최대 2명의 적 유닛을 속박하며 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lux.spells[0]: cooldown[]",
+      "icon": "Lux_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "프리즘 보호막",
+      "description": "럭스가 마법봉을 던져 아군 주변의 빛을 구부리며 적의 공격으로부터 보호해줍니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11.5,
+        11,
+        10.5,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lux.spells[1]: cooldown[]",
+      "icon": "Lux_W.png"
+    },
+    {
+      "key": "E",
+      "name": "광휘의 특이점",
+      "description": "지정한 지역에 뒤틀린 빛의 구체를 띄워 주변 적의 속도를 늦춥니다. 럭스는 이 빛을 폭발시켜 피해를 입힐 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9.5,
+        9,
+        8.5,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lux.spells[2]: cooldown[]",
+      "icon": "Lux_E.png"
+    },
+    {
+      "key": "R",
+      "name": "최후의 섬광",
+      "description": "럭스가 에너지를 모아 빛 기둥을 발사하며 목표 지역에 있는 모든 대상에게 피해를 입힙니다. 또한 이는 럭스의 기본 지속 효과 스킬을 발동시키고 광채 효과의 지속시간을 갱신합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        60,
+        50,
+        40
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lux.spells[3]: cooldown[]",
+      "icon": "Lux_R.png"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 2,
+  "championId": "Ashe",
+  "championName": "애쉬",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "궁사의 집중",
+      "description": "애쉬는 공격을 계속하면 집중이 오릅니다. 집중 중첩이 최대치에 이르면 이를 모두 소모해 애쉬가 궁사의 집중을 사용할 수 있으며, 이 때 애쉬의 공격 속도가 잠시 동안 증가하고 그 동안 기본 공격이 강력한 다발 공격으로 변합니다.",
+      "cooldownType": "ResourceBased",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": "기본 공격 중첩 기반",
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Ashe.spells[0]: tooltip: basic attacks generate stacks required to activate; cooldown all zero",
+      "icon": "Ashe_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "일제 사격",
+      "description": "애쉬가 화살을 원뿔 모양으로 발사하여 더 큰 피해를 입힙니다. 이때 서리 화살의 효과도 적용됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        18,
+        14.5,
+        11,
+        7.5,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Ashe.spells[1]: cooldown[]",
+      "icon": "Ashe_W.png"
+    },
+    {
+      "key": "E",
+      "name": "매 날리기",
+      "description": "애쉬가 매의 혼을 맵 어느 위치든 날려보내 정찰을 시킵니다.",
+      "cooldownType": "Charge",
+      "cooldowns": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": 2,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Ashe.spells[2]: maxammo=2; tooltip storage/recharge metadata; recharge numeric values absent/unresolved; cast cooldown from cooldown[] (positive values only)",
+      "icon": "Ashe_E.png"
+    },
+    {
+      "key": "R",
+      "name": "마법의 수정화살",
+      "description": "애쉬가 얼음으로 된 화살을 발사합니다. 화살이 적 챔피언에 맞을 경우 피해를 입히고 화살 발사 거리에 따라 더 오랜 시간 기절시킵니다. 또한 주변 적 유닛 역시 피해를 받고 속도가 느려집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        100,
+        80,
+        60
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Ashe.spells[3]: cooldown[]",
+      "icon": "Ashe_R.png"
+    }
+  ]
+}

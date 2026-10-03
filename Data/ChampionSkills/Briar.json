@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Briar",
+  "championName": "브라이어",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "짜릿한 돌격",
+      "description": "브라이어가 대상에게 도약 후 (고통의) 뒤꿈치로 적을 가격해 기절시키고 방어구를 깨부숩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        13,
+        12,
+        11,
+        10,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Briar.spells[0]: cooldown[]",
+      "icon": "Briar_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "핏빛 광분 / 식욕 폭발",
+      "description": "브라이어가 앞으로 도약해 족쇄를 깨부수고 핏빛 광분 상태에 들어가 가장 가까운 적을 가차 없이 추격합니다. (챔피언 우선) 핏빛 광분 상태에서 공격 속도와 이동 속도가 상승하며 기본 공격으로 대상 주변에 피해를 입힙니다. 이 스킬을 핏빛 광분 상태에서 재사용하면 다음 기본 공격 시 적을 베어 먹어 대상이 잃은 체력에 비례해 추가 피해를 입히고 피해량에 비례해 체력을 회복합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        13,
+        12,
+        11,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Briar.spells[1]: cooldown[]",
+      "icon": "Briar_W.png"
+    },
+    {
+      "key": "E",
+      "name": "오싹한 비명",
+      "description": "브라이어가 마음을 다잡아 핏빛 광분 상태에서 벗어나고, 힘을 모아 강력한 비명을 내질러 적에게 피해를 입히고 둔화시킵니다. 충전 중에는 받는 피해가 감소하고 최대 체력의 일정 비율만큼 회복합니다. 완전히 충전된 비명은 적을 뒤로 밀치고, 벽에 부딪히는 적에게 추가 피해를 입히며 기절시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        16,
+        16,
+        16,
+        16,
+        16
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Briar.spells[2]: cooldown[]",
+      "icon": "Briar_E.png"
+    },
+    {
+      "key": "R",
+      "name": "불가항력적 죽음",
+      "description": "브라이어가 족쇄의 혈석을 발로 찬 다음, 혈석이 첫 번째로 적중한 챔피언을 먹잇감으로 지정하고 대상을 향해 날아갑니다. 착지 시 다른 주변 적을 공포에 빠트리고 피의 갈증에 완전히 사로잡힙니다. 이후 먹잇감을 죽을 때까지 쫓으며, 핏빛 광분 효과와 방어력, 마법 저항력, 생명력 흡수, 이동 속도를 추가로 얻습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Briar.spells[3]: cooldown[]",
+      "icon": "Briar_R.png"
+    }
+  ]
+}

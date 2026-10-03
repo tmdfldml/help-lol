@@ -36,6 +36,7 @@ public partial class MainWindow : Window
     private readonly AppDiagnosticsService _diagnostics;
     private readonly AppSettingsService _settingsService = new();
     private readonly AppNavigationService _navigationService = new();
+    private readonly ChampionSkillDataService _skillDataService;
     private SettingsWindow? _settingsWindow;
 #if DEBUG
     private readonly DeveloperTestModeService _developerTestMode = new();
@@ -50,6 +51,7 @@ public partial class MainWindow : Window
     {
         var app = (App)Application.Current;
         _logger = app.Logger;
+        _skillDataService = new ChampionSkillDataService(logger: _logger);
         _diagnostics = app.Diagnostics;
         _statisticsDataService = new StatisticsDataService(logger: _logger);
         _championMetadataService = new ChampionMetadataService(_logger);
@@ -59,6 +61,8 @@ public partial class MainWindow : Window
         _navigationService.NavigationChanged += NavigationService_NavigationChanged;
         HomeView.InGameRequested += HomeView_InGameRequested;
         InGameView.RoleSelected += InGameView_RoleSelected;
+        InGameView.EnemySelected += InGameView_EnemySelected;
+        ChampionSkillDetailView.BackRequested += MatchupDetailView_BackRequested;
         MatchupDetailView.BackRequested += MatchupDetailView_BackRequested;
 #if DEBUG
         DeveloperTestButton.Visibility = Visibility.Visible;
@@ -134,6 +138,8 @@ public partial class MainWindow : Window
         _navigationService.NavigationChanged -= NavigationService_NavigationChanged;
         HomeView.InGameRequested -= HomeView_InGameRequested;
         InGameView.RoleSelected -= InGameView_RoleSelected;
+        InGameView.EnemySelected -= InGameView_EnemySelected;
+        ChampionSkillDetailView.BackRequested -= MatchupDetailView_BackRequested;
         MatchupDetailView.BackRequested -= MatchupDetailView_BackRequested;
         _pollingCancellation.Cancel();
     }
@@ -242,12 +248,20 @@ public partial class MainWindow : Window
     private void MatchupDetailView_BackRequested(object? sender, EventArgs e) =>
         _navigationService.Navigate(AppPage.InGame);
 
-    private void NavigationService_NavigationChanged(object? sender, EventArgs e)
+    private void InGameView_EnemySelected(object? sender, MatchupStatisticsPresentation presentation)
+    {
+        if (!string.IsNullOrWhiteSpace(presentation.OpponentChampionId))
+            _navigationService.NavigateToChampionSkillDetail(presentation);
+    }
+
+    private async void NavigationService_NavigationChanged(object? sender, EventArgs e)
     {
         var showHome = _navigationService.CurrentPage == AppPage.Home;
         var showDetail = _navigationService.CurrentPage == AppPage.MatchupDetail;
+        var showSkills = _navigationService.CurrentPage == AppPage.ChampionSkillDetail;
         HomeView.Visibility = showHome ? Visibility.Visible : Visibility.Collapsed;
-        InGameView.Visibility = !showHome && !showDetail ? Visibility.Visible : Visibility.Collapsed;
+        InGameView.Visibility = !showHome && !showDetail && !showSkills ? Visibility.Visible : Visibility.Collapsed;
+        ChampionSkillDetailView.Visibility = showSkills ? Visibility.Visible : Visibility.Collapsed;
         MatchupDetailView.Visibility = showDetail ? Visibility.Visible : Visibility.Collapsed;
         if (showDetail && _navigationService.DetailContext is not null)
         {
@@ -255,7 +269,9 @@ public partial class MainWindow : Window
         }
         HomeNavigationItem.IsChecked = showHome;
         InGameNavigationItem.IsChecked = !showHome;
-        CurrentPageText.Text = showHome ? "홈" : showDetail ? "인게임 · 매치업 상세" : "인게임";
+        CurrentPageText.Text = showHome ? "홈" : showSkills ? "인게임 · 상대 스킬" : showDetail ? "인게임 · 매치업 상세" : "인게임";
+        if (showSkills && _navigationService.SkillContext is { } skill)
+            await ChampionSkillDetailView.SetContextAsync(skill, _skillDataService, _diagnostics.Snapshot.CurrentGamePatch);
     }
 
     private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -266,7 +282,7 @@ public partial class MainWindow : Window
             e.Handled = true;
         }
         else if (e.Key == Key.Escape
-                 && _navigationService.CurrentPage == AppPage.MatchupDetail)
+                 && _navigationService.CurrentPage is AppPage.MatchupDetail or AppPage.ChampionSkillDetail)
         {
             _navigationService.Navigate(AppPage.InGame);
             e.Handled = true;
@@ -471,6 +487,12 @@ public partial class MainWindow : Window
         UpdateHeaderStatus();
         HomeView.SetGameActive(gameActive);
         InGameView.SetPresentation(presentation);
+
+        if (_navigationService.CurrentPage == AppPage.ChampionSkillDetail
+            && (!gameActive || _navigationService.SkillContext is not { } skill
+                || !presentation.DisplayMatchups.Any(item => item.Role == skill.Role
+                    && item.OpponentChampionId == skill.OpponentChampionId)))
+            _navigationService.Navigate(AppPage.InGame);
 
         if (!gameActive && _navigationService.CurrentPage == AppPage.MatchupDetail)
         {

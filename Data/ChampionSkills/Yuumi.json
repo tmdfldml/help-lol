@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 2,
+  "championId": "Yuumi",
+  "championName": "유미",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "사르르탄",
+      "description": "유미가 미사일을 발사해 처음으로 맞힌 적에게 피해를 입히고 둔화시킵니다. 미사일이 1.35초 이상 날아가 적중할 경우 피해량이 추가되고 둔화 효과가 강화됩니다. 단짝에게 붙어있을 때는 둔화 효과가 항상 강화되며, 둔화 적용 시 단짝이 강화되어 적중 시 추가 피해를 입힙니다. 아군과 밀착한 상태일 때는 미사일의 궤도를 잠시 마우스로 조종할 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6.5,
+        6.5,
+        6.5,
+        6.5,
+        6.5,
+        6.5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Yuumi.spells[0]: cooldown[]",
+      "icon": "Yuumi_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "너랑 유미랑!",
+      "description": "유미가 대상 아군에게 돌진하여 포탑을 제외한 유닛이 대상으로 지정할 수 없는 상태가 됩니다. 단짝에게 붙어있을 때 유미의 체력 회복 및 보호막 효과가 증폭되고 단짝은 적중 시 체력을 회복합니다.",
+      "cooldownType": "Unknown",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Yuumi.spells[1]: zero/invalid cooldown; mechanic or numeric timer unresolved; UNVERIFIED",
+      "icon": "Yuumi_W.png"
+    },
+    {
+      "key": "E",
+      "name": "슈우우웅",
+      "description": "유미가 보호막을 얻고 이동 속도와 공격 속도가 증가합니다. 아군과 밀착된 상태인 경우 이 효과는 유미 대신 해당 아군에게 적용됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Yuumi.spells[2]: cooldown[]",
+      "icon": "Yuumi_E.png"
+    },
+    {
+      "key": "R",
+      "name": "대단원",
+      "description": "유미가 정신을 집중해 파동을 다섯 번 발사합니다. 파동은 적에게 피해를 입히고 아군의 체력을 회복시킵니다. 정신을 집중하는 동안 이동하거나 밀착할 수 있으며, 슈우우웅! 스킬도 사용할 수 있습니다. 단짝에게 붙어있으면 마우스로 이 스킬을 조종할 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        110,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Yuumi.spells[3]: cooldown[]",
+      "icon": "Yuumi_R.png"
+    }
+  ]
+}

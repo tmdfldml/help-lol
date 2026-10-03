@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Lulu",
+  "championName": "룰루",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "반짝반짝 창",
+      "description": "픽스와 룰루가 각각 마법 화살을 하나씩 발사하여 맞는 적에게 피해를 입히고 둔화시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lulu.spells[0]: cooldown[]",
+      "icon": "Lulu_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "변덕쟁이",
+      "description": "아군에게 사용하면 잠깐 동안 대상의 공격 속도와 이동 속도가 상승합니다. 적에게 시전하면 기본 공격이나 스킬 시전이 불가능한 귀여운 생물로 변합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        18,
+        18,
+        18,
+        18,
+        18
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lulu.spells[1]: cooldown[]",
+      "icon": "Lulu_W.png"
+    },
+    {
+      "key": "E",
+      "name": "도와줘, 픽스!",
+      "description": "아군에게 시전하면 픽스가 대상에게 점프하여 보호막을 씌워줍니다. 그 다음 대상을 따라다니며 공격을 돕습니다. 적에게 시전하면 픽스가 대상에게 점프하여 피해를 줍니다. 그 다음 대상을 따라다니며 위치를 확인할 수 있도록 해 줍니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9.5,
+        9,
+        8.5,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lulu.spells[2]: cooldown[]",
+      "icon": "Lulu_E.png"
+    },
+    {
+      "key": "R",
+      "name": "급성장",
+      "description": "룰루가 아군의 몸집을 키우며 근처의 적들을 공중으로 띄워올리고, 아군의 체력을 대폭 높여줍니다. 이후 몇 초 동안 해당 아군에게 오라가 생겨 근처의 적들은 속도가 느려집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lulu.spells[3]: cooldown[]",
+      "icon": "Lulu_R.png"
+    }
+  ]
+}

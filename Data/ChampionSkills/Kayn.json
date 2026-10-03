@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Kayn",
+  "championName": "케인",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "살상돌격",
+      "description": "케인이 앞으로 돌진하며 적을 공격합니다. 돌진 및 공격 시 모두 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        7,
+        6.5,
+        6,
+        5.5,
+        5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kayn.spells[0]: cooldown[]",
+      "icon": "Kayn_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "몰아치는 낫",
+      "description": "케인이 직선상의 대상 모두에게 피해를 입히고 둔화시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        13,
+        12,
+        11,
+        10,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kayn.spells[1]: cooldown[]",
+      "icon": "Kayn_W.png"
+    },
+    {
+      "key": "E",
+      "name": "그림자의 길",
+      "description": "케인이 지형을 통과해 이동할 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        21,
+        19,
+        17,
+        15,
+        13
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kayn.spells[2]: cooldown[]",
+      "icon": "Kayn_E.png"
+    },
+    {
+      "key": "R",
+      "name": "그림자의 지배",
+      "description": "케인이 적에게 파고들었다가 빠져나오면서 큰 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kayn.spells[3]: cooldown[]",
+      "icon": "Kayn_R.png"
+    }
+  ]
+}

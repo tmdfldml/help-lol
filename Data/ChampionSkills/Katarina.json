@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Katarina",
+  "championName": "카타리나",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "단검 투척",
+      "description": "카타리나가 대상에게 단검 을 던집니다. 단검은 근처 적들에게 튕겼다가 땅에 떨어집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        10,
+        9,
+        8,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Katarina.spells[0]: cooldown[]",
+      "icon": "Katarina_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "준비",
+      "description": "카타리나가 단검 을 머리 위로 던지며 이동 속도가 크게 빨라집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        15,
+        14,
+        13,
+        12,
+        11
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Katarina.spells[1]: cooldown[]",
+      "icon": "Katarina_W.png"
+    },
+    {
+      "key": "E",
+      "name": "순보",
+      "description": "카타리나가 대상에게 도약합니다. 대상이 적일 경우 대상에게 피해를 입히고, 대상이 적이 아닐 경우 가장 가까이에 있는 적에게 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11,
+        10,
+        9,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Katarina.spells[2]: cooldown[]",
+      "icon": "Katarina_E.png"
+    },
+    {
+      "key": "R",
+      "name": "죽음의 연꽃",
+      "description": "카타리나가 정신을 집중해 칼날의 돌풍을 일으켜 가장 가까운 적 챔피언 3명에게 엄청난 마법 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        75,
+        60,
+        45
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Katarina.spells[3]: cooldown[]",
+      "icon": "Katarina_R.png"
+    }
+  ]
+}

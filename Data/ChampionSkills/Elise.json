@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 2,
+  "championId": "Elise",
+  "championName": "엘리스",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "신경독 / 독이빨",
+      "description": "인간 형태: 대상 적의 체력에 비례하여 피해를 입힙니다. 거미 형태: 적 하나를 덮쳐, 적이 잃은 체력에 비례하여 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Elise.spells[0]: cooldown[]",
+      "icon": "Elise_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "위험한 새끼 거미 / 광란의 질주",
+      "description": "인간 형태: 독을 품은 새끼 거미를 풀어놓으면 대상 적 근처에 가서 터집니다. 거미 형태: 엘리스와 새끼 거미들의 공격 속도가 상승합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Elise.spells[1]: cooldown[]",
+      "icon": "Elise_W.png"
+    },
+    {
+      "key": "E",
+      "name": "고치 / 줄타기",
+      "description": "인간 형태: 처음 적중한 적 유닛을 기절시키고 은신 상태가 아닐 경우 모습을 드러내 줍니다. 거미 형태: 엘리스와 새끼 거미들이 공중으로 올라간 다음 적에게 하강해 덮칩니다. 적을 덮친 후 거미 여왕의 추가 피해량과 회복량이 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11.5,
+        11,
+        10.5,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Elise.spells[2]: cooldown[]",
+      "icon": "Elise_E.png"
+    },
+    {
+      "key": "R",
+      "name": "거미 형태",
+      "description": "무서운 거미로 변해 공격 사거리가 줄어드는 대신 이동 속도가 상승하며, 새로운 스킬을 사용하고, 새끼 거미 떼가 적을 공격합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Elise.spells[3]: cooldown[]",
+      "icon": "Elise_R.png"
+    }
+  ]
+}

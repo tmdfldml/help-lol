@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Quinn",
+  "championName": "퀸",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "실명 공격",
+      "description": "퀸이 발러를 보내 하나의 적에게 표식을 남기고 대상의 시야를 크게 좁힙니다. 또한 근처의 모든 적에게 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        10.5,
+        10,
+        9.5,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Quinn.spells[0]: cooldown[]",
+      "icon": "Quinn_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "예리한 감각",
+      "description": "기본 지속 효과로 퀸이 매사냥 대상을 공격한 이후 공격 속도와 이동 속도가 상승합니다. 사용하면 발러가 주변의 넓은 지역을 드러냅니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        50,
+        45,
+        40,
+        35,
+        30
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Quinn.spells[1]: cooldown[]",
+      "icon": "Quinn_W.png"
+    },
+    {
+      "key": "E",
+      "name": "공중제비",
+      "description": "퀸이 적에게 돌진하여 물리 피해를 입히고 적의 이동 속도를 늦춥니다. 대상에게 도달하면 공중제비를 넘어 대상을 잠깐 방해하고, 최대 공격 사거리로 물러나 착지합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11,
+        10,
+        9,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Quinn.spells[2]: cooldown[]",
+      "icon": "Quinn_E.png"
+    },
+    {
+      "key": "R",
+      "name": "후방 지원",
+      "description": "퀸과 발러가 뭉쳐 엄청난 속도로 날아다닙니다. 스킬을 종료하면 공중 강습을 사용하게 되며 근처의 모든 적에게 피해를 입히고 적 챔피언에게 매사냥 표식을 남깁니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        3,
+        3,
+        3
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Quinn.spells[3]: cooldown[]",
+      "icon": "Quinn_R.png"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 2,
+  "championId": "Udyr",
+  "championName": "우디르",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "야생 발톱",
+      "description": "공격 속도가 증가하고 다음 두 차례 기본 공격으로 추가 물리 피해를 입힙니다. 재사용 시: 공격 속도가 더 많이 증가하고 다음 두 차례 기본 공격으로 번개를 일으켜 대상을 타격합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Udyr.spells[0]: cooldown[]",
+      "icon": "Udyr_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "강철 갑옷",
+      "description": "보호막을 얻고 다음 두 차례의 기본 공격을 통해 체력을 회복합니다. 재사용 시: 강화된 보호막을 얻은 후 몇 초에 걸쳐 최대 체력에 비례해 체력을 회복합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Udyr.spells[1]: cooldown[]",
+      "icon": "Udyr_W.png"
+    },
+    {
+      "key": "E",
+      "name": "불길 쇄도",
+      "description": "이동 속도가 증가합니다. 이 태세를 취한 후 적에게 처음 기본 공격을 가할 때마다 대상을 기절시킵니다. 재사용 시: 몇 초간 이동 속도가 더 많이 증가하고 이동 불가 효과에 면역이 됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Udyr.spells[2]: cooldown[]",
+      "icon": "Udyr_E.png"
+    },
+    {
+      "key": "R",
+      "name": "날개 돋친 폭풍",
+      "description": "얼음 폭풍으로 자신을 감싸 주변 적들에게 피해를 입히고 둔화시킵니다. 재사용 시: 적을 쫓아가며 추가 피해를 입히는 폭풍을 풀어놓습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Udyr.spells[3]: cooldown[]",
+      "icon": "Udyr_R.png"
+    }
+  ]
+}

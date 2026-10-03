@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Belveth",
+  "championName": "벨베스",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "공허 쇄도",
+      "description": "벨베스가 선택한 방향으로 돌진해 경로상의 모든 적에게 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        4,
+        3.25,
+        2.5,
+        1.75,
+        1
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Belveth.spells[0]: cooldown[]",
+      "icon": "Belveth_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "위와 아래",
+      "description": "벨베스가 지면에 꼬리를 내리쳐 적에게 피해를 입히며 공중으로 띄워 올리고 둔화시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11,
+        10,
+        9,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Belveth.spells[1]: cooldown[]",
+      "icon": "Belveth_W.png"
+    },
+    {
+      "key": "E",
+      "name": "여제의 소용돌이",
+      "description": "벨베스가 제자리에 가만히 서서 정신을 집중하며 가장 체력이 낮은 적을 노리고 생명력 흡수와 피해량 감소 효과를 부여하는 칼바람 소용돌이를 일으킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        24,
+        21,
+        18,
+        15,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Belveth.spells[2]: cooldown[]",
+      "icon": "Belveth_E.png"
+    },
+    {
+      "key": "R",
+      "name": "끝없는 연회",
+      "description": "벨베스가 공허 산호 잔해를 소모해 본모습으로 변신하며 최대 체력, 공격 사거리, 공격 속도가 증가합니다. 공허 에픽 몬스터의 공허 산호 잔해를 소모하면 공허 빨판상어를 소환할 힘이 생깁니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        1,
+        1,
+        1
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Belveth.spells[3]: cooldown[]",
+      "icon": "Belveth_R.png"
+    }
+  ]
+}

@@ -13,10 +13,13 @@ public partial class InGameView : UserControl
         InitializeComponent();
         PortraitView.RoleSelected += StatisticsView_RoleSelected;
         LandscapeView.RoleSelected += StatisticsView_RoleSelected;
+        PortraitView.EnemySelected += (_, presentation) => EnemySelected?.Invoke(this, presentation);
+        LandscapeView.EnemySelected += (_, presentation) => EnemySelected?.Invoke(this, presentation);
         ShowWaiting();
     }
 
     public event EventHandler<MatchupStatisticsPresentation>? RoleSelected;
+    public event EventHandler<MatchupStatisticsPresentation>? EnemySelected;
 
     public void SetLandscape(bool isLandscape)
     {

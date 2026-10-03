@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Hwei",
+  "championName": "흐웨이",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "주제: 참사",
+      "description": "흐웨이가 일련의 참사를 상상하며 파괴적인 일격을 그립니다. 흐웨이의 스킬을 공격 스킬인 파멸의 화염, 절단의 번개, 녹아내린 균열로 교체합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9,
+        8,
+        7,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Hwei.spells[0]: cooldown[]",
+      "icon": "Hwei_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "주제: 평온",
+      "description": "흐웨이가 일련의 평온을 상상하며 힘을 북돋는 배경을 그립니다. 흐웨이의 스킬을 보조 스킬인 쏜살같은 물살, 반사의 웅덩이, 요동치는 빛으로 교체합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        18,
+        17.5,
+        17,
+        16.5,
+        16
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Hwei.spells[1]: cooldown[]",
+      "icon": "Hwei_W.png"
+    },
+    {
+      "key": "E",
+      "name": "주제: 고통",
+      "description": "흐웨이가 일련의 고통을 상상하며 제어하는 형상을 그립니다. 흐웨이의 스킬을 군중 제어 스킬인 암울한 형상, 심연의 응시, 파괴의 아귀로 교체합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11.5,
+        11,
+        10.5,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Hwei.spells[2]: cooldown[]",
+      "icon": "Hwei_E.png"
+    },
+    {
+      "key": "R",
+      "name": "절망의 소용돌이",
+      "description": "흐웨이가 순수한 절망의 환상을 그립니다. 처음 맞은 적을 중심으로 그림이 점점 커지며 주변 적을 둔화시키고 피해를 입힙니다. 환상은 최대 크기가 되거나 챔피언이 죽으면 폭발합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Hwei.spells[3]: cooldown[]",
+      "icon": "Hwei_R.png"
+    }
+  ]
+}

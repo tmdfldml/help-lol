@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Azir",
+  "championName": "아지르",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "사막의 맹습",
+      "description": "아지르가 모든 모래 병사를 특정 위치로 보냅니다. 모래 병사들은 통과하는 적에게 마법 피해를 입히고, 1초 둔화 효과를 적용합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        12,
+        10,
+        8,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Azir.spells[0]: cooldown[]",
+      "icon": "Azir_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "일어나라!",
+      "description": "아지르가 모래 병사를 소환하여 근처에 있는 대상을 공격합니다. 아지르의 기본 공격은 모래 병사의 공격 범위 내에 있는 대상에게 가해집니다. 아지르와 모래 병사의 공격은 일직선 상의 적들에게 마법 피해를 입힙니다.",
+      "cooldownType": "Charge",
+      "cooldowns": [
+        1.5,
+        1.5,
+        1.5,
+        1.5,
+        1.5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Azir.spells[1]: maxammo=2; tooltip storage/recharge metadata; recharge numeric values absent/unresolved; cast cooldown from cooldown[] (positive values only); maximum placeholder unresolved",
+      "icon": "Azir_W.png"
+    },
+    {
+      "key": "E",
+      "name": "신기루",
+      "description": "아지르에게 잠시 보호막이 생성되고 아지르가 모래 병사 중 하나에게 질주하여 적에게 피해를 입힙니다. 적 챔피언에게 부딪친 경우에는 배치 가능한 새로운 모래 병사를 즉시 준비하고 질주를 멈춥니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        22,
+        20.5,
+        19,
+        17.5,
+        16
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Azir.spells[2]: cooldown[]",
+      "icon": "Azir_E.png"
+    },
+    {
+      "key": "R",
+      "name": "황제의 진영",
+      "description": "아지르가 일렬 횡대의 병사들을 앞으로 돌진시켜 적들을 밀어내고 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        105,
+        90
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Azir.spells[3]: cooldown[]",
+      "icon": "Azir_R.png"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Lissandra",
+  "championName": "리산드라",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "얼음 파편",
+      "description": "적을 맞히면 부서지는 얼음창을 던져 마법 피해를 입히고 이동 속도를 늦춥니다. 파편들이 대상을 꿰뚫고 나가, 여기에 맞는 다른 적들에게도 동일한 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        7,
+        6,
+        5,
+        4,
+        3
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lissandra.spells[0]: cooldown[]",
+      "icon": "Lissandra_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "서릿발",
+      "description": "주변 적들을 꽁꽁 얼려 마법 피해를 입히면서 발을 묶습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9.5,
+        9,
+        8.5,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lissandra.spells[1]: cooldown[]",
+      "icon": "Lissandra_W.png"
+    },
+    {
+      "key": "E",
+      "name": "얼음갈퀴 길",
+      "description": "리산드라가 마법 피해를 주는 얼음갈퀴를 생성합니다. 이 스킬을 다시 시전하면 리산드라가 얼음갈퀴의 현재 위치로 순간이동합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        24,
+        21,
+        18,
+        15,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lissandra.spells[2]: cooldown[]",
+      "icon": "Lissandra_E.png"
+    },
+    {
+      "key": "R",
+      "name": "얼음 무덤",
+      "description": "적 챔피언에게 시전하면 대상이 꽁꽁 얼면서 기절합니다. 리산드라에게 시전하면 몸을 어둠의 얼음으로 감싸, 공격할 수 없는 무적 상태가 된 채로 자신을 치유합니다. 그 다음 어둠의 얼음이 대상에게서 번져나가 적들에게 마법 피해를 주며 이동 속도를 늦춥니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lissandra.spells[3]: cooldown[]",
+      "icon": "Lissandra_R.png"
+    }
+  ]
+}

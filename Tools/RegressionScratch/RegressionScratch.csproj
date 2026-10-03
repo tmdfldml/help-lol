@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="../../Data/ChampionSkills/**/*" Link="Data/ChampionSkills/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Reference Include="LoLMatchInfo"><HintPath>../../bin/Debug/net10.0-windows/LoLMatchInfo.dll</HintPath></Reference>
     <Content Include="../../Data/Champions/**/*" Link="Data/Champions/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="../../Data/Statistics/master_plus.json" Link="Data/Statistics/master_plus.json" CopyToOutputDirectory="PreserveNewest" />

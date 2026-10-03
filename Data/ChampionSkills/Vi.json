@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 2,
+  "championId": "Vi",
+  "championName": "바이",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "금고 부수기",
+      "description": "바이가 건틀릿을 충전하여, 두꺼운 금고도 뚫을 위력의 타격을 가하며 전방으로 돌진합니다. 부딪힌 적들은 뒤로 밀려나고, 찌그러뜨리기가 중첩됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        10.5,
+        9,
+        7.5,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vi.spells[0]: cooldown[]",
+      "icon": "Vi_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "찌그러뜨리기",
+      "description": "바이의 주먹이 적의 방어구를 찌그러뜨려 추가 피해를 가하며 공격 속도가 상승합니다.",
+      "cooldownType": "Passive",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vi.spells[1]: passive-only tooltip, no active section; cooldown all zero",
+      "icon": "Vi_W.png"
+    },
+    {
+      "key": "E",
+      "name": "끈질긴 힘",
+      "description": "바이의 다음 공격이 대상을 관통하여 뒤에 있는 적들에게 피해를 가합니다.",
+      "cooldownType": "Charge",
+      "cooldowns": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "rechargeTimes": null,
+      "maxCharges": 2,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vi.spells[2]: maxammo=2; tooltip storage/recharge metadata; recharge numeric values absent/unresolved; cast cooldown from cooldown[] (positive values only)",
+      "icon": "Vi_E.png"
+    },
+    {
+      "key": "R",
+      "name": "정지 명령",
+      "description": "바이가 적을 추격하며 중간에 걸리는 유닛들을 옆으로 밀어냅니다. 대상에 다다르면 공중으로 띄워올리고 뒤따라 점프하여, 바닥으로 쿵 찍어누릅니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        140,
+        115,
+        90
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vi.spells[3]: cooldown[]",
+      "icon": "Vi_R.png"
+    }
+  ]
+}

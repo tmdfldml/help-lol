@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Tristana",
+  "championName": "트리스타나",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "속사",
+      "description": "트리스타나가 짧은 시간 동안 공격 속도를 높이며 빠르게 탄환을 발사합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        20,
+        19,
+        18,
+        17,
+        16
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Tristana.spells[0]: cooldown[]",
+      "icon": "Tristana_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "로켓 점프",
+      "description": "트리스타나가 땅에 대포를 쏴 추진력을 얻어 먼 곳으로 이동합니다. 착륙한 지점 근처의 적 유닛에게 피해를 주며 잠깐 동안 이동 속도를 느리게 합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        22,
+        20,
+        18,
+        16,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Tristana.spells[1]: cooldown[]",
+      "icon": "Tristana_W.png"
+    },
+    {
+      "key": "E",
+      "name": "폭발 화약",
+      "description": "트리스타나가 적을 처치할 때마다 대포알이 조각 조각 터지면서 주변 적에게 피해를 입힙니다. 스킬을 활성화하면 대상 적에게 폭탄을 부착하여, 잠시 후 터지면서 주위 유닛들에게도 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        16,
+        15.5,
+        15,
+        14.5,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Tristana.spells[2]: cooldown[]",
+      "icon": "Tristana_E.png"
+    },
+    {
+      "key": "R",
+      "name": "대구경 탄환",
+      "description": "트리스타나가 무기에 거대한 대포알을 장착하여 적 유닛에게 발사합니다. 이 스킬은 마법 피해를 입히고 적을 뒤로 밀어냅니다. 대상에게 폭발 화약이 붙어 있을 경우 폭발 범위가 두 배로 늘어납니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        100,
+        100,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Tristana.spells[3]: cooldown[]",
+      "icon": "Tristana_R.png"
+    }
+  ]
+}

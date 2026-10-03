@@ -695,3 +695,37 @@ Stage 10-A/B의 미커밋 변경을 보존한 채 Windows 배포 기반을 추�
 - production endpoint는 기존 read-only regression에서 UpToDate다. native GUI automation surface가 없어 설치본의 About/Settings Data 버튼을 이번 실행에서 직접 조작하지 못했으므로 해당 화면 확인만 `PARTIAL`; process/metadata/log와 updater 회귀 증거는 PASS다. 기존 crash log 2개는 과거 Debug fixture이며 정상 installer 실행으로 새 crash는 생성되지 않았다.
 
 판정: **Stage 10-C COMPLETE (closed-beta distribution scope)**. installer build/install/Start Menu launch/logging/uninstall/user-data preservation/reinstall/running-app upgrade/artifact validation을 실제 통과했다. 새 P0/P1/P2는 없고, automatic downgrade 차단 부재는 기존 release-process 정책으로 남는 P3다. signing은 `UNSIGNED BETA`, final `.ico`와 직접 GUI Settings smoke는 Stage 10-D 전 remaining manual polish다.
+
+## Stage 10-E — Champion Skill Reference & Skill Order (2026-10-03)
+
+시작 working tree: `main`, clean, HEAD `cfc7aba`. 기존 Stage 10-A/B/C/D 및 통계 시스템을 유지했다. 커밋/리셋/리버트/기존 파일 삭제를 수행하지 않았다.
+
+- 인게임 상대 초상화 → 같은 앱의 Champion Skill Detail → Back/Escape → 인게임. 기존 Role card → Matchup Detail 유지. Portrait/Landscape에서 클릭 충돌이 없음을 실제 UI로 확인했다.
+- 한국어 챔피언/role/패치, QWER 아이콘·공식 짧은 설명·랭크별 기본 쿨타임 표시. dark/cyan/purple 테마와 세로 스크롤 사용. 420×760, 440×820, 760×420 및 TOP/JUNGLE/MID 검증.
+- Riot Data Dragon 16.17.1(기존 메타데이터와 동일 패치), 전체 지원 173개 챔피언 / 692개 아이콘 / 누락 챔피언 0. 21개 소스 쿨타임은 유효한 양수 배열을 확인할 수 없어 정보 없음으로 표시하며 manifest에 기록한다. 현재 최신 버전이라고 주장하지 않는다.
+- `Tools/ChampionSkillDataCollector`: developer-only .NET 10 Windows 콘솔, bulk JSON + 19 sprite 파일, 캐시/순차 저빈도 요청. `Data/ChampionSkills` 최종 데이터만 배포. 앱 런타임은 local read only, API key 불필요, startup I/O 없음, 챔피언 단위 lazy/cache 및 오류 fallback.
+- OP.GG 도움말과 2026-09-14 이용약관이 자동 수집에 대해 충돌한다. 사용자 지정 implementation gate 미통과로 외부 scraping/API 수집은 구현하지 않았다. 실제 Skill Priority는 미제공. Champion+Role+Patch 모델/정확한 조회/출처 및 선택적 sequence UI/정상 empty state를 준비했고 synthetic 데이터는 테스트에만 사용했다.
+- Debug/Release 앱 및 기존 도구 3개, 신규 생성기 build: warning 0/error 0. 기존 통계/진단 회귀, 전체 데이터 검사, 오류/중복/역할/패치 분리, Debug/Release WPF 컨트롤 smoke 통과. Release TEST UI 없음 직접 확인.
+- 최종 Stage 10-C pipeline: warning 없이 publish/portable/Inno installer/checksum 생성 및 release dev/privacy/secret scan 통과. portable 1,442 files, skill files 867, 개발 산출물 0; Inno compiler도 스킬 파일 867개 포함. 설치/제거 라이프사이클은 이번에 재수행하지 않았다.
+- publish: 159,188,392 → 163,132,360 bytes (+3,943,968 bytes, 약 2.48%). portable 72,506,324 bytes; installer 55,729,896 bytes. 산출물은 ignored `artifacts/` 아래에 있다.
+- 상세 소스/포맷/업데이트 방법/정책 gate: `docs/champion-skill-data.md`. 회귀 결과: `docs/regression-test-report.md`.
+
+판정: **QWER 1차 구현 및 Skill Order 확장/빈 상태 완료, 실제 Skill Order 데이터는 gate에 따라 보류**. Stage 10-E 전체 Skill Priority 제공 완료로 판정하지 않는다. 새 P0/P1 발견 없음. P2 제한 2건: 승인된 Skill Order 소스 미확보, 특수 스킬/21개 쿨타임의 공식 정적 데이터 한계. P3 개선 1건: 복잡한 챔피언 설명의 추가 편집/축약 검토. Stage 11 RC는 이 제한을 수용하고 실제 경기·DPI·배포 수동 acceptance를 진행하는 조건부 상태다. 기존 서명/브랜딩/다운그레이드 관련 제한은 유지한다.
+
+### Stage 10-E cooldown 21개 집중 검증 정정 (2026-10-03)
+
+- 위 초기 21개를 전부 원본 한계로 보던 설명을 정정한다. 동일 버전 16.17.1 공식 championFull.json을 새로 받아 캐시와 SHA-256 일치를 확인하고, 21개 각각의 cooldownBurn/배열/maxrank/QWER/tooltip을 대조했다. 상세: [cooldown audit](docs/cooldown-audit-16.17.1.md).
+- 분류: NORMAL_SPECIAL_CASE 9, DISPLAY_IMPROVEMENT_NEEDED 8, DATA_BUG 1, UNVERIFIED 3. UNVERIFIED는 Gangplank E / Karthus Q / Zeri Q이며 임의 정상 처리하지 않았다.
+- 실제 오류 Urgot W만 수정: `[12,9,6,3,0]` 복구 및 `5랭크: 토글 전환` 설명. 전체 생성기를 재실행했으며 skill directory 해시 변경은 Urgot.json/manifest.json 두 파일뿐이다. null cooldown은 21 → 20.
+- 전체 173 champion / 692 spell / missing 0; QWER·rank·보존 수치 불일치 및 구조적 malformed 0. 20개의 all-zero 원본은 null fallback을 유지한다. 구조 통과를 UNVERIFIED 해결로 간주하지 않는다.
+- Debug/Release build warning 0/error 0, skills-only 회귀 PASS. 실제 Debug 앱의 Urgot W / Singed Q / Vi W 세 스킬 페이지 확인: 우르곳 다섯 값과 토글 주석, 나머지 정보 없음 표시 정상.
+- Stage 11 RC는 **조건부**, 전체 쿨타임 정확성 승인은 아직 미완료다. 이번 변경은 데이터 검증/최소 수정 범위이며 이전 publish/ZIP/installer는 재생성하지 않았으므로 위 배포 해시는 수정 전 패키지에 해당한다. 배포 전 기존 release pipeline 재실행 필요.
+
+### Stage 10-E cooldown 21개 집중 검증 정정 (2026-10-03)
+
+- 위 초기 21개를 전부 원본 한계로 보던 설명을 정정한다. 동일 버전 16.17.1 공식 championFull.json을 새로 받아 캐시와 SHA-256 일치를 확인하고, 21개 각각의 cooldownBurn/배열/maxrank/QWER/tooltip을 대조했다. 상세: [cooldown audit](docs/cooldown-audit-16.17.1.md).
+- 분류: NORMAL_SPECIAL_CASE 9, DISPLAY_IMPROVEMENT_NEEDED 8, DATA_BUG 1, UNVERIFIED 3. UNVERIFIED는 Gangplank E / Karthus Q / Zeri Q이며 임의 정상 처리하지 않았다.
+- 실제 오류 Urgot W만 수정: `[12,9,6,3,0]` 복구 및 `5랭크: 토글 전환` 설명. 전체 생성기를 재실행했으며 skill directory 해시 변경은 Urgot.json/manifest.json 두 파일뿐이다. null cooldown은 21 → 20.
+- 전체 173 champion / 692 spell / missing 0; QWER·rank·보존 수치 불일치 및 구조적 malformed 0. 20개의 all-zero 원본은 null fallback을 유지한다. 구조 통과를 UNVERIFIED 해결로 간주하지 않는다.
+- Debug/Release build warning 0/error 0, skills-only 회귀 PASS. 실제 Debug 앱의 Urgot W / Singed Q / Vi W 세 스킬 페이지 확인: 우르곳 다섯 값과 토글 주석, 나머지 정보 없음 표시 정상.
+- Stage 11 RC는 **조건부**, 전체 쿨타임 정확성 승인은 아직 미완료다. 이번 변경은 데이터 검증/최소 수정 범위이며 이전 publish/ZIP/installer는 재생성하지 않았으므로 위 배포 해시는 수정 전 패키지에 해당한다. 배포 전 기존 release pipeline 재실행 필요.

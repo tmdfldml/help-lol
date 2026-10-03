@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Vladimir",
+  "championName": "블라디미르",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "수혈",
+      "description": "블라디미르가 대상 적으로부터 체력을 흡수합니다. 수혈을 충분히 한 뒤에는 수혈의 피해량과 치유량이 잠깐 동안 크게 늘어납니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        9,
+        7.9,
+        6.8,
+        5.7,
+        4.6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vladimir.spells[0]: cooldown[]",
+      "icon": "Vladimir_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "피의 웅덩이",
+      "description": "블라디미르가 피의 웅덩이로 변해 2초 동안 공격 대상이 되지 않습니다. 또한 웅덩이 위에 서 있는 적의 속도가 느려지며 블라디미르가 이들의 체력을 흡수합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        28,
+        25,
+        22,
+        19,
+        16
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vladimir.spells[1]: cooldown[]",
+      "icon": "Vladimir_W.png"
+    },
+    {
+      "key": "E",
+      "name": "선혈의 파도",
+      "description": "블라디미르가 자신의 체력을 희생해 피의 웅덩이를 채웁니다. 웅덩이가 파도를 방출하면 주변 지역에 피해를 입히지만 적 유닛이 파도를 가로막을 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        13,
+        11,
+        9,
+        7,
+        5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vladimir.spells[2]: cooldown[]",
+      "icon": "Vladimir_E.png"
+    },
+    {
+      "key": "R",
+      "name": "혈사병",
+      "description": "블라디미르가 혈사병으로 목표 지역을 오염시킵니다. 질병에 감염된 적은 일정 시간 동안 더 큰 피해를 입습니다. 감염된 적은 몇 초 뒤 마법 피해를 입으며 피해를 입은 적 챔피언 수에 비례해 블라디미르의 체력이 회복됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        120,
+        120
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vladimir.spells[3]: cooldown[]",
+      "icon": "Vladimir_R.png"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Tryndamere",
+  "championName": "트린다미어",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "피의 갈망",
+      "description": "트린다미어는 전투의 스릴에 희열을 느낍니다. 트린다미어의 체력이 낮으면 낮을수록 공격력이 상승합니다. 피의 갈망 스킬 사용 시 트린다미어는 분노 수치를 소모하여 체력을 회복할 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Tryndamere.spells[0]: cooldown[]",
+      "icon": "Tryndamere_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "조롱의 외침",
+      "description": "트린다미어가 모욕적인 외침으로 주변 챔피언들의 공격력을 낮춥니다. 트린다미어에게서 등을 돌린 챔피언들은 이동 속도 역시 느려집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Tryndamere.spells[1]: cooldown[]",
+      "icon": "Tryndamere_W.png"
+    },
+    {
+      "key": "E",
+      "name": "회전 베기",
+      "description": "트린다미어가 공격 경로에 있는 적 유닛을 칼로 베어 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11,
+        10,
+        9,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Tryndamere.spells[2]: cooldown[]",
+      "icon": "Tryndamere_E.png"
+    },
+    {
+      "key": "R",
+      "name": "불사의 분노",
+      "description": "전투를 향한 트린다미어의 욕망이 너무나도 강해 죽을 수 없는 몸이 됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Tryndamere.spells[3]: cooldown[]",
+      "icon": "Tryndamere_R.png"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Caitlyn",
+  "championName": "케이틀린",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "필트오버 피스메이커",
+      "description": "케이틀린이 소총을 1초 동안 조준한 후 관통하는 탄환을 발사하여 물리 피해를 입힙니다. (다음 명중하는 대상에게는 더 낮은 피해가 들어갑니다.)",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9,
+        8,
+        7,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Caitlyn.spells[0]: cooldown[]",
+      "icon": "Caitlyn_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "요들잡이 덫",
+      "description": "케이틀린이 함정을 설치합니다. 함정이 발동하면 함정에 걸린 적 챔피언은 1.5초간 모습이 드러나며 이동할 수 없게 되고, 케이틀린의 헤드샷이 강화됩니다.",
+      "cooldownType": "Charge",
+      "cooldowns": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Caitlyn.spells[1]: maxammo=2; tooltip storage/recharge metadata; recharge numeric values absent/unresolved; cast cooldown from cooldown[] (positive values only); maximum placeholder unresolved",
+      "icon": "Caitlyn_W.png"
+    },
+    {
+      "key": "E",
+      "name": "90구경 투망",
+      "description": "케이틀린이 무거운 그물을 발사하여 적을 느리게 합니다. 그 반동으로 케이틀린은 뒤로 밀려납니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        16,
+        14,
+        12,
+        10,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Caitlyn.spells[2]: cooldown[]",
+      "icon": "Caitlyn_E.png"
+    },
+    {
+      "key": "R",
+      "name": "비장의 한 발",
+      "description": "케이틀린이 공을 들인 완벽한 사격을 하여 먼 거리에서 하나의 대상에게 큰 피해를 입힙니다. 적 챔피언이 자신의 아군을 위해 총알을 막아낼 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        90,
+        90,
+        90
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Caitlyn.spells[3]: cooldown[]",
+      "icon": "Caitlyn_R.png"
+    }
+  ]
+}

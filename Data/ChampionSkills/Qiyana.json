@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Qiyana",
+  "championName": "키아나",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "원소의 분노 / 이쉬탈의 칼날",
+      "description": "키아나가 무기를 휘둘러 원소에 따른 추가 효과와 함께 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Qiyana.spells[0]: cooldown[]",
+      "icon": "Qiyana_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "대지창조",
+      "description": "키아나가 지정한 위치로 돌진해 무기를 원소 마법으로 강화합니다. 무기가 강화됐을 때 기본 공격이나 스킬을 사용하면 추가 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Qiyana.spells[1]: cooldown[]",
+      "icon": "Qiyana_W.png"
+    },
+    {
+      "key": "E",
+      "name": "대담무쌍",
+      "description": "키아나가 적에게 돌진하여 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        10,
+        9,
+        8,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Qiyana.spells[2]: cooldown[]",
+      "icon": "Qiyana_E.png"
+    },
+    {
+      "key": "R",
+      "name": "여왕의 진가",
+      "description": "키아나가 충격파를 발사합니다. 충격파는 강, 수풀, 벽에 적중 시 폭발하며, 주변 적에게 피해를 주고 기절시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        120,
+        120
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Qiyana.spells[3]: cooldown[]",
+      "icon": "Qiyana_R.png"
+    }
+  ]
+}

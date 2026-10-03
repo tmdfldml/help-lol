@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Heimerdinger",
+  "championName": "하이머딩거",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "H-28 G 진화형 포탑",
+      "description": "하이머딩거가 관통 광선 공격이 추가된 속사포 포탑을 설치합니다. (하이머딩거의 포탑은 적 포탑에 절반의 피해만 줍니다.)",
+      "cooldownType": "Charge",
+      "cooldowns": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Heimerdinger.spells[0]: maxammo=3; tooltip storage/recharge metadata; recharge numeric values absent/unresolved; cast cooldown from cooldown[] (positive values only); maximum placeholder unresolved",
+      "icon": "Heimerdinger_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "마법공학 초소형 로켓",
+      "description": "하이머딩거가 마우스 커서 위치로 모이는 초소형 로켓들을 발사합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        10,
+        9,
+        8,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Heimerdinger.spells[1]: cooldown[]",
+      "icon": "Heimerdinger_W.png"
+    },
+    {
+      "key": "E",
+      "name": "CH-2 전자폭풍 수류탄",
+      "description": "하이머딩거가 목표 위치에 수류탄을 던져 적에게 피해를 입힙니다. 수류탄에 직격당한 적은 기절하며, 빗겨맞은 유닛은 느려집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        11,
+        11,
+        11,
+        11
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Heimerdinger.spells[2]: cooldown[]",
+      "icon": "Heimerdinger_E.png"
+    },
+    {
+      "key": "R",
+      "name": "업그레이드!!!",
+      "description": "하이머딩거가 업그레이드를 개발하여, 다음 스킬의 효과가 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        100,
+        85,
+        70
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Heimerdinger.spells[3]: cooldown[]",
+      "icon": "Heimerdinger_R.png"
+    }
+  ]
+}

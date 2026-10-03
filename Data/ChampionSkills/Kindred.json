@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Kindred",
+  "championName": "킨드레드",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "화살 세례",
+      "description": "킨드레드가 구르며 근처의 대상들에게 최대 세 발의 화살을 발사합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kindred.spells[0]: cooldown[]",
+      "icon": "Kindred_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "늑대의 광기",
+      "description": "늑대가 분노하여 주변의 적들을 공격합니다. 양이 기본 지속 효과로 움직이고 공격하여 중첩을 얻습니다. 완전히 충전되면 양이 다음 번 공격할 때 체력을 회복합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        18,
+        17,
+        16,
+        15,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kindred.spells[1]: cooldown[]",
+      "icon": "Kindred_W.png"
+    },
+    {
+      "key": "E",
+      "name": "차오르는 공포",
+      "description": "양이 신중하게 화살을 발사해 대상의 속도를 늦춥니다. 양이 대상을 두 번 더 공격하면 세 번째 공격 시 늑대가 적을 덮치게 만들어, 흉포한 공격으로 큰 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        12.5,
+        11,
+        9.5,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kindred.spells[2]: cooldown[]",
+      "icon": "Kindred_E.png"
+    },
+    {
+      "key": "R",
+      "name": "양의 안식처",
+      "description": "양은 안식처 영역 안에 있는 모든 생명체를 죽음으로부터 지켜줍니다. 효과가 끝날 때까지는 아무도 죽지 않습니다. 효과가 끝나면 유닛들이 치유됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        160,
+        140,
+        120
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kindred.spells[3]: cooldown[]",
+      "icon": "Kindred_R.png"
+    }
+  ]
+}

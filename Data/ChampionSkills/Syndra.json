@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Syndra",
+  "championName": "신드라",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "어둠 구체",
+      "description": "신드라가 어둠 구체를 만들어내 마법 피해를 가합니다. 구체는 제자리에 유지되며, 신드라의 다른 스킬로 조종할 수도 있습니다.",
+      "cooldownType": "Charge",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": "진화 후 충전형 · 진화 후 시전 간격은 확인되지 않았습니다.",
+      "baseCooldowns": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "sourceEvidence": "data.Syndra.spells[0]: maxammo=-1; tooltip storage/recharge metadata; recharge numeric values absent/unresolved; base cooldown is not a confirmed evolved cast cooldown; maximum placeholder unresolved",
+      "icon": "Syndra_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "의지의 힘",
+      "description": "신드라가 적 미니언 혹은 어둠 구체를 잡아서 던져 마법 피해를 입히고, 적의 이동 속도를 감소시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11,
+        10,
+        9,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Syndra.spells[1]: cooldown[]",
+      "icon": "Syndra_W.png"
+    },
+    {
+      "key": "E",
+      "name": "적군 와해",
+      "description": "신드라가 어둠 구체와 적들을 뒤로 밀어내며 마법 피해를 입힙니다. 어둠 구체에 맞은 적은 기절합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        15,
+        15,
+        15,
+        15,
+        15
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Syndra.spells[2]: cooldown[]",
+      "icon": "Syndra_E.png"
+    },
+    {
+      "key": "R",
+      "name": "풀려난 힘",
+      "description": "신드라가 적 챔피언 하나에게 어둠 구체를 모두 날려 집중 포격을 가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Syndra.spells[3]: cooldown[]",
+      "icon": "Syndra_R.png"
+    }
+  ]
+}

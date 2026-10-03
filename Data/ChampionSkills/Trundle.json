@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Trundle",
+  "championName": "트런들",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "깨물기",
+      "description": "트런들이 상대를 물어뜯어 피해를 입히고 잠깐 둔화 효과를 주며 적의 공격력을 약간 흡수합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        3.5,
+        3.5,
+        3.5,
+        3.5,
+        3.5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Trundle.spells[0]: cooldown[]",
+      "icon": "Trundle_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "얼음 왕국",
+      "description": "트런들이 목표 지점을 자기 왕국으로 바꿔, 해당 지역에 있는 동안 공격 속도와 이동 속도가 증가하고 모든 시전자로부터 오는 치유 효과가 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        18,
+        17,
+        16,
+        15,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Trundle.spells[1]: cooldown[]",
+      "icon": "Trundle_W.png"
+    },
+    {
+      "key": "E",
+      "name": "얼음 기둥",
+      "description": "트런들이 목표 지점에 지나갈 수 없는 얼음 돌기둥을 생성합니다. 얼음 기둥 주변을 지나가는 모든 적 유닛의 이동 속도가 낮아집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        21,
+        19.5,
+        18,
+        16.5,
+        15
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Trundle.spells[2]: cooldown[]",
+      "icon": "Trundle_E.png"
+    },
+    {
+      "key": "R",
+      "name": "진압",
+      "description": "트런들이 대상에게서 일정 비율의 체력과 방어력 및 마법 저항력을 즉시 훔칩니다. 다음 4초 동안 훔친 체력, 방어력, 마법 저항력이 두 배로 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Trundle.spells[3]: cooldown[]",
+      "icon": "Trundle_R.png"
+    }
+  ]
+}

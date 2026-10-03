@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Fiddlesticks",
+  "championName": "피들스틱",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "공포",
+      "description": "피들스틱이 적의 시야에 보이지 않을 때 적에게 스킬로 피해를 입히거나 공포를 사용하면 대상을 공포에 질리게 하여 일정 시간 도망치게 합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        15,
+        14.5,
+        14,
+        13.5,
+        13
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Fiddlesticks.spells[0]: cooldown[]",
+      "icon": "Fiddlesticks_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "풍작",
+      "description": "피들스틱이 주변 적의 체력을 흡수합니다. 지속시간이 끝날 때 잃은 체력에 비례한 추가 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9.5,
+        9,
+        8.5,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Fiddlesticks.spells[1]: cooldown[]",
+      "icon": "Fiddlesticks_W.png"
+    },
+    {
+      "key": "E",
+      "name": "수확",
+      "description": "피들스틱이 넓은 범위를 낫으로 베어 적중한 모든 적을 둔화시키고 가운데에 있는 적을 침묵시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9,
+        8,
+        7,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Fiddlesticks.spells[2]: cooldown[]",
+      "icon": "Fiddlesticks_E.png"
+    },
+    {
+      "key": "R",
+      "name": "까마귀 폭풍",
+      "description": "피들스틱 주변을 까마귀 떼가 헤집고 다니며 매초 해당 지역에 있는 모든 적 유닛에게 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        140,
+        110,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Fiddlesticks.spells[3]: cooldown[]",
+      "icon": "Fiddlesticks_R.png"
+    }
+  ]
+}

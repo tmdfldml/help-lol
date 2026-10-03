@@ -21,6 +21,13 @@ Require-Path 'LoLMatchInfo.exe' 'application executable'
 Require-Path 'Data\Statistics\master_plus.json' 'packaged statistics baseline'
 Require-Path 'Data\Statistics\manifest.json' 'packaged statistics manifest'
 Require-Path 'Data\Champions\champions.ko.json' 'champion metadata'
+Require-Path 'Data\ChampionSkills\manifest.json' 'skill data manifest'
+Require-Path 'Data\ChampionSkills\orders.json' 'optional skill order dataset'
+$skillMetadata = Get-Content -Raw -Encoding UTF8 (Join-Path $publishPath 'Data\Champions\champions.ko.json') | ConvertFrom-Json
+foreach ($champion in $skillMetadata.champions) {
+    Require-Path "Data\ChampionSkills\$($champion.id).json" 'champion skills'
+    foreach ($key in @('Q','W','E','R')) { Require-Path "Data\ChampionSkills\Icons\$($champion.id)_$key.png" 'spell icon' }
+}
 
 $icons = Get-ChildItem -LiteralPath (Join-Path $publishPath 'Data\Champions\Icons') -Filter '*.png' -File -ErrorAction SilentlyContinue
 if (-not $icons) { $errors.Add('Missing champion icon assets') }
@@ -29,6 +36,8 @@ $forbiddenNames = @(
     'StatsCollector.exe',
     'PublishStatisticsDataset.exe',
     'AnalyzeStatisticsDataset.exe',
+    'ChampionSkillDataCollector.exe',
+    'ChampionSkillDataCollector.dll',
     '.env'
 )
 $allFiles = @(Get-ChildItem -LiteralPath $publishPath -Recurse -File)

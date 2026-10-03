@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Malphite",
+  "championName": "말파이트",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "지진의 파편",
+      "description": "말파이트가 땅을 통해 대지의 조각을 날려 피해를 입히며 3초 동안 이동 속도를 훔칩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Malphite.spells[0]: cooldown[]",
+      "icon": "Malphite_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "천둥소리",
+      "description": "말파이트가 굉음을 내며 공격합니다. 이후 수 초 동안 말파이트의 공격이 전방에 여진을 일으킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9.5,
+        9,
+        8.5,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Malphite.spells[1]: cooldown[]",
+      "icon": "Malphite_W.png"
+    },
+    {
+      "key": "E",
+      "name": "지면 강타",
+      "description": "말파이트가 땅을 내리쳐 충격파를 만들어 냅니다. 충격파는 말파이트 방어력의 일부에 해당하는 마법 피해를 입히며, 이에 맞은 적은 잠시 동안 공격 속도가 감소합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Malphite.spells[2]: cooldown[]",
+      "icon": "Malphite_E.png"
+    },
+    {
+      "key": "R",
+      "name": "멈출 수 없는 힘",
+      "description": "말파이트가 목표 위치로 돌진하여 적에게 피해를 입히고 공중으로 띄워 올립니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        130,
+        115,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Malphite.spells[3]: cooldown[]",
+      "icon": "Malphite_R.png"
+    }
+  ]
+}

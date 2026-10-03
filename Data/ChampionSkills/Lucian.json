@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Lucian",
+  "championName": "루시안",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "꿰뚫는 빛",
+      "description": "루시안이 대상을 관통하는 빛 줄기를 발사합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        9,
+        8,
+        7,
+        6,
+        5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lucian.spells[0]: cooldown[]",
+      "icon": "Lucian_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "타는 불길",
+      "description": "루시안이 별 모양으로 폭발하여 적에게 표식을 남기는 미사일을 발사합니다. 미사일에 맞은 적은 잠시 위치가 드러나며 표식이 남아 있는 적을 공격하면 루시안의 이동 속도가 상승합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        13,
+        12,
+        11,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lucian.spells[1]: cooldown[]",
+      "icon": "Lucian_W.png"
+    },
+    {
+      "key": "E",
+      "name": "끈질긴 추격",
+      "description": "루시안이 짧은 거리를 빠르게 돌진합니다. 빛의 사수 스킬로 공격하면 끈질긴 추격의 재사용 대기시간이 감소합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        16,
+        15.5,
+        15,
+        14.5,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lucian.spells[2]: cooldown[]",
+      "icon": "Lucian_E.png"
+    },
+    {
+      "key": "R",
+      "name": "빛의 심판",
+      "description": "루시안의 무기에서 총알이 난사됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        110,
+        100,
+        90
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lucian.spells[3]: cooldown[]",
+      "icon": "Lucian_R.png"
+    }
+  ]
+}

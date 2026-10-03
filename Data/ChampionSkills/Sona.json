@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Sona",
+  "championName": "소나",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "용맹의 찬가",
+      "description": "소나가 용맹의 찬가를 연주하여 강렬한 선율을 발사하여 주변에 있는 두 명의 적에게 마법 피해를 입힙니다. 이때 챔피언과 몬스터를 우선 공격합니다. 또한 이 스킬을 사용하면 잠시 동안 오라가 생겨서 효과 범위 안에 있는 아군이 다음번 적 공격 시 추가 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Sona.spells[0]: cooldown[]",
+      "icon": "Sona_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "인내의 아리아",
+      "description": "소나가 인내의 아리아를 연주하여 보호의 음률을 내보내 근처 부상 당한 아군 1명과 자신의 체력을 회복합니다. 또한 이 스킬을 사용하면 잠시 동안 오라가 생겨서 효과 범위 안의 모든 아군에게 일시적으로 보호막을 씌워줍니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Sona.spells[1]: cooldown[]",
+      "icon": "Sona_W.png"
+    },
+    {
+      "key": "E",
+      "name": "기민함의 노래",
+      "description": "소나가 기민함의 노래를 연주하여 주변 아군의 이동 속도를 증가시키고 잠시 동안 오라를 생성합니다. 오라에 닿은 아군 챔피언은 추가 이동 속도를 얻습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Sona.spells[2]: cooldown[]",
+      "icon": "Sona_E.png"
+    },
+    {
+      "key": "R",
+      "name": "크레센도",
+      "description": "소나가 궁극의 선율을 연주하여 적 챔피언들을 기절시키며 춤을 추게 만들고, 마법 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        140,
+        120,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Sona.spells[3]: cooldown[]",
+      "icon": "Sona_R.png"
+    }
+  ]
+}

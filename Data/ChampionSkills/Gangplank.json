@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 2,
+  "championId": "Gangplank",
+  "championName": "갱플랭크",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "혀어어어업상",
+      "description": "대상에게 총을 발사해 처치한 적 유닛마다 골드를 약탈합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        4.5,
+        4.5,
+        4.5,
+        4.5,
+        4.5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Gangplank.spells[0]: cooldown[]",
+      "icon": "Gangplank_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "괴혈병 치료",
+      "description": "귤을 먹어서 군중 제어 효과를 제거하고 체력을 회복합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        22,
+        20,
+        18,
+        16,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Gangplank.spells[1]: cooldown[]",
+      "icon": "Gangplank_W.png"
+    },
+    {
+      "key": "E",
+      "name": "화약통",
+      "description": "갱플랭크가 대상 위치에 화약통을 비치합니다. 갱플랭크가 이 통을 공격하면 폭발하여 주위 적들에게 피해를 입히며 둔화를 적용합니다.",
+      "cooldownType": "Charge",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Gangplank.spells[2]: maxammo=3; charge candidate from maxammo; recharge numeric values absent/unresolved; cast cooldown from cooldown[] (positive values only)",
+      "icon": "Gangplank_E.png"
+    },
+    {
+      "key": "R",
+      "name": "포탄 세례",
+      "description": "갱플랭크가 특정 지역을 포격하도록 배에 신호하여 적의 이동 속도를 늦추며 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        160,
+        140,
+        120
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Gangplank.spells[3]: cooldown[]",
+      "icon": "Gangplank_R.png"
+    }
+  ]
+}

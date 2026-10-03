@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Leblanc",
+  "championName": "르블랑",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "악의의 인장",
+      "description": "르블랑이 인장을 날려 대상에게 피해를 주고 3.5초 동안 표식을 남깁니다. 표식이 남은 대상을 스킬로 공격하면 인장이 폭발하며 추가 피해를 입힙니다. 인장이 명중하거나 폭발해 대상을 처치하면 소모한 마나를 돌려받고 이 스킬의 남은 재사용 대기시간이 감소합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Leblanc.spells[0]: cooldown[]",
+      "icon": "Leblanc_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "왜곡",
+      "description": "르블랑이 지정 위치로 돌진하여 해당 지점 주변 적에게 피해를 줍니다. 4초 안에 왜곡을 다시 사용하면 처음 위치로 돌아옵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        15,
+        13.75,
+        12.5,
+        11.25,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Leblanc.spells[1]: cooldown[]",
+      "icon": "Leblanc_W.png"
+    },
+    {
+      "key": "E",
+      "name": "환영 사슬",
+      "description": "르블랑이 사슬을 던져 처음 명중한 적을 옭아맵니다. 대상이 1.5초 동안 사슬에 묶일 경우 대상을 속박하고 추가 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        13.25,
+        12.5,
+        11.75,
+        11
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Leblanc.spells[2]: cooldown[]",
+      "icon": "Leblanc_E.png"
+    },
+    {
+      "key": "R",
+      "name": "모방",
+      "description": "르블랑이 기본 스킬 중 하나를 모방해서 사용합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        45,
+        35,
+        25
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Leblanc.spells[3]: maxammo=2; tooltip has no confirmed stored-cast recharge; charge interpretation UNVERIFIED; positive cooldown[] preserved",
+      "icon": "Leblanc_R.png"
+    }
+  ]
+}

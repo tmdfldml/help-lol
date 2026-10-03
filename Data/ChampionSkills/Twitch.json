@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Twitch",
+  "championName": "트위치",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "매복",
+      "description": "트위치의 이동 속도가 빨라지고 짧은 시간 동안 위장 상태가 됩니다. 위장 효과가 끝나면 잠시 공격 속도가 증가합니다. 맹독에 걸린 적 챔피언이 죽으면 매복의 재사용 대기시간이 초기화됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        16,
+        16,
+        16,
+        16,
+        16
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Twitch.spells[0]: cooldown[]",
+      "icon": "Twitch_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "독약 병",
+      "description": "트위치가 명중하면 폭발하는 독약 병을 던져, 범위 내 대상들에게 둔화 효과를 부여하고 맹독을 적용합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        13,
+        12,
+        11,
+        10,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Twitch.spells[1]: cooldown[]",
+      "icon": "Twitch_W.png"
+    },
+    {
+      "key": "E",
+      "name": "오염",
+      "description": "트위치가 역병을 퍼뜨려 중독된 적들에게 더 큰 피해를 줍니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11,
+        10,
+        9,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Twitch.spells[2]: cooldown[]",
+      "icon": "Twitch_E.png"
+    },
+    {
+      "key": "R",
+      "name": "무차별 난사",
+      "description": "트위치가 석궁의 위력을 최대한으로 끌어올려 멀리로 관통 화살들을 발사하며, 경로상의 모든 적을 꿰뚫습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        90,
+        90,
+        90
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Twitch.spells[3]: cooldown[]",
+      "icon": "Twitch_R.png"
+    }
+  ]
+}

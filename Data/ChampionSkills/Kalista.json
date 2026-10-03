@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 2,
+  "championId": "Kalista",
+  "championName": "칼리스타",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "꿰뚫는 창",
+      "description": "칼리스타가 빠르게 날아가는 창을 던집니다. 적이 처치될 경우 관통해 날아갑니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kalista.spells[0]: cooldown[]",
+      "icon": "Kalista_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "감시하는 혼",
+      "description": "칼리스타와 계약을 맺은 아군이 같은 대상을 공격하면 추가 피해를 입힙니다. 사용 시 혼이 일정한 경로를 순찰하며 자기 앞의 지역을 드러냅니다.",
+      "cooldownType": "Charge",
+      "cooldowns": [
+        30,
+        30,
+        30,
+        30,
+        30
+      ],
+      "rechargeTimes": null,
+      "maxCharges": 2,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kalista.spells[1]: maxammo=2; tooltip storage/recharge metadata; recharge numeric values absent/unresolved; cast cooldown from cooldown[] (positive values only)",
+      "icon": "Kalista_W.png"
+    },
+    {
+      "key": "E",
+      "name": "뽑아 찢기",
+      "description": "공격 시 대상을 창으로 꿰뚫습니다. 재시전하면 대상에 박힌 창을 뜯어내서 둔화시키며, 주는 피해량이 증가합니다.",
+      "cooldownType": "Unknown",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kalista.spells[2]: zero/invalid cooldown; mechanic or numeric timer unresolved; UNVERIFIED",
+      "icon": "Kalista_E.png"
+    },
+    {
+      "key": "R",
+      "name": "운명의 부름",
+      "description": "칼리스타가 계약을 맺은 아군을 자신에게로 순간 이동시킵니다. 계약자는 지정한 위치로 돌진하여 적 챔피언을 뒤로 밀어내는 스킬을 사용할 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        160,
+        140,
+        120
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kalista.spells[3]: cooldown[]",
+      "icon": "Kalista_R.png"
+    }
+  ]
+}

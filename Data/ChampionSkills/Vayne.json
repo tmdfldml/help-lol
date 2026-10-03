@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 2,
+  "championId": "Vayne",
+  "championName": "베인",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "구르기",
+      "description": "베인이 구르기를 하며 다음 공격 대상을 신중하게 선택합니다. 베인의 다음 공격은 추가 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        5,
+        4,
+        3,
+        2
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vayne.spells[0]: cooldown[]",
+      "icon": "Vayne_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "은화살",
+      "description": "베인이 사악한 존재에게만 피해를 주는 특수 금속이 달린 볼트를 사용합니다. 같은 대상에게 세 번째 공격 또는 스킬이 명중하면 대상 최대 체력에 비례한 고정 피해를 추가로 입힙니다.",
+      "cooldownType": "Passive",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vayne.spells[1]: passive-only tooltip, no active section; cooldown all zero",
+      "icon": "Vayne_W.png"
+    },
+    {
+      "key": "E",
+      "name": "선고",
+      "description": "베인이 등에서 커다란 석궁을 뽑아 거대한 볼트를 발사하여 대상을 뒤로 날려보내고 대상에게 피해를 줍니다. 지형과 부딪힌 대상은 지형에 꽂힌 채 추가 피해를 받고 기절합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        20,
+        18,
+        16,
+        14,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vayne.spells[2]: cooldown[]",
+      "icon": "Vayne_E.png"
+    },
+    {
+      "key": "R",
+      "name": "결전의 시간",
+      "description": "격렬한 전투에 대비한 베인이 공격력을 높이고 구르기 시 투명 상태가 되며 구르기의 재사용 대기시간이 줄어듭니다. 어둠 사냥꾼의 이동 속도 증가량이 더 늘어납니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        100,
+        85,
+        70
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Vayne.spells[3]: cooldown[]",
+      "icon": "Vayne_R.png"
+    }
+  ]
+}

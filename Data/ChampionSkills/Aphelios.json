@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 2,
+  "championId": "Aphelios",
+  "championName": "아펠리오스",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "무기 스킬",
+      "description": "아펠리오스는 주 무기에 따라 5개의 스킬을 사용할 수 있습니다. 만월총(소총): 원거리 공격으로 대상에게 표식을 남깁니다. 표식을 소모해 추가로 원거리 공격을 가할 수 있습니다. 절단검(낫 모양 권총): 빠르게 이동하며 주 무기와 보조 무기로 주위 적들을 공격합니다. 중력포(대포): 이 무기로 둔화된 모든 적을 속박합니다. 화염포(화염 방사기): 원뿔 형태로 적에게 화염을 발사한 후 보조 무기로 공격합니다. 반월검(투척 무기): 보조 무기와 동일한 무기를 사용하는 파수탑을 배치합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        9,
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Aphelios.spells[0]: cooldown[]",
+      "icon": "Aphelios_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "위상 변화",
+      "description": "아펠리오스가 주 무기와 보조 무기를 서로 교체해 기본 공격과 스킬을 변경합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Aphelios.spells[1]: cooldown[]",
+      "icon": "Aphelios_W.png"
+    },
+    {
+      "key": "E",
+      "name": "무기 교체 시스템",
+      "description": "아펠리오스는 세 번째 스킬이 없습니다. 이 칸은 알룬이 부여할 다음 무기를 보여 줍니다. 무기는 정해진 순서로 시작하지만, 게임이 진행되는 동안 바뀔 수 있습니다. 무기는 탄약이 떨어지면 마지막 순서로 돌아갑니다.",
+      "cooldownType": "NotApplicable",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Aphelios.spells[2]: description explicitly says no third skill",
+      "icon": "Aphelios_E.png"
+    },
+    {
+      "key": "R",
+      "name": "월광포화",
+      "description": "적 챔피언에게 적중 시 폭발하는 달빛 에너지를 발사합니다. 아펠리오스가 장착한 주 무기의 고유 효과를 적용합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        110,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Aphelios.spells[3]: cooldown[]",
+      "icon": "Aphelios_R.png"
+    }
+  ]
+}

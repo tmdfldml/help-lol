@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Illaoi",
+  "championName": "일라오이",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "촉수 강타",
+      "description": "촉수의 피해량이 증가합니다. 사용 시 일라오이가 촉수로 내리쳐 물리 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9,
+        8,
+        7,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Illaoi.spells[0]: cooldown[]",
+      "icon": "Illaoi_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "혹독한 가르침",
+      "description": "일라오이가 대상으로 도약해 물리 피해를 입히며, 근처의 촉수 또한 대상을 공격합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Illaoi.spells[1]: cooldown[]",
+      "icon": "Illaoi_W.png"
+    },
+    {
+      "key": "E",
+      "name": "영혼의 시험",
+      "description": "일라오이가 적의 몸에서 영혼을 분리해 자신의 앞에 서게 만듭니다. 영혼은 자신이 입는 피해량의 일부를 원래의 대상에게 돌려줍니다. 대상이 처치되거나 영혼에서 너무 멀어지면, 대상은 숙주 가 되어 촉수를 소환하기 시작합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        16,
+        15,
+        14,
+        13,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Illaoi.spells[2]: cooldown[]",
+      "icon": "Illaoi_E.png"
+    },
+    {
+      "key": "R",
+      "name": "믿음의 도약",
+      "description": "일라오이가 자신의 성상을 바닥에 내리쳐 근처 적들에게 물리 피해를 입힙니다. 피해를 입는 적 챔피언 한 명당 하나의 촉수가 소환됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        95,
+        70
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Illaoi.spells[3]: cooldown[]",
+      "icon": "Illaoi_R.png"
+    }
+  ]
+}

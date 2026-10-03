@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Alistar",
+  "championName": "알리스타",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "분쇄",
+      "description": "알리스타가 땅을 내리쳐 주변의 적에게 피해를 입히고 공중에 띄웁니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        13,
+        12,
+        11,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Alistar.spells[0]: cooldown[]",
+      "icon": "Alistar_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "박치기",
+      "description": "알리스타가 적에게 박치기를 하여 피해를 입히고 적을 밀어냅니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        13,
+        12,
+        11,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Alistar.spells[1]: cooldown[]",
+      "icon": "Alistar_W.png"
+    },
+    {
+      "key": "E",
+      "name": "짓밟기",
+      "description": "알리스타가 근처의 적 유닛을 짓밟아 적 챔피언에게 피해를 입힐 경우 중첩을 얻고, 유닛을 통과해서 다닐 수 있게 됩니다. 최대치까지 중첩되면 알리스타의 적 챔피언에 대한 다음 기본 공격이 강화되어 추가 마법 피해를 입히고 기절시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11.5,
+        11,
+        10.5,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Alistar.spells[2]: cooldown[]",
+      "icon": "Alistar_E.png"
+    },
+    {
+      "key": "R",
+      "name": "꺾을 수 없는 의지",
+      "description": "알리스타가 거친 함성을 지르며 자신에게 걸린 모든 방해 효과를 제거하고 일정 시간 동안 적의 물리 및 마법 피해를 감소시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Alistar.spells[3]: cooldown[]",
+      "icon": "Alistar_R.png"
+    }
+  ]
+}

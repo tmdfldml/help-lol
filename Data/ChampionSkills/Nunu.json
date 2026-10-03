@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Nunu",
+  "championName": "누누와 윌럼프",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "잡아먹기",
+      "description": "윌럼프가 미니언, 몬스터, 또는 적 챔피언을 물어뜯어 피해를 입히고 체력을 회복합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        13,
+        12,
+        11,
+        10,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nunu.spells[0]: cooldown[]",
+      "icon": "Nunu_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "데굴데굴 눈덩이!",
+      "description": "윌럼프가 굴릴수록 크기와 속도가 증가하는 눈덩이를 생성합니다. 눈덩이는 적에게 피해를 입히고 공중으로 띄워 올립니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nunu.spells[1]: cooldown[]",
+      "icon": "Nunu_W.png"
+    },
+    {
+      "key": "E",
+      "name": "눈덩이 팡팡팡",
+      "description": "누누가 눈덩이를 난사해 적에게 피해를 입힙니다. 누누의 공격이 끝나면 윌럼프가 눈덩이에 맞은 챔피언이나 대형 몬스터를 속박합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        13,
+        12,
+        11,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nunu.spells[2]: cooldown[]",
+      "icon": "Nunu_E.png"
+    },
+    {
+      "key": "R",
+      "name": "절대 영도",
+      "description": "누누와 윌럼프가 일정 범위에 강력한 눈보라를 생성하여 적을 둔화시키고 눈보라가 끝난 후 범위 내 적에게 큰 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        110,
+        100,
+        90
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nunu.spells[3]: cooldown[]",
+      "icon": "Nunu_R.png"
+    }
+  ]
+}

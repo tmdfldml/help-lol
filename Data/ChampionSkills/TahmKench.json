@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 2,
+  "championId": "TahmKench",
+  "championName": "탐 켄치",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "혀 채찍",
+      "description": "탐 켄치가 혀를 채찍처럼 휘둘러 처음 맞는 유닛에 피해를 입히고 속도를 늦춥니다. 적 챔피언에게 적중하면 자신의 체력을 회복합니다. 적 챔피언에게 절대 미각 중첩을 적용합니다. 해당 챔피언에게 절대 미각 중첩이 이미 3회 쌓였다면 챔피언은 기절하고 중첩이 소모됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        7,
+        6.5,
+        6,
+        5.5,
+        5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.TahmKench.spells[0]: cooldown[]",
+      "icon": "TahmKench_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "심연 잠수",
+      "description": "아래로 잠수한 후 지정한 장소에서 다시 나타나며 피해를 입히고 일정 지역에 있는 모든 적을 공중으로 띄웁니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        21,
+        20,
+        19,
+        18,
+        17
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.TahmKench.spells[1]: cooldown[]",
+      "icon": "TahmKench_W.png"
+    },
+    {
+      "key": "E",
+      "name": "두꺼운 피부",
+      "description": "기본 지속 효과: 탐 켄치가 입은 피해량의 일부를 비축하고 전투에서 벗어났을 때 비축량에 비례하여 체력을 회복합니다. 사용 시: 비축한 모든 피해량을 일시적인 보호막으로 전환합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.TahmKench.spells[2]: cooldown[]",
+      "icon": "TahmKench_E.png"
+    },
+    {
+      "key": "R",
+      "name": "집어삼키기",
+      "description": "탐 켄치가 몇 초 동안 챔피언을 집어삼키며 대상이 적이면 마법 피해를 입히고 아군이면 보호막을 부여합니다.",
+      "cooldownType": "Unknown",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.TahmKench.spells[3]: zero/invalid cooldown; mechanic or numeric timer unresolved; UNVERIFIED",
+      "icon": "TahmKench_R.png"
+    }
+  ]
+}

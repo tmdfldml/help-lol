@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Mordekaiser",
+  "championName": "모데카이저",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "말살",
+      "description": "모데카이저가 땅에 철퇴를 내리쳐 적중시킨 적에게 각각 피해를 입힙니다. 단일 대상에게 적중 시 피해량이 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        8,
+        7,
+        6,
+        5,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Mordekaiser.spells[0]: cooldown[]",
+      "icon": "Mordekaiser_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "불멸",
+      "description": "모데카이저가 입히거나 받는 피해를 흡수하여 보호막을 충전합니다. 보호막을 소모하여 체력을 회복할 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11,
+        10,
+        9,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Mordekaiser.spells[1]: cooldown[]",
+      "icon": "Mordekaiser_W.png"
+    },
+    {
+      "key": "E",
+      "name": "죽음의 손아귀",
+      "description": "모데카이저가 일정 지역에 있는 모든 적을 끌어당깁니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        16,
+        14,
+        12,
+        10,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Mordekaiser.spells[2]: cooldown[]",
+      "icon": "Mordekaiser_E.png"
+    },
+    {
+      "key": "R",
+      "name": "죽음의 세계",
+      "description": "모데카이저가 대상을 다른 차원으로 끌고 가 능력치의 일부를 훔칩니다. 처치 시 적이 부활할 때까지 훔친 능력치가 유지됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        140,
+        120,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Mordekaiser.spells[3]: cooldown[]",
+      "icon": "Mordekaiser_R.png"
+    }
+  ]
+}

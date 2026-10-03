@@ -19,9 +19,14 @@ public partial class LandscapeStatisticsView : UserControl
 
     public event EventHandler<MatchupStatisticsPresentation>? RoleSelected;
     public ICommand RoleSelectionCommand { get; }
+    public event EventHandler<MatchupStatisticsPresentation>? EnemySelected;
+    public ICommand EnemySelectionCommand { get; }
 
     public LandscapeStatisticsView()
     {
+        EnemySelectionCommand = new DelegateCommand<MatchupStatisticsPresentation>(
+            presentation => EnemySelected?.Invoke(this, presentation),
+            presentation => !string.IsNullOrWhiteSpace(presentation.OpponentChampionId));
         RoleSelectionCommand = new DelegateCommand<MatchupStatisticsPresentation>(
             presentation => RoleSelected?.Invoke(this, presentation),
             presentation => presentation.CanOpenDetail);

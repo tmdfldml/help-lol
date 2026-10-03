@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Malzahar",
+  "championName": "말자하",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "공허의 부름",
+      "description": "말자하가 공허로 이어지는 두 개의 문을 엽니다. 얼마 뒤 문에서 투사체가 발사되어 적에게 마법 피해를 입히고 침묵 효과를 부여합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Malzahar.spells[0]: cooldown[]",
+      "icon": "Malzahar_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "공허의 무리",
+      "description": "말자하가 공허충을 소환해 주변 적을 공격하게 합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Malzahar.spells[1]: cooldown[]",
+      "icon": "Malzahar_W.png"
+    },
+    {
+      "key": "E",
+      "name": "재앙의 환상",
+      "description": "말자하가 대상의 머릿속에 최후의 광경을 보여주며 지속적으로 피해를 입힙니다. 말자하가 대상에게 다른 스킬을 사용하면 환상의 지속시간이 초기화됩니다. 이 동안 대상이 쓰러지면 환상은 주변 적에게 옮겨가고, 말자하는 마나를 획득합니다. 말자하의 공허충은 환상으로 오염된 대상에게 몰려갑니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        10,
+        9,
+        8,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Malzahar.spells[2]: cooldown[]",
+      "icon": "Malzahar_E.png"
+    },
+    {
+      "key": "R",
+      "name": "황천의 손아귀",
+      "description": "말자하가 공허의 정수를 쏟아부어 적 챔피언을 제압하고 지대를 생성해 내부의 적에게 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        140,
+        110,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Malzahar.spells[3]: cooldown[]",
+      "icon": "Malzahar_R.png"
+    }
+  ]
+}

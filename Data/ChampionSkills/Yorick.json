@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Yorick",
+  "championName": "요릭",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "최후의 의식",
+      "description": "요릭이 다음번 기본 공격 시 추가 피해를 입히고 체력을 회복합니다. 대상이 챔피언이나 대형 몬스터인 경우 또는 대상을 처치하면 무덤이 생성됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        5.5,
+        5,
+        4.5,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Yorick.spells[0]: cooldown[]",
+      "icon": "Yorick_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "망자의 진",
+      "description": "요릭이 대상 지점에 벽을 세워 적의 이동을 막습니다. 벽은 공격을 받으면 파괴됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        20,
+        18,
+        16,
+        14,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Yorick.spells[1]: cooldown[]",
+      "icon": "Yorick_W.png"
+    },
+    {
+      "key": "E",
+      "name": "애도의 안개",
+      "description": "요릭이 대상에게 방어력을 감소시키고, 피해를 입히고, 이동 속도를 늦추며 표식을 남기는 안개의 구를 던집니다. 소환한 유닛은 표식이 있는 대상 쪽으로 이동할 때 이동 속도가 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11,
+        10,
+        9,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Yorick.spells[2]: cooldown[]",
+      "icon": "Yorick_E.png"
+    },
+    {
+      "key": "R",
+      "name": "군도의 장송곡",
+      "description": "요릭이 안개 마녀를 소환합니다. 요릭이 안개 마녀의 표적을 공격하면 추가 피해를 입힙니다. 안개 마녀는 죽은 적을 안개 망령으로 다시 일으킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        160,
+        130,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Yorick.spells[3]: cooldown[]",
+      "icon": "Yorick_R.png"
+    }
+  ]
+}

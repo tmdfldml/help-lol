@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Fizz",
+  "championName": "피즈",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "성게 찌르기",
+      "description": "피즈가 대상을 뚫고 지나가며 마법 피해를 줍니다. 적중 시 효과도 적용됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        8,
+        7.5,
+        7,
+        6.5,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Fizz.spells[0]: cooldown[]",
+      "icon": "Fizz_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "심해석 삼지창",
+      "description": "피즈가 적을 공격하면 출혈 효과가 적용되어 몇 초 동안 마법 피해를 입힙니다. 피즈의 다음 기본 공격이 추가 피해를 입히며, 이후 공격이 잠시 동안 강화됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        7,
+        6,
+        5,
+        4,
+        3
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Fizz.spells[1]: cooldown[]",
+      "icon": "Fizz_W.png"
+    },
+    {
+      "key": "E",
+      "name": "장난치기 / 재간둥이",
+      "description": "피즈가 자신의 창 위로 뛰어올라 목표로 지정할 수 없게 됩니다. 이 상태에서 피즈는 땅을 내리치거나 다시금 뛰어오를 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        16,
+        14,
+        12,
+        10,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Fizz.spells[2]: cooldown[]",
+      "icon": "Fizz_E.png"
+    },
+    {
+      "key": "R",
+      "name": "미끼 뿌리기",
+      "description": "피즈가 지정한 방향으로 마법 물고기를 풀어놓으면, 이 물고기를 건드리는 챔피언에게 들러붙어 이동 속도를 늦춥니다. 잠시 후 상어가 땅 밑에서 튀어나와 대상을 띄워올리며 주변에 있는 적은 옆으로 밀어냅니다. 상어에게 맞은 적은 모두 마법 피해를 입으며 속도가 느려집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Fizz.spells[3]: cooldown[]",
+      "icon": "Fizz_R.png"
+    }
+  ]
+}

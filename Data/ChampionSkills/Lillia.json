@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Lillia",
+  "championName": "릴리아",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "뾰로롱 강타",
+      "description": "기본 지속 효과로 스킬이 적에게 적중하면 릴리아의 이동 속도가 중첩되어 증가합니다. 사용 시 근처 적에게 마법 피해를 입히고 가장자리에 있는 적에게 추가 고정 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        5.5,
+        5,
+        4.5,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lillia.spells[0]: cooldown[]",
+      "icon": "Lillia_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "이익! 쿵!",
+      "description": "릴리아가 근처 적에게 피해를 입힙니다. 중심에 있는 적에게는 더 큰 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        13,
+        12,
+        11,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lillia.spells[1]: cooldown[]",
+      "icon": "Lillia_W.png"
+    },
+    {
+      "key": "E",
+      "name": "데굴데굴 씨앗",
+      "description": "릴리아가 씨앗을 던져 적중한 적에게 피해를 입히고 둔화시킵니다. 씨앗은 벽 또는 대상에 부딪힐 때까지 굴러갑니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lillia.spells[2]: cooldown[]",
+      "icon": "Lillia_E.png"
+    },
+    {
+      "key": "R",
+      "name": "감미로운 자장가",
+      "description": "릴리아가 꿈가루가 묻은 적을 전부 졸음 상태에 빠뜨린 뒤 잠들게 합니다. 피해를 입어 깨어난 적은 추가 피해를 입습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        150,
+        130,
+        110
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Lillia.spells[3]: cooldown[]",
+      "icon": "Lillia_R.png"
+    }
+  ]
+}

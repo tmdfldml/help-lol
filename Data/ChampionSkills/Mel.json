@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Mel",
+  "championName": "멜",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "빛의 세례",
+      "description": "멜이 대상 지점 주위에 폭발하는 투사체를 퍼부어 해당 지역 안에 있는 적에게 반복해서 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9,
+        8,
+        7,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Mel.spells[0]: cooldown[]",
+      "icon": "Mel_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "반박",
+      "description": "멜이 자신을 방어막으로 감싸 적 투사체를 공격자에게 반사하고 자신이 받는 피해를 막으며 이동 속도를 얻습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        38,
+        35,
+        33,
+        29,
+        26
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Mel.spells[1]: cooldown[]",
+      "icon": "Mel_W.png"
+    },
+    {
+      "key": "E",
+      "name": "태양 올가미",
+      "description": "멜이 전방으로 찬란한 구체를 발사하여 중심에 있는 적을 속박하는 한편 그 주변에 있는 적을 둔화시키며 지속 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        10.5,
+        10,
+        9.5,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Mel.spells[2]: cooldown[]",
+      "icon": "Mel_E.png"
+    },
+    {
+      "key": "R",
+      "name": "황금 일식",
+      "description": "멜이 압도 중첩이 적용된 모든 적을 거리와 상관없이 공격하여 압도 중첩당 추가 피해를 입힙니다. 황금 일식의 레벨이 높을수록 압도의 피해가 커집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Mel.spells[3]: cooldown[]",
+      "icon": "Mel_R.png"
+    }
+  ]
+}

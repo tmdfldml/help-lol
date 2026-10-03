@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "KogMaw",
+  "championName": "코그모",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "부식성 침",
+      "description": "코그모가 부식성 침을 발사하여 적에게 마법 피해를 입히고 잠깐 동안 대상의 방어력과 마법 방어력을 낮춥니다. 코그모는 추가 공격 속도를 얻습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.KogMaw.spells[0]: cooldown[]",
+      "icon": "KogMaw_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "생체마법 폭격",
+      "description": "코그모의 공격 사거리가 증가하고 %i:OnHit% 적중 시 피격 대상의 최대 체력에 비례한 마법 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        17,
+        17,
+        17,
+        17,
+        17
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.KogMaw.spells[1]: cooldown[]",
+      "icon": "KogMaw_W.png"
+    },
+    {
+      "key": "E",
+      "name": "공허의 분비물",
+      "description": "코그모가 특유의 진액을 발사하여 진액에 맞는 모든 적에게 피해를 입히며, 진액이 남긴 흔적 위에 있는 적의 이동 속도를 늦춥니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.KogMaw.spells[2]: cooldown[]",
+      "icon": "KogMaw_E.png"
+    },
+    {
+      "key": "R",
+      "name": "살아있는 곡사포",
+      "description": "코그모가 매우 멀리서 포탄을 발사하여 마법 피해를 입히고 은신하지 않은 대상의 모습을 드러나게 합니다. 체력이 낮은 적에게는 더 큰 피해를 입힙니다. 또한 짧은 시간 동안 여러 번 살아 있는 곡사포 스킬을 사용하면 마나가 추가로 소모됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        2,
+        1.5,
+        1
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.KogMaw.spells[3]: cooldown[]",
+      "icon": "KogMaw_R.png"
+    }
+  ]
+}

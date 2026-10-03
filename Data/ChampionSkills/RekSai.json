@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "RekSai",
+  "championName": "렉사이",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "여왕의 진노 / 먹잇감 추적",
+      "description": "렉사이의 다음 3번의 기본 공격은 주변 적들에게 추가 물리 피해를 입힙니다. 매복 상태일 때는 렉사이가 공허 에너지가 주입된 흙을 발사하여, 여기 맞는 적들은 피해를 입고 위치가 드러납니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        4,
+        3.5,
+        3,
+        2.5,
+        2
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.RekSai.spells[0]: cooldown[]",
+      "icon": "RekSai_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "매복 / 돌출",
+      "description": "렉사이가 지면을 파고들어가 새로운 스킬을 사용하게 되며 이동 속도가 상승합니다. 시야 범위가 좁아지며 기본 공격을 할 수 없게 됩니다. 매복 상태일 때는 렉사이가 돌출 스킬을 사용하여 튀어 올라, 주위 적들을 공중으로 띄우고 피해를 입힐 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.RekSai.spells[1]: cooldown[]",
+      "icon": "RekSai_W.png"
+    },
+    {
+      "key": "E",
+      "name": "성난 이빨 / 땅굴 파기",
+      "description": "렉사이가 대상을 물어뜯어 물리 피해를 입힙니다. 분노가 최대치일 때는 추가 고정 피해를 입힙니다. 매복 상태일 때 렉사이가 재사용 가능하며 오래 지속되는 땅굴을 만듭니다. 적이 이 땅굴 입구에 올라서면 파괴됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.RekSai.spells[2]: cooldown[]",
+      "icon": "RekSai_E.png"
+    },
+    {
+      "key": "R",
+      "name": "공허의 돌진",
+      "description": "기본 지속 효과로 렉사이가 피해를 입힌 대상에게 표식을 남깁니다. 스킬을 사용하면 잠시 대상으로 지정될 수 없는 상태가 되며, 표식이 있는 대상에게 도약하여 최대 체력에 비례해 큰 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.RekSai.spells[3]: cooldown[]",
+      "icon": "RekSai_R.png"
+    }
+  ]
+}

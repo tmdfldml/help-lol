@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Brand",
+  "championName": "브랜드",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "불태우기",
+      "description": "브랜드가 불덩이를 발사하여 마법 피해를 입힙니다. 대상이 불타는 상태라면, 불태우기에 맞은 대상은 기절합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        8,
+        7.5,
+        7,
+        6.5,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Brand.spells[0]: cooldown[]",
+      "icon": "Brand_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "화염 기둥",
+      "description": "잠시 후 목표 지점에 화염 기둥을 생성하여 해당 지역에 있는 적 유닛에게 마법 피해를 입힙니다. 불이 붙은 적은 25%의 추가 피해를 받습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9.5,
+        9,
+        8.5,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Brand.spells[1]: cooldown[]",
+      "icon": "Brand_W.png"
+    },
+    {
+      "key": "E",
+      "name": "발화",
+      "description": "브랜드가 목표에 강력한 폭발을 일으켜 마법 피해를 입힙니다. 폭발은 주변 적들에게 퍼집니다. 대상이 불타는 상태라면 발화의 전파 범위가 두 배가 됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        13,
+        12,
+        11,
+        10,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Brand.spells[2]: cooldown[]",
+      "icon": "Brand_E.png"
+    },
+    {
+      "key": "R",
+      "name": "파멸의 불덩이",
+      "description": "브랜드가 파괴적인 화염을 발사합니다. 화염은 브랜드와 주변 적들에게 최대 5번 튕기며, 튕길 때마다 마법 피해를 입힙니다. 화염은 불길 중첩이 적은 챔피언에게 우선적으로 튕깁니다. 불타고 있는 적이 파멸의 불덩이를 맞으면 잠깐 동안 이동 속도가 느려집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        100,
+        90,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Brand.spells[3]: cooldown[]",
+      "icon": "Brand_R.png"
+    }
+  ]
+}

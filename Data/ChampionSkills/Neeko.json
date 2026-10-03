@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Neeko",
+  "championName": "니코",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "꽃망울 폭발",
+      "description": "니코가 씨앗을 던져 마법 피해를 입힙니다. 씨앗이 적 챔피언에게 피해를 입히거나 유닛을 처치하면 한 번 더 폭발합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        9,
+        8.5,
+        8,
+        7.5,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Neeko.spells[0]: cooldown[]",
+      "icon": "Neeko_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "형상 분리",
+      "description": "니코가 기본 지속 효과로 세 번째 기본 공격마다 추가 마법 피해를 입히고 잠시 이동 속도가 증가합니다. 사용 시에는 자신을 복제한 형상을 지정한 방향으로 보낼 수 있으며, 재사용 시 방향을 변경할 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        16,
+        15,
+        14,
+        13,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Neeko.spells[1]: cooldown[]",
+      "icon": "Neeko_W.png"
+    },
+    {
+      "key": "E",
+      "name": "칭칭올가미",
+      "description": "니코가 올가미를 던져 적중한 모든 적에게 피해를 입히고 속박합니다. 올가미로 적을 맞히면 올가미가 더 커지고, 더 빠르게 날아가며 속박 지속시간도 길어집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        11.5,
+        11,
+        10.5,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Neeko.spells[2]: cooldown[]",
+      "icon": "Neeko_E.png"
+    },
+    {
+      "key": "R",
+      "name": "만개",
+      "description": "니코가 잠시 준비한 후 공중으로 도약하며 주변 모든 적을 공중에 띄웁니다. 땅에 착지하면 주변 적이 피해를 입고 기절합니다. 변신 상태에서는 준비하는 모습이 적에게 보이지 않습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        105,
+        90
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Neeko.spells[3]: cooldown[]",
+      "icon": "Neeko_R.png"
+    }
+  ]
+}

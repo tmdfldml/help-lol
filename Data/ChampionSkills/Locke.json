@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Locke",
+  "championName": "로크",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "의식용 대못",
+      "description": "로크가 영혼의 대못을 여러 개 준비하고 던져 적중한 적에게 피해를 입히고 표식을 남깁니다. 로크는 기본 공격으로 표식을 소모하고 추가 피해를 입힐 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9,
+        8,
+        7,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Locke.spells[0]: cooldown[]",
+      "icon": "Locke_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "영혼 점화",
+      "description": "로크가 자신의 영혼을 불태워 공격 속도와 이동 속도를 얻고 자신에게 피해를 입힙니다. 지속시간이 끝나면 로크는 효과 지속시간 동안 받은 피해량의 일부를 회복합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        18,
+        17,
+        16,
+        15,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Locke.spells[1]: cooldown[]",
+      "icon": "Locke_W.png"
+    },
+    {
+      "key": "E",
+      "name": "잿빛 추격",
+      "description": "로크가 지정한 위치로 순간이동한 후 다음 대상에게 돌진해 공격하며, 경로상의 적에게 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Locke.spells[2]: cooldown[]",
+      "icon": "Locke_E.png"
+    },
+    {
+      "key": "R",
+      "name": "연옥",
+      "description": "로크가 적을 구속하는 유물을 던져 적중한 적에게 피해를 입히고 경우에 따라 처형합니다. 로크는 적 챔피언을 봉인해 추가 위력을 얻습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Locke.spells[3]: cooldown[]",
+      "icon": "Locke_R.png"
+    }
+  ]
+}

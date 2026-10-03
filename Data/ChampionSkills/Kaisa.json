@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Kaisa",
+  "championName": "카이사",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "이케시아 폭우",
+      "description": "카이사가 근처 적들을 추격하는 미사일 세례를 퍼붓습니다. 살아있는 무기: 이케시아 폭우가 발사하는 미사일 개수가 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9,
+        8,
+        7,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kaisa.spells[0]: cooldown[]",
+      "icon": "Kaisa_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "공허추적자",
+      "description": "카이사가 장거리 광선을 발사하며, 광선에 적중한 적에게 플라즈마 중첩이 쌓입니다. 살아있는 무기: 공허추적자 적중 시 플라즈마 중첩이 추가로 쌓이며 챔피언에게 적중 시 재사용 대기시간이 감소합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        20,
+        18.5,
+        17,
+        15.5,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kaisa.spells[1]: cooldown[]",
+      "icon": "Kaisa_W.png"
+    },
+    {
+      "key": "E",
+      "name": "고속 충전",
+      "description": "카이사의 이동 속도가 잠시 동안 증가한 뒤 공격 속도가 증가합니다. 살아있는 무기: 고속 충전을 사용하면 잠시 투명 상태가 됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        16,
+        14.5,
+        13,
+        11.5,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kaisa.spells[2]: cooldown[]",
+      "icon": "Kaisa_E.png"
+    },
+    {
+      "key": "R",
+      "name": "사냥본능",
+      "description": "카이사가 적 챔피언 근처로 돌진합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        130,
+        100,
+        70
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Kaisa.spells[3]: cooldown[]",
+      "icon": "Kaisa_R.png"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Sivir",
+  "championName": "시비르",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "부메랑 검",
+      "description": "시비르가 십자날 검을 부메랑처럼 던져서 두 번 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9.5,
+        9,
+        8.5,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Sivir.spells[0]: cooldown[]",
+      "icon": "Sivir_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "튕기는 부메랑",
+      "description": "시비르의 다음 몇 번의 기본 공격은 공격 속도가 증가하고 첫 번째 목표물에 적중한 후 주위 적들에게 튕기며, 튕겼을 때는 감소된 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Sivir.spells[1]: cooldown[]",
+      "icon": "Sivir_W.png"
+    },
+    {
+      "key": "E",
+      "name": "주문 방어막",
+      "description": "시비르가 마법 보호막을 만들어 자신을 대상으로 한 적 스킬 1개를 막아냅니다. 성공적으로 방어 시 체력을 얻고 일시적으로 이동 속도가 대폭 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        24,
+        22.5,
+        21,
+        19.5,
+        18
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Sivir.spells[2]: cooldown[]",
+      "icon": "Sivir_E.png"
+    },
+    {
+      "key": "R",
+      "name": "사냥 개시",
+      "description": "시비르가 전장에서 아군을 이끌며 잠시 동안 이동 속도를 대폭 상승시킵니다. 또한 공격 시 시비르의 스킬 재사용 대기시간이 감소합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Sivir.spells[3]: cooldown[]",
+      "icon": "Sivir_R.png"
+    }
+  ]
+}

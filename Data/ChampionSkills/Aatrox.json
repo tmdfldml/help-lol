@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Aatrox",
+  "championName": "아트록스",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "다르킨의 검",
+      "description": "아트록스가 대검을 내리쳐 물리 피해를 줍니다. 세 번까지 휘두를 수 있으며 각 공격은 피해 범위가 다릅니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        12,
+        10,
+        8,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Aatrox.spells[0]: cooldown[]",
+      "icon": "Aatrox_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "지옥사슬",
+      "description": "아트록스가 지면을 내리쳐 처음 맞힌 적에게 피해를 줍니다. 대상이 챔피언 또는 대형 몬스터인 경우 일정 시간 안에 해당 지역을 벗어나지 않으면 중앙으로 끌려가 다시 피해를 받습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        20,
+        18,
+        16,
+        14,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Aatrox.spells[1]: cooldown[]",
+      "icon": "Aatrox_W.png"
+    },
+    {
+      "key": "E",
+      "name": "파멸의 돌진",
+      "description": "기본 지속 효과로 아트록스가 적 챔피언에게 피해를 입히면 체력을 회복합니다. 사용 시, 아트록스가 지정한 방향으로 돌진합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        9,
+        8,
+        7,
+        6,
+        5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Aatrox.spells[2]: cooldown[]",
+      "icon": "Aatrox_E.png"
+    },
+    {
+      "key": "R",
+      "name": "세계의 종결자",
+      "description": "아트록스가 악마의 힘을 해방하여 근처 적 미니언에게 공포를 주고 자신의 공격력과 체력 회복량, 이동 속도가 증가합니다. 아트록스가 챔피언 처치에 관여하면 이 효과의 지속시간이 연장됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        100,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Aatrox.spells[3]: cooldown[]",
+      "icon": "Aatrox_R.png"
+    }
+  ]
+}

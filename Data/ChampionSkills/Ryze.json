@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Ryze",
+  "championName": "라이즈",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "과부하",
+      "description": "기본 지속 효과로 라이즈가 다른 스킬을 사용하면 과부하의 재사용 대기시간이 초기화되고 룬 하나를 충전합니다. 룬이 2개 충전된 상태에서 과부하를 사용하면 이동 속도가 잠시 대폭 증가합니다. 사용 시 라이즈가 순수한 에너지를 일직선으로 발사해 첫 번째 맞는 적에게 피해를 입힙니다. 대상에게 전이 표식이 있으면 과부하가 추가 피해를 입히고 전이 표식이 있는 주변 적에게 튕깁니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Ryze.spells[0]: cooldown[]",
+      "icon": "Ryze_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "룬 감옥",
+      "description": "라이즈가 대상을 룬 감옥에 가두고 피해를 입히며 이동 속도를 늦춥니다. 대상에게 전이 표식이 있으면 이동 속도를 늦추는 대신 속박합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        10.5,
+        10,
+        9.5,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Ryze.spells[1]: cooldown[]",
+      "icon": "Ryze_W.png"
+    },
+    {
+      "key": "E",
+      "name": "주문 전이",
+      "description": "라이즈가 순수한 마법의 구체를 던져 적에게 피해를 입히고 주변 모든 적에게 표식을 남깁니다. 표식이 남은 적에게 라이즈가 스킬을 사용하면 추가 효과가 적용됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        3.5,
+        3.25,
+        3,
+        2.75,
+        2.5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Ryze.spells[2]: cooldown[]",
+      "icon": "Ryze_E.png"
+    },
+    {
+      "key": "R",
+      "name": "공간 왜곡",
+      "description": "기본 지속 효과로 과부하가 전이 표식이 있는 적에게 더 큰 피해를 입힙니다. 사용 시 라이즈가 근처에 차원문을 생성합니다. 몇 초 후, 차원문 주변의 모든 아군이 대상 지점으로 순간이동 합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        180,
+        160,
+        140
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Ryze.spells[3]: cooldown[]",
+      "icon": "Ryze_R.png"
+    }
+  ]
+}

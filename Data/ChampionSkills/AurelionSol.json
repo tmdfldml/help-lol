@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "AurelionSol",
+  "championName": "아우렐리온 솔",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "빛의 숨결",
+      "description": "아우렐리온 솔이 몇 초 동안 용의 숨결을 내뿜어 처음 적중하는 적에게 피해를 입히고 주변 적에게는 그보다 적은 광역 피해를 입힙니다. 숨결이 적에게 적중할 때마다 매초 추가 피해를 입힙니다. 추가 피해량은 획득한 별가루 양만큼 증가합니다. 대상이 챔피언이면 별가루를 획득합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.AurelionSol.spells[0]: cooldown[]",
+      "icon": "AurelionSol_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "별의 비행",
+      "description": "아우렐리온 솔이 지정한 방향으로 날아갑니다. 이 상태에서 다른 스킬을 사용할 수 있습니다. 비행 중 빛의 숨결은 재사용 대기시간이나 최대 정신 집중 시간이 없으며 피해가 증가합니다. 아우렐리온 솔이 피해를 입힌 지 얼마 되지 않은 적 챔피언이 죽을 때마다 별의 비행의 남은 재사용 대기시간이 감소합니다. 별가루는 별의 비행 최대 사거리를 늘립니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        22,
+        20,
+        18,
+        16,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.AurelionSol.spells[1]: cooldown[]",
+      "icon": "AurelionSol_W.png"
+    },
+    {
+      "key": "E",
+      "name": "특이점",
+      "description": "아우렐리온 솔이 적에게 피해를 입히며 적을 천천히 중심으로 끌어당기는 블랙홀을 소환합니다. 이 스킬은 블랙홀에 있는 적 챔피언 한 명당 매초 별가루를 부여하며 안에 있는 적이 죽을 때도 별가루를 부여합니다. 블랙홀의 중심에 있는 적은 체력이 최대 체력의 일정 비율 밑으로 떨어질 경우 처형됩니다. 별가루는 특이점의 크기와 처형 기준값을 늘립니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.AurelionSol.spells[2]: cooldown[]",
+      "icon": "AurelionSol_E.png"
+    },
+    {
+      "key": "R",
+      "name": "유성 / 천상 강림",
+      "description": "유성: 아우렐리온 솔이 땅으로 별을 떨어뜨립니다. 이 충격으로 마법 피해를 입히고 적을 기절시키며 적중한 적 챔피언 한 명당 별가루를 획득합니다. 별가루가 어느 정도 모이면 아우렐리온 솔의 다음 유성이 천상 강림으로 변합니다. 천상 강림: 아우렐리온 솔이 하늘에서 충돌 범위와 피해가 커진 거대한 별을 끌어내 적을 기절시키는 대신 공중에 띄웁니다. 이후 충돌 범위 가장자리에서 충격파가 퍼지며 적중한 적에게 피해를 입히고 둔화시킵니다. 별가루는 유성과 천상 강림의 충돌 범위를 넓힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        110,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.AurelionSol.spells[3]: cooldown[]",
+      "icon": "AurelionSol_R.png"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Milio",
+  "championName": "밀리오",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "초특급 불꽃 킥",
+      "description": "적을 밀쳐내는 공을 걷어찹니다. 적중한 공은 위로 날아가 적을 향해 떨어지며 충돌한 영역 주변에 있는 적들에게 피해를 입히고 둔화시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Milio.spells[0]: cooldown[]",
+      "icon": "Milio_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "아늑한 모닥불",
+      "description": "아군을 회복시키고 공격 사거리를 증가시키는 구역을 만듭니다. 이 구역은 스킬을 사용한 지점에서 가장 가까운 아군을 따라다닙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        29,
+        27,
+        25,
+        23,
+        21
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Milio.spells[1]: cooldown[]",
+      "icon": "Milio_W.png"
+    },
+    {
+      "key": "E",
+      "name": "따스한 포옹",
+      "description": "아군 한 명에게 보호막을 부여해 잠시 동안 이동 속도를 높여줍니다. 이 스킬은 2회까지 충전됩니다.",
+      "cooldownType": "Charge",
+      "cooldowns": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "rechargeTimes": null,
+      "maxCharges": 2,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Milio.spells[2]: maxammo=2; tooltip storage/recharge metadata; recharge numeric values absent/unresolved; cast cooldown from cooldown[] (positive values only)",
+      "icon": "Milio_E.png"
+    },
+    {
+      "key": "R",
+      "name": "생명의 온기",
+      "description": "치유의 불꽃을 보내 범위 내 아군의 체력을 회복시키고 군중 제어 효과를 제거합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        160,
+        145,
+        130
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Milio.spells[3]: cooldown[]",
+      "icon": "Milio_R.png"
+    }
+  ]
+}

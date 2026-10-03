@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "MissFortune",
+  "championName": "미스 포츈",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "한 발에 두 놈",
+      "description": "미스 포츈이 하나의 대상에게 총알을 쏘아 대상과 대상 뒤에 있는 적에게 피해를 입힙니다. 두 번 모두에 사랑의 한 방이 적용될 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        7,
+        6,
+        5,
+        4,
+        3
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.MissFortune.spells[0]: cooldown[]",
+      "icon": "MissFortune_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "활보",
+      "description": "미스 포츈은 얼마 동안 피해를 입지 않으면 이동 속도가 점점 올라갑니다. 이 스킬을 활성화하면 잠깐 동안 미스 포츈의 공격 속도가 높아집니다. 재사용 대기 중일 때는 사랑의 한 방을 활용해 활보의 재사용 대기시간을 줄일 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.MissFortune.spells[1]: cooldown[]",
+      "icon": "MissFortune_W.png"
+    },
+    {
+      "key": "E",
+      "name": "총알은 비를 타고",
+      "description": "미스 포츈이 총알을 퍼부어 지정 지역의 시야를 밝힙니다. 해당 위치에 있는 적은 여러 차례 피해를 입고 이동 속도가 느려집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        18,
+        17,
+        16,
+        15,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.MissFortune.spells[2]: cooldown[]",
+      "icon": "MissFortune_E.png"
+    },
+    {
+      "key": "R",
+      "name": "쌍권총 난사",
+      "description": "미스 포츈이 정면에 원뿔 형태로 수백 발의 총알을 난사해 적에게 대량의 피해를 입힙니다. 쌍권총 난사는 매회 발사 시 각각 치명타가 적용될 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        120,
+        110,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.MissFortune.spells[3]: cooldown[]",
+      "icon": "MissFortune_R.png"
+    }
+  ]
+}

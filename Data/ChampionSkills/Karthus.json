@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 2,
+  "championId": "Karthus",
+  "championName": "카서스",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "황폐화",
+      "description": "카서스가 특정 위치에 잠시 후 폭발을 일으켜 근처 적에게 피해를 입힙니다. 단일 대상에게는 더 큰 피해를 입힙니다.",
+      "cooldownType": "Unknown",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Karthus.spells[0]: maxammo=2; tooltip has no confirmed stored-cast recharge; charge interpretation UNVERIFIED; positive cooldown[] preserved",
+      "icon": "Karthus_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "고통의 벽",
+      "description": "카서스가 에너지를 빨아들이는 통행 가능한 벽을 생성합니다. 이 벽을 지나는 모든 적 유닛의 이동 속도와 마법 저항력이 일정 시간 감소합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        15,
+        15,
+        15,
+        15,
+        15
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Karthus.spells[1]: cooldown[]",
+      "icon": "Karthus_W.png"
+    },
+    {
+      "key": "E",
+      "name": "부패",
+      "description": "카서스는 적에게서 마력을 훔쳐 적을 처치할 때마다 마나를 획득합니다. 또 카서스는 희생양의 영혼을 자신 주위에 둘러 적들에게 피해를 입힐 수도 있지만, 이럴 경우 마나가 매우 빨리 소모됩니다.",
+      "cooldownType": "Toggle",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Karthus.spells[2]: tooltip <toggle>; numeric switch delay is not presented as a standard cooldown",
+      "icon": "Karthus_E.png"
+    },
+    {
+      "key": "R",
+      "name": "진혼곡",
+      "description": "카서스가 3초 동안 정신 집중을 마치면 모든 적 챔피언이 피해를 입습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        200,
+        180,
+        160
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Karthus.spells[3]: cooldown[]",
+      "icon": "Karthus_R.png"
+    }
+  ]
+}

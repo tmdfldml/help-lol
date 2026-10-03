@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Naafiri",
+  "championName": "나피리",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "다르킨 단검",
+      "description": "나피리가 최대 두 개의 단검을 던져 각 단검으로 출혈을 일으킵니다. 대상이 이미 출혈 상태라면 그 대신 추가 피해를 입힙니다. 무리가 이 스킬에 처음 적중당한 챔피언 또는 몬스터를 향해 도약해 공격합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        9,
+        8.5,
+        8,
+        7.5,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Naafiri.spells[0]: cooldown[]",
+      "icon": "Naafiri_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "무리의 부름",
+      "description": "나피리가 대상으로 지정할 수 없는 상태가 되고 무리를 강화하며 추가로 무리를 소환하고 이동 속도와 공격력이 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        26,
+        24,
+        22,
+        20,
+        18
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Naafiri.spells[1]: cooldown[]",
+      "icon": "Naafiri_W.png"
+    },
+    {
+      "key": "E",
+      "name": "적출",
+      "description": "나피리가 돌진해 주변 적에게 피해를 입히고 무리를 다시 불러 체력을 최대로 회복시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        10,
+        9,
+        8,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Naafiri.spells[2]: cooldown[]",
+      "icon": "Naafiri_E.png"
+    },
+    {
+      "key": "R",
+      "name": "사냥개의 추적",
+      "description": "나피리와 무리가 챔피언에게 돌진해 피해를 입힙니다. 나피리가 처치 관여를 달성하면 주위 적들을 드러내고 이 스킬을 한 번 재사용할 수 있습니다. 두 번째 사용 시 보호막을 얻습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        110,
+        95,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Naafiri.spells[3]: cooldown[]",
+      "icon": "Naafiri_R.png"
+    }
+  ]
+}

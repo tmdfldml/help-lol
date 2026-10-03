@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Galio",
+  "championName": "갈리오",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "전장의 돌풍",
+      "description": "갈리오가 두 개의 돌풍을 발사해 지속 피해를 입히는 거대한 소용돌이를 만듭니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        10,
+        9,
+        8,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Galio.spells[0]: cooldown[]",
+      "icon": "Galio_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "듀란드의 방패",
+      "description": "갈리오가 방어 태세를 갖추며 움직임이 느려집니다. 스킬을 다시 사용하면 근처의 적을 모두 도발하고 피해를 줍니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        18,
+        17,
+        16,
+        15,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Galio.spells[1]: cooldown[]",
+      "icon": "Galio_W.png"
+    },
+    {
+      "key": "E",
+      "name": "정의의 주먹",
+      "description": "갈리오가 잠시 뒤로 물러났다가 돌진하며 처음으로 충돌한 적 챔피언을 공중으로 띄웁니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        10,
+        9,
+        8,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Galio.spells[2]: cooldown[]",
+      "icon": "Galio_E.png"
+    },
+    {
+      "key": "R",
+      "name": "영웅출현",
+      "description": "갈리오가 아군이 있는 위치를 착지 지점으로 정해, 해당 지점 주변의 모든 아군에게 마법 보호막을 씌웁니다. 잠시 후 해당 지역에 착지하여 근처의 적을 공중으로 띄웁니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        180,
+        160,
+        140
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Galio.spells[3]: cooldown[]",
+      "icon": "Galio_R.png"
+    }
+  ]
+}

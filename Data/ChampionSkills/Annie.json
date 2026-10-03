@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Annie",
+  "championName": "애니",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "붕괴",
+      "description": "애니가 마나로 가득 찬 화염구를 던져 피해를 입히고 결정타를 냈을 때 사용한 마나를 되돌려 받습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Annie.spells[0]: cooldown[]",
+      "icon": "Annie_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "소각",
+      "description": "애니가 원뿔 형태의 화염을 내뿜어 해당 지역에 있는 모든 적에게 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Annie.spells[1]: cooldown[]",
+      "icon": "Annie_W.png"
+    },
+    {
+      "key": "E",
+      "name": "용암 방패",
+      "description": "애니나 아군에게 보호막을 부여하고 이동 속도가 증가하며, 기본 공격이나 스킬로 공격하는 적에게 피해를 입힙니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Annie.spells[2]: cooldown[]",
+      "icon": "Annie_E.png"
+    },
+    {
+      "key": "R",
+      "name": "소환: 티버",
+      "description": "애니가 자신의 곰 티버를 되살려 지정 구역에 있는 유닛에게 피해를 입힙니다. 티버는 주변의 적을 공격하거나 불태울 수도 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        130,
+        115,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Annie.spells[3]: cooldown[]",
+      "icon": "Annie_R.png"
+    }
+  ]
+}

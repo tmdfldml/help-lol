@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Pantheon",
+  "championName": "판테온",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "혜성의 창",
+      "description": "판테온이 지정 방향으로 창을 찌르거나 던집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        10.25,
+        9.5,
+        8.75,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Pantheon.spells[0]: cooldown[]",
+      "icon": "Pantheon_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "방호의 도약",
+      "description": "판테온이 대상에게 돌진해 피해를 입히고 기절시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        13,
+        12,
+        11,
+        10,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Pantheon.spells[1]: cooldown[]",
+      "icon": "Pantheon_W.png"
+    },
+    {
+      "key": "E",
+      "name": "방패 돌격",
+      "description": "판테온이 방패를 들어 정면의 공격으로부터 무적이 되고 창으로 빠르게 공격합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        22,
+        21,
+        20,
+        19,
+        18
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Pantheon.spells[2]: cooldown[]",
+      "icon": "Pantheon_E.png"
+    },
+    {
+      "key": "R",
+      "name": "거대 유성",
+      "description": "판테온이 태세를 갖추고 공중으로 뛰어올랐다가 지정한 위치에 유성이 되어 떨어집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        180,
+        165,
+        150
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Pantheon.spells[3]: cooldown[]",
+      "icon": "Pantheon_R.png"
+    }
+  ]
+}

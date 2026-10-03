@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 2,
+  "championId": "Singed",
+  "championName": "신지드",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "맹독의 자취",
+      "description": "신지드 뒤로 독구름을 남겨 구름에 들어가는 적에게 피해를 입힙니다.",
+      "cooldownType": "Toggle",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Singed.spells[0]: tooltip <toggle>; numeric switch delay is not presented as a standard cooldown",
+      "icon": "Singed_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "초강력 접착제",
+      "description": "초강력 접착제가 든 시험관을 바닥에 던져 그 위를 지나가는 적을 둔화시키고 이동 스킬을 사용할 수 없게 합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        17,
+        16,
+        15,
+        14,
+        13
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Singed.spells[1]: cooldown[]",
+      "icon": "Singed_W.png"
+    },
+    {
+      "key": "E",
+      "name": "던져넘기기",
+      "description": "적을 신지드 뒤편으로 높이 던지며 피해를 줍니다. 신지드가 뒤로 던진 대상이 초강력 접착제 위에 착지하면 속박 효과가 적용됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        10,
+        9.5,
+        9,
+        8.5,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Singed.spells[2]: cooldown[]",
+      "icon": "Singed_E.png"
+    },
+    {
+      "key": "R",
+      "name": "광기의 물약",
+      "description": "신지드가 조합된 화학 물질을 마시고 향상된 전투 능력을 얻으며 맹독의 자취로 고통스러운 상처를 남깁니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        100,
+        100,
+        100
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Singed.spells[3]: cooldown[]",
+      "icon": "Singed_R.png"
+    }
+  ]
+}

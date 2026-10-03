@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Diana",
+  "championName": "다이애나",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "초승달 검기",
+      "description": "달 에너지를 휘어지게 발사하여 마법 피해를 입힙니다. 적중당한 적들은 은신 상태가 아닐 경우 달빛을 받아 3초 동안 위치가 노출됩니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        8,
+        7.5,
+        7,
+        6.5,
+        6
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Diana.spells[0]: cooldown[]",
+      "icon": "Diana_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "은빛 가호",
+      "description": "다이애나가 주위를 돌면서 적에게 접촉하면 폭발하여 해당 지역에 피해를 주는 세 개의 구체를 생성합니다. 또한 잠시 동안 피해를 흡수하는 보호막을 얻습니다. 보호막은 세 번째 구체가 폭발하면 위력이 더 커집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        15,
+        13.5,
+        12,
+        10.5,
+        9
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Diana.spells[1]: cooldown[]",
+      "icon": "Diana_W.png"
+    },
+    {
+      "key": "E",
+      "name": "월광 쇄도",
+      "description": "복수심에 불타는 달의 화신이 되어, 적에게 돌진하여 마법 피해를 입힙니다. 달빛 효과를 받고 있는 대상에게 돌진한 경우, 월광 쇄도를 즉시 한 번 더 사용할 수 있습니다. 이 때, 다른 모든 적들은 월광 쇄도의 대상이 아니었더라도 달빛 효과가 사라집니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        22,
+        20,
+        18,
+        16,
+        14
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Diana.spells[2]: cooldown[]",
+      "icon": "Diana_E.png"
+    },
+    {
+      "key": "R",
+      "name": "달빛 낙하",
+      "description": "다이애나가 주위 모든 적을 드러내 끌어당긴 다음 이동 속도를 늦춥니다. 다이애나가 한 명 이상의 적 챔피언을 끌어당기면 잠시 후 달빛을 받아 자신의 주변 지역에 마법 피해를 입힙니다. 이 효과는 적 한 명을 추가로 끌어당길 때마다 피해량이 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        100,
+        90,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Diana.spells[3]: cooldown[]",
+      "icon": "Diana_R.png"
+    }
+  ]
+}

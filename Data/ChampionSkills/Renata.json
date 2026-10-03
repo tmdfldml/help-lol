@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Renata",
+  "championName": "레나타 글라스크",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "악수",
+      "description": "레나타가 미사일을 발사해 처음 적중하는 적을 속박합니다. 스킬을 재사용해 대상을 지정한 방향으로 던질 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        16,
+        16,
+        16,
+        16,
+        16
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Renata.spells[0]: cooldown[]",
+      "icon": "Renata_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "긴급 구제",
+      "description": "레나타가 아군 챔피언을 강화하고 죽음을 늦춥니다. 해당 아군이 처치에 관여하면 목숨을 건질 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        28,
+        27,
+        26,
+        25,
+        24
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Renata.spells[1]: cooldown[]",
+      "icon": "Renata_W.png"
+    },
+    {
+      "key": "E",
+      "name": "충성 고객 우대",
+      "description": "레나타가 화학공학 미사일 두 발을 발사해 아군에게 보호막을 씌우며 적중하는 적에게 피해를 입히고 둔화시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        14,
+        13,
+        12,
+        11,
+        10
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Renata.spells[2]: cooldown[]",
+      "icon": "Renata_E.png"
+    },
+    {
+      "key": "R",
+      "name": "적대적 인수",
+      "description": "레나타가 화학 물질의 파도를 방출해 적중하는 적을 광란 상태에 빠트립니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        150,
+        130,
+        110
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Renata.spells[3]: cooldown[]",
+      "icon": "Renata_R.png"
+    }
+  ]
+}

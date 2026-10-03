@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "championId": "Nocturne",
+  "championName": "녹턴",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "황혼의 인도자",
+      "description": "녹턴이 그림자 칼날을 던져 피해를 입히고 황혼의 궤적을 남깁니다. 황혼의 칼날에 적중당한 적 챔피언들 또한 황혼의 궤적을 남깁니다. 궤적에 있는 동안 녹턴은 다른 유닛을 통과할 수 있게 되며 이동 속도 및 공격력이 증가합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nocturne.spells[0]: cooldown[]",
+      "icon": "Nocturne_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "어둠의 장막",
+      "description": "기본 지속 효과로 녹턴이 자신의 검을 강화하여 추가 공격 속도를 얻습니다. 스킬 사용 시 녹턴이 그림자 속으로 몸을 숨겨 적의 스킬을 한 번 막아주는 보호막을 생성합니다. 성공적으로 적의 스킬을 막았을 경우 추가 공격 속도가 2배로 올라갑니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        20,
+        18,
+        16,
+        14,
+        12
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nocturne.spells[1]: cooldown[]",
+      "icon": "Nocturne_W.png"
+    },
+    {
+      "key": "E",
+      "name": "말할 수 없는 공포",
+      "description": "녹턴이 대상의 정신에 악몽을 심어 매초 피해를 가하며 지속시간이 끝날 때까지 스킬의 사거리 밖으로 벗어나지 않을 경우 공포 효과를 적용합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        15,
+        14,
+        13,
+        12,
+        11
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nocturne.spells[2]: cooldown[]",
+      "icon": "Nocturne_E.png"
+    },
+    {
+      "key": "R",
+      "name": "피해망상",
+      "description": "녹턴이 모든 적 챔피언의 시야 반경을 줄이고 적 챔피언들 사이의 시야 공유를 중단합니다. 스킬 사용 후 적 챔피언을 대상으로 설정할 경우 그 챔피언에게 날아가 공격합니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        140,
+        115,
+        90
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Nocturne.spells[3]: cooldown[]",
+      "icon": "Nocturne_R.png"
+    }
+  ]
+}

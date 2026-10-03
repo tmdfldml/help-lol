@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 2,
+  "championId": "Bard",
+  "championName": "바드",
+  "patch": "16.17.1",
+  "source": "RIOT_DATA_DRAGON",
+  "spells": [
+    {
+      "key": "Q",
+      "name": "우주의 결속",
+      "description": "바드가 투사체를 발사하여, 처음 적중하는 적을 둔화시키고 관통합니다. 관통한 후 벽을 맞히면 처음 적중한 적을 기절시킵니다. 관통 후 다른 적에게 적중하면 두 대상을 모두 기절시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        11,
+        10,
+        9,
+        8,
+        7
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Bard.spells[0]: cooldown[]",
+      "icon": "Bard_Q.png"
+    },
+    {
+      "key": "W",
+      "name": "수호자의 성소",
+      "description": "짧은 시간 동안 치유력이 증가하는 체력 회복 성소를 드러냅니다. 성소는 처음 발을 들이는 아군을 치유하고 속도를 높인 후 사라집니다.",
+      "cooldownType": "Charge",
+      "cooldowns": null,
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Bard.spells[1]: maxammo=2; tooltip storage/recharge metadata; recharge numeric values absent/unresolved; cast cooldown from cooldown[] (positive values only); maximum placeholder unresolved",
+      "icon": "Bard_W.png"
+    },
+    {
+      "key": "E",
+      "name": "신비한 차원문",
+      "description": "바드가 근처 지형지물에 차원문을 엽니다. 아군과 적 챔피언이 모두 이 차원문을 이용해 정해진 방향으로 해당 지형지물을 통과할 수 있습니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        22,
+        20.5,
+        19,
+        17.5,
+        16
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Bard.spells[2]: cooldown[]",
+      "icon": "Bard_E.png"
+    },
+    {
+      "key": "R",
+      "name": "운명의 소용돌이",
+      "description": "바드가 목표 지점에 영적 에너지를 발사하여 잠시 동안 모든 유닛과 포탑을 정지시킵니다.",
+      "cooldownType": "Standard",
+      "cooldowns": [
+        110,
+        95,
+        80
+      ],
+      "rechargeTimes": null,
+      "maxCharges": null,
+      "mechanicNote": null,
+      "baseCooldowns": null,
+      "sourceEvidence": "data.Bard.spells[3]: cooldown[]",
+      "icon": "Bard_R.png"
+    }
+  ]
+}
