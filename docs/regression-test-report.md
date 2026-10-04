@@ -611,3 +611,46 @@ Supersedes the initial 21-item cooldown limitation/blanket fidelity assessment a
 | Existing packaged artifacts | NOT REBUILT | Above ZIP/installer/publish hashes remain historical, pre-correction; no installation/deployment claim |
 
 Stage 11 RC remains conditional. Structural correctness does not close the 3 UNVERIFIED or the 8 explanatory display limitations; neither full gameplay accuracy nor transformation-subspell completeness is asserted.
+
+## Stage 11-A — RC preparation verification (2026-10-04 KST)
+
+Scope: feature freeze; metadata, packaging validation and documentation only. Start main / clean / 2adbcce. No commit/tag/push/deployment. Stage 10-A/B/C/D/E implementation retained; full Skill Order data remains unavailable by the existing gate.
+
+| Check | Result | Evidence / limits |
+|---|---|---|
+| Version policy / metadata | PASS | csproj Version 1.0.0-rc.1; Assembly/FileVersion 1.0.0.0; InformationalVersion preserves RC. Product/Title/Company/Description retained. |
+| About/Settings version | PASS / MANUAL | Existing VersionText binds diagnostics snapshot; assertion prints 1.0.0-rc.1 PASS in artifacts/stage11a-regression.log. Direct GUI modal inspection remains Stage 11-B. |
+| App Debug / Release | PASS | Both builds repeated after production code changes: 0 warnings / 0 errors. |
+| Tools build | PASS | StatsCollector, PublishStatisticsDataset, AnalyzeStatisticsDataset, ChampionSkillDataCollector: 0 warnings / 0 errors. |
+| Existing regression | PASS | Skills safety/cache/order isolation, logging/crash formatter privacy, retention/concurrency, classifiers, fixture cycle, public UpToDate, Release developer type/BAML/fixture method counts all 0. |
+| Production / packaged statistics | PASS | Live read-only manifest confirms 16.17 / revision 1788854099077 / 51,649 matches. Packaged baseline 7,541,418 bytes / SHA256 1aba43ed6108d5b2ba07b1ce170f546f8417d1c319f6a6459d97c077bb27fb14. |
+| 16.20 dataset | NOT READY | No 16.20 output/state directory; existing local 16.17/16.18 only. 16.18 will not be published. Future 16.20 statistics release is independent of this app RC. |
+| NU1900 | RESOLVED | Initial sandbox publish could not load api.nuget.org vulnerability feed; not a reported vulnerability. Internet-enabled dotnet restore -r win-x64 --force and publish repeated with no warning; no suppression added. |
+| ZIP validation correction | FIXED | Windows Compress-Archive uses backslash entry names. Validator now normalizes slash direction, detects duplicate names and compares every entry hash with publish; corrected standalone validation passed. Full pipeline rerun recorded below. |
+| Initial lifecycle smoke | PASS | RC silent install over existing 0.9.0; EXE version; process and main-window startup from external working directory; graceful exit 0; silent uninstall removed EXE; every user file hash preserved; RC reinstalled and left closed. artifacts/stage11a-initial-lifecycle-smoke.log. |
+| App log privacy / crash | PASS / MANUAL | Changed app logs have no sensitive markers; no new crash. Existing formatter/global-handler source and regression checked. Actual fatal dialog/exit injection remains Stage 11-B. Logs path/30 days/100 files/~4MiB policy unchanged. |
+| Signing / SmartScreen | UNSIGNED / MANUAL | EXE and installer Authenticode NotSigned. No certificate/self-signing or security bypass. Internet-download SmartScreen observation not performed. |
+| Real game / DPI / multi-monitor | MANUAL | No real game acceptance performed. No substitute fixture marked as actual game PASS. |
+| Known issues | DOCUMENTED | Real Skill Order data, 19 unresolved recharge timers, 8 Unknown mechanics, transformation coverage, game patch Unknown, unsigned warnings, installer downgrade P3. Urgot W and special mechanic display fixes are retained; older unresolved display counts are historical. |
+
+Downgrade remains existing P3, not an RC blocker: installer preserves user data, statistics updater separately rejects revision downgrades, release process distributes only the intended version. This does not guarantee every older binary can read future settings. Stage 11-B owns broader upgrade and compatibility testing.
+
+No new unresolved P0/P1/P2/P3 found within this scope. Existing data limitations and deferred manual acceptance remain. Full gameplay accuracy/public 1.0 release approval is not implied.
+
+### Final RC artifacts and handoff
+
+Full `powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/build-release.ps1` rerun: **PASS, exit 0, no warnings**. Final validator: **PASS**, 1,442 files / 163,289,434 bytes / 173 champion icons; 173 champion skill JSON / 692 icons / manifest + orders = 867 skill files. ZIP entry count/size/content hashes equal publish; installer compiles the same validated publish tree. No developer tool/source/PDB/fixture, high-risk key, credential filename, raw header/player identity marker or developer profile/project path found by the validator.
+
+| Artifact | Bytes | SHA-256 |
+|---|---:|---|
+| LoLMatchInfo-1.0.0-rc.1-win-x64-setup.exe | 55,742,665 | 2e1c8a0b9eaf14daaaf6d35f86632dee1d34251823ac82de72c30147593afa5a |
+| LoLMatchInfo-1.0.0-rc.1-win-x64-portable.zip | 72,530,669 | 9da9dcd3c443935ccd5dbd2469d2adde7be50f791831eb3512b95a6135ef288d |
+| release-manifest.json | 6,476 | 6b381069df9febc848f21629ee28258c71689d2bea7c65c4b4468fd585ff8bd5 |
+
+Final hashes are in ignored artifacts/SHA256SUMS.txt. Manifest records product, RC version, Release configuration, win-x64 runtime, x64 architecture, local package-generation timestamp (publishedAtUtc; no remote publication), artifact names/size/hash, packaged 16.17 revision and skill 16.17.1 manifest. Future URL is null.
+
+Final installer lifecycle rerun: **PASS, exit 0**. Installed EXE has RC ProductVersion; process/main window starts, closes gracefully with exit 0; uninstall removes EXE and preserves every post-launch user file by hash; reinstall restores RC. HKCU per-user DisplayName/DisplayVersion confirmed. Final installed RC is left closed. Both installer and installed EXE remain NotSigned. Changed application logs pass privacy markers; no new crash. Evidence: artifacts/stage11a-lifecycle-smoke.log and stage11a-release-build.log.
+
+Stage 11-A **COMPLETE (RC preparation scope)**. Version/metadata/docs/artifacts/checksums/validation/known issues complete, no new unresolved P0/P1. Stage 11-B **READY**; manual items in release-checklist.md remain unexecuted, including real game, direct GUI/DPI/multi-monitor, exhaustive lifecycle/newer dataset activation, actual fatal handling, and downloaded-file SmartScreen. Final 1.0 promotion remains unapproved.
+
+Final git review: diff --check PASS; 14 tracked modified files + 2 new release documents. HEAD remains 2adbcce, tags unchanged. No commit/push/tag.

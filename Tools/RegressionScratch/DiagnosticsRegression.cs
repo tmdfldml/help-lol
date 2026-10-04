@@ -27,6 +27,11 @@ internal static class DiagnosticsRegression
             Console.WriteLine("Patch normalization, mismatch, unknown and invalid versions: PASS");
 
             var diagnostics = new AppDiagnosticsService();
+            var expectedVersion = typeof(AppDiagnosticsService).Assembly
+                .GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), false)
+                .Cast<System.Reflection.AssemblyInformationalVersionAttribute>().Single().InformationalVersion;
+            Require(diagnostics.Snapshot.AppVersion == expectedVersion, "Prerelease version preserved in About/diagnostics");
+            Console.WriteLine($"About/diagnostics informational version: {diagnostics.Snapshot.AppVersion} PASS");
             var metadata = new StatisticsDataset { Patch = "16.17", Source = "SELF_RIOT", AcceptedMatches = 31 };
             diagnostics.SetDataset(new(StatisticsDatasetLoadStatus.Loaded, metadata,
                 Source: StatisticsDatasetSource.Packaged), new() { DatasetRevision = 7 });

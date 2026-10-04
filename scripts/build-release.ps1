@@ -15,7 +15,9 @@ $portablePath = Join-Path $artifactsRoot 'portable'
 [xml] $project = Get-Content -LiteralPath $projectPath
 $versionNode = $project.SelectSingleNode('/Project/PropertyGroup/Version')
 $version = if ($versionNode) { $versionNode.InnerText.Trim() } else { '' }
-if ($version -notmatch '^\d+\.\d+\.\d+$') { throw "A SemVer MAJOR.MINOR.PATCH Version is required in LoLMatchup.csproj." }
+if ($version -notmatch '^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-rc\.[1-9]\d*)?$') { throw 'Version must be MAJOR.MINOR.PATCH or MAJOR.MINOR.PATCH-rc.N.' }
+$fileVersion = $project.SelectSingleNode('/Project/PropertyGroup/AssemblyVersion').InnerText.Trim()
+if ($fileVersion -ne (($version -split '-')[0] + '.0')) { throw 'AssemblyVersion must match the release version core.' }
 
 foreach ($path in @($publishPath, $installerPath, $portablePath)) {
     $fullPath = [IO.Path]::GetFullPath($path)
@@ -52,7 +54,7 @@ if (-not $SkipInstaller) {
     if ($iscc) {
         $iscc = [IO.Path]::GetFullPath($iscc)
         Write-Host "Inno Setup compiler: $iscc"
-        & $iscc "/DMyAppVersion=$version" "/DPublishDir=$publishPath" "/DOutputDir=$installerPath" (Join-Path $repoRoot 'installer\LoLMatchInfo.iss')
+        & $iscc "/DMyAppVersion=$version" "/DMyAppFileVersion=$fileVersion" "/DPublishDir=$publishPath" "/DOutputDir=$installerPath" (Join-Path $repoRoot 'installer\LoLMatchInfo.iss')
         if ($LASTEXITCODE -ne 0) { throw "Inno Setup failed with exit code $LASTEXITCODE." }
         $installerBuilt = $true
     } else {
@@ -67,7 +69,6 @@ $checksumLines = foreach ($file in $releaseFiles | Sort-Object Name) {
     $hash = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
     "$hash  $($file.Name)  $($file.Length) bytes"
 }
-[IO.File]::WriteAllLines($checksumPath, $checksumLines, [Text.UTF8Encoding]::new($false))
 
 $primary = ($releaseFiles | Where-Object Name -Like '*setup.exe' | Select-Object -First 1)
 if (-not $primary) { $primary = $releaseFiles | Where-Object Name -Like '*portable.zip' | Select-Object -First 1 }
@@ -75,15 +76,28 @@ $manifest = [ordered]@{
     schemaVersion = 1
     version = $version
     publishedAtUtc = [DateTimeOffset]::UtcNow.ToString('O')
-    channel = 'closed-beta'
+    product = $project.SelectSingleNode('/Project/PropertyGroup/Product').InnerText.Trim()
+    configuration = 'Release'
+    architecture = 'x64'
+    channel = if ($version.Contains('-rc.')) { 'release-candidate' } else { 'stable' }
     runtimeIdentifier = 'win-x64'
     artifactType = if ($installerBuilt) { 'installer' } else { 'portable' }
     fileName = $primary.Name
     url = $null
     sha256 = (Get-FileHash -LiteralPath $primary.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
     size = $primary.Length
+    artifacts = @($releaseFiles | Sort-Object Name | ForEach-Object {
+        [ordered]@{ fileName = $_.Name; size = $_.Length; sha256 = (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
+    })
+    packagedDataset = Get-Content -Raw -Encoding UTF8 (Join-Path $publishPath 'Data\Statistics\manifest.json') | ConvertFrom-Json
+    skillData = Get-Content -Raw -Encoding UTF8 (Join-Path $publishPath 'Data\ChampionSkills\manifest.json') | ConvertFrom-Json
 }
-$manifest | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $artifactsRoot 'release-manifest.json') -Encoding utf8
+$manifestPath = Join-Path $artifactsRoot 'release-manifest.json'
+$manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $manifestPath -Encoding utf8
+$manifestFile = Get-Item -LiteralPath $manifestPath
+$checksumLines += "$((Get-FileHash -LiteralPath $manifestPath -Algorithm SHA256).Hash.ToLowerInvariant())  $($manifestFile.Name)  $($manifestFile.Length) bytes"
+[IO.File]::WriteAllLines($checksumPath, $checksumLines, [Text.UTF8Encoding]::new($false))
+& (Join-Path $PSScriptRoot 'validate-release.ps1') -PublishDirectory $publishPath -ReleaseDirectory $artifactsRoot
 
 Write-Host "Publish: $publishPath"
 Write-Host "Portable: $portableFile"

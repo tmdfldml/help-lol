@@ -1,4 +1,4 @@
-# LoLMatchup Project Status
+# LoL Match Info Project Status
 
 ## 프로젝트
 
@@ -16,6 +16,13 @@
 - Stage 7-2: WPF 통계 화면 layout 및 visual polish 완료
 - Stage 8: application shell, navigation 및 matchup detail 구현 완료
 - Stage 9-5: statistics update pipeline의 publish/update/install 및 public hosting 연결 완료
+- Stage 10-A: complete — release readiness foundation
+- Stage 10-B: complete — product UX
+- Stage 10-C: complete — Windows distribution
+- Stage 10-D: complete — branding/window polish
+- Stage 10-E: complete — QWER reference 및 Skill Order 확장/empty fallback; 실제 Skill Order 데이터는 미제공
+- Stage 11-A: `1.0.0-rc.1` complete (RC preparation scope); 아래 2026-10-04 증거 참조
+- Stage 11-B: 실제 게임/GUI/DPI/전체 lifecycle 및 final 1.0 acceptance 예정
 
 ## Stage 5 StatsCollector
 
@@ -729,3 +736,21 @@ Stage 10-A/B의 미커밋 변경을 보존한 채 Windows 배포 기반을 추�
 - 전체 173 champion / 692 spell / missing 0; QWER·rank·보존 수치 불일치 및 구조적 malformed 0. 20개의 all-zero 원본은 null fallback을 유지한다. 구조 통과를 UNVERIFIED 해결로 간주하지 않는다.
 - Debug/Release build warning 0/error 0, skills-only 회귀 PASS. 실제 Debug 앱의 Urgot W / Singed Q / Vi W 세 스킬 페이지 확인: 우르곳 다섯 값과 토글 주석, 나머지 정보 없음 표시 정상.
 - Stage 11 RC는 **조건부**, 전체 쿨타임 정확성 승인은 아직 미완료다. 이번 변경은 데이터 검증/최소 수정 범위이며 이전 publish/ZIP/installer는 재생성하지 않았으므로 위 배포 해시는 수정 전 패키지에 해당한다. 배포 전 기존 release pipeline 재실행 필요.
+
+## Stage 11-A — Release Candidate Preparation (2026-10-04 KST)
+
+시작 main / 2adbcce (feat: complete champion skill reference), working tree clean. 기존 tags: stage10c-complete, stage10e-complete, stage5-complete, stage6-complete, stage7-ui-dashboard, stage9-complete. 자동 commit/tag/push/upload 없음.
+
+Stage 10-A complete (foundation), Stage 10-B complete (UX), Stage 10-C complete (distribution), Stage 10-D complete (제품 branding/창 UX, cfc7aba), Stage 10-E complete (QWER 및 order 확장/정상 empty fallback). 실제 Skill Order 데이터 제공 완료를 의미하지 않는다. 기존 코드/데이터를 유지하며 새 사용자 기능은 추가하지 않았다.
+
+RC version 1.0.0-rc.1. csproj가 source of truth이며 AssemblyVersion 1.0.0.0, FileVersion=$(AssemblyVersion), InformationalVersion=$(Version). Inno RC 표시/파일명과 Windows 숫자 버전을 분리했다. About/Settings의 기존 snapshot 경로에 informational version을 사용하여 RC suffix를 보존한다. Product/Title/Company/Description은 기존 LoL Match Info metadata 유지; fatal message 제품명만 일치시켰다.
+
+현재 production manifest를 네트워크 연결 환경에서 읽기 재확인: 16.17 / revision 1788854099077 / 51,649 matches / 258,245 observations / 15,547 matchup keys, packaged baseline과 동일. 16.20 output/state 없음; 로컬 output/state는 16.17 및 16.18만 확인된다. 16.18 미배포, 16.20 추후 별도 검증·배포 계획. 준비되지 않은 16.20을 RC blocker로 사용하지 않는다.
+
+Skill snapshot: Data Dragon 16.17.1 / schema 2 / 173 champions / 692 QWER. Standard 653, Charge 19, Toggle 4, ResourceBased 3, Passive 4, NotApplicable 1, Unknown 8. Null cast 24 / unresolved recharge 19. 기존 conservative fallback 유지, runtime skill network 없음. 이전 역사 섹션의 21/20 counts와 이미 해결된 메커니즘 표시 제한은 현재 상태로 간주하지 않는다. 실제 order 데이터, 특수 수치·파생 스킬 coverage, game patch Unknown, unsigned/SmartScreen, installer downgrade P3가 남는다.
+
+app RC와 statistics release는 독립적이다. publish profile은 win-x64/self-contained/single-file off/trimming off/ReadyToRun off를 유지한다. SHA256SUMS는 installer/portable/manifest를 새로 계산하며 manifest에는 모든 산출물 크기/hash 및 두 데이터 버전을 기록한다. Release validator는 파일/아이콘 coverage, baseline hash, 개발 artifact/secret/privacy/path 및 ZIP 원본 일치를 확인한다.
+
+Build/회귀 증거는 docs/regression-test-report.md Stage 11-A와 artifacts/stage11a-*에 기록한다. 실제 게임, exhaustive lifecycle, DPI/multi-monitor 및 직접 GUI 검증은 Stage 11-B에 남는다. 기능 동결과 제한 문서화는 전체 gameplay 정확성/정식 공개 승인과 구분한다.
+
+Stage 11-A 최종 판정: **COMPLETE (RC preparation scope)**. Full release script exit 0, warning 없음, validator PASS (1,442 files / 163,289,434 bytes), installer 55,742,665 bytes, portable 72,530,669 bytes, manifest 6,476 bytes. 최종 SHA256 및 실행 증거는 regression-test-report.md와 artifacts/SHA256SUMS.txt / stage11a-release-build.log / stage11a-lifecycle-smoke.log에 기록했다. 실제 silent install/launch/graceful exit/uninstall/data preservation/reinstall 통과; 최종 PC에는 RC가 설치되어 있으며 앱은 종료되어 있다. 새 P0/P1/P2/P3 발견 없음; 기존 제한과 수동 검증 유지. **Stage 11-B 진입 가능**, 정식 1.0 공개 승인/실제 게임 검증 완료를 의미하지 않는다.

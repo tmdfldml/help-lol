@@ -1,6 +1,9 @@
 #ifndef MyAppVersion
   #error MyAppVersion must be supplied from LoLMatchup.csproj by scripts/build-release.ps1
 #endif
+#ifndef MyAppFileVersion
+  #error MyAppFileVersion must be supplied from LoLMatchup.csproj by scripts/build-release.ps1
+#endif
 #ifndef PublishDir
   #define PublishDir "..\artifacts\publish\win-x64"
 #endif
@@ -34,7 +37,8 @@ CloseApplications=yes
 RestartApplications=no
 UninstallDisplayName={#MyAppName}
 UninstallDisplayIcon={app}\{#MyAppExeName}
-VersionInfoVersion={#MyAppVersion}.0
+VersionInfoVersion={#MyAppFileVersion}
+VersionInfoProductTextVersion={#MyAppVersion}
 VersionInfoCompany={#MyPublisher}
 VersionInfoDescription={#MyAppName} installer
 VersionInfoProductName={#MyAppName}

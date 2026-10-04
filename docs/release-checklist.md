@@ -1,62 +1,44 @@
 # LoL Match Info Release Checklist
 
-각 항목을 `PASS`, `PARTIAL`, `MANUAL`, `BLOCKED` 중 하나로 기록하고 증거 경로/명령을 남긴다.
+기록일: 2026-10-04 KST. 이번 RC의 명령·수치·결과는 [회귀 보고서](regression-test-report.md)의 Stage 11-A와 ignored artifacts/stage11a-* 로그를 참조한다. 미실행 항목은 PASS로 기록하지 않는다.
 
-최근 전체 실행: Stage 10-C2(2026-09-11)는 installer build/install/Start Menu startup/uninstall/user-data preservation/reinstall/running-app upgrade까지 PASS했다. About 및 Settings Data의 직접 GUI 조작은 native automation 부재로 PARTIAL, signing은 UNSIGNED BETA, 최종 icon은 remaining branding polish다. 아래 목록은 다음 release에서도 새로 실행한다.
+## RC candidate build — Stage 11-A
 
-## Source and version
+- [x] 시작 main / 2adbcce / clean, 기존 tags 기록
+- [x] csproj 단일 version source: 1.0.0-rc.1; About informational version 유지
+- [x] Debug / Release 및 StatsCollector, PublishStatisticsDataset, AnalyzeStatisticsDataset, ChampionSkillDataCollector build (0 warning / 0 error)
+- [x] release notes / known issues / CHANGELOG 작성
+- [x] fresh win-x64 self-contained publish, single-file/trimming/ReadyToRun off
+- [x] installer / portable / release manifest / SHA256SUMS 생성 및 크기 기록
+- [x] baseline / champion icons / 173 skill JSON / 692 skill icons / manifest
+- [x] developer artifacts / synthetic UI / fixtures / source / PDB 제외
+- [x] secret / privacy / local paths / manifest / checksum validator PASS
+- [x] unsigned RC 및 SmartScreen 기록
+- [x] installer silent install / installed EXE / launch / uninstall smoke
+- [x] git diff --check 및 새 P0/P1 없음
 
-- [ ] working tree와 보존할 기존 변경 확인
-- [ ] `LoLMatchup.csproj`의 SemVer, Product, Company, FileVersion, InformationalVersion 확인
-- [ ] About/diagnostics/executable/installer version 일치 확인
-- [ ] release notes 작성 및 알려진 제한 갱신
+## RC verification — Stage 11-B
 
-## Build and publish
+- [ ] 실제 게임: 감지 → 5역할 → 상대 초상화 → QWER → Back → 종료/Waiting
+- [ ] Team Summary / Matchup Detail / Settings / About 직접 GUI 확인
+- [ ] 통계 업데이트 / 실패 fallback / 재시작 후 activation
+- [ ] install / Start Menu / uninstall / user-data preservation / upgrade / reinstall 전체 lifecycle
+- [ ] clean first run / install directory write 부재
+- [ ] DPI / portrait·landscape / multi-monitor / keyboard / screen reader
+- [ ] 로그 retention 및 실제 fatal: critical log / crash file / 한국어 안내 / 종료
+- [ ] 실제 내려받은 파일의 Defender/SmartScreen 경고 여부 기록 (보안 설정 변경 없음)
 
-- [ ] Debug/Release WPF와 3개 tool project가 warning 0/error 0
-- [ ] fresh `artifacts/publish/win-x64` self-contained publish
-- [ ] baseline dataset/manifest와 champion metadata/icons 포함
-- [ ] source, PDB, DeveloperTestWindow, fixtures, collector/publisher/analyzer 제외
-- [ ] `scripts/validate-release.ps1` PASS
-- [ ] publish output 크기 기록
+## Final 1.0 promotion
 
-## Package and security
+- [ ] Stage 11-B 검증 및 제한 수용, P0/P1 없음
+- [ ] LoLMatchup.csproj Version만 1.0.0으로 변경; AssemblyVersion=1.0.0.0 유지
+- [ ] README / CHANGELOG / PROJECT_STATUS / release notes / checklist / distribution / regression report 갱신
+- [ ] fresh pipeline 재실행 (이름·hash·manifest 재생성; RC artifacts 재사용 금지)
+- [ ] code signing 가능 여부 결정; 인증서 없이 임의 서명 금지
+- [ ] 최종 release 승인 후 tag / upload를 별도 수행
 
-- [ ] Inno Setup installer와 portable ZIP 생성
-- [ ] installer/ZIP 파일명과 non-zero 크기 확인
-- [ ] ZIP file list 수동 확인
-- [ ] secret, credential, player identifier, developer path scan PASS
-- [ ] SHA-256와 byte size를 `SHA256SUMS.txt`에서 재확인
-- [ ] release manifest version/hash/size 일치, URL은 배포 위치 확정 후 설정
-- [ ] signing 완료 또는 `UNSIGNED BETA` 명시
-- [ ] Defender/SmartScreen 결과 기록; 보안 설정은 변경하지 않음
+RC tag 제안: `git tag -a v1.0.0-rc.1 -m "LoL Match Info 1.0.0-rc.1"`
+Final tag 제안: `git tag -a v1.0.0 -m "LoL Match Info 1.0.0"`
+먼저 변경을 검토·커밋한 뒤 사용한다. 이번 작업은 commit/tag/push/upload를 수행하지 않는다.
 
-## Isolated runtime
-
-- [ ] project 외부 및 임의 current working directory에서 startup
-- [ ] clean first run에서 LocalAppData/settings/log 생성
-- [ ] 기존 settings/log/downloaded dataset 보존
-- [ ] Home, Waiting, Settings, Data, About smoke
-- [ ] production statistics check가 UpToDate
-- [ ] controlled update failure에서 기존/local packaged fallback
-- [ ] no-game 관찰 중 crash/polling spam 없음
-- [ ] install directory에 runtime write 없음
-
-## Installer lifecycle
-
-- [ ] per-user install, UAC 불필요, 실제 install path 기록
-- [ ] Start Menu shortcut 실행
-- [ ] optional Desktop shortcut 동작
-- [ ] Add/Remove Programs metadata 확인
-- [ ] 실행 중 upgrade가 종료 요청/명확한 오류 제공
-- [ ] 이전 beta 위에 upgrade 후 앱 파일 갱신 및 user data 보존
-- [ ] accidental downgrade 검토
-- [ ] uninstall 후 app/shortcut/entry 제거, LocalAppData 보존
-- [ ] reinstall startup
-
-## Release handoff
-
-- [ ] installer, ZIP, checksums, manifest, release notes 준비
-- [ ] 실제 remote upload/deployment는 별도 승인 후 수행
-- [ ] `git diff --check`, `git status`, 변경 파일 구분
-- [ ] 새 P0/P1 없음; 나머지 issue/수동 항목 기록
+통계 16.20 준비는 app RC와 독립이다. 16.18은 publish하지 않으며 신규 통계를 별도 검증·배포해도 app version을 올릴 필요가 없다.

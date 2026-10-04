@@ -1,4 +1,4 @@
-# LoL Match Info <version> — Closed Beta
+# LoL Match Info <version> — <Release Candidate / Release>
 
 ## 주요 변경
 
@@ -6,7 +6,7 @@
 
 ## 알려진 제한
 
-- 서명되지 않은 베타 빌드에는 Windows SmartScreen 경고가 표시될 수 있습니다.
+- 서명되지 않은 빌드에는 Windows SmartScreen 경고가 표시될 수 있습니다.
 - 앱 자체 자동 업데이트는 아직 제공하지 않습니다. 새 설치 파일을 다시 실행해 업그레이드합니다.
 
 ## 설치 및 업그레이드

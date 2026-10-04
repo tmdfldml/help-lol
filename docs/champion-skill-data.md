@@ -74,3 +74,9 @@ The detail header shows champion icon, Korean name, role, exact data patch and R
 The existing Riot legal notice is retained in About. External Skill Order attribution requirements remain unresolved with the data-use gate. `validate-release.ps1` now requires every champion skill file and QWER icon and rejects the new tool EXE/DLL, alongside existing dev/privacy scans. Installer wildcard packaging includes the same validated final assets; no tool/cache/source is packaged.
 
 Stage 10-E QWER reference and order extension/fallback are implemented. Populated real Skill Priority is deferred by the requested gate. Actual League game acceptance, transformed/champion-specific static-data fidelity, every DPI/screen reader, signing and a new installer install/uninstall lifecycle remain separate acceptance work.
+
+## Stage 11-A RC snapshot (2026-10-04)
+
+Packaged manifest 기준 schema 2 / 16.17.1 / 173 champion JSON / 692 QWER icons. Standard 653, Charge 19, Toggle 4, ResourceBased 3, Passive 4, NotApplicable 1, Unknown 8. Null cast arrays 24 / unresolved recharge arrays 19. 모든 항목은 기존 source evidence와 conservative fallback을 유지하며 임의 숫자를 추가하지 않는다. Skill Order orders.json은 []이다. 앱은 로컬 파일만 읽고 스킬 runtime network 요청은 없다.
+
+초기 21/20 null count 및 unresolved 표시 개선 목록은 역사 기록이다. 현 RC의 기준은 위 special cooldown rules와 현재 manifest이며 해결된 Urgot W/특수 메커니즘 표시를 미해결 UI 문제로 다시 기재하지 않는다. 재충전 수치·8 Unknown·파생 스킬 coverage 및 실제 Skill Order 데이터 제한은 계속 남는다.

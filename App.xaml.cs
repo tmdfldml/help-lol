@@ -54,7 +54,7 @@ public partial class App : Application
                 : "진단 로그가 %LocalAppData%\\LoLMatchInfo\\Logs에 저장되었습니다.\n참조: " + crashFile;
             MessageBox.Show("앱에서 예상하지 못한 오류가 발생하여 종료합니다.\n"
                 + "앱을 다시 실행해 주세요. 문제가 반복되면 진단 로그를 확인해 주세요.\n\n"
-                + diagnosticMessage, "LoL Matchup 오류", MessageBoxButton.OK, MessageBoxImage.Error);
+                + diagnosticMessage, "LoL Match Info 오류", MessageBoxButton.OK, MessageBoxImage.Error);
             if (Dispatcher.CheckAccess()) Shutdown(1);
         }
         catch { /* Last-resort exit also covers failure in WPF, logging or shutdown. */ }

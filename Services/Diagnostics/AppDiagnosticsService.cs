@@ -90,8 +90,10 @@ public sealed class AppDiagnosticsService
 
     private static AppDiagnosticsSnapshot CreateInitial()
     {
-        var version = typeof(AppDiagnosticsService).Assembly.GetName().Version;
-        return new(version?.ToString(3) ?? "Unknown",
+        var assembly = typeof(AppDiagnosticsService).Assembly;
+        var version = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
+            ?? assembly.GetName().Version?.ToString(3) ?? "Unknown";
+        return new(version,
 #if DEBUG
             "Debug",
 #else
