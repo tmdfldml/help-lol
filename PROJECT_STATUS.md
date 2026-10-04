@@ -22,7 +22,8 @@
 - Stage 10-D: complete — branding/window polish
 - Stage 10-E: complete — QWER reference 및 Skill Order 확장/empty fallback; 실제 Skill Order 데이터는 미제공
 - Stage 11-A: `1.0.0-rc.1` complete (RC preparation scope); 아래 2026-10-04 증거 참조
-- Stage 11-B: 실제 게임/GUI/DPI/전체 lifecycle 및 final 1.0 acceptance 예정
+- Stage 11-B: COMPLETE — 자동 검증 및 사용자 확인에 따른 수동 acceptance 완료 (2026-10-04); 이전 PARTIAL/HOLD 기록은 당시 이력
+- Stage 11-C: COMPLETE — 1.0.0 final local release 준비 및 promotion smoke 통과; 사용자 review/commit/tag/publication은 별도
 
 ## Stage 5 StatsCollector
 
@@ -754,3 +755,41 @@ app RC와 statistics release는 독립적이다. publish profile은 win-x64/self
 Build/회귀 증거는 docs/regression-test-report.md Stage 11-A와 artifacts/stage11a-*에 기록한다. 실제 게임, exhaustive lifecycle, DPI/multi-monitor 및 직접 GUI 검증은 Stage 11-B에 남는다. 기능 동결과 제한 문서화는 전체 gameplay 정확성/정식 공개 승인과 구분한다.
 
 Stage 11-A 최종 판정: **COMPLETE (RC preparation scope)**. Full release script exit 0, warning 없음, validator PASS (1,442 files / 163,289,434 bytes), installer 55,742,665 bytes, portable 72,530,669 bytes, manifest 6,476 bytes. 최종 SHA256 및 실행 증거는 regression-test-report.md와 artifacts/SHA256SUMS.txt / stage11a-release-build.log / stage11a-lifecycle-smoke.log에 기록했다. 실제 silent install/launch/graceful exit/uninstall/data preservation/reinstall 통과; 최종 PC에는 RC가 설치되어 있으며 앱은 종료되어 있다. 새 P0/P1/P2/P3 발견 없음; 기존 제한과 수동 검증 유지. **Stage 11-B 진입 가능**, 정식 1.0 공개 승인/실제 게임 검증 완료를 의미하지 않는다.
+
+## Stage 11-B — Final RC Verification (2026-10-04 KST)
+
+시작 main / clean / 338a995, v1.0.0-rc.1 tag 확인. 원본 RC artifacts와 checksum은 시작/종료 모두 동일하며 Version은 1.0.0-rc.1 유지. 앱/도구 코드 변경, 전체 rebuild, publish, commit/push/tag 없음.
+
+기존 automated regression 및 updater self-test 19개 PASS, final release validator PASS. 설치본 Home/Waiting을 직접 확인했고 actual RC 로그에 Waiting → GameDetected가 각 1회 기록됐다. Production은 16.17 / revision 1788854099077 유지. 로그 개인정보 marker 및 새 crash 없음. EXE/installer NotSigned. Defender protection enabled, RC-specific threat record 0 (read-only, 별도 scan 아님).
+
+사용자가 Escape로 Computer Use를 중지하여 GUI 입력을 즉시 중단했다. 실제 게임의 5역할/상대 portrait/Skill Detail/게임 종료 복귀, Settings/About, exact viewport 4개, actual DPI/다중 모니터, window persistence, 전체 install lifecycle/portable, 실제 fatal dialog/exit, SmartScreen은 MANUAL_PENDING이다. 자동 fixture/서비스 테스트를 실제 GUI/경기 PASS로 대체하지 않았다. 설치본은 실행된 상태로 두었으며 사용자 설정/설치/게임/보안 상태를 추가 변경하지 않았다.
+
+**Stage 11-B PARTIAL / 미완료. 1.0.0 promotion recommendation: HOLD.** 새 P0/P1/P2/P3 발견 없음은 미검증 안전성을 보장하지 않는다. Release gate가 아직 충족되지 않았으므로 1.0 승격은 진행하지 않는다. 후속 검증 결과를 반영한 뒤 Stage 11-C에서 승격을 판단한다. 상세 acceptance matrix: docs/regression-test-report.md / docs/release-checklist.md; 증거: artifacts/stage11b/.
+
+### Stage 11-B manual continuation (2026-10-04 KST)
+
+기존 문서 변경과 PASS 증거를 보존하고 수동 검증만 이어서 시도했다. 시작 main / 338a995, 수정 파일은 상태 문서 3개; diff --check exit 0. 자동 회귀/updater 19개/artifact hash/privacy/secret scan 재실행 없음. 코드·버전·RC artifact 변경, rebuild/publish/commit/push/tag 없음.
+
+설치된 RC를 실행해 실제 League 실행 중 InGame/LIVE, TOP 가렌–아칼리(표본 9경기), patch 16.17 화면과 접근성 트리를 직접 확인했다. 이 좁은 화면 관찰만 PASS이며, 나머지 네 역할은 역할 정보 대기 상태였다. 경기 종류·전체 roster·시작/종료 흐름은 미확인이므로 전체 5-role PASS나 역할 누락 결함으로 판정하지 않는다.
+
+상대 초상화 입력은 Computer Use의 `SendInput sent 0 of 1 events; GetLastError=87`로 실패했다. 사용자 입력 중지 동의를 받은 뒤 전경 복원 및 새 관찰로 재시도해도 동일했다. 이는 검증 도구 장애이며 제품 결함으로 분류하지 않는다. 전체 실제 경기/Skill Detail/QWER/Back/Waiting 복귀, 4 viewport, 3 DPI, multi-monitor, Settings/persistence, 요청 lifecycle/portable, synthetic fatal dialog/exit, 실제 다운로드 SmartScreen은 MANUAL_PENDING 유지. RC는 마지막 관찰 시 실행 중이며 종료/설정 초기화/installer/보안 설정 변경 없음.
+
+새 확인 결함 P0 0 / P1 0 / P2 0 / P3 0; 기존 downgrade P3와 알려진 제한 유지. **Stage 11-B INCOMPLETE / PARTIAL, 1.0.0 승격 HOLD, 버전 1.0.0-rc.1 유지.** 상세 증거와 미검증 이유: docs/regression-test-report.md의 manual continuation.
+
+### Stage 11-B user acceptance / Stage 11-C start (2026-10-04 KST)
+
+사용자가 Stage 11-B의 남은 수동 항목을 직접 검증했고 정상이라고 확인했다. 따라서 이전 PARTIAL/HOLD는 당시 이력이며 현재 Stage 11-B는 COMPLETE / USER_CONFIRMED, promotion PROCEED다. 실제 게임/5역할/Skill Detail/종료 복귀/viewport/DPI/multi-monitor/settings/lifecycle/portable gate는 사용자 확인에 근거하며 새 직접 관찰 증거를 만들지 않는다. 기존 automated/privacy/security PASS 유지, 반복 crash/P0/P1 보고 없음.
+
+Stage 11-C 진행 중. csproj Version만 1.0.0으로 승격; 파생 InformationalVersion=1.0.0, Assembly/FileVersion=1.0.0.0 유지. RC 전체 release tree는 artifacts/rc/1.0.0-rc.1에 보존했다. Final smoke가 모두 끝나기 전 COMPLETE로 판정하지 않는다.
+
+### Stage 11-C final release 완료 (2026-10-04 KST)
+
+Stage 11-A COMPLETE, Stage 11-B COMPLETE (사용자 수동 acceptance 확인), Stage 11-C COMPLETE (local release preparation). csproj Version/InformationalVersion=1.0.0, Assembly/FileVersion=1.0.0.0. 기능/UI/통계 로직/API/source 변경 없음. Debug/Release 및 도구 4개 build 모두 warning 0/error 0. 초기 sandbox NU1900은 취약성 feed 접근 실패이며 network restore/full pipeline 재실행으로 해결; warning suppression 없음.
+
+Final publish/validator PASS: 1,442 files / 163,289,424 bytes. Installer 55,743,175 bytes / portable 72,530,634 bytes / manifest 6,445 bytes. 새 checksum 및 manifest와 전체 검증 결과는 docs/regression-test-report.md Stage 11-C와 artifacts/stage11c에 기록. 현재 production은 다시 읽은 remote manifest 기준 16.17 / revision 1788854099077 / 51,649경기. 스킬 16.17.1, 173챔피언/692 QWER 및 special classification/fallback 유지. Final Release updater UpToDate와 About/Settings 실제 control text 버전 1.0.0 확인.
+
+RC→Final install/upgrade, 1,442 payload hash 일치, 기존 settings/dataset/log 보존, native launch/exit 0, uninstall/등록/shortcut 제거, 사용자 데이터 보존, clean binary reinstall, isolated portable/no payload writes 모두 PASS. 모든 smoke 이후 final installer/portable/manifest SHA256 일치. RC 1,446개 파일 hash 보존, 원본 RC 이름의 setup/ZIP과 별도 RC publish/manifest/checksums 유지. Final 1.0.0 설치 상태로 앱은 종료됨. Fresh empty user profile은 만들지 않았고 사용자 데이터를 삭제하지 않았다.
+
+신규 P0 0 / P1 0 / P2 0 / P3 0. 기존 downgrade P3 1건과 실제 Skill Order 미제공, 일부 특수 수치/파생 스킬 coverage, live patch Unknown 가능, unsigned/SmartScreen, app 자동 업데이트 미제공 제한은 공개 notes에 유지. Final artifact 및 생성 application/evidence logs privacy/secret 검사 PASS, 새 crash 없음. NotSigned 유지, 보안 우회/설정 변경 없음.
+
+**LoL Match Info 1.0.0 local release READY FOR USER REVIEW/PUBLICATION.** GitHub Release 생성/upload와 commit/push/tag는 수행하지 않음. 추천 commit: chore: release LoL Match Info 1.0.0; 추천 annotated tag: v1.0.0. Final notes: docs/release-notes-1.0.0.md. 과거 PARTIAL/HOLD 기록은 사용자 확인 이전의 이력이다.

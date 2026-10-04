@@ -2,11 +2,11 @@
 
 ## 배포 기준
 
-LoL Match Info `1.0.0-rc.1`은 Windows x64용 .NET 10 WPF Release Candidate 앱이다. 기본 배포는 `win-x64` self-contained다. 테스터 PC에 .NET Desktop Runtime을 미리 설치할 필요가 없고 초기 지원 부담이 작다는 장점이 패키지 크기와 업데이트 전송량 증가보다 중요하기 때문이다. ARM64와 다른 운영 체제는 Stage 10-C 범위가 아니다.
+LoL Match Info `1.0.0`은 Windows x64용 .NET 10 WPF stable release 앱이다. 기본 배포는 `win-x64` self-contained다. 테스터 PC에 .NET Desktop Runtime을 미리 설치할 필요가 없고 초기 지원 부담이 작다는 장점이 패키지 크기와 업데이트 전송량 증가보다 중요하기 때문이다. ARM64와 다른 운영 체제는 Stage 10-C 범위가 아니다.
 
 publish는 single-file, trimming, ReadyToRun을 사용하지 않는다. 앱은 읽기 전용 packaged dataset과 다수 champion asset을 외부 파일로 로드한다. WPF reflection/resource 안전성을 충분히 검증하지 않은 trimming이나, 현재 규모에서 이점이 입증되지 않은 ReadyToRun을 켜지 않는다. 여러 runtime 파일은 installer와 ZIP이 사용자에게 묶어서 제공한다. Release PDB는 설치 패키지와 portable ZIP에서 제외한다. 필요한 경우 별도의 내부 symbol archive를 만들어 접근을 제한한다.
 
-제품명, assembly 이름과 버전의 source of truth는 `LoLMatchup.csproj`다. 사용자-facing 이름은 `LoL Match Info`, executable은 `LoLMatchInfo.exe`, 현재 SemVer는 `1.0.0-rc.1`이다. About와 diagnostics는 assembly metadata를 읽는다.
+제품명, assembly 이름과 버전의 source of truth는 `LoLMatchup.csproj`다. 사용자-facing 이름은 `LoL Match Info`, executable은 `LoLMatchInfo.exe`, 현재 SemVer는 `1.0.0`이다. About와 diagnostics는 assembly metadata를 읽는다.
 
 ## 사용자 설치
 
@@ -16,11 +16,11 @@ Inno Setup installer는 관리자 권한이 필요 없는 per-user 방식이며 
 
 uninstall은 설치 파일과 installer가 만든 shortcut/등록 정보만 제거한다. `%LocalAppData%\LoLMatchInfo`의 `settings.json`, `Logs`, `Data\Statistics`는 기본적으로 보존한다. 완전 삭제가 필요하면 uninstall 후 해당 폴더를 사용자가 직접 삭제한다. installer가 이 폴더를 패키징하거나 덮어쓰지 않는다.
 
-portable ZIP은 installer 문제를 분리하고 빠른 RC 테스트를 지원한다. 압축을 푼 폴더의 `LoLMatchInfo.exe`를 실행한다. portable 모드도 설정, 로그, 내려받은 dataset을 executable 옆이 아닌 `%LocalAppData%\LoLMatchInfo`에 저장한다.
+portable ZIP은 installer 문제를 분리하고 별도 실행 테스트를 지원한다. 압축을 푼 폴더의 `LoLMatchInfo.exe`를 실행한다. portable 모드도 설정, 로그, 내려받은 dataset을 executable 옆이 아닌 `%LocalAppData%\LoLMatchInfo`에 저장한다.
 
-LoL Match Info는 Riot Games의 공식 제품이 아니며 Riot Games의 보증이나 승인을 받았다는 의미가 없다. Stage 10-D의 제품 아이콘 Assets/AppIcon.ico를 executable과 installer에 유지한다. 실제 DPI/shortcut 외관은 Stage 11-B에서 재확인한다.
+LoL Match Info는 Riot Games의 공식 제품이 아니며 Riot Games의 보증이나 승인을 받았다는 의미가 없다. Stage 10-D의 제품 아이콘 Assets/AppIcon.ico를 executable과 installer에 유지한다. DPI/창 수동 acceptance는 Stage 11-B에서 사용자 확인으로 완료했다.
 
-서명되지 않은 RC installer/executable에는 Windows SmartScreen 경고가 표시될 수 있다. 파일 출처와 `SHA256SUMS.txt`를 확인한다. Windows 보안 기능을 끄거나 우회하지 않는다.
+서명되지 않은 installer/executable에는 Windows SmartScreen 경고가 표시될 수 있다. 파일 출처와 `SHA256SUMS.txt`를 확인한다. Windows 보안 기능을 끄거나 우회하지 않는다.
 
 ## 개발자 publish
 
@@ -52,13 +52,13 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\build-release.
 2. `.\scripts\build-release.ps1`을 실행한다. script는 명시적 `-InstallerCompiler` 뒤에 `%ProgramFiles(x86)%\Inno Setup 6`, `%ProgramFiles%\Inno Setup 6`, `%LocalAppData%\Programs\Inno Setup 6`, PATH의 `ISCC.exe` 순서로 검사한다.
 3. 다른 위치라면 `-InstallerCompiler <ISCC.exe 경로>`를 전달한다. 경로 탐지는 known environment folder를 사용하며 사용자 이름을 source에 넣지 않는다.
 
-compiler가 없으면 script는 portable/checksum/manifest를 생성하고 installer만 `BLOCKED` 경고로 남긴다. source는 `installer/LoLMatchInfo.iss`, 예상 결과는 `artifacts/installer/LoLMatchInfo-1.0.0-rc.1-win-x64-setup.exe`다.
+compiler가 없으면 script는 portable/checksum/manifest를 생성하고 installer만 `BLOCKED` 경고로 남긴다. source는 `installer/LoLMatchInfo.iss`, 예상 결과는 `artifacts/installer/LoLMatchInfo-1.0.0-win-x64-setup.exe`다.
 
 Stage 10-C2에서는 per-user Inno Setup 6.7.3을 자동 탐지해 실제 installer build, non-admin install, Start Menu 실행, uninstall/user-data 보존, reinstall과 isolated 0.9.1 running-app upgrade를 검증했다. installer의 자동 downgrade 차단은 구현하지 않았으므로 release 담당자는 이전 version을 배포하지 않는다.
 
 ## Signing readiness
 
-현재 배포 상태는 `UNSIGNED RC`다. 인증서, `.pfx`, private key, password는 repository나 artifacts에 두지 않는다. 향후 release pipeline에서 publish 직후 `LoLMatchInfo.exe`(필요하면 함께 배포하는 DLL)를 먼저 `signtool sign /fd SHA256 /tr <RFC3161 URL> /td SHA256 ...`으로 서명하고, Inno Setup으로 패키징한 뒤 installer도 같은 방식으로 서명한다. 실제 인증서 선택과 secret 전달은 별도 보안 배포 단계에서 구성한다.
+현재 배포 상태는 `UNSIGNED`다. 인증서, `.pfx`, private key, password는 repository나 artifacts에 두지 않는다. 향후 release pipeline에서 publish 직후 `LoLMatchInfo.exe`(필요하면 함께 배포하는 DLL)를 먼저 `signtool sign /fd SHA256 /tr <RFC3161 URL> /td SHA256 ...`으로 서명하고, Inno Setup으로 패키징한 뒤 installer도 같은 방식으로 서명한다. 실제 인증서 선택과 secret 전달은 별도 보안 배포 단계에서 구성한다.
 
 ## 업데이트와 데이터 분리
 
@@ -91,3 +91,7 @@ Downgrade 차단 부재는 기존 P3로 유지한다. 통계 updater는 독립�
 Unsigned RC 유지. 인증서/self-signed 배포 또는 SmartScreen 우회는 추가하지 않았다. 테스트 실행만으로 인터넷 다운로드 시의 SmartScreen PASS를 주장하지 않는다.
 
 Final promotion 변경 목록/제안 tag는 release-checklist.md 참조. app binary와 remote statistics 배포는 독립이며 16.20 배포가 app version 재빌드를 요구하지 않는다.
+
+## 1.0.0 final release policy (2026-10-04)
+
+현재 Version/InformationalVersion=1.0.0, Assembly/FileVersion=1.0.0.0. 기존 source-of-truth와 About/Settings binding을 유지한다. Installer는 display version 1.0.0과 numeric version 1.0.0.0을 받는다. 산출물은 LoLMatchInfo-1.0.0-win-x64-setup.exe / LoLMatchInfo-1.0.0-win-x64-portable.zip이며 새 manifest/checksum을 생성한다. RC 전체 release tree는 artifacts/rc/1.0.0-rc.1에 별도 보존한다. build-release.ps1은 staging을 재생성하므로 재실행 전에 기존 보관할 산출물을 별도 archive해야 한다. Unsigned/SmartScreen 및 downgrade P3 정책은 유지한다. 위 Stage 11-A 섹션은 RC 당시 이력이다.

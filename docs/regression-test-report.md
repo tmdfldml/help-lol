@@ -654,3 +654,153 @@ Final installer lifecycle rerun: **PASS, exit 0**. Installed EXE has RC ProductV
 Stage 11-A **COMPLETE (RC preparation scope)**. Version/metadata/docs/artifacts/checksums/validation/known issues complete, no new unresolved P0/P1. Stage 11-B **READY**; manual items in release-checklist.md remain unexecuted, including real game, direct GUI/DPI/multi-monitor, exhaustive lifecycle/newer dataset activation, actual fatal handling, and downloaded-file SmartScreen. Final 1.0 promotion remains unapproved.
 
 Final git review: diff --check PASS; 14 tracked modified files + 2 new release documents. HEAD remains 2adbcce, tags unchanged. No commit/push/tag.
+
+## Stage 11-B — Final RC Verification (2026-10-04 KST)
+
+**PARTIAL / release gate NOT MET. 1.0.0 promotion is not recommended yet.** Start `main`, clean, HEAD `338a995`, tag `v1.0.0-rc.1` present and points to HEAD. Original RC files and SHA256SUMS are unchanged. No application/tool code change, rebuild, publish, version promotion, commit, push or tag was performed.
+
+Computer Use launched the installed RC and directly observed Home, Waiting/InGame waiting, packaged patch 16.17 / 51,649 matches and no TEST button. Subsequent input was interrupted by physical user input; the user then stopped Computer Use with Escape. No further Computer Use or runtime/installer state-changing actions were performed. A different foreground surface occasionally occluded the screenshot; those captures were not accepted as RC GUI evidence. Only observed RC views are recorded below.
+
+The computer-use skill's guidance requires: “If Computer Use reports that the turn ended or that the user stopped Computer Use, stop issuing app input.” The current limitations reflect this interruption, not a confirmed product defect. Direct GUI and integration acceptance remain pending.
+
+### Executed evidence
+
+- `dotnet run --no-build --project Tools/RegressionScratch`: exit 0 / PASS. Skills safety/cache/role-patch isolation, About informational version, logging/crash formatter privacy/retention, classifiers, fixture cycles, public UpToDate and Release developer type/BAML/fixture methods 0. `artifacts/stage11b/regression.log`.
+- `dotnet run --no-build --project Tools/PublishStatisticsDataset -- --self-test`: exit 0 / **19 PASS**. Includes newer/atomic install, loopback, hash/size/schema/metadata checks, same revision no-op/conflict, downgrade, network/interruption/cancellation and fallback. Synthetic temporary data only; no production publish. `artifacts/stage11b/updater-self-test.log`.
+- Existing final release validator: exit 0 / PASS, **1,442 files / 163,289,434 bytes / 173 champion icons**. Portable entries match publish by content hash; baseline, 173 skill JSON, 692 skill icons and manifests present; developer artifacts/key/privacy/path markers absent. `artifacts/stage11b/artifact-validation.log`.
+- Read-only live production manifest: **16.17 / revision 1788854099077 / 51,649 matches**. Same-revision UpToDate confirmed by regression; actual Settings update button and newer production activation not exercised.
+- Current RC application log since this run began: Startup 1, Diagnostics 1, Waiting 1, GameDetected 1; 4 timestamped events, **no privacy markers / no new crash**. This confirms an actual RC detection event, not correct five-role mapping, GUI InGame acceptance or completion of a full game. Shutdown/updater/GameEnded acceptance not observed.
+- Two actual displays inventoried: primary 1920×1080; secondary 2304×1440 at negative coordinates. No moving/restarting the app across displays or DPI scaling tests performed.
+- Installed EXE ProductVersion **1.0.0-rc.1**, FileVersion **1.0.0.0**. Installer and installed EXE **NotSigned**.
+- Defender read-only: antivirus and real-time protection enabled; RC-specific threat history records **0**. No new Defender scan, download reputation test or security configuration change.
+
+### Acceptance matrix
+
+| # | Item | Result | Evidence / remaining verification |
+|---|---|---|---|
+| 1 | Start commit/tag | PASS | main / clean / 338a995 / v1.0.0-rc.1; tag points to HEAD |
+| 2 | RC artifact integrity | PASS | Installer/portable/manifest sizes and SHA256 match original; checksum file unchanged |
+| 3 | Clean install | MANUAL_PENDING | Existing RC installation recorded; no new clean install in Stage 11-B |
+| 4 | Launch | PARTIAL | Installed RC launched; native Home/Waiting directly seen, no new crash; Settings pending |
+| 5 | About/version | PARTIAL | Installed metadata and existing informational-version assertion PASS; actual About GUI pending |
+| 6 | Actual game detection | PARTIAL | Actual RC Waiting → GameDetected log; no full-game/GUI acceptance |
+| 7 | 5-role matchup | MANUAL_PENDING | Synthetic pipeline PASS; actual 5-role/ally-enemy mapping not observed |
+| 8 | Skill Detail | MANUAL_PENDING | Existing data regression PASS; actual portrait click/navigation not observed |
+| 9 | Special skill display | MANUAL_PENDING | Service/data regression PASS; direct seven-type display/false-zero smoke pending |
+| 10 | Game-end return | MANUAL_PENDING | No actual game-end/return observation |
+| 11 | Portrait 420×760 | MANUAL_PENDING | Exact size/screens/scroll not exercised |
+| 12 | Portrait 440×820 | MANUAL_PENDING | Exact size/screens/scroll not exercised |
+| 13 | Landscape 760×420 | MANUAL_PENDING | Exact size/screens/scroll not exercised |
+| 14 | Landscape 1280×800 | MANUAL_PENDING | Exact size/screens/scroll not exercised |
+| 15 | DPI 100% | MANUAL_PENDING | Actual Windows scale not verified |
+| 16 | DPI 125% | MANUAL_PENDING | Actual Windows scale not verified |
+| 17 | DPI 150% | MANUAL_PENDING | Actual Windows scale not verified |
+| 18 | Multi-monitor | MANUAL_PENDING | Two displays exist; move/close/relaunch not exercised |
+| 19 | Window persistence | MANUAL_PENDING | Existing settings backed up; position/size/pin/restart/off-screen test pending |
+| 20 | Settings General | MANUAL_PENDING | No successful direct Settings/reset/confirm/storage/save verification |
+| 21 | Settings Data | PARTIAL | Home baseline and live manifest confirmed; direct Settings Data GUI pending |
+| 22 | Dataset update | PARTIAL | Production UpToDate no-op + 19 synthetic checks PASS; GUI action pending |
+| 23 | Restart activation | MANUAL_PENDING | No newer production dataset installed; synthetic install/load PASS; real restart activation pending when available |
+| 24 | Updater failure regression | PASS | All 19 existing self-tests PASS, including requested failures/rollback/fallback |
+| 25 | Logs | PARTIAL | Actual startup/diagnostics/waiting/detection, no spam/new crash; updater/shutdown/game-end observation pending |
+| 26 | Privacy | PASS | Package scan, actual changed app log markers and synthetic formatter privacy checks |
+| 27 | Recoverable error | PARTIAL | Actual no-game Waiting stayed usable; optional/network/fallback automated tests PASS; native failure GUI pending |
+| 28 | Fatal handling | PARTIAL | Synthetic Critical/crash-file/formatter PASS; actual global handler Korean dialog/controlled exit pending |
+| 29 | Crash privacy | PASS | Existing synthetic crash privacy assertions PASS; no actual new RC crash to inspect |
+| 30 | 0.9.0 → RC upgrade | MANUAL_PENDING | Start installation is already RC; Stage 11-A historical result not reused as a new Stage 11-B test |
+| 31 | Running-app upgrade | MANUAL_PENDING | No installer action after user stopped Computer Use |
+| 32 | Downgrade P3 | DOCUMENTED | Existing technical block absent; release-process policy retained; no downgrade attempted |
+| 33 | Uninstall | MANUAL_PENDING | Program/shortcut/registry/user-data lifecycle not repeated |
+| 34 | Reinstall | MANUAL_PENDING | Not repeated in this stage |
+| 35 | Portable | MANUAL_PENDING | ZIP integrity/content PASS; isolated extraction/launch/GUI pending |
+| 36 | Offline smoke | PARTIAL | Synthetic network failure/fallback PASS; isolated offline native GUI pending |
+| 37 | SmartScreen | MANUAL_PENDING | No actual downloaded RC/reputation observation; no bypass |
+| 38 | Defender | PARTIAL | Protection enabled; no RC-specific threat record; dedicated scan not performed |
+| 39 | Signing | PASS | Installer and installed EXE NotSigned; no signing performed |
+| 40 | Final artifact hash | PASS | Original installer/portable/manifest and SHA256SUMS unchanged |
+| 41 | Release artifact scan | PASS | Existing strengthened final validator PASS |
+| 42 | Regression suite | PASS | Existing suites run once without rebuild: main + updater 19 checks |
+| 43 | New P0/P1/P2/P3 | NONE FOUND | Unverified items are not treated as confirmed defects or PASS |
+| 44 | MANUAL_PENDING | OPEN | All direct game, viewport/DPI/monitor, Settings, fatal and lifecycle gaps above |
+| 45 | Stage 11-B completion | INCOMPLETE | Executed subset complete; final RC integration acceptance pending |
+| 46 | Promotion recommendation | HOLD | Release gate not met; keep 1.0.0-rc.1, promotion belongs to Stage 11-C |
+
+### Original and final artifact hashes
+
+| Artifact | Bytes | SHA256 |
+|---|---:|---|
+| LoLMatchInfo-1.0.0-rc.1-win-x64-setup.exe | 55,742,665 | 2e1c8a0b9eaf14daaaf6d35f86632dee1d34251823ac82de72c30147593afa5a |
+| LoLMatchInfo-1.0.0-rc.1-win-x64-portable.zip | 72,530,669 | 9da9dcd3c443935ccd5dbd2469d2adde7be50f791831eb3512b95a6135ef288d |
+| release-manifest.json | 6,476 | 6b381069df9febc848f21629ee28258c71689d2bea7c65c4b4468fd585ff8bd5 |
+
+Evidence files are ignored under artifacts/stage11b/: original-SHA256SUMS.txt, final-integrity.json, observations.json, original-settings.json and the three automated logs. Settings backup was read-only; no preference reset/restore, installation, uninstall, game input or security changes were performed. The installed RC was left running as the user was interacting with the desktop. Existing release notes/known issues remain unchanged because no confirmed product issue changed.
+
+### Stage 11-B manual continuation — 2026-10-04 KST
+
+This continuation preserves all previous results and existing working-tree edits. Start: `main`, HEAD `338a995`; only PROJECT_STATUS.md, docs/regression-test-report.md and docs/release-checklist.md were modified. `git diff --check` exited 0 (LF/CRLF notices only). Recent commits: 338a995 / 2adbcce / cfc7aba. Automated regression, updater 19 checks, artifact hashes and release/privacy/secret scans were not rerun. No code, version, RC artifact, build, publish, commit, push or tag change.
+
+New direct observation: Computer Use found the installed app closed, launched it, and captured the actual RC InGame view while League of Legends was running. The screenshot and accessibility tree agreed on LIVE, patch 16.17, TOP Garen versus Akali, sample size 9 and insufficient-evidence indicators. JUNGLE/MID/ADC/SUPPORT remained waiting for role information. This is **PASS for the narrow InGame/TOP display observation only**, not a full game or five-role acceptance. The current game's mode, roster completeness and start/end sequence were not independently established; missing roles are not classified as a product defect from this evidence alone.
+
+| Manual scope | Continuation result | Evidence / limitation |
+|---|---|---|
+| Actual full game | MANUAL_PENDING | InGame/TOP display observed; Waiting → GameDetected → InGame sequence, complete 5-role mapping and game-end → Waiting not observed end to end |
+| Enemy portrait → QWER → Back | MANUAL_PENDING | Akali button observed, but click did not complete; no Skill Detail/QWER/Back PASS |
+| Four exact viewports | MANUAL_PENDING | No exact resize or full-screen-content verification |
+| DPI 100% / 125% / 150% | MANUAL_PENDING | No actual scaling transition verified |
+| Multi-monitor / persistence | MANUAL_PENDING | No move/close/relaunch/position restoration verified |
+| Settings General/Data, size/position, pin, reset/confirm | MANUAL_PENDING | No successful Settings input or persistence check |
+| 0.9.0 → RC / running-app upgrade / uninstall / preservation / reinstall / portable | MANUAL_PENDING | Not performed in this continuation; no 0.9.0 artifact found under artifacts; existing 0.9.1 fixture is not a substitute |
+| Synthetic fatal Korean dialog / controlled exit | MANUAL_PENDING | Existing Debug fixture source identified, but not invoked; source inspection is not dialog/exit evidence |
+| Downloaded artifact SmartScreen | MANUAL_PENDING | No actual downloaded-artifact observation; no security bypass or configuration change |
+
+GUI input blocker: first portrait click returned `SendInput sent 0 of 1 events; GetLastError=87`. After target reacquisition, an input attempt was blocked by user input. The user explicitly agreed to pause input and continue GUI verification. A fresh capture was temporarily occluded by VS Code and was rejected as visual RC evidence. Explicit activation restored the RC screenshot, but the new accessibility-index click again returned the same SendInput error. No stale coordinates, alternative PowerShell UI automation, or security changes were used. Successful navigation is not inferred from attempted inputs. Computer Use tool failure is a verification blocker, **not a confirmed application P0/P1/P2/P3 defect**.
+
+New confirmed product defects: P0 0 / P1 0 / P2 0 / P3 0. Existing documented downgrade P3 and data limitations remain unchanged. The installed RC was last observed running; no close, reset or installer action was performed. Stage 11-B remains **INCOMPLETE / PARTIAL** and 1.0.0 promotion recommendation remains **HOLD** because manual acceptance is open. Keep version **1.0.0-rc.1**.
+
+### Stage 11-B gate closure — user attestation (2026-10-04 KST)
+
+The Stage 11-C request explicitly states that Stage 11-B manual verification is complete and that the user confirmed the remaining manual items operate normally. This supersedes the historical PARTIAL/HOLD decisions above. Actual game detection, five-role matchup, Skill Detail/QWER/Back, game-end return, viewport/DPI, multi-monitor, Settings/persistence, installer lifecycle and portable acceptance are recorded as **USER_CONFIRMED**, not new assistant-observed test evidence. No screenshot, game roster, timestamp, fatal exit code or SmartScreen outcome is invented. Prior automated regression/updater/privacy/security PASS evidence is retained; no repeated crash or P0/P1 was reported. SmartScreen remains an unsigned-distribution warning rather than a claimed no-warning result. Stage 11-B **COMPLETE (user-attested manual acceptance)**; promotion recommendation **PROCEED**. Existing nonblocking limitations remain.
+
+## Stage 11-C — 1.0.0 promotion smoke (2026-10-04 KST)
+
+IN PROGRESS. Start main / 338a995; existing modified documents preserved. Start tags: stage10c-complete, stage10e-complete, stage5-complete, stage6-complete, stage7-ui-dashboard, stage9-complete, v1.0.0-rc.1. Only the csproj Version is promoted to 1.0.0; no feature, UI, statistics algorithm, API or source change. Final evidence will be appended after builds and lifecycle smoke.
+
+### Stage 11-C final results — COMPLETE (local release preparation)
+
+Stage 11-A COMPLETE; Stage 11-B COMPLETE by the user's explicit manual-verification attestation; Stage 11-C **COMPLETE**. Final 1.0.0 is ready for user review and separate publication. No commit, push, tag, GitHub Release creation or upload was performed. Existing RC tag and prior working-tree documentation are preserved.
+
+| Check | Result | Evidence |
+|---|---|---|
+| Version / metadata | PASS | csproj Version=1.0.0 only; InformationalVersion derives from Version; Assembly/FileVersion=1.0.0.0. Product/Title LoL Match Info. Inno display 1.0.0, numeric 1.0.0.0; HKCU installed version 1.0.0 |
+| About / Settings | PASS | Scoped helper instantiated the final Release SettingsWindow, selected its About panel and asserted VersionText equals 버전 1.0.0. Actual WPF control binding, not a native user click test. promotion-smoke.log |
+| Debug / Release builds | PASS | Both 0 warning / 0 error; build-debug.log, build-release.log |
+| Four tools | PASS | StatsCollector / PublishStatisticsDataset / AnalyzeStatisticsDataset / ChampionSkillDataCollector each 0 warning / 0 error; corresponding build logs. No collector run or new statistics collection |
+| NU1900 | RESOLVED | First sandbox publish could not reach the NuGet vulnerability feed, not a reported vulnerability. Compiler discovery also hit sandbox access limits. Network-enabled restore and full release pipeline retry exited 0 with no warnings; no warning suppression or production script changes |
+| Final publish / installer / portable | PASS | Requested build-release.ps1 exit 0; Inno 6.7.3; self-contained win-x64, multi-file, no trimming/ReadyToRun. Final validator 1,442 files / 163,289,424 bytes / 173 champion icons; release-build.log |
+| Production statistics | PASS | Fresh read-only HTTPS manifest: 16.17 / revision 1788854099077 / 51,649 matches / 258,245 observations / 15,547 keys. production-manifest.json. No newer dataset published; 16.20 readiness is independent of app release |
+| Release updater | PASS | Scoped helper uses final Release assembly and public production endpoint: UpToDate, no install/write. Previous 19 failure/rollback self-tests retained rather than repeated |
+| Skill package / assets | PASS | 173 champion JSON / 692 QWER icons and spells; service load for all champions, local icons, empty order fallback. Standard 653 / Charge 19 / Toggle 4 / ResourceBased 3 / Passive 4 / NotApplicable 1 / Unknown 8 unchanged. Data Dragon 16.17.1 |
+| Developer / secret / privacy scan | PASS | Existing final validator rejects tools/source/PDB/fixtures/dev UI, high-risk key/credential names, raw identity/header/Live Client markers and developer paths. ZIP entries verified against every publish payload hash; installed 1,442 payload files also match. Application logs and 15 closed generated evidence logs scanned; no new crash. Build/installer evidence logs redact repository/profile paths |
+| RC → Final upgrade | PASS | Started with installed 1.0.0-rc.1. Final installer exit 0, installed metadata 1.0.0, 1,442 payload hashes match final publish. Every pre-install user settings/data/log file preserved by hash |
+| Launch/version smoke | PASS | Upgraded install, clean binary reinstall and isolated portable each reached a responsive native LoL Match Info window, logged Release 1.0.0 and loaded dataset, then closed gracefully with exit 0 |
+| Uninstall / preservation | PASS | Exit 0; install directory, Start Menu group and HKCU registration removed. Every post-launch user file preserved by hash |
+| Clean binary install / reinstall | PASS | Install footprint absent after uninstall; final setup exit 0, metadata/HKCU 1.0.0, user data retained. This is not a fresh empty user-profile test; user data was deliberately never deleted |
+| Portable | PASS | Separate ZIP extraction, native launch/graceful exit, 1,442 files and no runtime payload writes. Skill/baseline content covered by ZIP/publish validation |
+| Signing / SmartScreen | DOCUMENTED | Final installer and executable NotSigned; no certificate or security-setting change. No new internet-download SmartScreen result claimed; warning remains in final release notes |
+| Current RC suffix scan | PASS | No 1.0.0-rc.1 in final application assembly, current README, final notes or release manifest; final filenames/version controls correct. Historical RC notes/changelog/status and archived RC intentionally retained |
+| SemVer | PASS | 1.0.0 succeeds 1.0.0-rc.1 with the same core version; numeric Windows version policy unchanged |
+| RC preservation / final integrity | PASS | All 1,446 archived RC files retain original size/hash. RC setup/ZIP also restored to their original artifact folders with original names; RC manifest/checksums in artifacts/rc/1.0.0-rc.1. Final SHA256SUMS has exactly three final entries with no RC-name collision; after all smoke tests all three hashes match |
+
+Final artifacts (new hashes, not RC hashes):
+
+| Artifact | Bytes | SHA256 |
+|---|---:|---|
+| LoLMatchInfo-1.0.0-win-x64-setup.exe | 55,743,175 | 06daf9244aac96e2518a23d0381cfbd5244d0697da93c52ffa8675bfceccb024 |
+| LoLMatchInfo-1.0.0-win-x64-portable.zip | 72,530,634 | 5b85ee5a6a26e13711ce535556d5a11a37d531db0ad00f8cd1b51fbdc2655b1d |
+| release-manifest.json | 6,445 | d5bbadcdb5bf068179f0a487a491b054e81a82dc5fa967ce8c4374734ea95654 |
+
+Manifest includes product, stable version/channel, configuration Release, architecture x64, runtimeIdentifier win-x64, local generation timestamp publishedAtUtc, both artifact names/size/hash, packaged statistics and skill manifest. URL is null: this is local preparation, not remote publication. Final checksum/metadata evidence: artifacts/stage11c/final-integrity.json, metadata.json, final-integrity.log. A scratch checker first rejected Inno resource whitespace padding; trimmed metadata passed with no artifact change. Its log scan then encountered its own open Tee output; scanning all 15 closed logs separately passed. These are test-helper corrections, not product defects; successful hash/RC checks were retained.
+
+New defects: P0 0 / P1 0 / P2 0 / P3 0. Existing nonblocking installer downgrade P3 remains (one documented issue). Accepted limitations: no actual Skill Order statistics; unresolved special cooldown/recharge and derived-skill coverage; live patch may be Unknown; unsigned/SmartScreen; no automatic app update. No new feature/UI/algorithm/API/data-provider changes. Final local installation is 1.0.0, all app smoke processes exited, user data retained. Whole Stage 11-B manual regression was not repeated.
+
+Final documents: docs/release-notes-1.0.0.md, CHANGELOG.md, README.md, PROJECT_STATUS.md, docs/release-checklist.md and docs/windows-distribution.md. GitHub Release title suggestion: LoL Match Info 1.0.0. Recommended commit: chore: release LoL Match Info 1.0.0. Recommended annotated tag: v1.0.0. Publication remains a separate user action.
